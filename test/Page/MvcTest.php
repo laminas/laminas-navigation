@@ -1,32 +1,31 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Page;
+namespace LaminasTest\Navigation\Page;
 
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router as MvcRouter;
+use Laminas\Navigation;
+use Laminas\Navigation\Exception;
+use Laminas\Navigation\Page;
+use Laminas\Router\Http\Literal as LiteralRoute;
+use Laminas\Router\Http\Regex as RegexRoute;
+use Laminas\Router\Http\Segment as SegmentRoute;
+use Laminas\Router\Http\TreeRouteStack;
+use Laminas\Router\RouteMatch;
+use LaminasTest\Navigation\TestAsset;
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router as MvcRouter;
-use Zend\Navigation\Page;
-use Zend\Navigation\Exception;
-use Zend\Navigation;
-use Zend\Router\Http\Literal as LiteralRoute;
-use Zend\Router\Http\Regex as RegexRoute;
-use Zend\Router\Http\Segment as SegmentRoute;
-use Zend\Router\Http\TreeRouteStack;
-use Zend\Router\RouteMatch;
-use ZendTest\Navigation\TestAsset;
 
 /**
- * Tests the class Zend_Navigation_Page_Mvc
+ * Tests the class Laminas_Navigation_Page_Mvc
  *
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class MvcTest extends TestCase
 {
@@ -53,8 +52,8 @@ class MvcTest extends TestCase
 
     public function getRouteClass($type = 'Regex')
     {
-        $v2ClassName = sprintf('Zend\Mvc\Router\Http\%s', $type);
-        $v3ClassName = sprintf('Zend\Router\Http\%s', $type);
+        $v2ClassName = sprintf('Laminas\Mvc\Router\Http\%s', $type);
+        $v3ClassName = sprintf('Laminas\Router\Http\%s', $type);
 
         return class_exists($v2ClassName)
             ? $v2ClassName
@@ -236,7 +235,7 @@ class MvcTest extends TestCase
     }
 
     /**
-     * @group ZF-8922
+     * @group Laminas-8922
      */
     public function testGetHrefWithFragmentIdentifier()
     {
@@ -431,7 +430,7 @@ class MvcTest extends TestCase
                 try {
                     $page->$setter($invalid);
                     $msg = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
+                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
                 }
@@ -464,7 +463,7 @@ class MvcTest extends TestCase
                 try {
                     $page->$setter($invalid);
                     $msg  = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
+                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
                 }
@@ -528,7 +527,7 @@ class MvcTest extends TestCase
         $options['resource']  = null;
         $options['permission']  = null;
         $options['pages']     = [];
-        $options['type']      = 'Zend\Navigation\Page\Mvc';
+        $options['type']      = 'Laminas\Navigation\Page\Mvc';
 
         ksort($options);
         ksort($toArray);

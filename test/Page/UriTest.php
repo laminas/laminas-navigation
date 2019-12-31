@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Page;
+namespace LaminasTest\Navigation\Page;
 
+use Laminas\Http\Request;
+use Laminas\Navigation;
+use Laminas\Navigation\Page;
 use PHPUnit\Framework\TestCase;
-use Zend\Navigation\Page;
-use Zend\Navigation;
-use Zend\Http\Request;
 
 /**
- * Tests the class Zend_Navigation_Page_Uri
+ * Tests the class Laminas_Navigation_Page_Uri
  *
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class UriTest extends TestCase
 {
@@ -97,7 +96,7 @@ class UriTest extends TestCase
 
         $page->setRequest($request);
 
-        $this->assertInstanceOf('Zend\Http\Request', $page->getRequest());
+        $this->assertInstanceOf('Laminas\Http\Request', $page->getRequest());
 
         $this->assertTrue($page->isActive());
     }
@@ -119,7 +118,7 @@ class UriTest extends TestCase
     }
 
     /**
-     * @group ZF-8922
+     * @group Laminas-8922
      */
     public function testGetHrefWithFragmentIdentifier()
     {

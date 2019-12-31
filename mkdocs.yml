@@ -1,6 +1,6 @@
 docs_dir: docs/book
 site_dir: docs/html
-pages:
+nav:
     - Home: index.md
     - Introduction: intro.md
     - "Quick Start": quick-start.md
@@ -14,6 +14,6 @@ pages:
         - Menu: helpers/menu.md
         - Sitemap: helpers/sitemap.md
         - "Navigation Proxy": helpers/navigation.md
-site_name: zend-navigation
+site_name: laminas-navigation
 site_description: "Manage trees of pointers to web pages in order to build navigation systems."
-repo_url: 'https://github.com/zendframework/zend-navigation'
+repo_url: 'https://github.com/laminas/laminas-navigation'
