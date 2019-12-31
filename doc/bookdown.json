@@ -1,16 +1,16 @@
 {
-    "title": "Zend\\Navigation",
+    "title": "Laminas\\Navigation",
     "target": "html/",
     "content": [
-        "book/zend.navigation.intro.md",
-        "book/zend.navigation.quick-start.md",
-        "book/zend.navigation.pages.md",
-        "book/zend.navigation.containers.md",
-        "book/zend.navigation.view.helpers.md",
-        "book/zend.navigation.view.helper.breadcrumbs.md",
-        "book/zend.navigation.view.helper.links.md",
-        "book/zend.navigation.view.helper.menu.md",
-        "book/zend.navigation.view.helper.sitemap.md",
-        "book/zend.navigation.view.helper.navigation.md"
+        "book/laminas.navigation.intro.md",
+        "book/laminas.navigation.quick-start.md",
+        "book/laminas.navigation.pages.md",
+        "book/laminas.navigation.containers.md",
+        "book/laminas.navigation.view.helpers.md",
+        "book/laminas.navigation.view.helper.breadcrumbs.md",
+        "book/laminas.navigation.view.helper.links.md",
+        "book/laminas.navigation.view.helper.menu.md",
+        "book/laminas.navigation.view.helper.sitemap.md",
+        "book/laminas.navigation.view.helper.navigation.md"
     ]
 }

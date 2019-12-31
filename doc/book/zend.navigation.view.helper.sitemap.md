@@ -6,7 +6,7 @@ The Sitemap helper is used for generating *XML* sitemaps, as defined by the [Sit
 format](http://www.sitemaps.org/protocol.php). Read more about [Sitemaps on
 Wikipedia](http://en.wikipedia.org/wiki/Sitemaps).
 
-By default, the sitemap helper uses \[sitemap validators\](zend.validator.sitemap) to validate each
+By default, the sitemap helper uses \[sitemap validators\](laminas.validator.sitemap) to validate each
 element that is rendered. This can be disabled by calling
 *$helper-&gt;setUseSitemapValidators(false)*.
 
@@ -229,12 +229,12 @@ echo $this->navigation()
 
 > ## Note
 #### UTF-8 encoding used by default
-By default, Zend Framework uses *UTF-8* as its default encoding, and, specific to this case,
-`Zend\View` does as well. So if you want to use another encoding with `Sitemap`, you will have do
+By default, Laminas uses *UTF-8* as its default encoding, and, specific to this case,
+`Laminas\View` does as well. So if you want to use another encoding with `Sitemap`, you will have do
 three things:
 1.  Create a custom renderer and implement a `getEncoding()` method;
 2.  Create a custom rendering strategy that will return an instance of your custom renderer;
 3.  Attach the custom strategy in the `ViewEvent`;
 See the \[example from HeadStyle
-documentation\](zend.view.helpers.initial.headstyle.encoding.example) to see how you can achieve
+documentation\](laminas.view.helpers.initial.headstyle.encoding.example) to see how you can achieve
 this.
