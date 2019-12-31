@@ -3,25 +3,25 @@
 ## Introduction
 
 The navigation helpers are used for rendering navigational elements from
-Zend\\\\Navigation\\\\Navigation
-&lt;zend.navigation.containers&gt; instances.
+Laminas\\\\Navigation\\\\Navigation
+&lt;laminas.navigation.containers&gt; instances.
 
 There are 5 built-in helpers:
 
-- \[Breadcrumbs\](zend.navigation.view.helper.breadcrumbs), used for rendering the path to the
+- \[Breadcrumbs\](laminas.navigation.view.helper.breadcrumbs), used for rendering the path to the
 currently active page.
-- \[Links\](zend.navigation.view.helper.links), used for rendering navigational head links (e.g.
+- \[Links\](laminas.navigation.view.helper.links), used for rendering navigational head links (e.g.
 `<link rel="next" href="..." />`)
-- \[Menu\](zend.navigation.view.helper.menu), used for rendering menus.
-- \[Sitemap\](zend.navigation.view.helper.sitemap), used for rendering sitemaps conforming to the
+- \[Menu\](laminas.navigation.view.helper.menu), used for rendering menus.
+- \[Sitemap\](laminas.navigation.view.helper.sitemap), used for rendering sitemaps conforming to the
 [Sitemaps XML format](http://www.sitemaps.org/protocol.php).
-- \[Navigation\](zend.navigation.view.helper.navigation), used for proxying calls to other
+- \[Navigation\](laminas.navigation.view.helper.navigation), used for proxying calls to other
 navigational helpers.
 
-All built-in helpers extend `Zend\View\Helper\Navigation\AbstractHelper`, which adds integration
+All built-in helpers extend `Laminas\View\Helper\Navigation\AbstractHelper`, which adds integration
 with ACL
-&lt;zend.permissions.acl&gt; and \[translation\](zend.i18n.translating). The abstract class
-implements the interface `Zend\View\Helper\Navigation\HelperInterface`, which defines the following
+&lt;laminas.permissions.acl&gt; and \[translation\](laminas.i18n.translating). The abstract class
+implements the interface `Laminas\View\Helper\Navigation\HelperInterface`, which defines the following
 methods:
 
 - `getContainer()` and `setContainer()` gets and sets the navigation container the helper should
@@ -30,8 +30,8 @@ operate on by default, and `hasContainer()` checks if the helper has container r
 and titles. `isTranslatorEnabled()` and `setTranslatorEnabled()` controls whether the translator
 should be enabled. The method `hasTranslator()` checks if the helper has a translator registered.
 - `getAcl()`, `setAcl()`, `getRole()` and `setRole()`, gets and sets *ACL*
-(`Zend\Permissions\Acl\AclInterface`) instance and role (`String` or
-`Zend\Permissions\Acl\Role\RoleInterface`) used for filtering out pages when rendering.
+(`Laminas\Permissions\Acl\AclInterface`) instance and role (`String` or
+`Laminas\Permissions\Acl\Role\RoleInterface`) used for filtering out pages when rendering.
 `getUseAcl()` and `setUseAcl()` controls whether *ACL* should be enabled. The methods `hasAcl()` and
 `hasRole()` checks if the helper has an *ACL* instance or a role registered.
 - `__toString()`, magic method to ensure that helpers can be rendered by echoing the helper instance
@@ -53,13 +53,13 @@ by the helper. Setting `NULL` means no maximum depth.
 been marked as invisible or not.
 - `__call()` is used for proxying calls to the container registered in the helper, which means you
 can call methods on a helper as if it was a container. See example
-    &lt;zend.navigation.view.helpers.proxy.example&gt; below.
+    &lt;laminas.navigation.view.helpers.proxy.example&gt; below.
 - `findActive($container, $minDepth, $maxDepth)` is used for finding the deepest active page in the
 given container. If depths are not given, the method will use the values retrieved from
 `getMinDepth()` and `getMaxDepth()`. The deepest active page must be between `$minDepth` and
 `$maxDepth` inclusively. Returns an array containing a reference to the found page instance and the
 depth at which the page was found.
-- `htmlify()` renders an **'a'** *HTML* element from a `Zend\Navigation\Page\AbstractPage` instance.
+- `htmlify()` renders an **'a'** *HTML* element from a `Laminas\Navigation\Page\AbstractPage` instance.
 - `accept()` is used for determining if a page should be accepted when iterating containers. This
 method checks for page visibility and verifies that the helper's role is allowed access to the
 page's resource and privilege.
@@ -68,7 +68,7 @@ by helpers.
 - The static method `setDefaultRole()` is used for setting a default *Role* that will be used by
 helpers
 
-If a container is not explicitly set, the helper will create an empty `Zend\Navigation\Navigation`
+If a container is not explicitly set, the helper will create an empty `Laminas\Navigation\Navigation`
 container when calling `$helper->getContainer()`.
 
 ### Proxying calls to the navigation container
@@ -87,11 +87,11 @@ The call above will add a page to the container in the `Navigation` helper.
 ## Translation of labels and titles
 
 The navigation helpers support translation of page labels and titles. You can set a translator of
-type `Zend\I18n\Translator` in the helper using `$helper->setTranslator($translator)`.
+type `Laminas\I18n\Translator` in the helper using `$helper->setTranslator($translator)`.
 
 If you want to disable translation, use `$helper->setTranslatorEnabled(false)`.
 
-The \[proxy helper\](zend.navigation.view.helper.navigation) will inject its own translator to the
+The \[proxy helper\](laminas.navigation.view.helper.navigation) will inject its own translator to the
 helper it proxies to if the proxied helper doesn't already have a translator.
 
 > ## Note
@@ -101,16 +101,16 @@ an *XML* sitemap.
 ## Integration with ACL
 
 All navigational view helpers support *ACL* inherently from the class
-`Zend\View\Helper\Navigation\AbstractHelper`. An object implementing
-`Zend\Permissions\Acl\AclInterface` can be assigned to a helper instance with
+`Laminas\View\Helper\Navigation\AbstractHelper`. An object implementing
+`Laminas\Permissions\Acl\AclInterface` can be assigned to a helper instance with
 *$helper-&gt;setAcl($acl)*, and role with *$helper-&gt;setRole('member')* or
-*$helper-&gt;setRole(new Zend\\Permissions\\Acl\\Role\\GenericRole('member'))*. If *ACL* is used in
+*$helper-&gt;setRole(new Laminas\\Permissions\\Acl\\Role\\GenericRole('member'))*. If *ACL* is used in
 the helper, the role in the helper must be allowed by the *ACL* to access a page's *resource* and/or
 have the page's *privilege* for the page to be included when rendering.
 
 If a page is not accepted by *ACL*, any descendant page will also be excluded from rendering.
 
-The \[proxy helper\](zend.navigation.view.helper.navigation) will inject its own *ACL* and role to
+The \[proxy helper\](laminas.navigation.view.helper.navigation) will inject its own *ACL* and role to
 the helper it proxies to if the proxied helper doesn't already have any.
 
 The examples below all show how *ACL* affects rendering.
@@ -133,7 +133,7 @@ under*Foo Server\*.
  * Navigation container (config/array)
 
  * Each element in the array will be passed to
- * Zend\Navigation\Page\AbstractPage::factory() when constructing
+ * Laminas\Navigation\Page\AbstractPage::factory() when constructing
  * the navigation container below.
  */
 $pages = array(
@@ -290,7 +290,7 @@ $pages = array(
 );
 
 // Create container from array
-$container = new Zend\Navigation\Navigation($pages);
+$container = new Laminas\Navigation\Navigation($pages);
 
 // Store the container in the proxy helper:
 $view->plugin('navigation')->setContainer($container);
@@ -337,10 +337,10 @@ return array(
 
 namespace MyModule;
 
-use Zend\View\HelperPluginManager;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Resource\GenericResource;
+use Laminas\View\HelperPluginManager;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Resource\GenericResource;
 
 class Module
 {
@@ -361,7 +361,7 @@ class Module
                     $acl->allow('admin', null);
 
                     // Get an instance of the proxy helper
-                    $navigation = $pm->get('Zend\View\Helper\Navigation');
+                    $navigation = $pm->get('Laminas\View\Helper\Navigation');
 
                     // Store ACL and role in the proxy helper:
                     $navigation->setAcl($acl)

@@ -1,9 +1,9 @@
 # Pages
 
-`Zend\Navigation` ships with two page types:
+`Laminas\Navigation` ships with two page types:
 
-- \[MVC pages\](zend.navigation.pages.mvc) – using the class `Zend\Navigation\Page\Mvc`
-- \[URI pages\](zend.navigation.pages.uri) – using the class `Zend\Navigation\Page\Uri`
+- \[MVC pages\](laminas.navigation.pages.mvc) – using the class `Laminas\Navigation\Page\Mvc`
+- \[URI pages\](laminas.navigation.pages.uri) – using the class `Laminas\Navigation\Page\Uri`
 
 MVC pages are link to on-site web pages, and are defined using MVC parameters (*action*,
 *controller*, *route*, *params*). URI pages are defined by a single property *uri*, which give you
@@ -14,7 +14,7 @@ orphan
 
 ## Common page features
 
-All page classes must extend `Zend\Navigation\Page\AbstractPage`, and will thus share a common set
+All page classes must extend `Laminas\Navigation\Page\AbstractPage`, and will thus share a common set
 of features and properties. Most notably they share the options in the table below and the same
 initialization process.
 
@@ -22,8 +22,8 @@ Option keys are mapped to *set* methods. This means that the option *order* maps
 `setOrder()`, and *reset\_params* maps to the method `setResetParams()`. If there is no setter
 method for the option, it will be set as a custom property of the page.
 
-Read more on extending `Zend\Navigation\Page\AbstractPage` in Creating custom page types
-&lt;zend.navigation.pages.custom&gt;.
+Read more on extending `Laminas\Navigation\Page\AbstractPage` in Creating custom page types
+&lt;laminas.navigation.pages.custom&gt;.
 
 > ## Note
 #### Custom properties
@@ -40,7 +40,7 @@ Both native and custom properties can be set using `$page-set($name, $value)` an
 This example shows how custom properties can be used.
 
 ```php
-$page = new Zend\Navigation\Page\Mvc();
+$page = new Laminas\Navigation\Page\Mvc();
 $page->foo     = 'bar';
 $page->meaning = 42;
 
@@ -53,11 +53,11 @@ if ($page->meaning != 42) {
 
 orphan  
 
-## Zend\\Navigation\\Page\\Mvc
+## Laminas\\Navigation\\Page\\Mvc
 
-*MVC* pages are defined using *MVC* parameters known from the `Zend\Mvc` component. An *MVC* page
-will use `Zend\Mvc\Router\RouteStackInterface` internally in the `getHref()` method to generate
-hrefs, and the `isActive()` method will compare the `Zend\Mvc\Router\RouteMatch` params with the
+*MVC* pages are defined using *MVC* parameters known from the `Laminas\Mvc` component. An *MVC* page
+will use `Laminas\Mvc\Router\RouteStackInterface` internally in the `getHref()` method to generate
+hrefs, and the `isActive()` method will compare the `Laminas\Mvc\Router\RouteMatch` params with the
 page's params to determine if the page is active.
 
 > ## Note
@@ -67,17 +67,17 @@ routes that include the currently selected language or locale as an initial segm
 the links generated all include the matched value.
 
 > ## Note
-The *URI* returned is relative to the *baseUrl* in `Zend\Mvc\Router\Http\TreeRouteStack`. In the
+The *URI* returned is relative to the *baseUrl* in `Laminas\Mvc\Router\Http\TreeRouteStack`. In the
 examples, the baseUrl is '/' for simplicity.
 
 ### getHref() generates the page URI
 
-This example show that *MVC* pages use `Zend\Mvc\Router\RouteStackInterface` internally to generate
+This example show that *MVC* pages use `Laminas\Mvc\Router\RouteStackInterface` internally to generate
 *URI*s when calling *$page-&gt;getHref()*.
 
 ```php
 // Create route
-$route = Zend\Mvc\Router\Http\Segment::factory(array(
+$route = Laminas\Mvc\Router\Http\Segment::factory(array(
    'route'       => '/[:controller[/:action][/:id]]',
    'constraints' => array(
       'controller' => '[a-zA-Z][a-zA-Z0-9_-]+',
@@ -89,24 +89,24 @@ $route = Zend\Mvc\Router\Http\Segment::factory(array(
       'action'     => 'index',
    )
 ));
-$router = new Zend\Mvc\Router\Http\TreeRouteStack();
+$router = new Laminas\Mvc\Router\Http\TreeRouteStack();
 $router->addRoute('default', $route);
 
 // getHref() returns /album/add
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'add',
     'controller' => 'album',
 ));
 
 // getHref() returns /album/edit/1337
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'edit',
     'controller' => 'album',
     'params'     => array('id' => 1337),
 ));
 
  // getHref() returns /album/1337?format=json
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'edit',
     'controller' => 'album',
     'params'     => array('id' => 1337),
@@ -125,12 +125,12 @@ the route match object.
  * - controller: album
  * - action:     index
  */
-$page1 = new Zend\Navigation\Page\Mvc(array(
+$page1 = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'index',
     'controller' => 'album',
 ));
 
-$page2 = new Zend\Navigation\Page\Mvc(array(
+$page2 = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'edit',
     'controller' => 'album',
 ));
@@ -144,7 +144,7 @@ $page2->isActive(); // returns false
  * - action:     edit
  * - id:         1337
  */
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'edit',
     'controller' => 'album',
     'params'     => array('id' => 1337),
@@ -158,7 +158,7 @@ $page->isActive();
  * - controller: album
  * - action:     edit
  */
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'action'     => 'edit',
     'controller' => 'album',
     'params'     => array('id' => null),
@@ -178,8 +178,8 @@ Note that when using the *route* property in a page, you do not need to specify 
 that the route defines (controller, action, etc.).
 
 ```php
-// the following route is added to the ZF router
-$route = Zend\Mvc\Router\Http\Segment::factory(array(
+// the following route is added to the Laminas router
+$route = Laminas\Mvc\Router\Http\Segment::factory(array(
    'route'       => '/a/:id',
    'constraints' => array(
       'id' => '[0-9]+',
@@ -189,11 +189,11 @@ $route = Zend\Mvc\Router\Http\Segment::factory(array(
       'action'     => 'show',
    )
 ));
-$router = new Zend\Mvc\Router\Http\TreeRouteStack();
+$router = new Laminas\Mvc\Router\Http\TreeRouteStack();
 $router->addRoute('albumShow', $route);
 
 // a page is created with a 'route' option
-$page = new Zend\Navigation\Page\Mvc(array(
+$page = new Laminas\Navigation\Page\Mvc(array(
     'label'      => 'Show album',
     'route'      => 'albumShow',
     'params'     => array('id' => 42)
@@ -205,15 +205,15 @@ $page->getHref();
 
 orphan  
 
-## Zend\\Navigation\\Page\\Uri
+## Laminas\\Navigation\\Page\\Uri
 
-Pages of type `Zend\Navigation\Page\Uri` can be used to link to pages on other domains or sites, or
+Pages of type `Laminas\Navigation\Page\Uri` can be used to link to pages on other domains or sites, or
 to implement custom logic for the page. *URI* pages are simple; in addition to the common page
 options, a *URI* page takes only one option — *uri*. The *uri* will be returned when calling
 `$page->getHref()`, and may be a `String` or `NULL`.
 
 > ## Note
-`Zend\Navigation\Page\Uri` will not try to determine whether it should be active when calling
+`Laminas\Navigation\Page\Uri` will not try to determine whether it should be active when calling
 `$page-isActive()`. It merely returns what currently is set, so to make a *URI* page active you have
 to manually call `$page-setActive()` or specifying *active* as a page option when constructing.
 
@@ -221,9 +221,9 @@ orphan
 
 ## Creating custom page types
 
-When extending `Zend\Navigation\Page\AbstractPage`, there is usually no need to override the
+When extending `Laminas\Navigation\Page\AbstractPage`, there is usually no need to override the
 constructor or the methods `setOptions()` or `setConfig()`. The page constructor takes a single
-parameter, an `Array` or a `Zend\Config` object, which is passed to `setOptions()` or `setConfig()`
+parameter, an `Array` or a `Laminas\Config` object, which is passed to `setOptions()` or `setConfig()`
 respectively. Those methods will in turn call `set()` method, which will map options to native or
 custom properties. If the option `internal_id` is given, the method will first look for a method
 named `setInternalId()`, and pass the option to this method if it exists. If the method does not
@@ -235,7 +235,7 @@ $page->internal_id;` or `$internalId = $page->get('internal_id');`.
 The only thing a custom page class needs to implement is the `getHref()` method.
 
 ```php
-class My\Simple\Page extends Zend\Navigation\Page\AbstractPage
+class My\Simple\Page extends Laminas\Navigation\Page\AbstractPage
 {
     public function getHref()
     {
@@ -250,7 +250,7 @@ When adding properties to an extended page, there is no need to override/modify 
 `setConfig()`.
 
 ```php
-class My\Navigation\Page extends Zend\Navigation\Page\AbstractPage
+class My\Navigation\Page extends Laminas\Navigation\Page\AbstractPage
 {
     protected $foo;
     protected $fooBar;
@@ -289,7 +289,7 @@ $page = new My\Navigation\Page(array(
 ));
 
 // ...or
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'type'    => 'My\Navigation\Page',
     'label'   => 'Property names are mapped to setters',
     'foo'     => 'bar',
@@ -302,9 +302,9 @@ orphan
 ## Creating pages using the page factory
 
 All pages (also custom classes), can be created using the page factory,
-`Zend\Navigation\Page\AbstractPage::factory()`. The factory can take an array with options, or a
-`Zend\Config` object. Each key in the array/config corresponds to a page option, as seen in the
-section on \[Pages\](zend.navigation.pages). If the option *uri* is given and no *MVC* options are
+`Laminas\Navigation\Page\AbstractPage::factory()`. The factory can take an array with options, or a
+`Laminas\Config` object. Each key in the array/config corresponds to a page option, as seen in the
+section on \[Pages\](laminas.navigation.pages). If the option *uri* is given and no *MVC* options are
 given (*action, controller, route*), an *URI* page will be created. If any of the *MVC* options are
 given, an *MVC* page will be created.
 
@@ -314,23 +314,23 @@ created. If the value is *mvc* or *uri* and *MVC*/URI page will be created.
 ### Creating an MVC page using the page factory
 
 ```php
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label'  => 'My MVC page',
     'action' => 'index',
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label'      => 'Search blog',
     'action'     => 'index',
     'controller' => 'search',
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label' => 'Home',
     'route' => 'home',
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'type'   => 'mvc',
     'label'  => 'My MVC page',
 ));
@@ -339,23 +339,23 @@ $page = Zend\Navigation\Page\AbstractPage::factory(array(
 ### Creating a URI page using the page factory
 
 ```php
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label' => 'My URI page',
     'uri'   => 'http://www.example.com/',
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label'  => 'Search',
     'uri'    => 'http://www.example.com/search',
     'active' => true,
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'label' => 'My URI page',
     'uri'   => '#',
 ));
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'type'  => 'uri',
     'label' => 'My URI page',
 ));
@@ -367,7 +367,7 @@ To create a custom page type using the factory, use the option *type* to specify
 instantiate.
 
 ```php
-class My\Navigation\Page extends Zend\Navigation\Page\AbstractPage
+class My\Navigation\Page extends Laminas\Navigation\Page\AbstractPage
 {
     protected $_fooBar = 'ok';
 
@@ -377,7 +377,7 @@ class My\Navigation\Page extends Zend\Navigation\Page\AbstractPage
     }
 }
 
-$page = Zend\Navigation\Page\AbstractPage::factory(array(
+$page = Laminas\Navigation\Page\AbstractPage::factory(array(
     'type'    => 'My\Navigation\Page',
     'label'   => 'My custom page',
     'foo_bar' => 'foo bar',
