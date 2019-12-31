@@ -1,25 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Page;
+namespace LaminasTest\Navigation\Page;
 
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Navigation\Page\Mvc;
-use Zend\Navigation\Page\Uri;
-use Zend\Navigation;
-use Zend\Config;
+use Laminas\Config;
+use Laminas\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\Mvc;
+use Laminas\Navigation\Page\Uri;
 
 /**
- * Tests the class Zend_Navigation_Page
+ * Tests the class Laminas_Navigation_Page
  *
  * @author    Robin Skoglund
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class PageTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,7 +67,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     * This functionality was removed in Laminas to comply with new URL helper; do we need it?
      *
      * @group disable
      */
@@ -84,7 +83,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * This functionality was removed in ZF2 to comply with new URL helper; do we need it?
+     * This functionality was removed in Laminas to comply with new URL helper; do we need it?
      *
      * @group disable
      */
@@ -152,7 +151,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setLabel($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $label', $e->getMessage());
             }
@@ -160,7 +159,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-8922
+     * @group Laminas-8922
      */
     public function testSetAndGetFragmentIdentifier()
     {
@@ -179,7 +178,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setFragment($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                            'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                            'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains(
                     'Invalid argument: $fragment', $e->getMessage()
@@ -205,7 +204,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setId($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $id', $e->getMessage());
             }
@@ -239,7 +238,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setClass($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $class', $e->getMessage());
             }
@@ -262,7 +261,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setTitle($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $title', $e->getMessage());
             }
@@ -285,7 +284,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setTarget($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $target', $e->getMessage());
             }
@@ -405,7 +404,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             try {
                 $page->setOrder($invalid);
                 $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertContains('Invalid argument: $order', $e->getMessage());
             }
@@ -454,7 +453,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'label'    => 'hello'
         ));
 
-        $resource = new \Zend\Permissions\Acl\Resource\GenericResource('bar');
+        $resource = new \Laminas\Permissions\Acl\Resource\GenericResource('bar');
 
         $page->setResource($resource);
         $this->assertEquals($resource, $page->getResource());
@@ -470,7 +469,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         try {
             $page->setResource(0);
             $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $resource', $e->getMessage());
         }
@@ -486,7 +485,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         try {
             $page->setResource(new \stdClass());
             $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $resource', $e->getMessage());
         }
@@ -711,9 +710,9 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($page->isVisible());
 
         /**
-         * ZF-10146
+         * Laminas-10146
          *
-         * @link http://framework.zend.com/issues/browse/ZF-10146
+         * @link https://getlaminas.org/issues/browse/Laminas-10146
          */
         $page->setVisible('False');
         $this->assertFalse($page->isVisible());
@@ -937,7 +936,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         try {
             $page->setRel('alternate');
             $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $relations', $e->getMessage());
         }
@@ -995,7 +994,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         try {
             $page->setRev('alternate');
             $this->fail('An invalid value was set, but a ' .
-                        'Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $relations', $e->getMessage());
         }
@@ -1102,7 +1101,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
             'pages'    => array(
                 array(
-                    'type'      => 'Zend\Navigation\Page\Uri',
+                    'type'      => 'Laminas\Navigation\Page\Uri',
                     'label'     => 'foo.bar',
                     'fragment'  => null,
                     'id'        => null,
@@ -1122,7 +1121,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
                 ),
                 array(
                     'label'     => 'foo.baz',
-                    'type'      => 'Zend\Navigation\Page\Uri',
+                    'type'      => 'Laminas\Navigation\Page\Uri',
                     'label'     => 'foo.bar',
                     'fragment'  => null,
                     'id'        => null,
@@ -1147,7 +1146,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $toArray = $page->toArray();
 
         // tweak options to what we expect toArray() to contain
-        $options['type'] = 'Zend\Navigation\Page\Uri';
+        $options['type'] = 'Laminas\Navigation\Page\Uri';
 
         ksort($options);
         ksort($toArray);
