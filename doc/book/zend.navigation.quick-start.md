@@ -1,8 +1,8 @@
 # Quick Start
 
-The fastest way to get up and running with `Zend\Navigation` is by the **navigation** key in your
+The fastest way to get up and running with `Laminas\Navigation` is by the **navigation** key in your
 service manager configuration and the navigation factory will handle the rest for you. After setting
-up the configuration simply use the key name with the `Zend\Navigation` view helper to output the
+up the configuration simply use the key name with the `Laminas\Navigation` view helper to output the
 container.
 
 ```php
@@ -35,7 +35,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'navigation' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
     // ...
@@ -55,8 +55,8 @@ return array(
 ## Using multiple navigations
 
 If you want to use more than one navigation, you can register the abstract factory
-`\Zend\Navigation\Service\NavigationAbstractServiceFactory` in the \[service
-manager\](zend.service-manager.quick-start).
+`\Laminas\Navigation\Service\NavigationAbstractServiceFactory` in the \[service
+manager\](laminas.service-manager.quick-start).
 
 Once the service factory is registered, you can create as many navigation definitions as you wish,
 and the factory will create navigation containers automatically. This factory can also be used for
@@ -118,7 +118,7 @@ return array(
     ),
     'service_manager' => array(
         'abstract_factories' => array(
-            'Zend\Navigation\Service\NavigationAbstractServiceFactory'
+            'Laminas\Navigation\Service\NavigationAbstractServiceFactory'
         ),
     ),
     // ...
@@ -127,7 +127,7 @@ return array(
 
 > ## Note
 There is one important point if you use the `NavigationAbstractServiceFactory`: The name of the
-service in your view must start with `Zend\Navigation\` followed by the name of the configuration
+service in your view must start with `Laminas\Navigation\` followed by the name of the configuration
 key. This helps ensure that no naming collisions occur with other services.
 
 The following example demonstrates rendering the navigation menus for the named `default`, `special`
@@ -138,11 +138,11 @@ and `sitemap` containers.
 <!-- ... -->
 
 <body>
-    <?php echo $this->navigation('Zend\Navigation\Default')->menu(); ?>
+    <?php echo $this->navigation('Laminas\Navigation\Default')->menu(); ?>
 
-    <?php echo $this->navigation('Zend\Navigation\Special')->menu(); ?>
+    <?php echo $this->navigation('Laminas\Navigation\Special')->menu(); ?>
 
-    <?php echo $this->navigation('Zend\Navigation\Sitemap')->menu(); ?>
+    <?php echo $this->navigation('Laminas\Navigation\Sitemap')->menu(); ?>
 </body>
 <!-- ... -->
 ```
