@@ -1,26 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\View;
+namespace LaminasTest\Navigation\View;
 
+use Laminas\Navigation\Service\DefaultNavigationFactory;
+use Laminas\Navigation\View\HelperConfig;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Navigation as NavigationHelper;
+use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Zend\Navigation\Service\DefaultNavigationFactory;
-use Zend\Navigation\View\HelperConfig;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\Navigation as NavigationHelper;
 
 /**
- * Tests the class Zend_Navigation_Page_Mvc
+ * Tests the class Laminas_Navigation_Page_Mvc
  *
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class HelperConfigTest extends TestCase
 {
@@ -30,7 +29,7 @@ class HelperConfigTest extends TestCase
             ['navigation'],
             ['Navigation'],
             [NavigationHelper::class],
-            ['zendviewhelpernavigation'],
+            ['laminasviewhelpernavigation'],
         ];
     }
 

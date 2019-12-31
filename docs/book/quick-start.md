@@ -1,15 +1,15 @@
 # Quick Start
 
-## Usage in a zend-mvc-based application
+## Usage in a laminas-mvc-based application
 
-The fastest way to get up and running with zend-navigation is:
+The fastest way to get up and running with laminas-navigation is:
 
-- Register zend-navigation as module.
+- Register laminas-navigation as module.
 - Define navigation container configuration under the top-level `navigation` key
   in your application configuration.
 - Render your container using a navigation view helper within your view scripts.
 
-### Register zend-navigation as module
+### Register laminas-navigation as module
 
 Edit the application configuration file `config/application.config.php`:
 
@@ -17,9 +17,9 @@ Edit the application configuration file `config/application.config.php`:
 <?php
 return [
     'modules' => [
-        'Zend\Router',
-        'Zend\Log',
-        'Zend\Navigation', // <-- Add this line
+        'Laminas\Router',
+        'Laminas\Log',
+        'Laminas\Navigation', // <-- Add this line
         // ...
     ],
 ];
@@ -76,7 +76,7 @@ Calling the view helper for menus in your layout script:
 
 ## Using multiple navigations
 
-Once the zend-navigation module is registered, you can create as many navigation
+Once the laminas-navigation module is registered, you can create as many navigation
 definitions as you wish, and the underlying factories will create navigation
 containers automatically.
 
@@ -142,9 +142,9 @@ return [
 
 > ### Container names have a prefix
 >
-> There is one important point to know when using zend-navigation as a module:
+> There is one important point to know when using laminas-navigation as a module:
 > The name of the container in your view script **must** be prefixed with
-> `Zend\Navigation\`, followed by the name of the configuration key.
+> `Laminas\Navigation\`, followed by the name of the configuration key.
 > This helps ensure that no naming collisions occur with other services.
 
 The following example demonstrates rendering the navigation menus for the named
@@ -154,11 +154,11 @@ The following example demonstrates rendering the navigation menus for the named
 <!-- ... -->
 
 <body>
-    <?= $this->navigation('Zend\Navigation\Default')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Default')->menu() ?>
 
-    <?= $this->navigation('Zend\Navigation\Special')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Special')->menu() ?>
 
-    <?= $this->navigation('Zend\Navigation\Sitemap')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Sitemap')->menu() ?>
 </body>
 <!-- ... -->
 ```

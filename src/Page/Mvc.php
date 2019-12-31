@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Page;
+namespace Laminas\Navigation\Page;
 
-use Zend\Mvc\Router as MvcRouter;
-use Zend\Navigation\Exception;
-use Zend\Router\RouteMatch;
-use Zend\Router\RouteStackInterface;
+use Laminas\Mvc\Router as MvcRouter;
+use Laminas\Navigation\Exception;
+use Laminas\Router\RouteMatch;
+use Laminas\Router\RouteStackInterface;
 
 /**
  * Represents a page that is defined using controller, action, route
  * name and route params to assemble the href
  *
- * The two constants defined were originally provided via the zend-mvc class
+ * The two constants defined were originally provided via the laminas-mvc class
  * ModuleRouteListener; to remove the requirement on that component, they are
  * reproduced here.
  */
@@ -163,7 +162,7 @@ class Mvc extends AbstractPage
                 $pageParams['controller'] = $this->controller;
             } else {
                 /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
+                 * @todo In Laminas1, this was configurable and pulled from the front controller
                  */
                 $pageParams['controller'] = 'index';
             }
@@ -172,7 +171,7 @@ class Mvc extends AbstractPage
                 $pageParams['action'] = $this->action;
             } else {
                 /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
+                 * @todo In Laminas1, this was configurable and pulled from the front controller
                  */
                 $pageParams['action'] = 'index';
             }
@@ -210,7 +209,7 @@ class Mvc extends AbstractPage
         if (! $router instanceof RouteStackInterface && ! $router instanceof MvcRouter\RouteStackInterface) {
             throw new Exception\DomainException(
                 __METHOD__
-                . ' cannot execute as no Zend\Router\RouteStackInterface instance is composed'
+                . ' cannot execute as no Laminas\Router\RouteStackInterface instance is composed'
             );
         }
 
