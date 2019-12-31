@@ -1,22 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Page;
+namespace Laminas\Navigation\Page;
 
-use Zend\Navigation\Exception;
+use Laminas\Navigation\Exception;
 
 /**
  * Represents a page that is defined by specifying a URI
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage Page
  */
 class Uri extends AbstractPage

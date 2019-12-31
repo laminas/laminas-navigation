@@ -1,24 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\View;
+namespace Laminas\Navigation\View;
 
-use Zend\ServiceManager\ConfigInterface;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
+use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
 
 /**
  * Service manager configuration for navigation view helpers
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage View
  */
 class HelperConfig implements ConfigInterface
@@ -36,7 +34,7 @@ class HelperConfig implements ConfigInterface
     public function configureServiceManager(ServiceManager $serviceManager)
     {
         $serviceManager->setFactory('navigation', function(HelperPluginManager $pm) {
-            $helper = new \Zend\View\Helper\Navigation;
+            $helper = new \Laminas\View\Helper\Navigation;
             $helper->setServiceLocator($pm->getServiceLocator());
             return $helper;
         });
