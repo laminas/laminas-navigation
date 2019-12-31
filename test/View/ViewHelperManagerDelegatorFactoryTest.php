@@ -1,17 +1,18 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-navigation for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\View;
+namespace LaminasTest\Navigation\View;
 
+use Laminas\Navigation\View\ViewHelperManagerDelegatorFactory;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Navigation as NavigationHelper;
+use Laminas\View\HelperPluginManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Navigation\View\ViewHelperManagerDelegatorFactory;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\Navigation as NavigationHelper;
 
 class ViewHelperManagerDelegatorFactoryTest extends TestCase
 {

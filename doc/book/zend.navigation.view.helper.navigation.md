@@ -4,13 +4,13 @@
 
 The Navigation helper is a proxy helper that relays calls to other navigational helpers. It can be
 considered an entry point to all navigation-related view tasks. The aforementioned navigational
-helpers are in the namespace `Zend\View\Helper\Navigation`, and would thus require the path
-*Zend/View/Helper/Navigation* to be added as a helper path to the view. With the proxy helper
-residing in the `Zend\View\Helper` namespace, it will always be available, without the need to add
+helpers are in the namespace `Laminas\View\Helper\Navigation`, and would thus require the path
+*Laminas/View/Helper/Navigation* to be added as a helper path to the view. With the proxy helper
+residing in the `Laminas\View\Helper` namespace, it will always be available, without the need to add
 any helper paths to the view.
 
 The Navigation helper finds other helpers that implement the
-`Zend\View\Helper\Navigation\HelperInterface`, which means custom view helpers can also be proxied.
+`Laminas\View\Helper\Navigation\HelperInterface`, which means custom view helpers can also be proxied.
 This would, however, require that the custom helper path is added to the view.
 
 When proxying to other helpers, the Navigation helper can inject its container, *ACL*/role, and

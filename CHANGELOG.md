@@ -25,13 +25,13 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#26](https://github.com/zendframework/zend-navigation/pull/26) adds:
-  - `Zend\Navigation\View\ViewHelperManagerDelegatorFactory`, which decorates
+- [zendframework/zend-navigation#26](https://github.com/zendframework/zend-navigation/pull/26) adds:
+  - `Laminas\Navigation\View\ViewHelperManagerDelegatorFactory`, which decorates
     the `ViewHelperManager` service to configure it using
-    `Zend\Navigation\View\HelperConfig`.
+    `Laminas\Navigation\View\HelperConfig`.
   - `ConfigProvider`, which maps the default navigation factory and the
     navigation abstract factory, as well as the navigation view helper.
-  - `Module`, which does the same as the above, but for zend-mvc
+  - `Module`, which does the same as the above, but for laminas-mvc
     applications.
 
 ### Deprecated
@@ -62,8 +62,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#25](https://github.com/zendframework/zend-navigation/pull/25) ups the
-  minimum zend-view version to 2.6.5, to bring in a fix for a circular
+- [zendframework/zend-navigation#25](https://github.com/zendframework/zend-navigation/pull/25) ups the
+  minimum laminas-view version to 2.6.5, to bring in a fix for a circular
   dependency issue in the navigation helpers.
 
 ## 2.6.0 - 2016-02-24
@@ -82,6 +82,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#5](https://github.com/zendframework/zend-navigation/pull/5) and
-  [#20](https://github.com/zendframework/zend-navigation/pull/20) update the
-  code to be forwards compatible with zend-servicemanager v3.
+- [zendframework/zend-navigation#5](https://github.com/zendframework/zend-navigation/pull/5) and
+  [zendframework/zend-navigation#20](https://github.com/zendframework/zend-navigation/pull/20) update the
+  code to be forwards compatible with laminas-servicemanager v3.
