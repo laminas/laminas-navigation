@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Page;
+namespace Laminas\Navigation\Page;
 
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface;
-use Zend\Navigation\Exception;
-use Zend\Mvc\ModuleRouteListener;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\RouteStackInterface;
+use Laminas\Navigation\Exception;
 
 /**
  * Represents a page that is defined using controller, action, route
@@ -139,7 +138,7 @@ class Mvc extends AbstractPage
                 $myParams['controller'] = $this->controller;
             } else {
                 /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
+                 * @todo In Laminas1, this was configurable and pulled from the front controller
                  */
                 $myParams['controller'] = 'index';
             }
@@ -148,7 +147,7 @@ class Mvc extends AbstractPage
                 $myParams['action'] = $this->action;
             } else {
                 /**
-                 * @todo In ZF1, this was configurable and pulled from the front controller
+                 * @todo In Laminas1, this was configurable and pulled from the front controller
                  */
                 $myParams['action'] = 'index';
             }
@@ -186,7 +185,7 @@ class Mvc extends AbstractPage
         if (!$router instanceof RouteStackInterface) {
             throw new Exception\DomainException(
                 __METHOD__
-                . ' cannot execute as no Zend\Mvc\Router\RouteStackInterface instance is composed'
+                . ' cannot execute as no Laminas\Mvc\Router\RouteStackInterface instance is composed'
             );
         }
 
@@ -408,7 +407,7 @@ class Mvc extends AbstractPage
     /**
      * Get the route match.
      *
-     * @return \Zend\Mvc\Router\RouteMatch
+     * @return \Laminas\Mvc\Router\RouteMatch
      */
     public function getRouteMatch()
     {

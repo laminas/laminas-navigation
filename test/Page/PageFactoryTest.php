@@ -1,26 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation;
+namespace LaminasTest\Navigation;
 
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Navigation;
+use Laminas\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
 
 /**
- * Tests Zend_Navigation_Page::factory()
+ * Tests Laminas_Navigation_Page::factory()
  *
 /**
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage UnitTests
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class PageFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,7 +41,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             ))
         );
 
-        $this->assertContainsOnly('Zend\Navigation\Page\Mvc', $pages);
+        $this->assertContainsOnly('Laminas\Navigation\Page\Mvc', $pages);
     }
 
     public function testDetectUriPage()
@@ -53,7 +51,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => '#'
         ));
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $page);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Uri', $page);
     }
 
     public function testMvcShouldHaveDetectionPrecedence()
@@ -65,7 +63,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => '#'
         ));
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $page);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Mvc', $page);
     }
 
     public function testSupportsMvcShorthand()
@@ -77,7 +75,7 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'controller' => 'index'
         ));
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Mvc', $mvcPage);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Mvc', $mvcPage);
     }
 
     public function testSupportsUriShorthand()
@@ -88,24 +86,24 @@ class PageFactoryTest extends \PHPUnit_Framework_TestCase
             'uri' => 'http://www.example.com/'
         ));
 
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\Uri', $uriPage);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Uri', $uriPage);
     }
 
     public function testSupportsCustomPageTypes()
     {
         $page = AbstractPage::factory(array(
-            'type' => 'ZendTest\Navigation\TestAsset\Page',
+            'type' => 'LaminasTest\Navigation\TestAsset\Page',
             'label' => 'My Custom Page'
         ));
 
-        return $this->assertInstanceOf('ZendTest\\Navigation\\TestAsset\\Page', $page);
+        return $this->assertInstanceOf('LaminasTest\\Navigation\\TestAsset\\Page', $page);
     }
 
     public function testShouldFailForInvalidType()
     {
         try {
             $page = AbstractPage::factory(array(
-                'type' => 'ZendTest\Navigation\TestAsset\InvalidPage',
+                'type' => 'LaminasTest\Navigation\TestAsset\InvalidPage',
                 'label' => 'My Invalid Page'
             ));
         } catch (Navigation\Exception\InvalidArgumentException $e) {

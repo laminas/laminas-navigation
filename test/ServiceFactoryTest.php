@@ -1,36 +1,34 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation;
+namespace LaminasTest\Navigation;
 
-use Zend\Config;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\Navigation;
-use Zend\Navigation\Page\Mvc as MvcPage;
-use Zend\Navigation\Service\ConstructedNavigationFactory;
-use Zend\Navigation\Service\DefaultNavigationFactory;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Config;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\Navigation;
+use Laminas\Navigation\Page\Mvc as MvcPage;
+use Laminas\Navigation\Service\ConstructedNavigationFactory;
+use Laminas\Navigation\Service\DefaultNavigationFactory;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
- * Tests the class Zend\Navigation\MvcNavigationFactory
+ * Tests the class Laminas\Navigation\MvcNavigationFactory
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage UnitTests
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Zend\ServiceManager\ServiceManager
+     * @var \Laminas\ServiceManager\ServiceManager
      */
     protected $serviceManager;
 
@@ -103,27 +101,27 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\AbstractNavigationFactory
+     * @covers \Laminas\Navigation\Service\AbstractNavigationFactory
      */
     public function testDefaultFactoryAcceptsFileString()
     {
-        $this->serviceManager->setFactory('Navigation', 'ZendTest\Navigation\TestAsset\FileNavigationFactory');
+        $this->serviceManager->setFactory('Navigation', 'LaminasTest\Navigation\TestAsset\FileNavigationFactory');
         $container = $this->serviceManager->get('Navigation');
     }
 
     /**
-     * @covers \Zend\Navigation\Service\DefaultNavigationFactory
+     * @covers \Laminas\Navigation\Service\DefaultNavigationFactory
      */
     public function testMvcPagesGetInjectedWithComponents()
     {
-        $this->serviceManager->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+        $this->serviceManager->setFactory('Navigation', 'Laminas\Navigation\Service\DefaultNavigationFactory');
         $container = $this->serviceManager->get('Navigation');
 
         $recursive = function ($that, $pages) use (&$recursive) {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
-                    $that->assertInstanceOf('Zend\Mvc\Router\RouteStackInterface', $page->getRouter());
-                    $that->assertInstanceOf('Zend\Mvc\Router\RouteMatch', $page->getRouteMatch());
+                    $that->assertInstanceOf('Laminas\Mvc\Router\RouteStackInterface', $page->getRouter());
+                    $that->assertInstanceOf('Laminas\Mvc\Router\RouteMatch', $page->getRouteMatch());
                 }
 
                 $recursive($that, $page->getPages());
@@ -133,11 +131,11 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\ConstructedNavigationFactory
+     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
     public function testConstructedNavigationFactoryInjectRouterAndMatcher()
     {
-        $builder = $this->getMockBuilder('\Zend\Navigation\Service\ConstructedNavigationFactory');
+        $builder = $this->getMockBuilder('\Laminas\Navigation\Service\ConstructedNavigationFactory');
         $builder->setConstructorArgs(array(__DIR__ . '/_files/navigation_mvc.xml'))
                 ->setMethods(array('injectComponents'));
 
@@ -146,8 +144,8 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->expects($this->once())
                 ->method('injectComponents')
                 ->with($this->isType("array"),
-                       $this->isInstanceOf("Zend\Mvc\Router\RouteMatch"),
-                       $this->isInstanceOf("Zend\Mvc\Router\RouteStackInterface"));
+                       $this->isInstanceOf("Laminas\Mvc\Router\RouteMatch"),
+                       $this->isInstanceOf("Laminas\Mvc\Router\RouteStackInterface"));
 
         $this->serviceManager->setFactory('Navigation', function ($serviceLocator) use ($factory){
               return $factory->createService($serviceLocator);
@@ -157,13 +155,13 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\ConstructedNavigationFactory
+     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
     public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory()
     {
         $this->serviceManager->setFactory('Navigation', function ($serviceLocator) {
               $argument = __DIR__ . '/_files/navigation_mvc.xml';
-              $factory = new \Zend\Navigation\Service\ConstructedNavigationFactory($argument);
+              $factory = new \Laminas\Navigation\Service\ConstructedNavigationFactory($argument);
               return $factory->createService($serviceLocator);
         });
 
@@ -171,8 +169,8 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
         $recursive = function ($that, $pages) use (&$recursive) {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
-                    $that->assertInstanceOf('Zend\Mvc\Router\RouteStackInterface', $page->getRouter());
-                    $that->assertInstanceOf('Zend\Mvc\Router\RouteMatch', $page->getRouteMatch());
+                    $that->assertInstanceOf('Laminas\Mvc\Router\RouteStackInterface', $page->getRouter());
+                    $that->assertInstanceOf('Laminas\Mvc\Router\RouteMatch', $page->getRouteMatch());
                 }
 
                 $recursive($that, $page->getPages());
@@ -182,18 +180,18 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\DefaultNavigationFactory
+     * @covers \Laminas\Navigation\Service\DefaultNavigationFactory
      */
     public function testDefaultFactory()
     {
-        $this->serviceManager->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+        $this->serviceManager->setFactory('Navigation', 'Laminas\Navigation\Service\DefaultNavigationFactory');
 
         $container = $this->serviceManager->get('Navigation');
         $this->assertEquals(3, $container->count());
     }
 
     /**
-     * @covers \Zend\Navigation\Service\ConstructedNavigationFactory
+     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
     public function testConstructedFromArray()
     {
@@ -220,7 +218,7 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\ConstructedNavigationFactory
+     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
     public function testConstructedFromFileString()
     {
@@ -233,7 +231,7 @@ class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Zend\Navigation\Service\ConstructedNavigationFactory
+     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
     public function testConstructedFromConfig()
     {
