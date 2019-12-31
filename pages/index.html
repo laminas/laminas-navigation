@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage trees of pointers to web pages in order to build navigation systems.">  
+    <link rel="canonical" href="https://docs.laminas.dev/pages/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Pages - laminas-navigation - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../containers/" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/breadcrumbs/" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-navigation</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-navigation/" class="header__link header__link--github" title="Go to repository of laminas-navigation">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#common-page-features" class="toc__link">Common page features</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#mvc-pages" class="toc__link">MVC pages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#uri-pages" class="toc__link">URI Pages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#creating-custom-page-types" class="toc__link">Creating custom page types</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#creating-pages-using-the-page-factory" class="toc__link">Creating pages using the page factory</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-navigation</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Reference</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Pages</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <h1 id="pages">Pages</h1>
+<p>laminas-navigation ships with two page types:</p>
+<ul>
+<li><a href="#mvc-pages">MVC pages</a>, using the class <code>Laminas\Navigation\Page\Mvc</code></li>
+<li><a href="#uri-pages">URI pages</a>, using the class <code>Laminas\Navigation\Page\Uri</code></li>
+</ul>
+<p>MVC pages link to on-site web pages, and are defined using MVC parameters
+(<code>action</code>, <code>controller</code>, <code>route</code>, <code>params</code>). URI pages are defined by a single
+property <code>uri</code>, which give you the full flexibility to link off-site pages or do
+other things with the generated links (e.g. a URI that turns into <code>&lt;a href="#"&gt;foo&lt;a&gt;</code>).</p>
+<h2 id="common-page-features">Common page features</h2>
+<p>All page classes must extend <code>Laminas\Navigation\Page\AbstractPage</code>, and will thus
+share a common set of features and properties. Most notably, they share the
+options in the table below and the same initialization process.</p>
+<p>Option keys are mapped to <code>set*()</code> methods. This means that the option <code>order</code> maps to the method
+<code>setOrder()</code>, and <code>reset_params</code> maps to the method <code>setResetParams()</code>. If there is no setter
+method for the option, it will be set as a custom property of the page.</p>
+<p>Read more on extending <code>Laminas\Navigation\Page\AbstractPage</code> in the section
+<a href="#creating-custom-page-types">"Creating custom page types"</a>.</p>
+<h3>Common page options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>label</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>A page label, such as 'Home' or 'Blog'.</td>
+</tr>
+<tr>
+<td>fragment</td>
+<td><code>string|null</code></td>
+<td><code>NULL</code></td>
+<td>A fragment identifier (anchor identifier) pointing to an anchor within a resource that is subordinate to another, primary resource. The fragment identifier introduced by a hash mark "#". Example: <code>http://www.example.org/foo.html#bar</code> (<em>bar</em> is the fragment identifier)</td>
+</tr>
+<tr>
+<td>id</td>
+<td><code>string|integer</code></td>
+<td><code>NULL</code></td>
+<td>An <em>id</em> tag/attribute that may be used when rendering the page, typically in an anchor element.</td>
+</tr>
+<tr>
+<td>class</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>A <em>CSS</em> class that may be used when rendering the page, typically in an anchor element.</td>
+</tr>
+<tr>
+<td>title</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>A short page description, typically for using as the title attribute in an anchor.</td>
+</tr>
+<tr>
+<td>target</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>Specifies a target that may be used for the page, typically in an anchor element.</td>
+</tr>
+<tr>
+<td>rel</td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>Specifies forward relations for the page. Each element in the array is a key-value pair, where the key designates the relation/link type, and the value is a pointer to the linked page. An example of a key-value pair is <code>'alternate' =&gt; 'format/plain.html'</code>. To allow full flexibility, there are no restrictions on relation values. The value does not have to be a string. Read more about <code>rel</code> and <code>rev</code> in the section on the Links helper.</td>
+</tr>
+<tr>
+<td>rev</td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>Specifies reverse relations for the page. Works exactly like rel.</td>
+</tr>
+<tr>
+<td>order</td>
+<td><code>string|integer|null</code></td>
+<td><code>NULL</code></td>
+<td>Works like order for elements in <code>Laminas\Form</code>. If specified, the page will be iterated in a specific order, meaning you can force a page to be iterated before others by setting the order attribute to a low number, e.g. -100. If a String is given, it must parse to a valid int. If <code>NULL</code> is given, it will be reset, meaning the order in which the page was added to the container will be used.</td>
+</tr>
+<tr>
+<td>resource</td>
+<td><code>string|Laminas\Permissions\Acl\Resource\ResourceInterface|null</code></td>
+<td><code>NULL</code></td>
+<td>ACL resource to associate with the page. Read more in the section on ACL integration in view helpers.</td>
+</tr>
+<tr>
+<td>privilege</td>
+<td><code>string|null</code></td>
+<td><code>NULL</code></td>
+<td>ACL privilege to associate with the page. Read more in the section on ACL integration in view helpers.</td>
+</tr>
+<tr>
+<td>active</td>
+<td><code>boolean</code></td>
+<td><code>FALSE</code></td>
+<td>Whether the page should be considered active for the current request. If active is FALSE or not given, MVC pages will check its properties against the request object upon calling <code>$page-&gt;isActive()</code>.</td>
+</tr>
+<tr>
+<td>visible</td>
+<td><code>boolean</code></td>
+<td><code>TRUE</code></td>
+<td>Whether page should be visible for the user, or just be a part of the structure. Invisible pages are skipped by view helpers.</td>
+</tr>
+<tr>
+<td>pages</td>
+<td><code>array|Travsersable|null</code></td>
+<td><code>NULL</code></td>
+<td>Child pages of the page. This could be an array or <code>Traversable</code> object containing either page options that can be passed to the <code>factory()</code> method, <code>AbstractPage</code> instances, or a mixture of both.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h4>Custom properties</h4>
+<p>All pages support setting and retrieval of custom properties by use of the
+magic methods <code>__set($name, $value)</code>, <code>__get($name)</code>, <code>__isset($name)</code> and
+<code>__unset($name)</code>. Custom properties may have any value, and will be included
+in the array that is returned from <code>$page-&gt;toArray()</code>, which means that pages
+can be serialized/deserialized successfully even if the pages contains
+properties that are not native in the page class.</p>
+<p>Both native and custom properties can be set using <code>$page-&gt;set($name, $value)</code>
+and retrieved using <code>$page-&gt;get($name)</code>, or by using magic methods.</p>
+<p>The following example demonstrates custom properties:</p>
+<pre class=codehilite><code class=language-php>
+$page = new Laminas\Navigation\Page\Mvc();
+$page-&gt;foo     = 'bar';
+$page-&gt;meaning = 42;
+
+echo $page-&gt;foo;
+
+if ($page-&gt;meaning != 42) {
+    // action should be taken
+}
+</code></pre>
+</blockquote>
+<h2 id="mvc-pages">MVC pages</h2>
+<p>MVC pages are defined using MVC parameters known from the
+<a href="https://laminas.github.com/laminas-mvc/">laminas-mvc</a> component. An MVC page
+will use <code>Laminas\Router\RouteStackInterface</code> internally in the <code>getHref()</code> method
+to generate <code>href</code> attributes, and the <code>isActive()</code> method will compare the
+<code>Laminas\Router\RouteMatch</code> params with the page's params to determine if the page
+is active.</p>
+<blockquote>
+<h3>useRouteMatch flag</h3>
+<p>Starting in version 2.2.0, if you want to re-use any matched route parameters
+when generating a link, you can do so via the <code>useRouteMatch</code> flag. This is
+particularly useful when creating segment routes that include the currently
+selected language or locale as an initial segment, as it ensures the links
+generated all include the matched value.</p>
+</blockquote>
+<h3>MVC page options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>Action name to use when generating <code>href</code> to the page.</td>
+</tr>
+<tr>
+<td>controller</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>Controller name to use when generating <code>href</code> to the page.</td>
+</tr>
+<tr>
+<td>params</td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>User params to use when generating <code>href</code> to the page.</td>
+</tr>
+<tr>
+<td>route</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>Route name to use when generating <code>href</code> to the page.</td>
+</tr>
+<tr>
+<td>routeMatch</td>
+<td><code>Laminas\Router\RouteMatch</code></td>
+<td><code>NULL</code></td>
+<td><code>RouteInterface</code> matches used for routing parameters and testing validity.</td>
+</tr>
+<tr>
+<td>useRouteMatch</td>
+<td><code>boolean</code></td>
+<td><code>FALSE</code></td>
+<td>If true, then the <code>getHref()</code> method will use the <code>routeMatch</code> parameters to assemble the URI.</td>
+</tr>
+<tr>
+<td>router</td>
+<td><code>Laminas\Router\RouteStackInterface</code></td>
+<td><code>NULL</code></td>
+<td>Router for assembling URLs.</td>
+</tr>
+<tr>
+<td>query</td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>Query string arguments to use when generating <code>href</code> to page.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3>URIs are relative to base URL</h3>
+<p>The URI returned is relative to the <code>baseUrl</code> in <code>Laminas\Router\Http\TreeRouteStack</code>.
+In the examples, the <code>baseUrl</code> is '/' for simplicity.</p>
+</blockquote>
+<h3>getHref() generates the page URI</h3>
+<p>This example demonstrates that MVC pages use <code>Laminas\Router\RouteStackInterface</code>
+internally to generate URIs when calling <code>$page-&gt;getHref()</code>.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
+<span class=x>use Laminas\Router\Http\Segment;</span>
+<span class=x>use Laminas\Router\Http\TreeRouteStack;</span>
+
+<span class=x>// Create route</span>
+<span class=x>$route = Segment::factory([</span>
+<span class=x>   &#39;route&#39;       =&gt; &#39;/[:controller[/:action][/:id]]&#39;,</span>
+<span class=x>   &#39;constraints&#39; =&gt; [</span>
+<span class=x>      &#39;controller&#39; =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]+&#39;,</span>
+<span class=x>      &#39;action&#39;     =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]+&#39;,</span>
+<span class=x>      &#39;id&#39;         =&gt; &#39;[0-9]+&#39;,</span>
+<span class=x>   ],</span>
+<span class=x>   [</span>
+<span class=x>      &#39;controller&#39; =&gt; &#39;Album\Controller\Album&#39;,</span>
+<span class=x>      &#39;action&#39;     =&gt; &#39;index&#39;,</span>
+<span class=x>   ]</span>
+<span class=x>]);</span>
+<span class=x>$router = new TreeRouteStack();</span>
+<span class=x>$router-&gt;addRoute(&#39;default&#39;, $route);</span>
+
+<span class=x>// getHref() returns /album/add</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;add&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// getHref() returns /album/edit/1337</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
+<span class=x>]);</span>
+
+<span class=x> // getHref() returns /album/1337?format=json</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
+<span class=x>    &#39;query&#39;      =&gt; [&#39;format&#39; =&gt; &#39;json&#39;],</span>
+<span class=x>]);</span>
+</pre></div></p>
+<h3>isActive() determines if page is active</h3>
+<p>This example demonstrates that MVC pages determine whether they are active by
+using the params found in the route match object.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
+
+<span class=x>/**</span>
+<span class=x> * Dispatched request:</span>
+<span class=x> * - controller: album</span>
+<span class=x> * - action:     index</span>
+<span class=x> */</span>
+<span class=x>$page1 = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>$page2 = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>$page1-&gt;isActive(); // returns true</span>
+<span class=x>$page2-&gt;isActive(); // returns false</span>
+
+<span class=x>/**</span>
+<span class=x> * Dispatched request:</span>
+<span class=x> * - controller: album</span>
+<span class=x> * - action:     edit</span>
+<span class=x> * - id:         1337</span>
+<span class=x> */</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
+<span class=x>]);</span>
+
+<span class=x>// returns true, because request has the same controller and action</span>
+<span class=x>$page-&gt;isActive();</span>
+
+<span class=x>/**</span>
+<span class=x> * Dispatched request:</span>
+<span class=x> * - controller: album</span>
+<span class=x> * - action:     edit</span>
+<span class=x> */</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
+<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; null],</span>
+<span class=x>]);</span>
+
+<span class=x>// returns false, because page requires the id param to be set in the request</span>
+<span class=x>$page-&gt;isActive(); // returns false</span>
+</pre></div></p>
+<h3>Using routes</h3>
+<p>Routes can be used with MVC pages. If a page has a route, this route will be
+used in <code>getHref()</code> to generate the URL for the page.</p>
+<blockquote>
+<h4>Default parameters are not necessary</h4>
+<p>Note that when using the <code>route</code> property in a page, you do not need to
+specify the default params that the route defines (controller, action, etc.).</p>
+</blockquote>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
+<span class=x>use Laminas\Router\Http\Segment;</span>
+<span class=x>use Laminas\Router\Http\TreeRouteStack;</span>
+
+<span class=x>// the following route is added to the Laminas router</span>
+<span class=x>$route = Segment::factory([</span>
+<span class=x>   &#39;route&#39;       =&gt; &#39;/a/:id&#39;,</span>
+<span class=x>   &#39;constraints&#39; =&gt; [</span>
+<span class=x>      &#39;id&#39; =&gt; &#39;[0-9]+&#39;,</span>
+<span class=x>   ],</span>
+<span class=x>   [</span>
+<span class=x>      &#39;controller&#39; =&gt; &#39;Album\Controller\Album&#39;,</span>
+<span class=x>      &#39;action&#39;     =&gt; &#39;show&#39;,</span>
+<span class=x>   ]</span>
+<span class=x>]);</span>
+<span class=x>$router = new TreeRouteStack();</span>
+<span class=x>$router-&gt;addRoute(&#39;albumShow&#39;, $route);</span>
+
+<span class=x>// a page is created with a &#39;route&#39; option</span>
+<span class=x>$page = new Page\Mvc([</span>
+<span class=x>    &#39;label&#39;      =&gt; &#39;Show album&#39;,</span>
+<span class=x>    &#39;route&#39;      =&gt; &#39;albumShow&#39;,</span>
+<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 42]</span>
+<span class=x>]);</span>
+
+<span class=x>// returns: /a/42</span>
+<span class=x>$page-&gt;getHref();</span>
+</pre></div></p>
+<h2 id="uri-pages">URI Pages</h2>
+<p>Pages of type <code>Laminas\Navigation\Page\Uri</code> can be used to link to pages on other
+domains or sites, or to implement custom logic for the page. In addition to the
+common page options, a URI page takes only one additional option, a <code>uri</code>. The
+<code>uri</code> will be returned when calling <code>$page-&gt;getHref()</code>, and may be a <code>string</code> or
+<code>null</code>.</p>
+<blockquote>
+<h3>No auto-determination of active status</h3>
+<p><code>Laminas\Navigation\Page\Uri</code> will not try to determine whether it should be
+active when calling <code>$page-&gt;isActive()</code>; it merely returns what currently is
+set. In order to make a URI page active, you must manually call
+<code>$page-&gt;setActive()</code> or specify the <code>active</code> as a page option during
+instantiation.</p>
+</blockquote>
+<h3>URI page options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uri</td>
+<td><code>string</code></td>
+<td><code>NULL</code></td>
+<td>URI to page. This can be any string or <code>NULL</code>.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="creating-custom-page-types">Creating custom page types</h2>
+<p>When extending <code>Laminas\Navigation\Page\AbstractPage</code>, there is usually no need to
+override the constructor or the <code>setOptions()</code> method. The page constructor
+takes a single parameter, an <code>array</code> or a <code>Traversable</code> object, which is then
+passed to <code>setOptions()</code>. That method will in turn call the appropriate <code>set*()</code>
+methods based on the options provided, which in turn maps the option to native
+or custom properties. If the option <code>internal_id</code> is given, the method will
+first look for a method named <code>setInternalId()</code>, and pass the option to this
+method if it exists. If the method does not exist, the option will be set as a
+custom property of the page, and be accessible via <code>$internalId =
+$page-&gt;internal_id;</code> or <code>$internalId = $page-&gt;get('internal_id');</code>.</p>
+<h3>Basic custom page example</h3>
+<p>The only thing a custom page class needs to implement is the <code>getHref()</code> method.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace My;</span>
+
+<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>class Page extends AbstractPage</span>
+<span class=x>{</span>
+<span class=x>    public function getHref()</span>
+<span class=x>    {</span>
+<span class=x>        return &#39;something-completely-different&#39;;</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+</pre></div></p>
+<h3>A custom page with properties</h3>
+<p>When adding properties to an extended page, there is no need to override/modify
+<code>setOptions()</code>.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace My\Navigation;</span>
+
+<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>class Page extends AbstractPage</span>
+<span class=x>{</span>
+<span class=x>    protected $foo;</span>
+<span class=x>    protected $fooBar;</span>
+
+<span class=x>    public function setFoo($foo)</span>
+<span class=x>    {</span>
+<span class=x>        $this-&gt;foo = $foo;</span>
+<span class=x>    }</span>
+
+<span class=x>    public function getFoo()</span>
+<span class=x>    {</span>
+<span class=x>        return $this-&gt;foo;</span>
+<span class=x>    }</span>
+
+<span class=x>    public function setFooBar($fooBar)</span>
+<span class=x>    {</span>
+<span class=x>        $this-&gt;fooBar = $fooBar;</span>
+<span class=x>    }</span>
+
+<span class=x>    public function getFooBar()</span>
+<span class=x>    {</span>
+<span class=x>        return $this-&gt;fooBar;</span>
+<span class=x>    }</span>
+
+<span class=x>    public function getHref()</span>
+<span class=x>    {</span>
+<span class=x>        return sprintf(&#39;%s/%s&#39;, $this-&gt;foo, $this-&gt;fooBar);</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+
+<span class=x>// Instantiation:</span>
+<span class=x>$page = new Page([</span>
+<span class=x>    &#39;label&#39;   =&gt; &#39;Property names are mapped to setters&#39;,</span>
+<span class=x>    &#39;foo&#39;     =&gt; &#39;bar&#39;,</span>
+<span class=x>    &#39;foo_bar&#39; =&gt; &#39;baz&#39;,</span>
+<span class=x>]);</span>
+</pre></div></p>
+<h2 id="creating-pages-using-the-page-factory">Creating pages using the page factory</h2>
+<p>All pages (also custom classes), can be created using the page factory,
+<code>Laminas\Navigation\Page\AbstractPage::factory()</code>. The factory accepts either an
+array or <code>Traversable</code> set of options.  Each key in the options corresponds to a
+page option, as seen earlier.  If the option <code>uri</code> is given and no MVC options
+are provided (e.g., <code>action</code>, <code>controller</code>, <code>route</code>), a URI page will be
+created. If any of the MVC options are given, an MVC page will be created.</p>
+<p>If <code>type</code> is given, the factory will assume the value to be the name of the
+class that should be created. If the value is <code>mvc</code> or <code>uri</code>, an MVC or URI page
+will be created, respectively.</p>
+<h3>Creating an MVC page using the page factory</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>// MVC page, as &quot;action&quot; is defined</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39;  =&gt; &#39;My MVC page&#39;,</span>
+<span class=x>    &#39;action&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// MVC page, as &quot;action&quot; and &quot;controller&quot; are defined</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39;      =&gt; &#39;Search blog&#39;,</span>
+<span class=x>    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
+<span class=x>    &#39;controller&#39; =&gt; &#39;search&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// MVC page, as &quot;route&quot; is defined</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39; =&gt; &#39;Home&#39;,</span>
+<span class=x>    &#39;route&#39; =&gt; &#39;home&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// MVC page, as &quot;type&quot; is &quot;mvc&quot;</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;type&#39;   =&gt; &#39;mvc&#39;,</span>
+<span class=x>    &#39;label&#39;  =&gt; &#39;My MVC page&#39;,</span>
+<span class=x>]);</span>
+</pre></div></p>
+<h3>Creating a URI page using the page factory</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
+<span class=x>    &#39;uri&#39;   =&gt; &#39;http://www.example.com/&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39;  =&gt; &#39;Search&#39;,</span>
+<span class=x>    &#39;uri&#39;    =&gt; &#39;http://www.example.com/search&#39;,</span>
+<span class=x>    &#39;active&#39; =&gt; true,</span>
+<span class=x>]);</span>
+
+<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
+<span class=x>    &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// URI page, as &quot;type&quot; is &quot;uri&quot;</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;type&#39;  =&gt; &#39;uri&#39;,</span>
+<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
+<span class=x>]);</span>
+</pre></div></p>
+<h3>Creating a custom page type using the page factory</h3>
+<p>To create a custom page type using the factory, use the option <code>type</code> to specify
+a class name to instantiate.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace My\Navigation;</span>
+
+<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>class Page extends AbstractPage</span>
+<span class=x>{</span>
+<span class=x>    protected $fooBar = &#39;ok&#39;;</span>
+
+<span class=x>    public function setFooBar($fooBar)</span>
+<span class=x>    {</span>
+<span class=x>        $this-&gt;fooBar = $fooBar;</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+
+<span class=x>// Creates Page instance, as &quot;type&quot; refers to its class.</span>
+<span class=x>$page = AbstractPage::factory([</span>
+<span class=x>    &#39;type&#39;    =&gt; Page::class,</span>
+<span class=x>    &#39;label&#39;   =&gt; &#39;My custom page&#39;,</span>
+<span class=x>    &#39;foo_bar&#39; =&gt; &#39;foo bar&#39;,</span>
+<span class=x>]);</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../quick-start/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../containers/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-navigation/edit/master/docs/book/pages.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../containers/" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/breadcrumbs/" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-navigation';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-navigation" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

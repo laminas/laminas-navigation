@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage trees of pointers to web pages in order to build navigation systems.">  
+    <link rel="canonical" href="https://docs.laminas.dev/containers/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Containers - laminas-navigation - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pages/" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/breadcrumbs/" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-navigation</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-navigation/" class="header__link header__link--github" title="Go to repository of laminas-navigation">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#creating-containers" class="toc__link">Creating containers</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#adding-pages" class="toc__link">Adding pages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#removing-pages" class="toc__link">Removing pages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#finding-pages" class="toc__link">Finding pages</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#iterating-containers" class="toc__link">Iterating containers</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#other-operations" class="toc__link">Other operations</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="..">laminas-navigation</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Reference</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Containers</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <h1 id="containers">Containers</h1>
+<p>Containers have methods for adding, retrieving, deleting, and iterating pages.
+Containers implement the <a href="http://php.net/spl">SPL</a> interfaces
+<code>RecursiveIterator</code> and <code>Countable</code>, meaning that a container can be iterated
+using the SPL <code>RecursiveIteratorIterator</code> class.</p>
+<h2 id="creating-containers">Creating containers</h2>
+<p><code>Laminas\Navigation\AbstractContainer</code> can not be instantiated directly. Use
+<code>Laminas\Navigation\Navigation</code> if you want to instantiate a container.</p>
+<p><code>Laminas\Navigation\Navigation</code> can be constructed entirely empty, or take an array
+or a <code>Traversable</code> object with pages to put in the container. Each page provided
+via options will eventually be passed to the <code>addPage()</code> method of the container
+class, which means that each element in the options can be also be an array,
+Traversable object, or a <code>Laminas\Navigation\Page\AbstractPage</code> instance.</p>
+<h3>Creating a container using an array</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>/*</span>
+<span class=x> * Create a container from an array</span>
+<span class=x> *</span>
+<span class=x> * Each element in the array will be passed to</span>
+<span class=x> * Laminas\Navigation\Page\AbstractPage::factory() when constructing.</span>
+<span class=x> */</span>
+<span class=x>$container = new Navigation([</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
+<span class=x>        &#39;id&#39; =&gt; &#39;home-link&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;/&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Laminas&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;http://www.laminas-project.com/&#39;,</span>
+<span class=x>        &#39;order&#39; =&gt; 100,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
+<span class=x>                &#39;action&#39; =&gt; &#39;page2_1&#39;,</span>
+<span class=x>                &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+<span class=x>                &#39;class&#39; =&gt; &#39;special-one&#39;,</span>
+<span class=x>                &#39;title&#39; =&gt; &#39;This element has a special class&#39;,</span>
+<span class=x>                &#39;active&#39; =&gt; true,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
+<span class=x>                &#39;action&#39; =&gt; &#39;page2_2&#39;,</span>
+<span class=x>                &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+<span class=x>                &#39;class&#39; =&gt; &#39;special-two&#39;,</span>
+<span class=x>                &#39;title&#39; =&gt; &#39;This element has a special class too&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 2 with params&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+<span class=x>        // specify a param or two,</span>
+<span class=x>        &#39;params&#39; =&gt; [</span>
+<span class=x>            &#39;format&#39; =&gt; &#39;json&#39;,</span>
+<span class=x>            &#39;foo&#39; =&gt; &#39;bar&#39;,</span>
+<span class=x>        ]</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 2 with params and a route&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+
+<span class=x>        // specify a route name and a param for the route</span>
+<span class=x>        &#39;route&#39; =&gt; &#39;nav-route-example&#39;,</span>
+<span class=x>        &#39;params&#39; =&gt; [</span>
+<span class=x>            &#39;format&#39; =&gt; &#39;json&#39;,</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 3&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>        &#39;module&#39; =&gt; &#39;mymodule&#39;,</span>
+<span class=x>        &#39;reset_params&#39; =&gt; false,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 4&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;#&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 4.1&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;/page4&#39;,</span>
+<span class=x>                &#39;title&#39; =&gt; &#39;Page 4 using uri&#39;,</span>
+<span class=x>                &#39;pages&#39; =&gt; [</span>
+<span class=x>                    [</span>
+<span class=x>                        &#39;label&#39; =&gt; &#39;Page 4.1.1&#39;,</span>
+<span class=x>                        &#39;title&#39; =&gt; &#39;Page 4 using mvc params&#39;,</span>
+<span class=x>                        &#39;action&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>                        &#39;controller&#39; =&gt; &#39;page4&#39;,</span>
+<span class=x>                        // let&#39;s say this page is active</span>
+<span class=x>                        &#39;active&#39; =&gt; &#39;1&#39;,</span>
+<span class=x>                    ]</span>
+<span class=x>                ],</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 0?&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;/setting/the/order/option&#39;,</span>
+
+<span class=x>        // setting order to -1 should make it appear first</span>
+<span class=x>        &#39;order&#39; =&gt; -1,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 5&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;/&#39;,</span>
+
+<span class=x>        // this page should not be visible</span>
+<span class=x>        &#39;visible&#39; =&gt; false,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 5.1&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#&#39;,</span>
+<span class=x>                &#39;pages&#39; =&gt; [</span>
+<span class=x>                    [</span>
+<span class=x>                        &#39;label&#39; =&gt; &#39;Page 5.1.1&#39;,</span>
+<span class=x>                        &#39;uri&#39; =&gt; &#39;#&#39;,</span>
+<span class=x>                        &#39;pages&#39; =&gt; [</span>
+<span class=x>                            [</span>
+<span class=x>                                &#39;label&#39; =&gt; &#39;Page 5.1.2&#39;,</span>
+<span class=x>                                &#39;uri&#39; =&gt; &#39;#&#39;,</span>
+
+<span class=x>                                // let&#39;s say this page is active</span>
+<span class=x>                                &#39;active&#39; =&gt; true,</span>
+<span class=x>                            ],</span>
+<span class=x>                        ],</span>
+<span class=x>                    ],</span>
+<span class=x>                ],</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 1 (guest)&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-guest&#39;,</span>
+<span class=x>        &#39;resource&#39; =&gt; &#39;nav-guest&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.1 (foo)&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-foo&#39;,</span>
+<span class=x>                &#39;resource&#39; =&gt; &#39;nav-foo&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.2 (bar)&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-bar&#39;,</span>
+<span class=x>                &#39;resource&#39; =&gt; &#39;nav-bar&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.3 (baz)&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-baz&#39;,</span>
+<span class=x>                &#39;resource&#39; =&gt; &#39;nav-baz&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.4 (bat)&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-bat&#39;,</span>
+<span class=x>                &#39;resource&#39; =&gt; &#39;nav-bat&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 2 (member)&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-member&#39;,</span>
+<span class=x>        &#39;resource&#39; =&gt; &#39;nav-member&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 3 (admin&#39;,</span>
+<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-admin&#39;,</span>
+<span class=x>        &#39;resource&#39; =&gt; &#39;nav-admin&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 3.1 (nothing)&#39;,</span>
+<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-nada&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Laminas&#39;,</span>
+<span class=x>        &#39;route&#39; =&gt; &#39;api-tools-route&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>]);</span>
+</pre></div></p>
+<h2 id="adding-pages">Adding pages</h2>
+<p>Adding pages to a container can be done with the methods <code>addPage()</code>,
+<code>addPages()</code>, or <code>setPages()</code>.  See examples below for explanation.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Config\Config;</span>
+<span class=x>use Laminas\Navigation\Navigation;</span>
+<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+
+<span class=x>// create container</span>
+<span class=x>$container = new Navigation();</span>
+
+<span class=x>// add page by giving a page instance</span>
+<span class=x>$container-&gt;addPage(AbstractPage::factory([</span>
+<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
+<span class=x>]]);</span>
+
+<span class=x>// add page by giving an array</span>
+<span class=x>$container-&gt;addPage([</span>
+<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
+<span class=x>]);</span>
+
+<span class=x>// add page by giving a Traversable object; in this case, a laminas-config</span>
+<span class=x>// instance.</span>
+<span class=x>$container-&gt;addPage(Config([</span>
+<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
+<span class=x>]));</span>
+
+<span class=x>$pages = [</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;  =&gt; &#39;Save&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;save&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt;  &#39;Delete&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;delete&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>];</span>
+
+<span class=x>// add two pages</span>
+<span class=x>$container-&gt;addPages($pages);</span>
+
+<span class=x>// remove existing pages and add the given pages</span>
+<span class=x>$container-&gt;setPages($pages);</span>
+</pre></div></p>
+<h2 id="removing-pages">Removing pages</h2>
+<p>Removing pages can be done with <code>removePage()</code> or <code>removePages()</code>.
+<code>removePage()</code> accepts an instance of a page or an integer. Integer arguments
+correspond to the <code>order</code> a page has. <code>removePages()</code> will remove all pages in
+the container.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>$container = new Navigation([</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;  =&gt; &#39;Page 1&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;page1&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;  =&gt; &#39;Page 2&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;page2&#39;,</span>
+<span class=x>        &#39;order&#39;  =&gt; 200,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;  =&gt; &#39;Page 3&#39;,</span>
+<span class=x>        &#39;action&#39; =&gt; &#39;page3&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>]);</span>
+
+<span class=x>// remove page by implicit page order</span>
+<span class=x>$container-&gt;removePage(0);      // removes Page 1</span>
+
+<span class=x>// remove page by instance</span>
+<span class=x>$page3 = $container-&gt;findOneByAction(&#39;page3&#39;);</span>
+<span class=x>$container-&gt;removePage($page3); // removes Page 3</span>
+
+<span class=x>// remove page by explicit page order</span>
+<span class=x>$container-&gt;removePage(200);    // removes Page 2</span>
+
+<span class=x>// remove all pages</span>
+<span class=x>$container-&gt;removePages();      // removes all pages</span>
+</pre></div></p>
+<h3>Remove a page recursively</h3>
+<p>Removing a page recursively can be done with the second parameter of
+the <code>removePage()</code> method, which expects a <code>boolean</code> value.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>$container = new Navigation(</span>
+<span class=x>    [</span>
+<span class=x>        [</span>
+<span class=x>            &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
+<span class=x>            &#39;route&#39; =&gt; &#39;page1&#39;,</span>
+<span class=x>            &#39;pages&#39; =&gt; [</span>
+<span class=x>                [</span>
+<span class=x>                    &#39;label&#39; =&gt; &#39;Page 1.1&#39;,</span>
+<span class=x>                    &#39;route&#39; =&gt; &#39;page1/page1-1&#39;,</span>
+<span class=x>                    &#39;pages&#39; =&gt; [</span>
+<span class=x>                        [</span>
+<span class=x>                            &#39;label&#39; =&gt; &#39;Page 1.1.1&#39;,</span>
+<span class=x>                            &#39;route&#39; =&gt; &#39;page1/page1-1/page1-1-1&#39;,</span>
+<span class=x>                        ],</span>
+<span class=x>                    ],</span>
+<span class=x>                ],</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ]</span>
+<span class=x>);</span>
+
+<span class=x>// Removes Page 1.1.1</span>
+<span class=x>$container-&gt;removePage(</span>
+<span class=x>    $container-&gt;findOneBy(&#39;route&#39;, &#39;page1/page1-1/page1-1-1&#39;),</span>
+<span class=x>    true</span>
+<span class=x>);</span>
+</pre></div></p>
+<h2 id="finding-pages">Finding pages</h2>
+<p>Containers have three finder methods for retrieving pages. Each recursively
+searches the container testing for properties with values that match the one
+provided.</p>
+<ul>
+<li><code>findOneBy($property, $value) : AbstractPage|null</code>: Returns the first page
+  found matching the criteria, or <code>null</code> if none was found.</li>
+<li><code>findAllBy($property, $value) : AbstractPage[]</code>: Returns an array of all
+  page instances matching the criteria.</li>
+<li><code>findBy($property, $value, $all = false) AbstractPage|AbstractPage[]|null</code>:
+  calls on one of the previous methods based on the value of <code>$all</code>.</li>
+</ul>
+<p>The finder methods can also be used magically by appending the property name to
+<code>findBy</code>, <code>findOneBy</code>, or <code>findAllBy</code>. As an example, <code>findOneByLabel('Home')</code>
+will return the first matching page with label 'Home'.</p>
+<p>Other combinations include <code>findByLabel(...)</code>, <code>findOneByTitle(...)</code>,
+<code>findAllByController(...)</code>, etc. Finder methods also work on custom properties,
+such as <code>findByFoo('bar')</code>.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>$container = new Navigation([</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;page-1&#39;,</span>
+<span class=x>        &#39;foo&#39;   =&gt; &#39;bar&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 1.1&#39;,</span>
+<span class=x>                &#39;uri&#39;   =&gt; &#39;page-1.1&#39;,</span>
+<span class=x>                &#39;foo&#39;   =&gt; &#39;bar&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 1.2&#39;,</span>
+<span class=x>                &#39;uri&#39;   =&gt; &#39;page-1.2&#39;,</span>
+<span class=x>                &#39;class&#39; =&gt; &#39;my-class&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;type&#39;   =&gt; &#39;uri&#39;,</span>
+<span class=x>                &#39;label&#39;  =&gt; &#39;Page 1.3&#39;,</span>
+<span class=x>                &#39;uri&#39;    =&gt; &#39;page-1.3&#39;,</span>
+<span class=x>                &#39;action&#39; =&gt; &#39;about&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;      =&gt; &#39;Page 2&#39;,</span>
+<span class=x>        &#39;id&#39;         =&gt; &#39;page_2_and_3&#39;,</span>
+<span class=x>        &#39;class&#39;      =&gt; &#39;my-class&#39;,</span>
+<span class=x>        &#39;module&#39;     =&gt; &#39;page2&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>        &#39;action&#39;     =&gt; &#39;page1&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39;      =&gt; &#39;Page 3&#39;,</span>
+<span class=x>        &#39;id&#39;         =&gt; &#39;page_2_and_3&#39;,</span>
+<span class=x>        &#39;module&#39;     =&gt; &#39;page3&#39;,</span>
+<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>]);</span>
+
+<span class=x>// The &#39;id&#39; is not required to be unique, but be aware that</span>
+<span class=x>// having two pages with the same id will render the same id attribute</span>
+<span class=x>// in menus and breadcrumbs.</span>
+
+<span class=x>// Returns &quot;Page 2&quot;:</span>
+<span class=x>$found = $container-&gt;findBy(&#39;id&#39;, &#39;page_2_and_3&#39;);</span>
+
+<span class=x>// Returns &quot;Page 2&quot;:</span>
+<span class=x>$found = $container-&gt;findOneBy(&#39;id&#39;, &#39;page_2_and_3&#39;);</span>
+
+<span class=x>// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:</span>
+<span class=x>$found = $container-&gt;findBy(&#39;id&#39;, &#39;page_2_and_3&#39;, true);</span>
+
+<span class=x>// Returns &quot;Page 2&quot;:</span>
+<span class=x>$found = $container-&gt;findById(&#39;page_2_and_3&#39;);</span>
+
+<span class=x>// Returns &quot;Page 2&quot;:</span>
+<span class=x>$found = $container-&gt;findOneById(&#39;page_2_and_3&#39;);</span>
+
+<span class=x>// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:</span>
+<span class=x>$found = $container-&gt;findAllById(&#39;page_2_and_3&#39;);</span>
+
+<span class=x>// Find all pages matching the CSS class &quot;my-class&quot;:</span>
+<span class=x>// Returns &quot;Page 1.2&quot; and &quot;Page 2&quot;:</span>
+<span class=x>$found = $container-&gt;findAllBy(&#39;class&#39;, &#39;my-class&#39;);</span>
+<span class=x>$found = $container-&gt;findAllByClass(&#39;my-class&#39;);</span>
+
+<span class=x>// Find first page matching CSS class &quot;my-class&quot;:</span>
+<span class=x>// Returns &quot;Page 1.2&quot;:</span>
+<span class=x>$found = $container-&gt;findOneByClass(&#39;my-class&#39;);</span>
+
+<span class=x>// Find all pages matching the CSS class &quot;non-existent&quot;:</span>
+<span class=x>// Returns an empty array.</span>
+<span class=x>$found = $container-&gt;findAllByClass(&#39;non-existent&#39;);</span>
+
+<span class=x>// Find first page matching the CSS class &quot;non-existent&quot;:</span>
+<span class=x>// Returns null.</span>
+<span class=x>$found = $container-&gt;findOneByClass(&#39;non-existent&#39;);</span>
+
+<span class=x>// Find all pages with custom property &#39;foo&#39; = &#39;bar&#39;:</span>
+<span class=x>// Returns &quot;Page 1&quot; and &quot;Page 1.1&quot;:</span>
+<span class=x>$found = $container-&gt;findAllBy(&#39;foo&#39;, &#39;bar&#39;);</span>
+
+<span class=x>// To achieve the same magically, &#39;foo&#39; must be in lowercase.</span>
+<span class=x>// This is because &#39;foo&#39; is a custom property, and thus the</span>
+<span class=x>// property name is not normalized to &#39;Foo&#39;:</span>
+<span class=x>$found = $container-&gt;findAllByfoo(&#39;bar&#39;);</span>
+
+<span class=x>// Find all with controller = &#39;index&#39;:</span>
+<span class=x>// Returns &quot;Page 2&quot; and &quot;Page 3&quot;:</span>
+<span class=x>$found = $container-&gt;findAllByController(&#39;index&#39;);</span>
+</pre></div></p>
+<h2 id="iterating-containers">Iterating containers</h2>
+<p><code>Laminas\Navigation\AbstractContainer</code> implements <code>RecursiveIterator</code>.  iterate a
+container recursively, use the <code>RecursiveIteratorIterator</code> class.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use RecursiveIteratorIterator;</span>
+<span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>/*</span>
+<span class=x> * Create a container from an array</span>
+<span class=x> */</span>
+<span class=x>$container = new Navigation([</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
+<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
+<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 3&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>]);</span>
+
+<span class=x>// Iterate flat using regular foreach:</span>
+<span class=x>// Output: Page 1, Page 2, Page 3</span>
+<span class=x>foreach ($container as $page) {</span>
+<span class=x>    echo $page-&gt;label;</span>
+<span class=x>}</span>
+
+<span class=x>// Iterate recursively using RecursiveIteratorIterator</span>
+<span class=x>$it = new RecursiveIteratorIterator(</span>
+<span class=x>    $container,</span>
+<span class=x>    RecursiveIteratorIterator::SELF_FIRST</span>
+<span class=x>);</span>
+
+<span class=x>// Output: Page 1, Page 2, Page 2.1, Page 2.2, Page 3</span>
+<span class=x>foreach ($it as $page) {</span>
+<span class=x>    echo $page-&gt;label;</span>
+<span class=x>}</span>
+</pre></div></p>
+<h2 id="other-operations">Other operations</h2>
+<h3>hasPage</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>hasPage(AbstractPage $page) : bool</span>
+</pre></div></p>
+<p>Check if the container has the given page.</p>
+<h3>hasPages</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>hasPages() : bool</span>
+</pre></div></p>
+<p>Checks if there are any pages in the container, and is equivalent to
+<code>count($container) &gt; 0</code>.</p>
+<h3>toArray</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>toArray() : array</span>
+</pre></div></p>
+<p>Converts the container and the pages in it to a (nested) array. This can be useful
+for serializing and debugging.</p>
+<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+
+<span class=x>$container = new Navigation([</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>    ],</span>
+<span class=x>    [</span>
+<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
+<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>        &#39;pages&#39; =&gt; [</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
+<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>            [</span>
+<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
+<span class=x>               &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
+<span class=x>            ],</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>]);</span>
+
+<span class=x>var_dump($container-&gt;toArray());</span>
+
+<span class=x>/* Output:</span>
+<span class=x>array(2) {</span>
+<span class=x>  [0]=&gt; array(15) {</span>
+<span class=x>    [&quot;label&quot;]=&gt; string(6) &quot;Page 1&quot;</span>
+<span class=x>    [&quot;id&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;class&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;title&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;target&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;rel&quot;]=&gt; array(0) {</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;rev&quot;]=&gt; array(0) {</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;order&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;resource&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;privilege&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;active&quot;]=&gt; bool(false)</span>
+<span class=x>    [&quot;visible&quot;]=&gt; bool(true)</span>
+<span class=x>    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
+<span class=x>    [&quot;pages&quot;]=&gt; array(0) {</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
+<span class=x>  }</span>
+<span class=x>  [1]=&gt; array(15) {</span>
+<span class=x>    [&quot;label&quot;]=&gt; string(6) &quot;Page 2&quot;</span>
+<span class=x>    [&quot;id&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;class&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;title&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;target&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;rel&quot;]=&gt; array(0) {</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;rev&quot;]=&gt; array(0) {</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;order&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;resource&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;privilege&quot;]=&gt; NULL</span>
+<span class=x>    [&quot;active&quot;]=&gt; bool(false)</span>
+<span class=x>    [&quot;visible&quot;]=&gt; bool(true)</span>
+<span class=x>    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
+<span class=x>    [&quot;pages&quot;]=&gt; array(2) {</span>
+<span class=x>      [0]=&gt; array(15) {</span>
+<span class=x>        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.1&quot;</span>
+<span class=x>        [&quot;id&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;class&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;title&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;target&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;rel&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;rev&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;order&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;resource&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;privilege&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;active&quot;]=&gt; bool(false)</span>
+<span class=x>        [&quot;visible&quot;]=&gt; bool(true)</span>
+<span class=x>        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
+<span class=x>        [&quot;pages&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
+<span class=x>      }</span>
+<span class=x>      [1]=&gt;</span>
+<span class=x>      array(15) {</span>
+<span class=x>        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.2&quot;</span>
+<span class=x>        [&quot;id&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;class&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;title&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;target&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;rel&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;rev&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;order&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;resource&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;privilege&quot;]=&gt; NULL</span>
+<span class=x>        [&quot;active&quot;]=&gt; bool(false)</span>
+<span class=x>        [&quot;visible&quot;]=&gt; bool(true)</span>
+<span class=x>        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
+<span class=x>        [&quot;pages&quot;]=&gt; array(0) {</span>
+<span class=x>        }</span>
+<span class=x>        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
+<span class=x>      }</span>
+<span class=x>    }</span>
+<span class=x>    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
+<span class=x>  }</span>
+<span class=x>}</span>
+<span class=x>*/</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../pages/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../helpers/intro/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-navigation/edit/master/docs/book/containers.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../pages/" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/breadcrumbs/" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '..',
+            project  = "components",
+            siteName = 'laminas-navigation';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-navigation" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

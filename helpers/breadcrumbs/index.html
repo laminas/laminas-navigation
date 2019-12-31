@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage trees of pointers to web pages in order to build navigation systems.">  
+    <link rel="canonical" href="https://docs.laminas.dev/helpers/breadcrumbs/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Breadcrumbs - laminas-navigation - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pages/" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../containers/" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-navigation</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-navigation/" class="header__link header__link--github" title="Go to repository of laminas-navigation">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#basic-usage" class="toc__link">Basic usage</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#specifying-indentation" class="toc__link">Specifying indentation</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#customize-output" class="toc__link">Customize output</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#rendering-using-a-partial-view-script" class="toc__link">Rendering using a partial view script</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">laminas-navigation</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">View Helpers</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Breadcrumbs</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">View Helpers</h2>
+    
+
+    <h1 id="breadcrumbs">Breadcrumbs</h1>
+<p>Breadcrumbs are used for indicating where in a sitemap a user is currently browsing, and are
+typically rendered like the following:</p>
+<p> <div class=codehilite><pre><span></span>You are here: Home &gt; Products &gt; FantasticProduct 1.0
+</pre></div></p>
+<p>The <code>breadcrumbs()</code> helper follows the <a href="http://developer.yahoo.com/ypatterns/pattern.php?pattern=breadcrumbs">Breadcrumbs Pattern</a>
+as outlined in the Yahoo! Design Pattern Library, and allows simple
+customization (minimum/maximum depth, indentation, separator, and whether the
+last element should be linked), or rendering using a partial view script.</p>
+<p>The Breadcrumbs helper finds the deepest active page in a navigation container,
+and renders an upwards path to the root. For MVC pages, the "activeness" of a
+page is determined by inspecting the request object, as stated in the section on
+<a href="../../pages/#mvc-pages">MVC pages</a>.</p>
+<p>The helper sets the <code>minDepth</code> property to 1 by default, meaning breadcrumbs
+will not be rendered if the deepest active page is a root page. If <code>maxDepth</code> is
+specified, the helper will stop rendering when at the specified depth (e.g. stop
+at level 2 even if the deepest active page is on level 3).</p>
+<p>Methods in the breadcrumbs helper:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Method signature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getSeparator() : string</code></td>
+<td>Retrieves the separator string to use between breadcrumbs; default is <code>&amp;gt;</code>.</td>
+</tr>
+<tr>
+<td><code>setSeparator(string $separator) : self</code></td>
+<td>Set the separator string to use between breadcrumbs.</td>
+</tr>
+<tr>
+<td><code>getLinkLast() : bool</code></td>
+<td>Retrieve the flag indicating whether the last breadcrumb should be rendered as an anchor; defaults to <code>false</code>.</td>
+</tr>
+<tr>
+<td><code>setLinkLast(bool $flag) : self</code></td>
+<td>Set the flag indicating whether the last breadcrumb should be rendered as an anchor.</td>
+</tr>
+<tr>
+<td><code>getPartial() : string|array</code></td>
+<td>Retrieve a partial view script that should be used for rendering breadcrumbs. If a partial view script is set, the helper's <code>render()</code> method will use the <code>renderPartial()</code> method. The helper expects the partial to be a <code>string</code> or an <code>array</code> with two elements. If the partial is a <code>string</code>, it denotes the name of the partial script to use. If it is an <code>array</code>, the first element will be used as the name of the partial view script, and the second element is the module where the script is found.</td>
+</tr>
+<tr>
+<td><code>setPartial(string|array $partial) : self</code></td>
+<td>Set the partial view script to use when rendering breadcrumbs; see <code>getPartial()</code> for acceptable values.</td>
+</tr>
+<tr>
+<td><code>renderStraight()</code></td>
+<td>The default render method used when no partial view script is present.</td>
+</tr>
+<tr>
+<td><code>renderPartial()</code></td>
+<td>Used for rendering using a partial view script.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="basic-usage">Basic usage</h2>
+<p>This example shows how to render breadcrumbs with default settings.</p>
+<p>In a view script or layout:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>breadcrumbs</span><span class=p>();</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>The call above takes advantage of the magic <code>__toString()</code> method, and is
+equivalent to:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>breadcrumbs</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>render</span><span class=p>();</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Output:</p>
+<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> <span class=ni>&amp;gt;</span> <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> <span class=ni>&amp;gt;</span> FAQ
+</pre></div></p>
+<h2 id="specifying-indentation">Specifying indentation</h2>
+<p>This example shows how to render breadcrumbs with initial indentation.</p>
+<p>Rendering with 8 spaces indentation:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>breadcrumbs</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>setIndent</span><span class=p>(</span><span class=mi>8</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Output:</p>
+<p> <div class=codehilite><pre><span></span>        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> <span class=ni>&amp;gt;</span> <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> <span class=ni>&amp;gt;</span> FAQ
+</pre></div></p>
+<h2 id="customize-output">Customize output</h2>
+<p>This example shows how to customize breadcrumbs output by specifying multiple options.</p>
+<p>In a view script or layout:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>breadcrumbs</span><span class=p>()</span>
+    <span class=o>-&gt;</span><span class=na>setLinkLast</span><span class=p>(</span><span class=k>true</span><span class=p>)</span>                   <span class=c1>// link last page</span>
+    <span class=o>-&gt;</span><span class=na>setMaxDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>                      <span class=c1>// stop at level 1</span>
+    <span class=o>-&gt;</span><span class=na>setSeparator</span><span class=p>(</span><span class=s1>&#39; ▶&#39;</span> <span class=o>.</span> <span class=nx>PHP_EOL</span><span class=p>);</span>       <span class=c1>// cool separator with newline</span>
+<span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Output:</p>
+<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span> ▶
+<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</pre></div></p>
+<p>Setting minimum depth required to render breadcrumbs:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>breadcrumbs</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>setMinDepth</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Output: Nothing, because the deepest active page is not at level 10 or deeper.</p>
+<h2 id="rendering-using-a-partial-view-script">Rendering using a partial view script</h2>
+<p>This example shows how to render customized breadcrumbs using a partial vew
+script. By calling <code>setPartial()</code>, you can specify a partial view script that
+will be used when calling <code>render()</code>.  When a partial is specified, the
+<code>renderPartial()</code> method will be called when emitting the breadcrumbs. This
+method will find the deepest active page and pass an array of pages that leads
+to the active page to the partial view script.</p>
+<p>In a layout:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>echo $this-&gt;navigation()-&gt;breadcrumbs()</span>
+<span class=x>    -&gt;setPartial(&#39;my-module/partials/breadcrumbs&#39;);</span>
+</pre></div></p>
+<p>Contents of <code>module/MyModule/view/my-module/partials/breadcrumbs.phtml</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nb>implode</span><span class=p>(</span><span class=s1>&#39;, &#39;</span><span class=p>,</span> <span class=nb>array_map</span><span class=p>(</span><span class=k>function</span> <span class=p>(</span><span class=nv>$a</span><span class=p>)</span> <span class=p>{</span>
+  <span class=k>return</span> <span class=nv>$a</span><span class=o>-&gt;</span><span class=na>getLabel</span><span class=p>();</span>
+<span class=p>},</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>pages</span><span class=p>));</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Output:</p>
+<p> <div class=codehilite><pre><span></span>Products, Foo Server, FAQ
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../intro/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../links/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-navigation/edit/master/docs/book/helpers/breadcrumbs.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-navigation</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../intro/" class="subnavigation__link">Introduction</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Reference</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pages/" class="subnavigation__link">Pages</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../containers/" class="subnavigation__link">Containers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">View Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Breadcrumbs</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../links/" class="subnavigation__link">Links</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../menu/" class="subnavigation__link">Menu</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../sitemap/" class="subnavigation__link">Sitemap</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'laminas-navigation';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-navigation" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
