@@ -1,26 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation;
+namespace LaminasTest\Navigation;
 
-use Zend\Navigation;
-use Zend\Navigation\Page;
-use Zend\Config;
+use Laminas\Config;
+use Laminas\Navigation;
+use Laminas\Navigation\Page;
 
 /**
- * Tests the class Zend_Navigation_Container
+ * Tests the class Laminas_Navigation_Container
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage UnitTests
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -89,7 +87,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $nav = new Navigation\Navigation('ok');
             $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $pages', $e->getMessage());
@@ -98,7 +96,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $nav = new Navigation\Navigation(1337);
             $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $pages', $e->getMessage());
@@ -107,7 +105,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $nav = new Navigation\Navigation(new \stdClass());
             $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\ExceptionInterface $e) {
             $this->assertContains('Invalid argument: $pages', $e->getMessage());
@@ -377,7 +375,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-9815
+     * @group Laminas-9815
      */
     public function testAddPagesShouldWorkWithNavigationContainer()
     {
@@ -401,7 +399,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $nav->addPages('this is a string');
             $this->fail('An invalid argument was given to addPages(), ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $pages must be', $e->getMessage());
@@ -415,7 +413,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $nav->addPages($pages = new \stdClass());
             $this->fail('An invalid argument was given to addPages(), ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertContains('Invalid argument: $pages must be', $e->getMessage());
@@ -491,7 +489,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($expected, $actual);
-        $this->assertContainsOnly('Zend\Navigation\Page\Uri', $pages, false);
+        $this->assertContainsOnly('Laminas\Navigation\Page\Uri', $pages, false);
     }
 
     public function testGetPagesShouldReturnUnorderedPages()
@@ -782,7 +780,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBy('page2', 'page2');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -791,7 +789,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBy('id', 'page_2_and_3');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -808,7 +806,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllBy('id', 'page_2_and_3');
-        $this->assertContainsOnly('Zend\Navigation\Page\AbstractPage', $found, false);
+        $this->assertContainsOnly('Laminas\Navigation\Page\AbstractPage', $found, false);
 
         $expected = array('Page 2', 'Page 3');
         $actual = array();
@@ -835,7 +833,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findBy('id', 'page_2_and_3');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
     }
 
     public function testFindOneByMagicMethodNativeProperty()
@@ -843,7 +841,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneById('page_2_and_3');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -852,7 +850,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBypage2('page2');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -861,7 +859,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllById('page_2_and_3');
-        $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
 
         $expected = array('Page 2', 'Page 3');
         $actual = array();
@@ -877,7 +875,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByAction('about');
-        $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
 
         $expected = array('Page 3');
         $actual = array();
@@ -893,7 +891,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByaction('about');
-        $this->assertContainsOnly('Zend\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
 
         $expected = array('Page 1.3', 'Page 3');
         $actual = array();
@@ -909,7 +907,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findById('page_2_and_3');
-        $this->assertInstanceOf('Zend\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -920,7 +918,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $found = $nav->findSomeById('page_2_and_3');
             $this->fail('An invalid magic finder method was used, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
             $this->assertContains('Bad method call', $e->getMessage());
@@ -934,7 +932,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $found = $nav->getPagez();
             $this->fail('An invalid magic finder method was used, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
             $this->assertContains('Bad method call', $e->getMessage());
@@ -1012,7 +1010,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid()
     {
-        $container = new \ZendTest\Navigation\TestAsset\AbstractContainer(array(
+        $container = new \LaminasTest\Navigation\TestAsset\AbstractContainer(array(
             array(
                 'label' => 'Page 2',
                 'type'  => 'uri'
@@ -1027,7 +1025,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         try {
             $page = $container->current();
             $this->fail('AbstractContainer index is invalid, ' .
-                        'but a Zend\Navigation\Exception\InvalidArgumentException was ' .
+                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\OutOfBoundsException $e) {
             $this->assertContains('Corruption detected', $e->getMessage());
