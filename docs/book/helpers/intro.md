@@ -1,7 +1,7 @@
 # View Helpers
 
 The navigation helpers are used for rendering navigational elements from
-[`Zend\Navigation\Navigation`](../containers.md) instances.
+[`Laminas\Navigation\Navigation`](../containers.md) instances.
 
 There are 5 built-in helpers:
 
@@ -15,11 +15,11 @@ There are 5 built-in helpers:
 - [Navigation](navigation.md), used for proxying calls to other navigational
   helpers.
 
-All built-in helpers extend `Zend\View\Helper\Navigation\AbstractHelper`, which
+All built-in helpers extend `Laminas\View\Helper\Navigation\AbstractHelper`, which
 adds integration with
-[zend-acl](https://docs.zendframework.com/zend-permissions-acl/) and
-[zend-i18n](https://docs.zendframework.com/zend-i18n/). The abstract class
-implements the interface `Zend\View\Helper\Navigation\HelperInterface`, which
+[laminas-acl](https://docs.laminas.dev/laminas-permissions-acl/) and
+[laminas-i18n](https://docs.laminas.dev/laminas-i18n/). The abstract class
+implements the interface `Laminas\View\Helper\Navigation\HelperInterface`, which
 defines the following methods:
 
 Method signature                                                       | Description
@@ -27,16 +27,16 @@ Method signature                                                       | Descrip
 `getContainer() : null\|AbstractContainer`                             | Retrieve the current navigation container, if any.
 `hasContainer() : bool`                                                | Is any navigation container currently registered?
 `setContainer(AbstractContainer $container) : self`                    | Set a navigation container.
-`getTranslator() : null\|Zend\I18n\Translator\TranslatorInterface`     | Retrieve the current translator instance, if any.
-`setTranslator(Zend\I18n\Translator\TranslatorInterface`) : self`      | Set a translator instance to use with labels.
+`getTranslator() : null\|Laminas\I18n\Translator\TranslatorInterface`     | Retrieve the current translator instance, if any.
+`setTranslator(Laminas\I18n\Translator\TranslatorInterface`) : self`      | Set a translator instance to use with labels.
 `hasTranslator() : bool`                                               | Is a translator instance present?
 `isTranslatorEnabled() : bool`                                         | Should translation occur? To be `true`, both the flag enabling translation must be set, and a translator instance present.
 `setTranslatorEnabled(bool $flag) : self`                              | Set the flag indicating whether or not translation should occur.
-`getAcl() : null\|Zend\Permissions\Acl\AclInterface`                   | Retrieve the current ACL instance, if any.
-`setAcl(Zend\Permissions\Acl\AclInterface $acl) : self`                | Set an ACL instance.
+`getAcl() : null\|Laminas\Permissions\Acl\AclInterface`                   | Retrieve the current ACL instance, if any.
+`setAcl(Laminas\Permissions\Acl\AclInterface $acl) : self`                | Set an ACL instance.
 `hasAcl() : bool`                                                      | Whether or not an ACL instance is present.
-`getRole() : null\|string|\Zend\Permissions\Acl\Role\RoleInterface`    | Retrieve the current ACL role instance, if any.
-`setRole(string\|Zend\Permissions\Acl\Role\RoleInterface $acl) : self` | Set an ACL role instance.
+`getRole() : null\|string|\Laminas\Permissions\Acl\Role\RoleInterface`    | Retrieve the current ACL role instance, if any.
+`setRole(string\|Laminas\Permissions\Acl\Role\RoleInterface $acl) : self` | Set an ACL role instance.
 `hasRole() : bool`                                                     | Whether or not an ACL role instance is present.
 `getUseAcl() : bool`                                                   | Whether or not to use ACLs; both the flag must be enabled and an ACL instance present.
 `setUseAcl(bool $flag) : self`                                         | Set the flag indicating whether or not to use ACLs.
@@ -60,11 +60,11 @@ Method signature                                                             | D
 `findActive(/* ... */) : array`                                              | Find the deepest active page in the container, using the arguments `AbstractContainer $container, int $minDepth = null, int $maxDepth = -1)`. If depths are not given, the method will use the values retrieved from `getMinDepth()` and `getMaxDepth()`. The deepest active page must be between `$minDepth` and `$maxDepth` inclusively. Returns an array containing the found page instance (key `page`) and the depth (key `depth`) at which the page was found.
 `htmlify(AbstractPage $page) : string`                                       | Renders an HTML `a` element based on the give page.
 `accept(AbstractPage $page, bool $recursive = true) : bool`                  | Determine if a page should be accepted when iterating containers. This method checks for page visibility and verifies that the helper's role is allowed access to the page's resource and privilege.
-`static setDefaultAcl(Zend\Permissions\Acl\AclInterface $acl) : void`        | Set a default ACL instance to use with all navigation helpers.
-`static setDefaultRole(Zend\Permissions\Acl\Role\RoleInterface $acl) : void` | Set a default ACL role instance to use with all navigation helpers.
+`static setDefaultAcl(Laminas\Permissions\Acl\AclInterface $acl) : void`        | Set a default ACL instance to use with all navigation helpers.
+`static setDefaultRole(Laminas\Permissions\Acl\Role\RoleInterface $acl) : void` | Set a default ACL role instance to use with all navigation helpers.
 
 If a container is not explicitly set, the helper will create an empty
-`Zend\Navigation\Navigation` container when calling `$helper->getContainer()`.
+`Laminas\Navigation\Navigation` container when calling `$helper->getContainer()`.
 
 ### Proxying calls to the navigation container
 
@@ -83,7 +83,7 @@ The call above will add a page to the container in the `Navigation` helper.
 ## Translation of labels and titles
 
 The navigation helpers support translation of page labels and titles. You can
-set a translator of type `Zend\I18n\Translator\TranslatorInterface` in the
+set a translator of type `Laminas\I18n\Translator\TranslatorInterface` in the
 helper using `$helper->setTranslator($translator)`.
 
 If you want to disable translation, use `$helper->setTranslatorEnabled(false)`.
@@ -99,9 +99,9 @@ it proxies to if the proxied helper doesn't already have a translator.
 ## Integration with ACL
 
 All navigational view helpers support ACLs.  An object implementing
-`Zend\Permissions\Acl\AclInterface` can be assigned to a helper instance with
+`Laminas\Permissions\Acl\AclInterface` can be assigned to a helper instance with
 `$helper->setAcl($acl)`, and role with `$helper->setRole('member')` or
-`$helper->setRole(new Zend\Permissions\Acl\Role\GenericRole('member'))`. If an
+`$helper->setRole(new Laminas\Permissions\Acl\Role\GenericRole('member'))`. If an
 ACL is used in the helper, the role in the helper must be allowed by the ACL to
 access a page's `resource` and/or have the page's `privilege` for the page to be
 included when rendering.
@@ -128,13 +128,13 @@ Notes on the setup:
 - The assumed ACL and router setup is shown below the container setup.
 
 ```php
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 /*
  * Navigation container
 
  * Each element in the array will be passed to
- * Zend\Navigation\Page\AbstractPage::factory() when constructing
+ * Laminas\Navigation\Page\AbstractPage::factory() when constructing
  * the navigation container below.
  */
 $pages = [
@@ -338,10 +338,10 @@ return [
 
 namespace MyModule;
 
-use Zend\View\HelperPluginManager;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Resource\GenericResource;
+use Laminas\View\HelperPluginManager;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Resource\GenericResource;
 
 class Module
 {
@@ -362,7 +362,7 @@ class Module
                     $acl->allow('admin', null);
 
                     // Get an instance of the proxy helper
-                    $navigation = $pm->get('Zend\View\Helper\Navigation');
+                    $navigation = $pm->get('Laminas\View\Helper\Navigation');
 
                     // Store ACL and role in the proxy helper:
                     $navigation->setAcl($acl);
