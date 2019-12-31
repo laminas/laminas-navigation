@@ -1,25 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Page;
+namespace LaminasTest\Navigation\Page;
 
-use Zend\Navigation\Page;
-use Zend\Navigation;
+use Laminas\Navigation;
+use Laminas\Navigation\Page;
 
 /**
- * Tests the class Zend_Navigation_Page_Uri
+ * Tests the class Laminas_Navigation_Page_Uri
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage UnitTests
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class UriTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +46,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
         try {
             $page = new Page\Uri(array('uri' => 1337));
             $this->fail('An invalid \'uri\' was given, but ' .
-                        'a Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'a Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
 
         }
@@ -62,7 +60,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
 
             $page = new Page\Uri(array('uri' => $uri));
             $this->fail('An invalid \'uri\' was given, but ' .
-                        'a Zend\Navigation\Exception\InvalidArgumentException was not thrown');
+                        'a Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
 
         }
@@ -91,7 +89,7 @@ class UriTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-8922
+     * @group Laminas-8922
      */
     public function testGetHrefWithFragmentIdentifier()
     {
