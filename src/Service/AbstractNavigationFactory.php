@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Service;
+namespace Laminas\Navigation\Service;
 
-use Zend\Config;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface as Router;
-use Zend\Navigation\Exception;
-use Zend\Navigation\Navigation;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Config;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\RouteStackInterface as Router;
+use Laminas\Navigation\Exception;
+use Laminas\Navigation\Navigation;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Abstract navigation factory
@@ -29,7 +28,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @return \Zend\Navigation\Navigation
+     * @return \Laminas\Navigation\Navigation
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
@@ -46,7 +45,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return array
-     * @throws \Zend\Navigation\Exception\InvalidArgumentException
+     * @throws \Laminas\Navigation\Exception\InvalidArgumentException
      */
     protected function getPages(ServiceLocatorInterface $serviceLocator)
     {
@@ -71,8 +70,8 @@ abstract class AbstractNavigationFactory implements FactoryInterface
 
     /**
      * @param ServiceLocatorInterface $serviceLocator
-     * @param array|\Zend\Config\Config $pages
-     * @throws \Zend\Navigation\Exception\InvalidArgumentException
+     * @param array|\Laminas\Config\Config $pages
+     * @throws \Laminas\Navigation\Exception\InvalidArgumentException
      */
     protected function preparePages(ServiceLocatorInterface $serviceLocator, $pages)
     {
@@ -84,9 +83,9 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     }
 
     /**
-     * @param string|\Zend\Config\Config|array $config
-     * @return array|null|\Zend\Config\Config
-     * @throws \Zend\Navigation\Exception\InvalidArgumentException
+     * @param string|\Laminas\Config\Config|array $config
+     * @return array|null|\Laminas\Config\Config
+     * @throws \Laminas\Navigation\Exception\InvalidArgumentException
      */
     protected function getPagesFromConfig($config = null)
     {
@@ -103,7 +102,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             $config = $config->toArray();
         } elseif (!is_array($config)) {
             throw new Exception\InvalidArgumentException('
-                Invalid input, expected array, filename, or Zend\Config object'
+                Invalid input, expected array, filename, or Laminas\Config object'
             );
         }
 
