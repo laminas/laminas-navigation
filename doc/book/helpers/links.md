@@ -47,10 +47,10 @@ relations that will be found by searching:
 > When looking for relations in the page instance (`$page->getRel($type)` or
 > `$page->getRev($type)`), the helper accepts the values of type `string`,
 `array`, `Traversable`,
-> or `Zend\Navigation\Page\AbstractPage`:
+> or `Laminas\Navigation\Page\AbstractPage`:
 >
 > - `AbstractPage` instances are used directly.
-> - If a string is found, it will be converted to a `Zend\Navigation\Page\Uri`.
+> - If a string is found, it will be converted to a `Laminas\Navigation\Page\Uri`.
 > - If an array or `Traversable` is found, it will be converted to one or
 >   several page instances. If the first key is numeric, it will be considered to
 >   contain several pages, and each element will be passed to the [page
@@ -74,23 +74,23 @@ See the example below for more information.
 
 The `Links` helper defines the following constants:
 
-- `Zend\View\Helper\Navigation\Links::RENDER_ALTERNATE`
-- `Zend\View\Helper\Navigation\Links::RENDER_STYLESHEET`
-- `Zend\View\Helper\Navigation\Links::RENDER_START`
-- `Zend\View\Helper\Navigation\Links::RENDER_NEXT`
-- `Zend\View\Helper\Navigation\Links::RENDER_PREV`
-- `Zend\View\Helper\Navigation\Links::RENDER_CONTENTS`
-- `Zend\View\Helper\Navigation\Links::RENDER_INDEX`
-- `Zend\View\Helper\Navigation\Links::RENDER_GLOSSARY`
-- `Zend\View\Helper\Navigation\Links::RENDER_COPYRIGHT`
-- `Zend\View\Helper\Navigation\Links::RENDER_CHAPTER`
-- `Zend\View\Helper\Navigation\Links::RENDER_SECTION`
-- `Zend\View\Helper\Navigation\Links::RENDER_SUBSECTION`
-- `Zend\View\Helper\Navigation\Links::RENDER_APPENDIX`
-- `Zend\View\Helper\Navigation\Links::RENDER_HELP`
-- `Zend\View\Helper\Navigation\Links::RENDER_BOOKMARK`
-- `Zend\View\Helper\Navigation\Links::RENDER_CUSTOM`
-- `Zend\View\Helper\Navigation\Links::RENDER_ALL`
+- `Laminas\View\Helper\Navigation\Links::RENDER_ALTERNATE`
+- `Laminas\View\Helper\Navigation\Links::RENDER_STYLESHEET`
+- `Laminas\View\Helper\Navigation\Links::RENDER_START`
+- `Laminas\View\Helper\Navigation\Links::RENDER_NEXT`
+- `Laminas\View\Helper\Navigation\Links::RENDER_PREV`
+- `Laminas\View\Helper\Navigation\Links::RENDER_CONTENTS`
+- `Laminas\View\Helper\Navigation\Links::RENDER_INDEX`
+- `Laminas\View\Helper\Navigation\Links::RENDER_GLOSSARY`
+- `Laminas\View\Helper\Navigation\Links::RENDER_COPYRIGHT`
+- `Laminas\View\Helper\Navigation\Links::RENDER_CHAPTER`
+- `Laminas\View\Helper\Navigation\Links::RENDER_SECTION`
+- `Laminas\View\Helper\Navigation\Links::RENDER_SUBSECTION`
+- `Laminas\View\Helper\Navigation\Links::RENDER_APPENDIX`
+- `Laminas\View\Helper\Navigation\Links::RENDER_HELP`
+- `Laminas\View\Helper\Navigation\Links::RENDER_BOOKMARK`
+- `Laminas\View\Helper\Navigation\Links::RENDER_CUSTOM`
+- `Laminas\View\Helper\Navigation\Links::RENDER_ALL`
 
 The constants from `RENDER_ALTERNATE` to `RENDER_BOOKMARK` denote standard HTML
 link types.  `RENDER_CUSTOM` denotes non-standard relations specified in pages.
@@ -115,9 +115,9 @@ Method signature                                                                
 This example shows how to specify relations in pages.
 
 ```php
-use Zend\Config\Config;
-use Zend\Navigation\Navigation;
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Config\Config;
+use Laminas\Navigation\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
 
 $container = new Navigation([
     [
@@ -191,7 +191,7 @@ This example shows how to specify which relations to find and render.
 Render only start, next, and prev:
 
 ```php
-use Zend\View\Helper\Navigation\Links;
+use Laminas\View\Helper\Navigation\Links;
 
 $links = $this->navigation()->links();
 $links->setRenderFlag(Links::RENDER_START | Links::RENDER_NEXT | Links::RENDER_PREV);
