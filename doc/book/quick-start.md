@@ -1,8 +1,8 @@
 # Quick Start
 
-The fastest way to get up and running with zend-navigation is:
+The fastest way to get up and running with laminas-navigation is:
 
-- Enable the zend-navigation `DefaultNavigationFactory`.
+- Enable the laminas-navigation `DefaultNavigationFactory`.
 - Define navigation container configuration under the top-level `navigation` key
   in your application configuration.
 - Render your container using a navigation view helper within your view scripts.
@@ -37,7 +37,7 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            'navigation' => Zend\Navigation\Service\DefaultNavigationFactory::class,
+            'navigation' => Laminas\Navigation\Service\DefaultNavigationFactory::class,
         ],
     ],
     // ...
@@ -57,8 +57,8 @@ return [
 ## Using multiple navigations
 
 If you want to use more than one navigation, you can register the abstract factory
-`Zend\Navigation\Service\NavigationAbstractServiceFactory` with the
-[service manager](https://github.com/zendframework/zend-servicemanager).
+`Laminas\Navigation\Service\NavigationAbstractServiceFactory` with the
+[service manager](https://github.com/laminas/laminas-servicemanager).
 
 Once the service factory is registered, you can create as many navigation
 definitions as you wish, and the factory will create navigation containers
@@ -120,7 +120,7 @@ return [
     ],
     'service_manager' => [
         'abstract_factories' => [
-            Zend\Navigation\Service\NavigationAbstractServiceFactory::class,
+            Laminas\Navigation\Service\NavigationAbstractServiceFactory::class,
         ],
     ],
 
@@ -132,7 +132,7 @@ return [
 >
 > There is one important point to know when using
 > `NavigationAbstractServiceFactory`: The name of the service in your view must
-> start with `Zend\Navigation\` followed by the name of the configuration key.
+> start with `Laminas\Navigation\` followed by the name of the configuration key.
 > This helps ensure that no naming collisions occur with other services.
 
 The following example demonstrates rendering the navigation menus for the named
@@ -143,11 +143,11 @@ The following example demonstrates rendering the navigation menus for the named
 <!-- ... -->
 
 <body>
-    <?= $this->navigation('Zend\Navigation\Default')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Default')->menu() ?>
 
-    <?= $this->navigation('Zend\Navigation\Special')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Special')->menu() ?>
 
-    <?= $this->navigation('Zend\Navigation\Sitemap')->menu() ?>
+    <?= $this->navigation('Laminas\Navigation\Sitemap')->menu() ?>
 </body>
 <!-- ... -->
 ```

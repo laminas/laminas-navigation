@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zend-navigation for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\View;
+namespace Laminas\Navigation\View;
 
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Helper\Navigation as NavigationHelper;
 use ReflectionProperty;
 use Traversable;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Helper\Navigation as NavigationHelper;
 
 /**
  * Service manager configuration for navigation view helpers
@@ -36,7 +35,7 @@ class HelperConfig extends Config
         'delegators' => [],
         'factories' => [
             NavigationHelper::class    => NavigationHelperFactory::class,
-            'zendviewhelpernavigation' => NavigationHelperFactory::class,
+            'laminasviewhelpernavigation' => NavigationHelperFactory::class,
         ],
         'initializers'  => [],
         'invokables'    => [],
@@ -69,7 +68,7 @@ class HelperConfig extends Config
      *
      * Merges navigation_helpers configuration from the parent containers
      * config service with the configuration in this class, and uses that to
-     * configure the provided service container (which should be the zend-view
+     * configure the provided service container (which should be the laminas-view
      * `HelperPluginManager`).  with the service locator instance.
      *
      * Before configuring he provided container, it also adds a delegator
@@ -162,7 +161,7 @@ class HelperConfig extends Config
     }
 
     /**
-     * Normalizes a factory service name for use with zend-servicemanager v2.
+     * Normalizes a factory service name for use with laminas-servicemanager v2.
      *
      * @param string $name
      * @return string
@@ -224,7 +223,7 @@ class HelperConfig extends Config
 
         // Inject the delegator factory
         $this->config['delegators'][NavigationHelper::class][] = $factory;
-        $this->config['delegators']['zendviewhelpernavigation'][] = $factory;
+        $this->config['delegators']['laminasviewhelpernavigation'][] = $factory;
     }
 
     /**

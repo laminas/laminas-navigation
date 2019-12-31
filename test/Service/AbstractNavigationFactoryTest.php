@@ -1,17 +1,18 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-navigation for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Service;
+namespace LaminasTest\Navigation\Service;
 
+use Laminas\Mvc\Router as MvcRouter;
+use Laminas\Navigation\Exception;
+use Laminas\Router;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionMethod;
-use Zend\Mvc\Router as MvcRouter;
-use Zend\Navigation\Exception;
-use Zend\Router;
 
 /**
  * @todo Write tests covering full functionality. Tests were introduced to
@@ -25,7 +26,7 @@ class AbstractNavigationFactoryTest extends TestCase
         $this->factory = new TestAsset\TestNavigationFactory();
     }
 
-    public function testCanInjectComponentsUsingZendRouterClasses()
+    public function testCanInjectComponentsUsingLaminasRouterClasses()
     {
         $routeMatch = $this->prophesize(Router\RouteMatch::class)->reveal();
         $router = $this->prophesize(Router\RouteStackInterface::class)->reveal();
@@ -37,7 +38,7 @@ class AbstractNavigationFactoryTest extends TestCase
             $pages = $r->invokeArgs($this->factory, $args);
         } catch (Exception\InvalidArgumentException $e) {
             $message = sprintf(
-                'injectComponents should not raise exception for zend-router classes; received %s',
+                'injectComponents should not raise exception for laminas-router classes; received %s',
                 $e->getMessage()
             );
             $this->fail($message);
@@ -46,10 +47,10 @@ class AbstractNavigationFactoryTest extends TestCase
         $this->assertSame([], $pages);
     }
 
-    public function testCanInjectComponentsUsingZendMvcRouterClasses()
+    public function testCanInjectComponentsUsingLaminasMvcRouterClasses()
     {
         if (! class_exists(MvcRouter\RouteMatch::class)) {
-            $this->markTestSkipped('Test does not run for zend-mvc v3 releases');
+            $this->markTestSkipped('Test does not run for laminas-mvc v3 releases');
         }
 
         $routeMatch = $this->prophesize(MvcRouter\RouteMatch::class)->reveal();
@@ -62,7 +63,7 @@ class AbstractNavigationFactoryTest extends TestCase
             $pages = $r->invokeArgs($this->factory, $args);
         } catch (Exception\InvalidArgumentException $e) {
             $message = sprintf(
-                'injectComponents should not raise exception for zend-mvc router classes; received %s',
+                'injectComponents should not raise exception for laminas-mvc router classes; received %s',
                 $e->getMessage()
             );
             $this->fail($message);

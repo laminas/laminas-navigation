@@ -7,25 +7,25 @@ using the SPL `RecursiveIteratorIterator` class.
 
 ## Creating containers
 
-`Zend\Navigation\AbstractContainer` can not be instantiated directly. Use
-`Zend\Navigation\Navigation` if you want to instantiate a container.
+`Laminas\Navigation\AbstractContainer` can not be instantiated directly. Use
+`Laminas\Navigation\Navigation` if you want to instantiate a container.
 
-`Zend\Navigation\Navigation` can be constructed entirely empty, or take an array
+`Laminas\Navigation\Navigation` can be constructed entirely empty, or take an array
 or a `Traversable` object with pages to put in the container. Each page provided
 via options will eventually be passed to the `addPage()` method of the container
 class, which means that each element in the options can be also be an array,
-Traversable object, or a `Zend\Navigation\Page\AbstractPage` instance.
+Traversable object, or a `Laminas\Navigation\Page\AbstractPage` instance.
 
 ### Creating a container using an array
 
 ```php
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 /*
  * Create a container from an array
  *
  * Each element in the array will be passed to
- * Zend\Navigation\Page\AbstractPage::factory() when constructing.
+ * Laminas\Navigation\Page\AbstractPage::factory() when constructing.
  */
 $container = new Navigation([
     [
@@ -34,8 +34,8 @@ $container = new Navigation([
         'uri' => '/',
     ],
     [
-        'label' => 'Zend',
-        'uri' => 'http://www.zend-project.com/',
+        'label' => 'Laminas',
+        'uri' => 'http://www.laminas-project.com/',
         'order' => 100,
     ],
     [
@@ -187,8 +187,8 @@ $container = new Navigation([
         ],
     ],
     [
-        'label' => 'Zend Framework',
-        'route' => 'zf-route',
+        'label' => 'Laminas',
+        'route' => 'api-tools-route',
     ],
 ]);
 ```
@@ -199,9 +199,9 @@ Adding pages to a container can be done with the methods `addPage()`,
 `addPages()`, or `setPages()`.  See examples below for explanation.
 
 ```php
-use Zend\Config\Config;
-use Zend\Navigation\Navigation;
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Config\Config;
+use Laminas\Navigation\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
 
 // create container
 $container = new Navigation();
@@ -216,7 +216,7 @@ $container->addPage([
     'uri' => 'http://www.example.com/',
 ]);
 
-// add page by giving a Traversable object; in this case, a zend-config
+// add page by giving a Traversable object; in this case, a laminas-config
 // instance.
 $container->addPage(Config([
     'uri' => 'http://www.example.com/',
@@ -248,7 +248,7 @@ correspond to the `order` a page has. `removePages()` will remove all pages in
 the container.
 
 ```php
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 $container = new Navigation([
     [
@@ -302,7 +302,7 @@ Other combinations include `findByLabel(...)`, `findOneByTitle(...)`,
 such as `findByFoo('bar')`.
 
 ```php
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 $container = new Navigation([
     [
@@ -399,12 +399,12 @@ $found = $container->findAllByController('index');
 
 ## Iterating containers
 
-`Zend\Navigation\AbstractContainer` implements `RecursiveIterator`.  iterate a
+`Laminas\Navigation\AbstractContainer` implements `RecursiveIterator`.  iterate a
 container recursively, use the `RecursiveIteratorIterator` class.
 
 ```php
 use RecursiveIteratorIterator;
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 /*
  * Create a container from an array
@@ -481,7 +481,7 @@ Converts the container and the pages in it to a (nested) array. This can be usef
 for serializing and debugging.
 
 ```php
-use Zend\Navigation\Navigation;
+use Laminas\Navigation\Navigation;
 
 $container = new Navigation([
     [
@@ -523,7 +523,7 @@ array(2) {
     ["privilege"]=> NULL
     ["active"]=> bool(false)
     ["visible"]=> bool(true)
-    ["type"]=> string(23) "Zend\Navigation\Page\Uri"
+    ["type"]=> string(23) "Laminas\Navigation\Page\Uri"
     ["pages"]=> array(0) {
     }
     ["uri"]=> string(1) "#"
@@ -543,7 +543,7 @@ array(2) {
     ["privilege"]=> NULL
     ["active"]=> bool(false)
     ["visible"]=> bool(true)
-    ["type"]=> string(23) "Zend\Navigation\Page\Uri"
+    ["type"]=> string(23) "Laminas\Navigation\Page\Uri"
     ["pages"]=> array(2) {
       [0]=> array(15) {
         ["label"]=> string(8) "Page 2.1"
@@ -560,7 +560,7 @@ array(2) {
         ["privilege"]=> NULL
         ["active"]=> bool(false)
         ["visible"]=> bool(true)
-        ["type"]=> string(23) "Zend\Navigation\Page\Uri"
+        ["type"]=> string(23) "Laminas\Navigation\Page\Uri"
         ["pages"]=> array(0) {
         }
         ["uri"]=> string(1) "#"
@@ -581,7 +581,7 @@ array(2) {
         ["privilege"]=> NULL
         ["active"]=> bool(false)
         ["visible"]=> bool(true)
-        ["type"]=> string(23) "Zend\Navigation\Page\Uri"
+        ["type"]=> string(23) "Laminas\Navigation\Page\Uri"
         ["pages"]=> array(0) {
         }
         ["uri"]=> string(1) "#"
