@@ -5,7 +5,7 @@ navigational helpers. It can be considered an entry point to all
 navigation-related view tasks.
 
 The `Navigation` helper finds other helpers that implement
-`Zend\View\Helper\Navigation\HelperInterface`, which means custom view helpers
+`Laminas\View\Helper\Navigation\HelperInterface`, which means custom view helpers
 can also be proxied.  This would, however, require that the custom helper path
 is added to the view.
 
