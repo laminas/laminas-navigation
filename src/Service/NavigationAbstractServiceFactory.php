@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Service;
+namespace Laminas\Navigation\Service;
 
-use Zend\Navigation\Navigation;
-use Zend\ServiceManager\AbstractFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Navigation\Navigation;
+use Laminas\ServiceManager\AbstractFactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Navigation abstract service factory
  *
  * Allows configuring several navigation instances. If you have a navigation config key named "special" then you can
- * use $serviceLocator->get('Zend\Navigation\Special') to retrieve a navigation instance with this configuration.
+ * use $serviceLocator->get('Laminas\Navigation\Special') to retrieve a navigation instance with this configuration.
  */
 final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
 {
@@ -33,12 +32,12 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      *
      * @var string
      */
-    const SERVICE_PREFIX = 'Zend\Navigation\\';
+    const SERVICE_PREFIX = 'Laminas\Navigation\\';
 
     /**
      * Normalized name prefix
      */
-    const NAME_PREFIX = 'zendnavigation';
+    const NAME_PREFIX = 'laminasnavigation';
 
     /**
      * Navigation configuration
@@ -52,7 +51,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @param string $name Service name (as resolved by ServiceManager)
-     * @param string $requestedName Name by which service was requested, must start with Zend\Navigation\
+     * @param string $requestedName Name by which service was requested, must start with Laminas\Navigation\
      * @return bool
      */
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
