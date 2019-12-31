@@ -1,26 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation\Page;
+namespace Laminas\Navigation\Page;
 
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Exception;
+use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
+use Laminas\Stdlib\ArrayUtils;
 use Traversable;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Exception;
-use Zend\Permissions\Acl\Resource\ResourceInterface as AclResource;
-use Zend\Stdlib\ArrayUtils;
 
 /**
- * Base class for Zend\Navigation\Page pages
+ * Base class for Laminas\Navigation\Page pages
  *
- * @category   Zend
- * @package    Zend_Navigation
+ * @category   Laminas
+ * @package    Laminas_Navigation
  * @subpackage Page
  */
 abstract class AbstractPage extends AbstractContainer
@@ -130,7 +128,7 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Parent container
      *
-     * @var \Zend\Navigation\AbstractContainer|null
+     * @var \Laminas\Navigation\AbstractContainer|null
      */
     protected $parent;
 
@@ -144,19 +142,19 @@ abstract class AbstractPage extends AbstractContainer
     // Initialization:
 
     /**
-     * Factory for Zend_Navigation_Page classes
+     * Factory for Laminas_Navigation_Page classes
      *
      * A specific type to construct can be specified by specifying the key
      * 'type' in $options. If type is 'uri' or 'mvc', the type will be resolved
-     * to Zend_Navigation_Page_Uri or Zend_Navigation_Page_Mvc. Any other value
+     * to Laminas_Navigation_Page_Uri or Laminas_Navigation_Page_Mvc. Any other value
      * for 'type' will be considered the full name of the class to construct.
-     * A valid custom page class must extend Zend_Navigation_Page.
+     * A valid custom page class must extend Laminas_Navigation_Page.
      *
      * If 'type' is not given, the type of page to construct will be determined
      * by the following rules:
      * - If $options contains either of the keys 'action', 'controller',
-     *   or 'route', a Zend_Navigation_Page_Mvc page will be created.
-     * - If $options contains the key 'uri', a Zend_Navigation_Page_Uri page
+     *   or 'route', a Laminas_Navigation_Page_Mvc page will be created.
+     * - If $options contains the key 'uri', a Laminas_Navigation_Page_Uri page
      *   will be created.
      *
      * @param  array|Traversable $options  options used for creating page
@@ -191,10 +189,10 @@ abstract class AbstractPage extends AbstractContainer
             if (is_string($type) && !empty($type)) {
                 switch (strtolower($type)) {
                     case 'mvc':
-                        $type = 'Zend\Navigation\Page\Mvc';
+                        $type = 'Laminas\Navigation\Page\Mvc';
                         break;
                     case 'uri':
-                        $type = 'Zend\Navigation\Page\Uri';
+                        $type = 'Laminas\Navigation\Page\Uri';
                         break;
                 }
 
@@ -209,7 +207,7 @@ abstract class AbstractPage extends AbstractContainer
                     throw new Exception\InvalidArgumentException(
                         sprintf(
                             'Invalid argument: Detected type "%s", which ' .
-                            'is not an instance of Zend\Navigation\Page',
+                            'is not an instance of Laminas\Navigation\Page',
                             $type
                         )
                     );
@@ -663,7 +661,7 @@ abstract class AbstractPage extends AbstractContainer
         } else {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $resource must be null, a string, ' .
-                'or an instance of Zend\Permissions\Acl\Resource\ResourceInterface'
+                'or an instance of Laminas\Permissions\Acl\Resource\ResourceInterface'
             );
         }
 
