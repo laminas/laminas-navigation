@@ -1,28 +1,26 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_Navigation
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation;
+namespace Laminas\Navigation;
 
 use Countable;
+use Laminas\Stdlib\ErrorHandler;
 use RecursiveIterator;
 use RecursiveIteratorIterator;
 use Traversable;
-use Zend\Stdlib\ErrorHandler;
 
 /**
- * Zend_Navigation_Container
+ * Laminas_Navigation_Container
  *
- * AbstractContainer class for Zend\Navigation\Page classes.
+ * AbstractContainer class for Laminas\Navigation\Page classes.
  *
- * @category  Zend
- * @package   Zend_Navigation
+ * @category  Laminas
+ * @package   Laminas_Navigation
  */
 abstract class AbstractContainer implements Countable, RecursiveIterator
 {
@@ -112,7 +110,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             if (!is_array($page) && !$page instanceof Traversable) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $page must be an instance of '
-                    . 'Zend\Navigation\Page\AbstractPage or Traversable, or an array'
+                    . 'Laminas\Navigation\Page\AbstractPage or Traversable, or an array'
                 );
             }
             $page = Page\AbstractPage::factory($page);
@@ -150,7 +148,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $pages must be an array, an '
                 . 'instance of Traversable or an instance of '
-                . 'Zend\Navigation\AbstractContainer'
+                . 'Laminas\Navigation\AbstractContainer'
             );
         }
 
