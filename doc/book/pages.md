@@ -1,9 +1,9 @@
 # Pages
 
-zend-navigation ships with two page types:
+laminas-navigation ships with two page types:
 
-- [MVC pages](#mvc-pages), using the class `Zend\Navigation\Page\Mvc`
-- [URI pages](#uri-pages), using the class `Zend\Navigation\Page\Uri`
+- [MVC pages](#mvc-pages), using the class `Laminas\Navigation\Page\Mvc`
+- [URI pages](#uri-pages), using the class `Laminas\Navigation\Page\Uri`
 
 MVC pages link to on-site web pages, and are defined using MVC parameters
 (`action`, `controller`, `route`, `params`). URI pages are defined by a single
@@ -12,7 +12,7 @@ other things with the generated links (e.g. a URI that turns into `<a href="#">f
 
 ## Common page features
 
-All page classes must extend `Zend\Navigation\Page\AbstractPage`, and will thus
+All page classes must extend `Laminas\Navigation\Page\AbstractPage`, and will thus
 share a common set of features and properties. Most notably, they share the
 options in the table below and the same initialization process.
 
@@ -20,7 +20,7 @@ Option keys are mapped to `set*()` methods. This means that the option `order` m
 `setOrder()`, and `reset_params` maps to the method `setResetParams()`. If there is no setter
 method for the option, it will be set as a custom property of the page.
 
-Read more on extending `Zend\Navigation\Page\AbstractPage` in the section
+Read more on extending `Laminas\Navigation\Page\AbstractPage` in the section
 ["Creating custom page types"](#creating-custom-page-types).
 
 ### Common page options
@@ -35,8 +35,8 @@ title    | `string`                                                      | `NULL
 target   | `string`                                                      | `NULL`  | Specifies a target that may be used for the page, typically in an anchor element.
 rel      | `array`                                                       | `[]`    | Specifies forward relations for the page. Each element in the array is a key-value pair, where the key designates the relation/link type, and the value is a pointer to the linked page. An example of a key-value pair is ``'alternate' => 'format/plain.html'``. To allow full flexibility, there are no restrictions on relation values. The value does not have to be a string. Read more about ``rel`` and ``rev`` in the section on the Links helper.
 rev      | `array`                                                       | `[]`    | Specifies reverse relations for the page. Works exactly like rel.
-order    | `string|integer|null`                                         | `NULL`  | Works like order for elements in ``Zend\Form``. If specified, the page will be iterated in a specific order, meaning you can force a page to be iterated before others by setting the order attribute to a low number, e.g. -100. If a String is given, it must parse to a valid int. If ``NULL`` is given, it will be reset, meaning the order in which the page was added to the container will be used.
-resource | `string|Zend\Permissions\Acl\Resource\ResourceInterface|null` | `NULL`  | ACL resource to associate with the page. Read more in the section on ACL integration in view helpers.
+order    | `string|integer|null`                                         | `NULL`  | Works like order for elements in ``Laminas\Form``. If specified, the page will be iterated in a specific order, meaning you can force a page to be iterated before others by setting the order attribute to a low number, e.g. -100. If a String is given, it must parse to a valid int. If ``NULL`` is given, it will be reset, meaning the order in which the page was added to the container will be used.
+resource | `string|Laminas\Permissions\Acl\Resource\ResourceInterface|null` | `NULL`  | ACL resource to associate with the page. Read more in the section on ACL integration in view helpers.
 privilege| `string|null`                                                 | `NULL`  | ACL privilege to associate with the page. Read more in the section on ACL integration in view helpers.
 active   | `boolean`                                                     | `FALSE` | Whether the page should be considered active for the current request. If active is FALSE or not given, MVC pages will check its properties against the request object upon calling ``$page->isActive()``.
 visible  | `boolean`                                                     | `TRUE`  | Whether page should be visible for the user, or just be a part of the structure. Invisible pages are skipped by view helpers.
@@ -57,7 +57,7 @@ pages    | `array|Travsersable|null`                                     | `NULL
 > The following example demonstrates custom properties:
 > 
 > ```php
-> $page = new Zend\Navigation\Page\Mvc();
+> $page = new Laminas\Navigation\Page\Mvc();
 > $page->foo     = 'bar';
 > $page->meaning = 42;
 > 
@@ -71,10 +71,10 @@ pages    | `array|Travsersable|null`                                     | `NULL
 ## MVC pages
 
 MVC pages are defined using MVC parameters known from the
-[zend-mvc](https://zendframework.github.com/zend-mvc/) component. An MVC page
-will use `Zend\Router\RouteStackInterface` internally in the `getHref()` method
+[laminas-mvc](https://laminas.github.com/laminas-mvc/) component. An MVC page
+will use `Laminas\Router\RouteStackInterface` internally in the `getHref()` method
 to generate `href` attributes, and the `isActive()` method will compare the
-`Zend\Router\RouteMatch` params with the page's params to determine if the page
+`Laminas\Router\RouteMatch` params with the page's params to determine if the page
 is active.
 
 > ### useRouteMatch flag
@@ -93,25 +93,25 @@ action       | `string`                          | `NULL`  | Action name to use 
 controller   | `string`                          | `NULL`  | Controller name to use when generating `href` to the page.
 params       | `array`                           | `[]`    | User params to use when generating `href` to the page.
 route        | `string`                          | `NULL`  | Route name to use when generating `href` to the page.
-routeMatch   | `Zend\Router\RouteMatch`          | `NULL`  | `RouteInterface` matches used for routing parameters and testing validity.
+routeMatch   | `Laminas\Router\RouteMatch`          | `NULL`  | `RouteInterface` matches used for routing parameters and testing validity.
 useRouteMatch| `boolean`                         | `FALSE` | If true, then the `getHref()` method will use the `routeMatch` parameters to assemble the URI.
-router       | `Zend\Router\RouteStackInterface` | `NULL`  | Router for assembling URLs.
+router       | `Laminas\Router\RouteStackInterface` | `NULL`  | Router for assembling URLs.
 query        | `array`                           | `[]`    | Query string arguments to use when generating `href` to page.
 
 > ### URIs are relative to base URL
 >
-> The URI returned is relative to the `baseUrl` in `Zend\Router\Http\TreeRouteStack`.
+> The URI returned is relative to the `baseUrl` in `Laminas\Router\Http\TreeRouteStack`.
 > In the examples, the `baseUrl` is '/' for simplicity.
 
 ### getHref() generates the page URI
 
-This example demonstrates that MVC pages use `Zend\Router\RouteStackInterface`
+This example demonstrates that MVC pages use `Laminas\Router\RouteStackInterface`
 internally to generate URIs when calling `$page->getHref()`.
 
 ```php
-use Zend\Navigation\Page;
-use Zend\Router\Http\Segment;
-use Zend\Router\Http\TreeRouteStack;
+use Laminas\Navigation\Page;
+use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\TreeRouteStack;
 
 // Create route
 $route = Segment::factory([
@@ -157,7 +157,7 @@ This example demonstrates that MVC pages determine whether they are active by
 using the params found in the route match object.
 
 ```php
-use Zend\Navigation\Page;
+use Laminas\Navigation\Page;
 
 /**
  * Dispatched request:
@@ -218,11 +218,11 @@ used in `getHref()` to generate the URL for the page.
 > specify the default params that the route defines (controller, action, etc.).
 
 ```php
-use Zend\Navigation\Page;
-use Zend\Router\Http\Segment;
-use Zend\Router\Http\TreeRouteStack;
+use Laminas\Navigation\Page;
+use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\TreeRouteStack;
 
-// the following route is added to the ZF router
+// the following route is added to the Laminas router
 $route = Segment::factory([
    'route'       => '/a/:id',
    'constraints' => [
@@ -249,7 +249,7 @@ $page->getHref();
 
 ## URI Pages
 
-Pages of type `Zend\Navigation\Page\Uri` can be used to link to pages on other
+Pages of type `Laminas\Navigation\Page\Uri` can be used to link to pages on other
 domains or sites, or to implement custom logic for the page. In addition to the
 common page options, a URI page takes only one additional option, a `uri`. The
 `uri` will be returned when calling `$page->getHref()`, and may be a `string` or
@@ -257,7 +257,7 @@ common page options, a URI page takes only one additional option, a `uri`. The
 
 > ### No auto-determination of active status
 >
-> `Zend\Navigation\Page\Uri` will not try to determine whether it should be
+> `Laminas\Navigation\Page\Uri` will not try to determine whether it should be
 > active when calling `$page->isActive()`; it merely returns what currently is
 > set. In order to make a URI page active, you must manually call
 > `$page->setActive()` or specify the `active` as a page option during
@@ -271,7 +271,7 @@ uri | `string` | `NULL`  | URI to page. This can be any string or `NULL`.
 
 ## Creating custom page types
 
-When extending `Zend\Navigation\Page\AbstractPage`, there is usually no need to
+When extending `Laminas\Navigation\Page\AbstractPage`, there is usually no need to
 override the constructor or the `setOptions()` method. The page constructor
 takes a single parameter, an `array` or a `Traversable` object, which is then
 passed to `setOptions()`. That method will in turn call the appropriate `set*()`
@@ -289,7 +289,7 @@ The only thing a custom page class needs to implement is the `getHref()` method.
 ```php
 namespace My;
 
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\AbstractPage;
 
 class Page extends AbstractPage
 {
@@ -308,7 +308,7 @@ When adding properties to an extended page, there is no need to override/modify
 ```php
 namespace My\Navigation;
 
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\AbstractPage;
 
 class Page extends AbstractPage
 {
@@ -352,7 +352,7 @@ $page = new Page([
 ## Creating pages using the page factory
 
 All pages (also custom classes), can be created using the page factory,
-`Zend\Navigation\Page\AbstractPage::factory()`. The factory accepts either an
+`Laminas\Navigation\Page\AbstractPage::factory()`. The factory accepts either an
 array or `Traversable` set of options.  Each key in the options corresponds to a
 page option, as seen earlier.  If the option `uri` is given and no MVC options
 are provided (e.g., `action`, `controller`, `route`), a URI page will be
@@ -365,7 +365,7 @@ will be created, respectively.
 ### Creating an MVC page using the page factory
 
 ```php
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\AbstractPage;
 
 // MVC page, as "action" is defined
 $page = AbstractPage::factory([
@@ -396,7 +396,7 @@ $page = AbstractPage::factory([
 ### Creating a URI page using the page factory
 
 ```php
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\AbstractPage;
 
 // URI page, as "uri" is present, with now MVC options
 $page = AbstractPage::factory([
@@ -432,7 +432,7 @@ a class name to instantiate.
 ```php
 namespace My\Navigation;
 
-use Zend\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\AbstractPage;
 
 class Page extends AbstractPage
 {

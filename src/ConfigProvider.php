@@ -1,16 +1,17 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-navigation for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\Navigation;
+namespace Laminas\Navigation;
 
 class ConfigProvider
 {
     /**
-     * Return general-purpose zend-navigation configuration.
+     * Return general-purpose laminas-navigation configuration.
      *
      * @return array
      */
@@ -34,6 +35,9 @@ class ConfigProvider
             ],
             'aliases' => [
                 'navigation' => Navigation::class,
+
+                // Legacy Zend Framework aliases
+                \Zend\Navigation\Navigation::class => Navigation::class,
             ],
             'delegators' => [
                 'ViewHelperManager' => [
