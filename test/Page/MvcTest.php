@@ -1,30 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\Page;
+namespace LaminasTest\Navigation\Page;
 
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router\Http\Literal as LiteralRoute;
+use Laminas\Mvc\Router\Http\Regex as RegexRoute;
+use Laminas\Mvc\Router\Http\Segment as SegmentRoute;
+use Laminas\Mvc\Router\Http\TreeRouteStack;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Navigation;
+use Laminas\Navigation\Page;
+use LaminasTest\Navigation\TestAsset;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\Http\Regex as RegexRoute;
-use Zend\Mvc\Router\Http\Literal as LiteralRoute;
-use Zend\Mvc\Router\Http\Segment as SegmentRoute;
-use Zend\Mvc\Router\Http\TreeRouteStack;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Navigation\Page;
-use Zend\Navigation;
-use ZendTest\Navigation\TestAsset;
 
 /**
- * Tests the class Zend_Navigation_Page_Mvc
+ * Tests the class Laminas_Navigation_Page_Mvc
  *
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class MvcTest extends TestCase
 {
@@ -86,7 +85,7 @@ class MvcTest extends TestCase
             'route' => 'test/route',
             'use_route_match' => true
         ));
-        $router = $this->getMock('\Zend\Mvc\Router\Http\TreeRouteStack');
+        $router = $this->getMock('\Laminas\Mvc\Router\Http\TreeRouteStack');
         $router->expects($this->once())->method('assemble')->will($this->returnValue('/test/route'));
         $page->setRouter($router);
         $this->assertEquals('/test/route', $page->getHref());
@@ -207,7 +206,7 @@ class MvcTest extends TestCase
     }
 
     /**
-     * @group ZF-8922
+     * @group Laminas-8922
      */
     public function testGetHrefWithFragmentIdentifier()
     {
@@ -400,7 +399,7 @@ class MvcTest extends TestCase
                 try {
                     $page->$setter($invalid);
                     $msg = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
+                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
 
@@ -434,7 +433,7 @@ class MvcTest extends TestCase
                 try {
                     $page->$setter($invalid);
                     $msg  = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Zend\Navigation\Exception\InvalidArgumentException was thrown';
+                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
                 } catch (Navigation\Exception\InvalidArgumentException $e) {
 
@@ -499,7 +498,7 @@ class MvcTest extends TestCase
         $options['resource']  = null;
         $options['permission']  = null;
         $options['pages']     = array();
-        $options['type']      = 'Zend\Navigation\Page\Mvc';
+        $options['type']      = 'Laminas\Navigation\Page\Mvc';
 
         ksort($options);
         ksort($toArray);

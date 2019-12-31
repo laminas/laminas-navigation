@@ -1,34 +1,33 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation;
+namespace LaminasTest\Navigation;
 
-use Zend\Navigation\Page;
+use Laminas\Navigation\Page;
 
 /**
- * Zend_Navigation
+ * Laminas_Navigation
  */
 
 /**
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class NavigationTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var     Zend_Navigation
+     * @var     Laminas_Navigation
      */
     private $_navigation;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->_navigation = new \Zend\Navigation\Navigation();
+        $this->_navigation = new \Laminas\Navigation\Navigation();
     }
 
     protected function tearDown()
@@ -40,8 +39,8 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
     /**
      * Testing that navigation order is done correctly
      *
-     * @group   ZF-8337
-     * @group   ZF-8313
+     * @group   Laminas-8337
+     * @group   Laminas-8313
      */
     public function testNavigationArraySortsCorrectly()
     {

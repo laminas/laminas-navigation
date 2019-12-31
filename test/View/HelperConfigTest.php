@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-navigation for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-navigation/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\Navigation\View;
+namespace LaminasTest\Navigation\View;
 
+use Laminas\Navigation\View\HelperConfig;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Navigation\View\HelperConfig;
 
 /**
- * Tests the class Zend_Navigation_Page_Mvc
+ * Tests the class Laminas_Navigation_Page_Mvc
  *
- * @group      Zend_Navigation
+ * @group      Laminas_Navigation
  */
 class HelperConfigTest extends TestCase
 {
@@ -28,7 +27,7 @@ class HelperConfigTest extends TestCase
     {
         $this->serviceManager = new ServiceManager();
 
-        $this->pluginManager = new \Zend\View\HelperPluginManager();
+        $this->pluginManager = new \Laminas\View\HelperPluginManager();
         $this->pluginManager->setServiceLocator($this->serviceManager);
 
         $this->helperConfig = new HelperConfig();
@@ -36,7 +35,7 @@ class HelperConfigTest extends TestCase
 
     public function testConfigureServiceManagerWithConfig()
     {
-        $replacedMenuClass = 'Zend\View\Helper\Navigation\Links';
+        $replacedMenuClass = 'Laminas\View\Helper\Navigation\Links';
         $this->serviceManager->setService('config', array('navigation_helpers' => array(
             'invokables' => array(
                 'menu' => $replacedMenuClass
