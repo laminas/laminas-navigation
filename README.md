@@ -1,6 +1,6 @@
 # laminas-navigation
 
-[![Build Status](https://travis-ci.org/laminas/laminas-navigation.svg?branch=master)](https://travis-ci.org/laminas/laminas-navigation)
+[![Build Status](https://travis-ci.com/laminas/laminas-navigation.svg?branch=master)](https://travis-ci.com/laminas/laminas-navigation)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-navigation/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-navigation?branch=master)
 
 `Laminas\Navigation` is a component for managing trees of pointers to web pages.
