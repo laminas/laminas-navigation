@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -426,7 +430,7 @@ properties that are not native in the page class.</p>
 <p>Both native and custom properties can be set using <code>$page-&gt;set($name, $value)</code>
 and retrieved using <code>$page-&gt;get($name)</code>, or by using magic methods.</p>
 <p>The following example demonstrates custom properties:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 $page = new Laminas\Navigation\Page\Mvc();
 $page-&gt;foo     = 'bar';
 $page-&gt;meaning = 42;
@@ -522,99 +526,97 @@ In the examples, the <code>baseUrl</code> is '/' for simplicity.</p>
 <h3>getHref() generates the page URI</h3>
 <p>This example demonstrates that MVC pages use <code>Laminas\Router\RouteStackInterface</code>
 internally to generate URIs when calling <code>$page-&gt;getHref()</code>.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
-<span class=x>use Laminas\Router\Http\Segment;</span>
-<span class=x>use Laminas\Router\Http\TreeRouteStack;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Page;
+use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\TreeRouteStack;
 
-<span class=x>// Create route</span>
-<span class=x>$route = Segment::factory([</span>
-<span class=x>   &#39;route&#39;       =&gt; &#39;/[:controller[/:action][/:id]]&#39;,</span>
-<span class=x>   &#39;constraints&#39; =&gt; [</span>
-<span class=x>      &#39;controller&#39; =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]+&#39;,</span>
-<span class=x>      &#39;action&#39;     =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]+&#39;,</span>
-<span class=x>      &#39;id&#39;         =&gt; &#39;[0-9]+&#39;,</span>
-<span class=x>   ],</span>
-<span class=x>   [</span>
-<span class=x>      &#39;controller&#39; =&gt; &#39;Album\Controller\Album&#39;,</span>
-<span class=x>      &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>   ]</span>
-<span class=x>]);</span>
-<span class=x>$router = new TreeRouteStack();</span>
-<span class=x>$router-&gt;addRoute(&#39;default&#39;, $route);</span>
+// Create route
+$route = Segment::factory([
+   'route'       =&gt; '/[:controller[/:action][/:id]]',
+   'constraints' =&gt; [
+      'controller' =&gt; '[a-zA-Z][a-zA-Z0-9_-]+',
+      'action'     =&gt; '[a-zA-Z][a-zA-Z0-9_-]+',
+      'id'         =&gt; '[0-9]+',
+   ],
+   [
+      'controller' =&gt; 'Album\Controller\Album',
+      'action'     =&gt; 'index',
+   ]
+]);
+$router = new TreeRouteStack();
+$router-&gt;addRoute('default', $route);
 
-<span class=x>// getHref() returns /album/add</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;add&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>]);</span>
+// getHref() returns /album/add
+$page = new Page\Mvc([
+    'action'     =&gt; 'add',
+    'controller' =&gt; 'album',
+]);
 
-<span class=x>// getHref() returns /album/edit/1337</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
-<span class=x>]);</span>
+// getHref() returns /album/edit/1337
+$page = new Page\Mvc([
+    'action'     =&gt; 'edit',
+    'controller' =&gt; 'album',
+    'params'     =&gt; ['id' =&gt; 1337],
+]);
 
-<span class=x> // getHref() returns /album/1337?format=json</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
-<span class=x>    &#39;query&#39;      =&gt; [&#39;format&#39; =&gt; &#39;json&#39;],</span>
-<span class=x>]);</span>
-</pre></div></p>
+ // getHref() returns /album/1337?format=json
+$page = new Page\Mvc([
+    'action'     =&gt; 'edit',
+    'controller' =&gt; 'album',
+    'params'     =&gt; ['id' =&gt; 1337],
+    'query'      =&gt; ['format' =&gt; 'json'],
+]);</code></pre>
 <h3>isActive() determines if page is active</h3>
 <p>This example demonstrates that MVC pages determine whether they are active by
 using the params found in the route match object.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Page;
 
-<span class=x>/**</span>
-<span class=x> * Dispatched request:</span>
-<span class=x> * - controller: album</span>
-<span class=x> * - action:     index</span>
-<span class=x> */</span>
-<span class=x>$page1 = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>]);</span>
+/**
+ * Dispatched request:
+ * - controller: album
+ * - action:     index
+ */
+$page1 = new Page\Mvc([
+    'action'     =&gt; 'index',
+    'controller' =&gt; 'album',
+]);
 
-<span class=x>$page2 = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>]);</span>
+$page2 = new Page\Mvc([
+    'action'     =&gt; 'edit',
+    'controller' =&gt; 'album',
+]);
 
-<span class=x>$page1-&gt;isActive(); // returns true</span>
-<span class=x>$page2-&gt;isActive(); // returns false</span>
+$page1-&gt;isActive(); // returns true
+$page2-&gt;isActive(); // returns false
 
-<span class=x>/**</span>
-<span class=x> * Dispatched request:</span>
-<span class=x> * - controller: album</span>
-<span class=x> * - action:     edit</span>
-<span class=x> * - id:         1337</span>
-<span class=x> */</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 1337],</span>
-<span class=x>]);</span>
+/**
+ * Dispatched request:
+ * - controller: album
+ * - action:     edit
+ * - id:         1337
+ */
+$page = new Page\Mvc([
+    'action'     =&gt; 'edit',
+    'controller' =&gt; 'album',
+    'params'     =&gt; ['id' =&gt; 1337],
+]);
 
-<span class=x>// returns true, because request has the same controller and action</span>
-<span class=x>$page-&gt;isActive();</span>
+// returns true, because request has the same controller and action
+$page-&gt;isActive();
 
-<span class=x>/**</span>
-<span class=x> * Dispatched request:</span>
-<span class=x> * - controller: album</span>
-<span class=x> * - action:     edit</span>
-<span class=x> */</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;edit&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;album&#39;,</span>
-<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; null],</span>
-<span class=x>]);</span>
+/**
+ * Dispatched request:
+ * - controller: album
+ * - action:     edit
+ */
+$page = new Page\Mvc([
+    'action'     =&gt; 'edit',
+    'controller' =&gt; 'album',
+    'params'     =&gt; ['id' =&gt; null],
+]);
 
-<span class=x>// returns false, because page requires the id param to be set in the request</span>
-<span class=x>$page-&gt;isActive(); // returns false</span>
-</pre></div></p>
+// returns false, because page requires the id param to be set in the request
+$page-&gt;isActive(); // returns false</code></pre>
 <h3>Using routes</h3>
 <p>Routes can be used with MVC pages. If a page has a route, this route will be
 used in <code>getHref()</code> to generate the URL for the page.</p>
@@ -623,34 +625,33 @@ used in <code>getHref()</code> to generate the URL for the page.</p>
 <p>Note that when using the <code>route</code> property in a page, you do not need to
 specify the default params that the route defines (controller, action, etc.).</p>
 </blockquote>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page;</span>
-<span class=x>use Laminas\Router\Http\Segment;</span>
-<span class=x>use Laminas\Router\Http\TreeRouteStack;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Page;
+use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\TreeRouteStack;
 
-<span class=x>// the following route is added to the Laminas router</span>
-<span class=x>$route = Segment::factory([</span>
-<span class=x>   &#39;route&#39;       =&gt; &#39;/a/:id&#39;,</span>
-<span class=x>   &#39;constraints&#39; =&gt; [</span>
-<span class=x>      &#39;id&#39; =&gt; &#39;[0-9]+&#39;,</span>
-<span class=x>   ],</span>
-<span class=x>   [</span>
-<span class=x>      &#39;controller&#39; =&gt; &#39;Album\Controller\Album&#39;,</span>
-<span class=x>      &#39;action&#39;     =&gt; &#39;show&#39;,</span>
-<span class=x>   ]</span>
-<span class=x>]);</span>
-<span class=x>$router = new TreeRouteStack();</span>
-<span class=x>$router-&gt;addRoute(&#39;albumShow&#39;, $route);</span>
+// the following route is added to the Laminas router
+$route = Segment::factory([
+   'route'       =&gt; '/a/:id',
+   'constraints' =&gt; [
+      'id' =&gt; '[0-9]+',
+   ],
+   [
+      'controller' =&gt; 'Album\Controller\Album',
+      'action'     =&gt; 'show',
+   ]
+]);
+$router = new TreeRouteStack();
+$router-&gt;addRoute('albumShow', $route);
 
-<span class=x>// a page is created with a &#39;route&#39; option</span>
-<span class=x>$page = new Page\Mvc([</span>
-<span class=x>    &#39;label&#39;      =&gt; &#39;Show album&#39;,</span>
-<span class=x>    &#39;route&#39;      =&gt; &#39;albumShow&#39;,</span>
-<span class=x>    &#39;params&#39;     =&gt; [&#39;id&#39; =&gt; 42]</span>
-<span class=x>]);</span>
+// a page is created with a 'route' option
+$page = new Page\Mvc([
+    'label'      =&gt; 'Show album',
+    'route'      =&gt; 'albumShow',
+    'params'     =&gt; ['id' =&gt; 42]
+]);
 
-<span class=x>// returns: /a/42</span>
-<span class=x>$page-&gt;getHref();</span>
-</pre></div></p>
+// returns: /a/42
+$page-&gt;getHref();</code></pre>
 <h2 id="uri-pages">URI Pages</h2>
 <p>Pages of type <code>Laminas\Navigation\Page\Uri</code> can be used to link to pages on other
 domains or sites, or to implement custom logic for the page. In addition to the
@@ -697,63 +698,61 @@ custom property of the page, and be accessible via <code>$internalId =
 $page-&gt;internal_id;</code> or <code>$internalId = $page-&gt;get('internal_id');</code>.</p>
 <h3>Basic custom page example</h3>
 <p>The only thing a custom page class needs to implement is the <code>getHref()</code> method.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace My;</span>
+<pre class=codehilite><code class=language-php>namespace My;
 
-<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>class Page extends AbstractPage</span>
-<span class=x>{</span>
-<span class=x>    public function getHref()</span>
-<span class=x>    {</span>
-<span class=x>        return &#39;something-completely-different&#39;;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+class Page extends AbstractPage
+{
+    public function getHref()
+    {
+        return 'something-completely-different';
+    }
+}</code></pre>
 <h3>A custom page with properties</h3>
 <p>When adding properties to an extended page, there is no need to override/modify
 <code>setOptions()</code>.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace My\Navigation;</span>
+<pre class=codehilite><code class=language-php>namespace My\Navigation;
 
-<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>class Page extends AbstractPage</span>
-<span class=x>{</span>
-<span class=x>    protected $foo;</span>
-<span class=x>    protected $fooBar;</span>
+class Page extends AbstractPage
+{
+    protected $foo;
+    protected $fooBar;
 
-<span class=x>    public function setFoo($foo)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;foo = $foo;</span>
-<span class=x>    }</span>
+    public function setFoo($foo)
+    {
+        $this-&gt;foo = $foo;
+    }
 
-<span class=x>    public function getFoo()</span>
-<span class=x>    {</span>
-<span class=x>        return $this-&gt;foo;</span>
-<span class=x>    }</span>
+    public function getFoo()
+    {
+        return $this-&gt;foo;
+    }
 
-<span class=x>    public function setFooBar($fooBar)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;fooBar = $fooBar;</span>
-<span class=x>    }</span>
+    public function setFooBar($fooBar)
+    {
+        $this-&gt;fooBar = $fooBar;
+    }
 
-<span class=x>    public function getFooBar()</span>
-<span class=x>    {</span>
-<span class=x>        return $this-&gt;fooBar;</span>
-<span class=x>    }</span>
+    public function getFooBar()
+    {
+        return $this-&gt;fooBar;
+    }
 
-<span class=x>    public function getHref()</span>
-<span class=x>    {</span>
-<span class=x>        return sprintf(&#39;%s/%s&#39;, $this-&gt;foo, $this-&gt;fooBar);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
+    public function getHref()
+    {
+        return sprintf('%s/%s', $this-&gt;foo, $this-&gt;fooBar);
+    }
+}
 
-<span class=x>// Instantiation:</span>
-<span class=x>$page = new Page([</span>
-<span class=x>    &#39;label&#39;   =&gt; &#39;Property names are mapped to setters&#39;,</span>
-<span class=x>    &#39;foo&#39;     =&gt; &#39;bar&#39;,</span>
-<span class=x>    &#39;foo_bar&#39; =&gt; &#39;baz&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+// Instantiation:
+$page = new Page([
+    'label'   =&gt; 'Property names are mapped to setters',
+    'foo'     =&gt; 'bar',
+    'foo_bar' =&gt; 'baz',
+]);</code></pre>
 <h2 id="creating-pages-using-the-page-factory">Creating pages using the page factory</h2>
 <p>All pages (also custom classes), can be created using the page factory,
 <code>Laminas\Navigation\Page\AbstractPage::factory()</code>. The factory accepts either an
@@ -765,85 +764,82 @@ created. If any of the MVC options are given, an MVC page will be created.</p>
 class that should be created. If the value is <code>mvc</code> or <code>uri</code>, an MVC or URI page
 will be created, respectively.</p>
 <h3>Creating an MVC page using the page factory</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>// MVC page, as &quot;action&quot; is defined</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39;  =&gt; &#39;My MVC page&#39;,</span>
-<span class=x>    &#39;action&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>]);</span>
+// MVC page, as &quot;action&quot; is defined
+$page = AbstractPage::factory([
+    'label'  =&gt; 'My MVC page',
+    'action' =&gt; 'index',
+]);
 
-<span class=x>// MVC page, as &quot;action&quot; and &quot;controller&quot; are defined</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39;      =&gt; &#39;Search blog&#39;,</span>
-<span class=x>    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>    &#39;controller&#39; =&gt; &#39;search&#39;,</span>
-<span class=x>]);</span>
+// MVC page, as &quot;action&quot; and &quot;controller&quot; are defined
+$page = AbstractPage::factory([
+    'label'      =&gt; 'Search blog',
+    'action'     =&gt; 'index',
+    'controller' =&gt; 'search',
+]);
 
-<span class=x>// MVC page, as &quot;route&quot; is defined</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39; =&gt; &#39;Home&#39;,</span>
-<span class=x>    &#39;route&#39; =&gt; &#39;home&#39;,</span>
-<span class=x>]);</span>
+// MVC page, as &quot;route&quot; is defined
+$page = AbstractPage::factory([
+    'label' =&gt; 'Home',
+    'route' =&gt; 'home',
+]);
 
-<span class=x>// MVC page, as &quot;type&quot; is &quot;mvc&quot;</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;type&#39;   =&gt; &#39;mvc&#39;,</span>
-<span class=x>    &#39;label&#39;  =&gt; &#39;My MVC page&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+// MVC page, as &quot;type&quot; is &quot;mvc&quot;
+$page = AbstractPage::factory([
+    'type'   =&gt; 'mvc',
+    'label'  =&gt; 'My MVC page',
+]);</code></pre>
 <h3>Creating a URI page using the page factory</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
-<span class=x>    &#39;uri&#39;   =&gt; &#39;http://www.example.com/&#39;,</span>
-<span class=x>]);</span>
+// URI page, as &quot;uri&quot; is present, with now MVC options
+$page = AbstractPage::factory([
+    'label' =&gt; 'My URI page',
+    'uri'   =&gt; 'http://www.example.com/',
+]);
 
-<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39;  =&gt; &#39;Search&#39;,</span>
-<span class=x>    &#39;uri&#39;    =&gt; &#39;http://www.example.com/search&#39;,</span>
-<span class=x>    &#39;active&#39; =&gt; true,</span>
-<span class=x>]);</span>
+// URI page, as &quot;uri&quot; is present, with now MVC options
+$page = AbstractPage::factory([
+    'label'  =&gt; 'Search',
+    'uri'    =&gt; 'http://www.example.com/search',
+    'active' =&gt; true,
+]);
 
-<span class=x>// URI page, as &quot;uri&quot; is present, with now MVC options</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
-<span class=x>    &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>]);</span>
+// URI page, as &quot;uri&quot; is present, with now MVC options
+$page = AbstractPage::factory([
+    'label' =&gt; 'My URI page',
+    'uri'   =&gt; '#',
+]);
 
-<span class=x>// URI page, as &quot;type&quot; is &quot;uri&quot;</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;type&#39;  =&gt; &#39;uri&#39;,</span>
-<span class=x>    &#39;label&#39; =&gt; &#39;My URI page&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+// URI page, as &quot;type&quot; is &quot;uri&quot;
+$page = AbstractPage::factory([
+    'type'  =&gt; 'uri',
+    'label' =&gt; 'My URI page',
+]);</code></pre>
 <h3>Creating a custom page type using the page factory</h3>
 <p>To create a custom page type using the factory, use the option <code>type</code> to specify
 a class name to instantiate.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace My\Navigation;</span>
+<pre class=codehilite><code class=language-php>namespace My\Navigation;
 
-<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>class Page extends AbstractPage</span>
-<span class=x>{</span>
-<span class=x>    protected $fooBar = &#39;ok&#39;;</span>
+class Page extends AbstractPage
+{
+    protected $fooBar = 'ok';
 
-<span class=x>    public function setFooBar($fooBar)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;fooBar = $fooBar;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
+    public function setFooBar($fooBar)
+    {
+        $this-&gt;fooBar = $fooBar;
+    }
+}
 
-<span class=x>// Creates Page instance, as &quot;type&quot; refers to its class.</span>
-<span class=x>$page = AbstractPage::factory([</span>
-<span class=x>    &#39;type&#39;    =&gt; Page::class,</span>
-<span class=x>    &#39;label&#39;   =&gt; &#39;My custom page&#39;,</span>
-<span class=x>    &#39;foo_bar&#39; =&gt; &#39;foo bar&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+// Creates Page instance, as &quot;type&quot; refers to its class.
+$page = AbstractPage::factory([
+    'type'    =&gt; Page::class,
+    'label'   =&gt; 'My custom page',
+    'foo_bar' =&gt; 'foo bar',
+]);</code></pre>
 
 
 
@@ -1038,9 +1034,10 @@ a class name to instantiate.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -1077,7 +1074,7 @@ a class name to instantiate.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -1086,8 +1083,8 @@ a class name to instantiate.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

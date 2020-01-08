@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -317,290 +321,286 @@ via options will eventually be passed to the <code>addPage()</code> method of th
 class, which means that each element in the options can be also be an array,
 Traversable object, or a <code>Laminas\Navigation\Page\AbstractPage</code> instance.</p>
 <h3>Creating a container using an array</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>/*</span>
-<span class=x> * Create a container from an array</span>
-<span class=x> *</span>
-<span class=x> * Each element in the array will be passed to</span>
-<span class=x> * Laminas\Navigation\Page\AbstractPage::factory() when constructing.</span>
-<span class=x> */</span>
-<span class=x>$container = new Navigation([</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
-<span class=x>        &#39;id&#39; =&gt; &#39;home-link&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;/&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Laminas&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;http://www.laminas-project.com/&#39;,</span>
-<span class=x>        &#39;order&#39; =&gt; 100,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
-<span class=x>                &#39;action&#39; =&gt; &#39;page2_1&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
-<span class=x>                &#39;class&#39; =&gt; &#39;special-one&#39;,</span>
-<span class=x>                &#39;title&#39; =&gt; &#39;This element has a special class&#39;,</span>
-<span class=x>                &#39;active&#39; =&gt; true,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
-<span class=x>                &#39;action&#39; =&gt; &#39;page2_2&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
-<span class=x>                &#39;class&#39; =&gt; &#39;special-two&#39;,</span>
-<span class=x>                &#39;title&#39; =&gt; &#39;This element has a special class too&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 2 with params&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
-<span class=x>        // specify a param or two,</span>
-<span class=x>        &#39;params&#39; =&gt; [</span>
-<span class=x>            &#39;format&#39; =&gt; &#39;json&#39;,</span>
-<span class=x>            &#39;foo&#39; =&gt; &#39;bar&#39;,</span>
-<span class=x>        ]</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 2 with params and a route&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;page2&#39;,</span>
+/*
+ * Create a container from an array
+ *
+ * Each element in the array will be passed to
+ * Laminas\Navigation\Page\AbstractPage::factory() when constructing.
+ */
+$container = new Navigation([
+    [
+        'label' =&gt; 'Page 1',
+        'id' =&gt; 'home-link',
+        'uri' =&gt; '/',
+    ],
+    [
+        'label' =&gt; 'Laminas',
+        'uri' =&gt; 'http://www.laminas-project.com/',
+        'order' =&gt; 100,
+    ],
+    [
+        'label' =&gt; 'Page 2',
+        'controller' =&gt; 'page2',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 2.1',
+                'action' =&gt; 'page2_1',
+                'controller' =&gt; 'page2',
+                'class' =&gt; 'special-one',
+                'title' =&gt; 'This element has a special class',
+                'active' =&gt; true,
+            ],
+            [
+                'label' =&gt; 'Page 2.2',
+                'action' =&gt; 'page2_2',
+                'controller' =&gt; 'page2',
+                'class' =&gt; 'special-two',
+                'title' =&gt; 'This element has a special class too',
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'Page 2 with params',
+        'action' =&gt; 'index',
+        'controller' =&gt; 'page2',
+        // specify a param or two,
+        'params' =&gt; [
+            'format' =&gt; 'json',
+            'foo' =&gt; 'bar',
+        ]
+    ],
+    [
+        'label' =&gt; 'Page 2 with params and a route',
+        'action' =&gt; 'index',
+        'controller' =&gt; 'page2',
 
-<span class=x>        // specify a route name and a param for the route</span>
-<span class=x>        &#39;route&#39; =&gt; &#39;nav-route-example&#39;,</span>
-<span class=x>        &#39;params&#39; =&gt; [</span>
-<span class=x>            &#39;format&#39; =&gt; &#39;json&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 3&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;module&#39; =&gt; &#39;mymodule&#39;,</span>
-<span class=x>        &#39;reset_params&#39; =&gt; false,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 4&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;#&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 4.1&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;/page4&#39;,</span>
-<span class=x>                &#39;title&#39; =&gt; &#39;Page 4 using uri&#39;,</span>
-<span class=x>                &#39;pages&#39; =&gt; [</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39; =&gt; &#39;Page 4.1.1&#39;,</span>
-<span class=x>                        &#39;title&#39; =&gt; &#39;Page 4 using mvc params&#39;,</span>
-<span class=x>                        &#39;action&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;page4&#39;,</span>
-<span class=x>                        // let&#39;s say this page is active</span>
-<span class=x>                        &#39;active&#39; =&gt; &#39;1&#39;,</span>
-<span class=x>                    ]</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 0?&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;/setting/the/order/option&#39;,</span>
+        // specify a route name and a param for the route
+        'route' =&gt; 'nav-route-example',
+        'params' =&gt; [
+            'format' =&gt; 'json',
+        ],
+    ],
+    [
+        'label' =&gt; 'Page 3',
+        'action' =&gt; 'index',
+        'controller' =&gt; 'index',
+        'module' =&gt; 'mymodule',
+        'reset_params' =&gt; false,
+    ],
+    [
+        'label' =&gt; 'Page 4',
+        'uri' =&gt; '#',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 4.1',
+                'uri' =&gt; '/page4',
+                'title' =&gt; 'Page 4 using uri',
+                'pages' =&gt; [
+                    [
+                        'label' =&gt; 'Page 4.1.1',
+                        'title' =&gt; 'Page 4 using mvc params',
+                        'action' =&gt; 'index',
+                        'controller' =&gt; 'page4',
+                        // let's say this page is active
+                        'active' =&gt; '1',
+                    ]
+                ],
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'Page 0?',
+        'uri' =&gt; '/setting/the/order/option',
 
-<span class=x>        // setting order to -1 should make it appear first</span>
-<span class=x>        &#39;order&#39; =&gt; -1,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 5&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;/&#39;,</span>
+        // setting order to -1 should make it appear first
+        'order' =&gt; -1,
+    ],
+    [
+        'label' =&gt; 'Page 5',
+        'uri' =&gt; '/',
 
-<span class=x>        // this page should not be visible</span>
-<span class=x>        &#39;visible&#39; =&gt; false,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 5.1&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#&#39;,</span>
-<span class=x>                &#39;pages&#39; =&gt; [</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39; =&gt; &#39;Page 5.1.1&#39;,</span>
-<span class=x>                        &#39;uri&#39; =&gt; &#39;#&#39;,</span>
-<span class=x>                        &#39;pages&#39; =&gt; [</span>
-<span class=x>                            [</span>
-<span class=x>                                &#39;label&#39; =&gt; &#39;Page 5.1.2&#39;,</span>
-<span class=x>                                &#39;uri&#39; =&gt; &#39;#&#39;,</span>
+        // this page should not be visible
+        'visible' =&gt; false,
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 5.1',
+                'uri' =&gt; '#',
+                'pages' =&gt; [
+                    [
+                        'label' =&gt; 'Page 5.1.1',
+                        'uri' =&gt; '#',
+                        'pages' =&gt; [
+                            [
+                                'label' =&gt; 'Page 5.1.2',
+                                'uri' =&gt; '#',
 
-<span class=x>                                // let&#39;s say this page is active</span>
-<span class=x>                                &#39;active&#39; =&gt; true,</span>
-<span class=x>                            ],</span>
-<span class=x>                        ],</span>
-<span class=x>                    ],</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 1 (guest)&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-guest&#39;,</span>
-<span class=x>        &#39;resource&#39; =&gt; &#39;nav-guest&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.1 (foo)&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-foo&#39;,</span>
-<span class=x>                &#39;resource&#39; =&gt; &#39;nav-foo&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.2 (bar)&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-bar&#39;,</span>
-<span class=x>                &#39;resource&#39; =&gt; &#39;nav-bar&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.3 (baz)&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-baz&#39;,</span>
-<span class=x>                &#39;resource&#39; =&gt; &#39;nav-baz&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 1.4 (bat)&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-bat&#39;,</span>
-<span class=x>                &#39;resource&#39; =&gt; &#39;nav-bat&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 2 (member)&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-member&#39;,</span>
-<span class=x>        &#39;resource&#39; =&gt; &#39;nav-member&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;ACL page 3 (admin&#39;,</span>
-<span class=x>        &#39;uri&#39; =&gt; &#39;#acl-admin&#39;,</span>
-<span class=x>        &#39;resource&#39; =&gt; &#39;nav-admin&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;ACL page 3.1 (nothing)&#39;,</span>
-<span class=x>                &#39;uri&#39; =&gt; &#39;#acl-nada&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Laminas&#39;,</span>
-<span class=x>        &#39;route&#39; =&gt; &#39;api-tools-route&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
-</pre></div></p>
+                                // let's say this page is active
+                                'active' =&gt; true,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'ACL page 1 (guest)',
+        'uri' =&gt; '#acl-guest',
+        'resource' =&gt; 'nav-guest',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'ACL page 1.1 (foo)',
+                'uri' =&gt; '#acl-foo',
+                'resource' =&gt; 'nav-foo',
+            ],
+            [
+                'label' =&gt; 'ACL page 1.2 (bar)',
+                'uri' =&gt; '#acl-bar',
+                'resource' =&gt; 'nav-bar',
+            ],
+            [
+                'label' =&gt; 'ACL page 1.3 (baz)',
+                'uri' =&gt; '#acl-baz',
+                'resource' =&gt; 'nav-baz',
+            ],
+            [
+                'label' =&gt; 'ACL page 1.4 (bat)',
+                'uri' =&gt; '#acl-bat',
+                'resource' =&gt; 'nav-bat',
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'ACL page 2 (member)',
+        'uri' =&gt; '#acl-member',
+        'resource' =&gt; 'nav-member',
+    ],
+    [
+        'label' =&gt; 'ACL page 3 (admin',
+        'uri' =&gt; '#acl-admin',
+        'resource' =&gt; 'nav-admin',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'ACL page 3.1 (nothing)',
+                'uri' =&gt; '#acl-nada',
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'Laminas',
+        'route' =&gt; 'api-tools-route',
+    ],
+]);</code></pre>
 <h2 id="adding-pages">Adding pages</h2>
 <p>Adding pages to a container can be done with the methods <code>addPage()</code>,
 <code>addPages()</code>, or <code>setPages()</code>.  See examples below for explanation.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Config\Config;</span>
-<span class=x>use Laminas\Navigation\Navigation;</span>
-<span class=x>use Laminas\Navigation\Page\AbstractPage;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Config\Config;
+use Laminas\Navigation\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
 
-<span class=x>// create container</span>
-<span class=x>$container = new Navigation();</span>
+// create container
+$container = new Navigation();
 
-<span class=x>// add page by giving a page instance</span>
-<span class=x>$container-&gt;addPage(AbstractPage::factory([</span>
-<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
-<span class=x>]]);</span>
+// add page by giving a page instance
+$container-&gt;addPage(AbstractPage::factory([
+    'uri' =&gt; 'http://www.example.com/',
+]]);
 
-<span class=x>// add page by giving an array</span>
-<span class=x>$container-&gt;addPage([</span>
-<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
-<span class=x>]);</span>
+// add page by giving an array
+$container-&gt;addPage([
+    'uri' =&gt; 'http://www.example.com/',
+]);
 
-<span class=x>// add page by giving a Traversable object; in this case, a laminas-config</span>
-<span class=x>// instance.</span>
-<span class=x>$container-&gt;addPage(Config([</span>
-<span class=x>    &#39;uri&#39; =&gt; &#39;http://www.example.com/&#39;,</span>
-<span class=x>]));</span>
+// add page by giving a Traversable object; in this case, a laminas-config
+// instance.
+$container-&gt;addPage(Config([
+    'uri' =&gt; 'http://www.example.com/',
+]));
 
-<span class=x>$pages = [</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;  =&gt; &#39;Save&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;save&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt;  &#39;Delete&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;delete&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+$pages = [
+    [
+        'label'  =&gt; 'Save',
+        'action' =&gt; 'save',
+    ],
+    [
+        'label' =&gt;  'Delete',
+        'action' =&gt; 'delete',
+    ],
+];
 
-<span class=x>// add two pages</span>
-<span class=x>$container-&gt;addPages($pages);</span>
+// add two pages
+$container-&gt;addPages($pages);
 
-<span class=x>// remove existing pages and add the given pages</span>
-<span class=x>$container-&gt;setPages($pages);</span>
-</pre></div></p>
+// remove existing pages and add the given pages
+$container-&gt;setPages($pages);</code></pre>
 <h2 id="removing-pages">Removing pages</h2>
 <p>Removing pages can be done with <code>removePage()</code> or <code>removePages()</code>.
 <code>removePage()</code> accepts an instance of a page or an integer. Integer arguments
 correspond to the <code>order</code> a page has. <code>removePages()</code> will remove all pages in
 the container.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>$container = new Navigation([</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;  =&gt; &#39;Page 1&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;page1&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;  =&gt; &#39;Page 2&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;page2&#39;,</span>
-<span class=x>        &#39;order&#39;  =&gt; 200,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;  =&gt; &#39;Page 3&#39;,</span>
-<span class=x>        &#39;action&#39; =&gt; &#39;page3&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
+$container = new Navigation([
+    [
+        'label'  =&gt; 'Page 1',
+        'action' =&gt; 'page1',
+    ],
+    [
+        'label'  =&gt; 'Page 2',
+        'action' =&gt; 'page2',
+        'order'  =&gt; 200,
+    ],
+    [
+        'label'  =&gt; 'Page 3',
+        'action' =&gt; 'page3',
+    ],
+]);
 
-<span class=x>// remove page by implicit page order</span>
-<span class=x>$container-&gt;removePage(0);      // removes Page 1</span>
+// remove page by implicit page order
+$container-&gt;removePage(0);      // removes Page 1
 
-<span class=x>// remove page by instance</span>
-<span class=x>$page3 = $container-&gt;findOneByAction(&#39;page3&#39;);</span>
-<span class=x>$container-&gt;removePage($page3); // removes Page 3</span>
+// remove page by instance
+$page3 = $container-&gt;findOneByAction('page3');
+$container-&gt;removePage($page3); // removes Page 3
 
-<span class=x>// remove page by explicit page order</span>
-<span class=x>$container-&gt;removePage(200);    // removes Page 2</span>
+// remove page by explicit page order
+$container-&gt;removePage(200);    // removes Page 2
 
-<span class=x>// remove all pages</span>
-<span class=x>$container-&gt;removePages();      // removes all pages</span>
-</pre></div></p>
+// remove all pages
+$container-&gt;removePages();      // removes all pages</code></pre>
 <h3>Remove a page recursively</h3>
 <p>Removing a page recursively can be done with the second parameter of
 the <code>removePage()</code> method, which expects a <code>boolean</code> value.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>$container = new Navigation(</span>
-<span class=x>    [</span>
-<span class=x>        [</span>
-<span class=x>            &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
-<span class=x>            &#39;route&#39; =&gt; &#39;page1&#39;,</span>
-<span class=x>            &#39;pages&#39; =&gt; [</span>
-<span class=x>                [</span>
-<span class=x>                    &#39;label&#39; =&gt; &#39;Page 1.1&#39;,</span>
-<span class=x>                    &#39;route&#39; =&gt; &#39;page1/page1-1&#39;,</span>
-<span class=x>                    &#39;pages&#39; =&gt; [</span>
-<span class=x>                        [</span>
-<span class=x>                            &#39;label&#39; =&gt; &#39;Page 1.1.1&#39;,</span>
-<span class=x>                            &#39;route&#39; =&gt; &#39;page1/page1-1/page1-1-1&#39;,</span>
-<span class=x>                        ],</span>
-<span class=x>                    ],</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ]</span>
-<span class=x>);</span>
+$container = new Navigation(
+    [
+        [
+            'label' =&gt; 'Page 1',
+            'route' =&gt; 'page1',
+            'pages' =&gt; [
+                [
+                    'label' =&gt; 'Page 1.1',
+                    'route' =&gt; 'page1/page1-1',
+                    'pages' =&gt; [
+                        [
+                            'label' =&gt; 'Page 1.1.1',
+                            'route' =&gt; 'page1/page1-1/page1-1-1',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]
+);
 
-<span class=x>// Removes Page 1.1.1</span>
-<span class=x>$container-&gt;removePage(</span>
-<span class=x>    $container-&gt;findOneBy(&#39;route&#39;, &#39;page1/page1-1/page1-1-1&#39;),</span>
-<span class=x>    true</span>
-<span class=x>);</span>
-</pre></div></p>
+// Removes Page 1.1.1
+$container-&gt;removePage(
+    $container-&gt;findOneBy('route', 'page1/page1-1/page1-1-1'),
+    true
+);</code></pre>
 <h2 id="finding-pages">Finding pages</h2>
 <p>Containers have three finder methods for retrieving pages. Each recursively
 searches the container testing for properties with values that match the one
@@ -619,277 +619,271 @@ will return the first matching page with label 'Home'.</p>
 <p>Other combinations include <code>findByLabel(...)</code>, <code>findOneByTitle(...)</code>,
 <code>findAllByController(...)</code>, etc. Finder methods also work on custom properties,
 such as <code>findByFoo('bar')</code>.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>$container = new Navigation([</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;page-1&#39;,</span>
-<span class=x>        &#39;foo&#39;   =&gt; &#39;bar&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 1.1&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;page-1.1&#39;,</span>
-<span class=x>                &#39;foo&#39;   =&gt; &#39;bar&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 1.2&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;page-1.2&#39;,</span>
-<span class=x>                &#39;class&#39; =&gt; &#39;my-class&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;type&#39;   =&gt; &#39;uri&#39;,</span>
-<span class=x>                &#39;label&#39;  =&gt; &#39;Page 1.3&#39;,</span>
-<span class=x>                &#39;uri&#39;    =&gt; &#39;page-1.3&#39;,</span>
-<span class=x>                &#39;action&#39; =&gt; &#39;about&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Page 2&#39;,</span>
-<span class=x>        &#39;id&#39;         =&gt; &#39;page_2_and_3&#39;,</span>
-<span class=x>        &#39;class&#39;      =&gt; &#39;my-class&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;page2&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;page1&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Page 3&#39;,</span>
-<span class=x>        &#39;id&#39;         =&gt; &#39;page_2_and_3&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;page3&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
+$container = new Navigation([
+    [
+        'label' =&gt; 'Page 1',
+        'uri'   =&gt; 'page-1',
+        'foo'   =&gt; 'bar',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 1.1',
+                'uri'   =&gt; 'page-1.1',
+                'foo'   =&gt; 'bar',
+            ],
+            [
+                'label' =&gt; 'Page 1.2',
+                'uri'   =&gt; 'page-1.2',
+                'class' =&gt; 'my-class',
+            ],
+            [
+                'type'   =&gt; 'uri',
+                'label'  =&gt; 'Page 1.3',
+                'uri'    =&gt; 'page-1.3',
+                'action' =&gt; 'about',
+            ],
+        ],
+    ],
+    [
+        'label'      =&gt; 'Page 2',
+        'id'         =&gt; 'page_2_and_3',
+        'class'      =&gt; 'my-class',
+        'module'     =&gt; 'page2',
+        'controller' =&gt; 'index',
+        'action'     =&gt; 'page1',
+    ],
+    [
+        'label'      =&gt; 'Page 3',
+        'id'         =&gt; 'page_2_and_3',
+        'module'     =&gt; 'page3',
+        'controller' =&gt; 'index',
+    ],
+]);
 
-<span class=x>// The &#39;id&#39; is not required to be unique, but be aware that</span>
-<span class=x>// having two pages with the same id will render the same id attribute</span>
-<span class=x>// in menus and breadcrumbs.</span>
+// The 'id' is not required to be unique, but be aware that
+// having two pages with the same id will render the same id attribute
+// in menus and breadcrumbs.
 
-<span class=x>// Returns &quot;Page 2&quot;:</span>
-<span class=x>$found = $container-&gt;findBy(&#39;id&#39;, &#39;page_2_and_3&#39;);</span>
+// Returns &quot;Page 2&quot;:
+$found = $container-&gt;findBy('id', 'page_2_and_3');
 
-<span class=x>// Returns &quot;Page 2&quot;:</span>
-<span class=x>$found = $container-&gt;findOneBy(&#39;id&#39;, &#39;page_2_and_3&#39;);</span>
+// Returns &quot;Page 2&quot;:
+$found = $container-&gt;findOneBy('id', 'page_2_and_3');
 
-<span class=x>// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:</span>
-<span class=x>$found = $container-&gt;findBy(&#39;id&#39;, &#39;page_2_and_3&#39;, true);</span>
+// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:
+$found = $container-&gt;findBy('id', 'page_2_and_3', true);
 
-<span class=x>// Returns &quot;Page 2&quot;:</span>
-<span class=x>$found = $container-&gt;findById(&#39;page_2_and_3&#39;);</span>
+// Returns &quot;Page 2&quot;:
+$found = $container-&gt;findById('page_2_and_3');
 
-<span class=x>// Returns &quot;Page 2&quot;:</span>
-<span class=x>$found = $container-&gt;findOneById(&#39;page_2_and_3&#39;);</span>
+// Returns &quot;Page 2&quot;:
+$found = $container-&gt;findOneById('page_2_and_3');
 
-<span class=x>// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:</span>
-<span class=x>$found = $container-&gt;findAllById(&#39;page_2_and_3&#39;);</span>
+// Returns &quot;Page 2&quot; AND &quot;Page 3&quot;:
+$found = $container-&gt;findAllById('page_2_and_3');
 
-<span class=x>// Find all pages matching the CSS class &quot;my-class&quot;:</span>
-<span class=x>// Returns &quot;Page 1.2&quot; and &quot;Page 2&quot;:</span>
-<span class=x>$found = $container-&gt;findAllBy(&#39;class&#39;, &#39;my-class&#39;);</span>
-<span class=x>$found = $container-&gt;findAllByClass(&#39;my-class&#39;);</span>
+// Find all pages matching the CSS class &quot;my-class&quot;:
+// Returns &quot;Page 1.2&quot; and &quot;Page 2&quot;:
+$found = $container-&gt;findAllBy('class', 'my-class');
+$found = $container-&gt;findAllByClass('my-class');
 
-<span class=x>// Find first page matching CSS class &quot;my-class&quot;:</span>
-<span class=x>// Returns &quot;Page 1.2&quot;:</span>
-<span class=x>$found = $container-&gt;findOneByClass(&#39;my-class&#39;);</span>
+// Find first page matching CSS class &quot;my-class&quot;:
+// Returns &quot;Page 1.2&quot;:
+$found = $container-&gt;findOneByClass('my-class');
 
-<span class=x>// Find all pages matching the CSS class &quot;non-existent&quot;:</span>
-<span class=x>// Returns an empty array.</span>
-<span class=x>$found = $container-&gt;findAllByClass(&#39;non-existent&#39;);</span>
+// Find all pages matching the CSS class &quot;non-existent&quot;:
+// Returns an empty array.
+$found = $container-&gt;findAllByClass('non-existent');
 
-<span class=x>// Find first page matching the CSS class &quot;non-existent&quot;:</span>
-<span class=x>// Returns null.</span>
-<span class=x>$found = $container-&gt;findOneByClass(&#39;non-existent&#39;);</span>
+// Find first page matching the CSS class &quot;non-existent&quot;:
+// Returns null.
+$found = $container-&gt;findOneByClass('non-existent');
 
-<span class=x>// Find all pages with custom property &#39;foo&#39; = &#39;bar&#39;:</span>
-<span class=x>// Returns &quot;Page 1&quot; and &quot;Page 1.1&quot;:</span>
-<span class=x>$found = $container-&gt;findAllBy(&#39;foo&#39;, &#39;bar&#39;);</span>
+// Find all pages with custom property 'foo' = 'bar':
+// Returns &quot;Page 1&quot; and &quot;Page 1.1&quot;:
+$found = $container-&gt;findAllBy('foo', 'bar');
 
-<span class=x>// To achieve the same magically, &#39;foo&#39; must be in lowercase.</span>
-<span class=x>// This is because &#39;foo&#39; is a custom property, and thus the</span>
-<span class=x>// property name is not normalized to &#39;Foo&#39;:</span>
-<span class=x>$found = $container-&gt;findAllByfoo(&#39;bar&#39;);</span>
+// To achieve the same magically, 'foo' must be in lowercase.
+// This is because 'foo' is a custom property, and thus the
+// property name is not normalized to 'Foo':
+$found = $container-&gt;findAllByfoo('bar');
 
-<span class=x>// Find all with controller = &#39;index&#39;:</span>
-<span class=x>// Returns &quot;Page 2&quot; and &quot;Page 3&quot;:</span>
-<span class=x>$found = $container-&gt;findAllByController(&#39;index&#39;);</span>
-</pre></div></p>
+// Find all with controller = 'index':
+// Returns &quot;Page 2&quot; and &quot;Page 3&quot;:
+$found = $container-&gt;findAllByController('index');</code></pre>
 <h2 id="iterating-containers">Iterating containers</h2>
 <p><code>Laminas\Navigation\AbstractContainer</code> implements <code>RecursiveIterator</code>.  iterate a
 container recursively, use the <code>RecursiveIteratorIterator</code> class.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use RecursiveIteratorIterator;</span>
-<span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use RecursiveIteratorIterator;
+use Laminas\Navigation\Navigation;
 
-<span class=x>/*</span>
-<span class=x> * Create a container from an array</span>
-<span class=x> */</span>
-<span class=x>$container = new Navigation([</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 3&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
+/*
+ * Create a container from an array
+ */
+$container = new Navigation([
+    [
+        'label' =&gt; 'Page 1',
+        'uri'   =&gt; '#',
+    ],
+    [
+        'label' =&gt; 'Page 2',
+        'uri'   =&gt; '#',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 2.1',
+                'uri'   =&gt; '#',
+            ],
+            [
+                'label' =&gt; 'Page 2.2',
+                'uri'   =&gt; '#',
+            ],
+        ],
+    ],
+    [
+        'label' =&gt; 'Page 3',
+        'uri'   =&gt; '#',
+    ],
+]);
 
-<span class=x>// Iterate flat using regular foreach:</span>
-<span class=x>// Output: Page 1, Page 2, Page 3</span>
-<span class=x>foreach ($container as $page) {</span>
-<span class=x>    echo $page-&gt;label;</span>
-<span class=x>}</span>
+// Iterate flat using regular foreach:
+// Output: Page 1, Page 2, Page 3
+foreach ($container as $page) {
+    echo $page-&gt;label;
+}
 
-<span class=x>// Iterate recursively using RecursiveIteratorIterator</span>
-<span class=x>$it = new RecursiveIteratorIterator(</span>
-<span class=x>    $container,</span>
-<span class=x>    RecursiveIteratorIterator::SELF_FIRST</span>
-<span class=x>);</span>
+// Iterate recursively using RecursiveIteratorIterator
+$it = new RecursiveIteratorIterator(
+    $container,
+    RecursiveIteratorIterator::SELF_FIRST
+);
 
-<span class=x>// Output: Page 1, Page 2, Page 2.1, Page 2.2, Page 3</span>
-<span class=x>foreach ($it as $page) {</span>
-<span class=x>    echo $page-&gt;label;</span>
-<span class=x>}</span>
-</pre></div></p>
+// Output: Page 1, Page 2, Page 2.1, Page 2.2, Page 3
+foreach ($it as $page) {
+    echo $page-&gt;label;
+}</code></pre>
 <h2 id="other-operations">Other operations</h2>
 <h3>hasPage</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>hasPage(AbstractPage $page) : bool</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>hasPage(AbstractPage $page) : bool</code></pre>
 <p>Check if the container has the given page.</p>
 <h3>hasPages</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>hasPages() : bool</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>hasPages() : bool</code></pre>
 <p>Checks if there are any pages in the container, and is equivalent to
 <code>count($container) &gt; 0</code>.</p>
 <h3>toArray</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>toArray() : array</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>toArray() : array</code></pre>
 <p>Converts the container and the pages in it to a (nested) array. This can be useful
 for serializing and debugging.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>$container = new Navigation([</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 1&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39; =&gt; &#39;Page 2&#39;,</span>
-<span class=x>        &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>        &#39;pages&#39; =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.1&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Page 2.2&#39;,</span>
-<span class=x>               &#39;uri&#39;   =&gt; &#39;#&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
+$container = new Navigation([
+    [
+        'label' =&gt; 'Page 1',
+        'uri'   =&gt; '#',
+    ],
+    [
+        'label' =&gt; 'Page 2',
+        'uri'   =&gt; '#',
+        'pages' =&gt; [
+            [
+                'label' =&gt; 'Page 2.1',
+                'uri'   =&gt; '#',
+            ],
+            [
+                'label' =&gt; 'Page 2.2',
+               'uri'   =&gt; '#',
+            ],
+        ],
+    ],
+]);
 
-<span class=x>var_dump($container-&gt;toArray());</span>
+var_dump($container-&gt;toArray());
 
-<span class=x>/* Output:</span>
-<span class=x>array(2) {</span>
-<span class=x>  [0]=&gt; array(15) {</span>
-<span class=x>    [&quot;label&quot;]=&gt; string(6) &quot;Page 1&quot;</span>
-<span class=x>    [&quot;id&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;class&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;title&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;target&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;rel&quot;]=&gt; array(0) {</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;rev&quot;]=&gt; array(0) {</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;order&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;resource&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;privilege&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;active&quot;]=&gt; bool(false)</span>
-<span class=x>    [&quot;visible&quot;]=&gt; bool(true)</span>
-<span class=x>    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
-<span class=x>    [&quot;pages&quot;]=&gt; array(0) {</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
-<span class=x>  }</span>
-<span class=x>  [1]=&gt; array(15) {</span>
-<span class=x>    [&quot;label&quot;]=&gt; string(6) &quot;Page 2&quot;</span>
-<span class=x>    [&quot;id&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;class&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;title&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;target&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;rel&quot;]=&gt; array(0) {</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;rev&quot;]=&gt; array(0) {</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;order&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;resource&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;privilege&quot;]=&gt; NULL</span>
-<span class=x>    [&quot;active&quot;]=&gt; bool(false)</span>
-<span class=x>    [&quot;visible&quot;]=&gt; bool(true)</span>
-<span class=x>    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
-<span class=x>    [&quot;pages&quot;]=&gt; array(2) {</span>
-<span class=x>      [0]=&gt; array(15) {</span>
-<span class=x>        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.1&quot;</span>
-<span class=x>        [&quot;id&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;class&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;title&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;target&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;rel&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;rev&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;order&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;resource&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;privilege&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;active&quot;]=&gt; bool(false)</span>
-<span class=x>        [&quot;visible&quot;]=&gt; bool(true)</span>
-<span class=x>        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
-<span class=x>        [&quot;pages&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
-<span class=x>      }</span>
-<span class=x>      [1]=&gt;</span>
-<span class=x>      array(15) {</span>
-<span class=x>        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.2&quot;</span>
-<span class=x>        [&quot;id&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;class&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;title&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;target&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;rel&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;rev&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;order&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;resource&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;privilege&quot;]=&gt; NULL</span>
-<span class=x>        [&quot;active&quot;]=&gt; bool(false)</span>
-<span class=x>        [&quot;visible&quot;]=&gt; bool(true)</span>
-<span class=x>        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;</span>
-<span class=x>        [&quot;pages&quot;]=&gt; array(0) {</span>
-<span class=x>        }</span>
-<span class=x>        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
-<span class=x>      }</span>
-<span class=x>    }</span>
-<span class=x>    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;</span>
-<span class=x>  }</span>
-<span class=x>}</span>
-<span class=x>*/</span>
-</pre></div></p>
+/* Output:
+array(2) {
+  [0]=&gt; array(15) {
+    [&quot;label&quot;]=&gt; string(6) &quot;Page 1&quot;
+    [&quot;id&quot;]=&gt; NULL
+    [&quot;class&quot;]=&gt; NULL
+    [&quot;title&quot;]=&gt; NULL
+    [&quot;target&quot;]=&gt; NULL
+    [&quot;rel&quot;]=&gt; array(0) {
+    }
+    [&quot;rev&quot;]=&gt; array(0) {
+    }
+    [&quot;order&quot;]=&gt; NULL
+    [&quot;resource&quot;]=&gt; NULL
+    [&quot;privilege&quot;]=&gt; NULL
+    [&quot;active&quot;]=&gt; bool(false)
+    [&quot;visible&quot;]=&gt; bool(true)
+    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;
+    [&quot;pages&quot;]=&gt; array(0) {
+    }
+    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;
+  }
+  [1]=&gt; array(15) {
+    [&quot;label&quot;]=&gt; string(6) &quot;Page 2&quot;
+    [&quot;id&quot;]=&gt; NULL
+    [&quot;class&quot;]=&gt; NULL
+    [&quot;title&quot;]=&gt; NULL
+    [&quot;target&quot;]=&gt; NULL
+    [&quot;rel&quot;]=&gt; array(0) {
+    }
+    [&quot;rev&quot;]=&gt; array(0) {
+    }
+    [&quot;order&quot;]=&gt; NULL
+    [&quot;resource&quot;]=&gt; NULL
+    [&quot;privilege&quot;]=&gt; NULL
+    [&quot;active&quot;]=&gt; bool(false)
+    [&quot;visible&quot;]=&gt; bool(true)
+    [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;
+    [&quot;pages&quot;]=&gt; array(2) {
+      [0]=&gt; array(15) {
+        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.1&quot;
+        [&quot;id&quot;]=&gt; NULL
+        [&quot;class&quot;]=&gt; NULL
+        [&quot;title&quot;]=&gt; NULL
+        [&quot;target&quot;]=&gt; NULL
+        [&quot;rel&quot;]=&gt; array(0) {
+        }
+        [&quot;rev&quot;]=&gt; array(0) {
+        }
+        [&quot;order&quot;]=&gt; NULL
+        [&quot;resource&quot;]=&gt; NULL
+        [&quot;privilege&quot;]=&gt; NULL
+        [&quot;active&quot;]=&gt; bool(false)
+        [&quot;visible&quot;]=&gt; bool(true)
+        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;
+        [&quot;pages&quot;]=&gt; array(0) {
+        }
+        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;
+      }
+      [1]=&gt;
+      array(15) {
+        [&quot;label&quot;]=&gt; string(8) &quot;Page 2.2&quot;
+        [&quot;id&quot;]=&gt; NULL
+        [&quot;class&quot;]=&gt; NULL
+        [&quot;title&quot;]=&gt; NULL
+        [&quot;target&quot;]=&gt; NULL
+        [&quot;rel&quot;]=&gt; array(0) {
+        }
+        [&quot;rev&quot;]=&gt; array(0) {
+        }
+        [&quot;order&quot;]=&gt; NULL
+        [&quot;resource&quot;]=&gt; NULL
+        [&quot;privilege&quot;]=&gt; NULL
+        [&quot;active&quot;]=&gt; bool(false)
+        [&quot;visible&quot;]=&gt; bool(true)
+        [&quot;type&quot;]=&gt; string(23) &quot;Laminas\Navigation\Page\Uri&quot;
+        [&quot;pages&quot;]=&gt; array(0) {
+        }
+        [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;
+      }
+    }
+    [&quot;uri&quot;]=&gt; string(1) &quot;#&quot;
+  }
+}
+*/</code></pre>
 
 
 
@@ -1084,9 +1078,10 @@ for serializing and debugging.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -1123,7 +1118,7 @@ for serializing and debugging.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -1132,8 +1127,8 @@ for serializing and debugging.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

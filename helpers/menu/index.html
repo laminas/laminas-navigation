@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -421,323 +425,303 @@ also allows using a partial view script.</p>
 <p>This example shows how to render a menu from a container registered/found in the
 view helper. Notice how pages are filtered out based on visibility and ACL.</p>
 <p>In a view script or layout:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>render</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()-&gt;menu()-&gt;render() ?&gt;</code></pre>
 <p>Or:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()-&gt;menu() ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;Go Home&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/&quot;</span><span class=p>&gt;</span>Home<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/faq&quot;</span><span class=p>&gt;</span>FAQ<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/editions&quot;</span><span class=p>&gt;</span>Editions<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/requirements&quot;</span><span class=p>&gt;</span>System Requirements<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio&quot;</span><span class=p>&gt;</span>Foo Studio<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio/customers&quot;</span><span class=p>&gt;</span>Customer Stories<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio/support&quot;</span><span class=p>&gt;</span>Support<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;About us&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about&quot;</span><span class=p>&gt;</span>Company<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about/investors&quot;</span><span class=p>&gt;</span>Investor Relations<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;rss&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/news&quot;</span><span class=p>&gt;</span>News<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/news/press&quot;</span><span class=p>&gt;</span>Press Releases<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/archive&quot;</span><span class=p>&gt;</span>Archive<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community&quot;</span><span class=p>&gt;</span>Community<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community/account&quot;</span><span class=p>&gt;</span>My Account<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;external&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://forums.example.com/&quot;</span><span class=p>&gt;</span>Forums<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li&gt;
+        &lt;a title=&quot;Go Home&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+                &lt;ul&gt;
+                    &lt;li class=&quot;active&quot;&gt;
+                        &lt;a href=&quot;/products/server/faq&quot;&gt;FAQ&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/server/editions&quot;&gt;Editions&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/server/requirements&quot;&gt;System Requirements&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/studio&quot;&gt;Foo Studio&lt;/a&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/studio/customers&quot;&gt;Customer Stories&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/studio/support&quot;&gt;Support&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a title=&quot;About us&quot; href=&quot;/company/about&quot;&gt;Company&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/company/about/investors&quot;&gt;Investor Relations&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a class=&quot;rss&quot; href=&quot;/company/news&quot;&gt;News&lt;/a&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/company/news/press&quot;&gt;Press Releases&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/archive&quot;&gt;Archive&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/community&quot;&gt;Community&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/community/account&quot;&gt;My Account&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a class=&quot;external&quot; href=&quot;http://forums.example.com/&quot;&gt;Forums&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="calling-rendermenu-directly">Calling renderMenu() directly</h2>
 <p>This example shows how to render a menu that is not registered in the view
 helper by calling <code>renderMenu()</code> directly and specifying options.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=c1>// render only the &#39;Community&#39; menu</span>
-<span class=nv>$community</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>findOneByLabel</span><span class=p>(</span><span class=s1>&#39;Community&#39;</span><span class=p>);</span>
-<span class=nv>$options</span> <span class=o>=</span> <span class=p>[</span>
-    <span class=s1>&#39;indent&#39;</span>  <span class=o>=&gt;</span> <span class=mi>16</span><span class=p>,</span>
-    <span class=s1>&#39;ulClass&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;community&#39;</span>
-<span class=p>];</span>
-<span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-          <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-          <span class=o>-&gt;</span><span class=na>renderMenu</span><span class=p>(</span><span class=nv>$community</span><span class=p>,</span> <span class=nv>$options</span><span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+// render only the 'Community' menu
+$community = $this-&gt;navigation()-&gt;findOneByLabel('Community');
+$options = [
+    'indent'  =&gt; 16,
+    'ulClass' =&gt; 'community'
+];
+echo $this-&gt;navigation()
+          -&gt;menu()
+          -&gt;renderMenu($community, $options);
+?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;community&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community/account&quot;</span><span class=p>&gt;</span>My Account<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;external&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://forums.example.com/&quot;</span><span class=p>&gt;</span>Forums<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;community&quot;&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/community/account&quot;&gt;My Account&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a class=&quot;external&quot; href=&quot;http://forums.example.com/&quot;&gt;Forums&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-the-deepest-active-menu">Rendering the deepest active menu</h2>
 <p>This example shows how <code>renderSubMenu()</code> will render the deepest sub menu of
 the active branch.</p>
 <p>Calling <code>renderSubMenu($container, $ulClass, $indent)</code> is equivalent to calling
 <code>renderMenu($container, $options)</code> with the following options:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-5><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-5-0_php-panel role=tab id=tab-group-5-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-5-1_php-panel role=tab id=tab-group-5-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-5-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-5-0_php-tab><div class=codehilite><pre><span></span><span class=x>[</span>
-<span class=x>    &#39;ulClass&#39;          =&gt; $ulClass,</span>
-<span class=x>    &#39;indent&#39;           =&gt; $indent,</span>
-<span class=x>    &#39;minDepth&#39;         =&gt; null,</span>
-<span class=x>    &#39;maxDepth&#39;         =&gt; null,</span>
-<span class=x>    &#39;onlyActiveBranch&#39; =&gt; true,</span>
-<span class=x>    &#39;renderParents&#39;    =&gt; false,</span>
-<span class=x>]</span>
-</pre></div></div><div id=tab-group-5-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-5-1_php-tab><div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>renderSubMenu</span><span class=p>(</span><span class=k>null</span><span class=p>,</span> <span class=s1>&#39;sidebar&#39;</span><span class=p>,</span> <span class=mi>4</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></div></div></div>
+<div class=md-fenced-code-tabs id=tab-tab-group-5><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-5-0_php-panel role=tab id=tab-group-5-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-5-1_php-panel role=tab id=tab-group-5-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-5-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-5-0_php-tab><pre class=codehilite><code class=language-php>[
+    'ulClass'          =&gt; $ulClass,
+    'indent'           =&gt; $indent,
+    'minDepth'         =&gt; null,
+    'maxDepth'         =&gt; null,
+    'onlyActiveBranch' =&gt; true,
+    'renderParents'    =&gt; false,
+]</code></pre></div><div id=tab-group-5-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-5-1_php-tab><pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;renderSubMenu(null, 'sidebar', 4) ?&gt;</code></pre></div></div></div>
 
 <p>The output will be the same if 'FAQ' or 'Foo Server' is active:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;sidebar&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/faq&quot;</span><span class=p>&gt;</span>FAQ<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/editions&quot;</span><span class=p>&gt;</span>Editions<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/requirements&quot;</span><span class=p>&gt;</span>System Requirements<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;sidebar&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products/server/faq&quot;&gt;FAQ&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/products/server/editions&quot;&gt;Editions&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/products/server/requirements&quot;&gt;System Requirements&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-with-maximum-depth">Rendering with maximum depth</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setMaxDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setMaxDepth(1) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;Go Home&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/&quot;</span><span class=p>&gt;</span>Home<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio&quot;</span><span class=p>&gt;</span>Foo Studio<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;About us&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about&quot;</span><span class=p>&gt;</span>Company<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about/investors&quot;</span><span class=p>&gt;</span>Investor Relations<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;rss&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/news&quot;</span><span class=p>&gt;</span>News<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community&quot;</span><span class=p>&gt;</span>Community<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community/account&quot;</span><span class=p>&gt;</span>My Account<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;external&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://forums.example.com/&quot;</span><span class=p>&gt;</span>Forums<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li&gt;
+        &lt;a title=&quot;Go Home&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/studio&quot;&gt;Foo Studio&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a title=&quot;About us&quot; href=&quot;/company/about&quot;&gt;Company&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/company/about/investors&quot;&gt;Investor Relations&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a class=&quot;rss&quot; href=&quot;/company/news&quot;&gt;News&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/community&quot;&gt;Community&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/community/account&quot;&gt;My Account&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a class=&quot;external&quot; href=&quot;http://forums.example.com/&quot;&gt;Forums&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-with-minimum-depth">Rendering with minimum depth</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setMinDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setMinDepth(1) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/faq&quot;</span><span class=p>&gt;</span>FAQ<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/editions&quot;</span><span class=p>&gt;</span>Editions<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/requirements&quot;</span><span class=p>&gt;</span>System Requirements<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio&quot;</span><span class=p>&gt;</span>Foo Studio<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio/customers&quot;</span><span class=p>&gt;</span>Customer Stories<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio/support&quot;</span><span class=p>&gt;</span>Support<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about/investors&quot;</span><span class=p>&gt;</span>Investor Relations<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;rss&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/news&quot;</span><span class=p>&gt;</span>News<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/news/press&quot;</span><span class=p>&gt;</span>Press Releases<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/archive&quot;</span><span class=p>&gt;</span>Archive<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community/account&quot;</span><span class=p>&gt;</span>My Account<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;external&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://forums.example.com/&quot;</span><span class=p>&gt;</span>Forums<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server/faq&quot;&gt;FAQ&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/server/editions&quot;&gt;Editions&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/server/requirements&quot;&gt;System Requirements&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/products/studio&quot;&gt;Foo Studio&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/studio/customers&quot;&gt;Customer Stories&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/studio/support&quot;&gt;Support&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/company/about/investors&quot;&gt;Investor Relations&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a class=&quot;rss&quot; href=&quot;/company/news&quot;&gt;News&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/company/news/press&quot;&gt;Press Releases&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/archive&quot;&gt;Archive&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/community/account&quot;&gt;My Account&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a class=&quot;external&quot; href=&quot;http://forums.example.com/&quot;&gt;Forums&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-only-the-active-branch">Rendering only the active branch</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setOnlyActiveBranch</span><span class=p>(</span><span class=k>true</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setOnlyActiveBranch(true) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/faq&quot;</span><span class=p>&gt;</span>FAQ<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/editions&quot;</span><span class=p>&gt;</span>Editions<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/requirements&quot;</span><span class=p>&gt;</span>System Requirements<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-                    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+                &lt;ul&gt;
+                    &lt;li class=&quot;active&quot;&gt;
+                        &lt;a href=&quot;/products/server/faq&quot;&gt;FAQ&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/server/editions&quot;&gt;Editions&lt;/a&gt;
+                    &lt;/li&gt;
+                    &lt;li&gt;
+                        &lt;a href=&quot;/products/server/requirements&quot;&gt;System Requirements&lt;/a&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-only-the-active-branch-with-minimum-depth">Rendering only the active branch with minimum depth</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setOnlyActiveBranch</span><span class=p>(</span><span class=k>true</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setMinDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setOnlyActiveBranch(true)
+    -&gt;setMinDepth(1) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/faq&quot;</span><span class=p>&gt;</span>FAQ<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/editions&quot;</span><span class=p>&gt;</span>Editions<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server/requirements&quot;</span><span class=p>&gt;</span>System Requirements<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server/faq&quot;&gt;FAQ&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/server/editions&quot;&gt;Editions&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/server/requirements&quot;&gt;System Requirements&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-only-the-active-branch-with-maximum-depth">Rendering only the active branch with maximum depth</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setOnlyActiveBranch</span><span class=p>(</span><span class=k>true</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setMaxDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setOnlyActiveBranch(true)
+    -&gt;setMaxDepth(1) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio&quot;</span><span class=p>&gt;</span>Foo Studio<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+        &lt;ul&gt;
+            &lt;li class=&quot;active&quot;&gt;
+                &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href=&quot;/products/studio&quot;&gt;Foo Studio&lt;/a&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-only-the-active-branch-with-maximum-depth-and-no-parents">Rendering only the active branch with maximum depth and no parents</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span>
-    <span class=o>-&gt;</span><span class=na>setOnlyActiveBranch</span><span class=p>(</span><span class=k>true</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setRenderParents</span><span class=p>(</span><span class=k>false</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setMaxDepth</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+    -&gt;menu()
+    -&gt;setOnlyActiveBranch(true)
+    -&gt;setRenderParents(false)
+    -&gt;setMaxDepth(1) ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;navigation&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;active&quot;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/server&quot;</span><span class=p>&gt;</span>Foo Server<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products/studio&quot;</span><span class=p>&gt;</span>Foo Studio<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;navigation&quot;&gt;
+    &lt;li class=&quot;active&quot;&gt;
+        &lt;a href=&quot;/products/server&quot;&gt;Foo Server&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href=&quot;/products/studio&quot;&gt;Foo Studio&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="rendering-a-custom-menu-using-a-partial-view-script">Rendering a custom menu using a partial view script</h2>
 <p>This example shows how to render a custom menu using a partial view script. By
 calling <code>setPartial()</code>, you can specify a partial view script that will be used
@@ -746,87 +730,77 @@ the <code>renderPartial()</code> method.</p>
 <p>The <code>renderPartial()</code>  method will assign the container to the view with the key
 <code>container</code>.</p>
 <p>In a layout:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;navigation()-&gt;menu()-&gt;setPartial(&#39;my-module/partials/menu&#39;);</span>
-<span class=x>echo $this-&gt;navigation()-&gt;menu()-&gt;render();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;navigation()-&gt;menu()-&gt;setPartial('my-module/partials/menu');
+echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>foreach ($this-&gt;container as $page) {</span>
-<span class=x>    echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>foreach ($this-&gt;container as $page) {
+    echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
+}</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;Go Home&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/&quot;</span><span class=p>&gt;</span>Home<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;About us&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about&quot;</span><span class=p>&gt;</span>Company<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community&quot;</span><span class=p>&gt;</span>Community<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a title=&quot;Go Home&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;
+&lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+&lt;a title=&quot;About us&quot; href=&quot;/company/about&quot;&gt;Company&lt;/a&gt;
+&lt;a href=&quot;/community&quot;&gt;Community&lt;/a&gt;</code></pre>
 <h3>Using additional parameters in partial view scripts</h3>
 <p>Starting with version 2.6.0, you can assign custom variables to a
 partial script.</p>
 <p>In a layout:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Set partial</span>
-<span class=x>$this-&gt;navigation()-&gt;menu()-&gt;setPartial(&#39;my-module/partials/menu&#39;);</span>
+<pre class=codehilite><code class=language-php>// Set partial
+$this-&gt;navigation()-&gt;menu()-&gt;setPartial('my-module/partials/menu');
 
-<span class=x>// Output menu</span>
-<span class=x>echo $this-&gt;navigation()-&gt;menu()-&gt;renderPartialWithParams(</span>
-<span class=x>    [</span>
-<span class=x>        &#39;headline&#39; =&gt; &#39;Links&#39;,</span>
-<span class=x>    ]</span>
-<span class=x>);</span>
-</pre></div></p>
+// Output menu
+echo $this-&gt;navigation()-&gt;menu()-&gt;renderPartialWithParams(
+    [
+        'headline' =&gt; 'Links',
+    ]
+);</code></pre>
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;h1&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$headline</span> <span class=cp>?&gt;</span><span class=x>&lt;/h1&gt;</span>
+<pre class=codehilite><code class=language-php>&lt;h1&gt;&lt;?= $headline ?&gt;&lt;/h1&gt;
 
-<span class=cp>&lt;?php</span>
-<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>container</span> <span class=k>as</span> <span class=nv>$page</span><span class=p>)</span> <span class=p>{</span>
-    <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>htmlify</span><span class=p>(</span><span class=nv>$page</span><span class=p>)</span> <span class=o>.</span> <span class=nx>PHP_EOL</span><span class=p>;</span>
-<span class=p>}</span>
-<span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?php
+foreach ($this-&gt;container as $page) {
+    echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
+}
+?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>Links<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;Go Home&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/&quot;</span><span class=p>&gt;</span>Home<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;About us&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about&quot;</span><span class=p>&gt;</span>Company<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community&quot;</span><span class=p>&gt;</span>Community<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;h1&gt;Links&lt;/h1&gt;
+&lt;a title=&quot;Go Home&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;
+&lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+&lt;a title=&quot;About us&quot; href=&quot;/company/about&quot;&gt;Company&lt;/a&gt;
+&lt;a href=&quot;/community&quot;&gt;Community&lt;/a&gt;</code></pre>
 <h3>Using menu options in partial view scripts</h3>
 <p>In a layout:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Set options</span>
-<span class=x>$this-&gt;navigation()-&gt;menu()</span>
-<span class=x>    -&gt;setUlClass(&#39;my-nav&#39;)</span>
-<span class=x>    -&gt;setPartial(&#39;my-module/partials/menu&#39;);</span>
+<pre class=codehilite><code class=language-php>// Set options
+$this-&gt;navigation()-&gt;menu()
+    -&gt;setUlClass('my-nav')
+    -&gt;setPartial('my-module/partials/menu');
 
-<span class=x>// Output menu</span>
-<span class=x>echo $this-&gt;navigation()-&gt;menu()-&gt;render();</span>
-</pre></div></p>
+// Output menu
+echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;div class&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>getUlClass</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
-<span class=x>    </span><span class=cp>&lt;?php</span>
-    <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>container</span> <span class=k>as</span> <span class=nv>$page</span><span class=p>)</span> <span class=p>{</span>
-        <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>htmlify</span><span class=p>(</span><span class=nv>$page</span><span class=p>)</span> <span class=o>.</span> <span class=nx>PHP_EOL</span><span class=p>;</span>
-    <span class=p>}</span>
-    <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/div&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;div class&quot;&lt;?= $this-&gt;navigation()-&gt;menu()-&gt;getUlClass() ?&gt;&quot;&gt;
+    &lt;?php
+    foreach ($this-&gt;container as $page) {
+        echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
+    }
+    ?&gt;
+&lt;/div&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;my-nav&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;Go Home&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/&quot;</span><span class=p>&gt;</span>Home<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/products&quot;</span><span class=p>&gt;</span>Products<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>&quot;About us&quot;</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/company/about&quot;</span><span class=p>&gt;</span>Company<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/community&quot;</span><span class=p>&gt;</span>Community<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;div class=&quot;my-nav&quot;&gt;
+    &lt;a title=&quot;Go Home&quot; href=&quot;/&quot;&gt;Home&lt;/a&gt;
+    &lt;a href=&quot;/products&quot;&gt;Products&lt;/a&gt;
+    &lt;a title=&quot;About us&quot; href=&quot;/company/about&quot;&gt;Company&lt;/a&gt;
+    &lt;a href=&quot;/community&quot;&gt;Community&lt;/a&gt;
+&lt;/div&gt;</code></pre>
 <h3>Using ACLs with partial view scripts</h3>
 <p>If you want to use an ACL within your partial view script, then you will have to
 check the access to a page manually.</p>
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>foreach ($this-&gt;container as $page) {</span>
-<span class=x>    if ($this-&gt;navigation()-&gt;accept($page)) {</span>
-<span class=x>        echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>foreach ($this-&gt;container as $page) {
+    if ($this-&gt;navigation()-&gt;accept($page)) {
+        echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
+    }
+}</code></pre>
 
 
 
@@ -1021,9 +995,10 @@ check the access to a page manually.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -1060,7 +1035,7 @@ check the access to a page manually.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -1069,8 +1044,8 @@ check the access to a page manually.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

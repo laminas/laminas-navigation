@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -467,11 +471,10 @@ implements the following methods:</p>
 <h3>Proxying calls to the navigation container</h3>
 <p>Navigation view helpers use the magic method <code>__call()</code> to proxy method calls to
 the navigation container that is registered in the view helper.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;navigation()-&gt;addPage([</span>
-<span class=x>    &#39;type&#39; =&gt; &#39;uri&#39;,</span>
-<span class=x>    &#39;label&#39; =&gt; &#39;New page&#39;,</span>
-<span class=x>]);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;navigation()-&gt;addPage([
+    'type' =&gt; 'uri',
+    'label' =&gt; 'New page',
+]);</code></pre>
 <p>The call above will add a page to the container in the <code>Navigation</code> helper.</p>
 <h2 id="translation-of-labels-and-titles">Translation of labels and titles</h2>
 <p>The navigation helpers support translation of page labels and titles. You can
@@ -509,249 +512,246 @@ it proxies to if the proxied helper doesn't already have any.</p>
   labeled <code>FAQ</code> under "Foo Server".</li>
 <li>The assumed ACL and router setup is shown below the container setup.</li>
 </ul>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\Navigation\Navigation;</span>
+<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
 
-<span class=x>/*</span>
-<span class=x> * Navigation container</span>
+/*
+ * Navigation container
 
-<span class=x> * Each element in the array will be passed to</span>
-<span class=x> * Laminas\Navigation\Page\AbstractPage::factory() when constructing</span>
-<span class=x> * the navigation container below.</span>
-<span class=x> */</span>
-<span class=x>$pages = [</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Home&#39;,</span>
-<span class=x>        &#39;title&#39;      =&gt; &#39;Go Home&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;default&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;order&#39;      =&gt; -100, // make sure home is the first page</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Special offer this week only!&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;store&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;offer&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;amazing&#39;,</span>
-<span class=x>        &#39;visible&#39;    =&gt; false, // not visible</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Products&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;pages&#39;      =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;Foo Server&#39;,</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;server&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                &#39;pages&#39;      =&gt; [</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;FAQ&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;server&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;faq&#39;,</span>
-<span class=x>                        &#39;rel&#39;        =&gt; [</span>
-<span class=x>                            &#39;canonical&#39; =&gt; &#39;http://www.example.com/?page=faq&#39;,</span>
-<span class=x>                            &#39;alternate&#39; =&gt; [</span>
-<span class=x>                                &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                                &#39;controller&#39; =&gt; &#39;server&#39;,</span>
-<span class=x>                                &#39;action&#39;     =&gt; &#39;faq&#39;,</span>
-<span class=x>                                &#39;params&#39;     =&gt; [&#39;format&#39; =&gt; &#39;xml&#39;],</span>
-<span class=x>                            ],</span>
-<span class=x>                        ],</span>
-<span class=x>                    ],</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;Editions&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;server&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;editions&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;System Requirements&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;server&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;requirements&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;Foo Studio&#39;,</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;studio&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                &#39;pages&#39;      =&gt; [</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;Customer Stories&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;studio&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;customers&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;Support&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;products&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;studio&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;support&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Company&#39;,</span>
-<span class=x>        &#39;title&#39;      =&gt; &#39;About us&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;company&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;about&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;pages&#39;      =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;Investor Relations&#39;,</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;company&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;about&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;investors&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;News&#39;,</span>
-<span class=x>                &#39;class&#39;      =&gt; &#39;rss&#39;, // class</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;company&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;news&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                &#39;pages&#39;      =&gt; [</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;Press Releases&#39;,</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;company&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;news&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;press&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                    [</span>
-<span class=x>                        &#39;label&#39;      =&gt; &#39;Archive&#39;,</span>
-<span class=x>                        &#39;route&#39;      =&gt; &#39;archive&#39;, // route</span>
-<span class=x>                        &#39;module&#39;     =&gt; &#39;company&#39;,</span>
-<span class=x>                        &#39;controller&#39; =&gt; &#39;news&#39;,</span>
-<span class=x>                        &#39;action&#39;     =&gt; &#39;archive&#39;,</span>
-<span class=x>                    ],</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Community&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;community&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;pages&#39;      =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;My Account&#39;,</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;community&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;account&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                &#39;resource&#39;   =&gt; &#39;mvc:community.account&#39;, // resource</span>
-<span class=x>            ],</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39; =&gt; &#39;Forums&#39;,</span>
-<span class=x>                &#39;uri&#39;   =&gt; &#39;http://forums.example.com/&#39;,</span>
-<span class=x>                &#39;class&#39; =&gt; &#39;external&#39;, // class,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;label&#39;      =&gt; &#39;Administration&#39;,</span>
-<span class=x>        &#39;module&#39;     =&gt; &#39;admin&#39;,</span>
-<span class=x>        &#39;controller&#39; =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>        &#39;resource&#39;   =&gt; &#39;mvc:admin&#39;, // resource</span>
-<span class=x>        &#39;pages&#39;      =&gt; [</span>
-<span class=x>            [</span>
-<span class=x>                &#39;label&#39;      =&gt; &#39;Write new article&#39;,</span>
-<span class=x>                &#39;module&#39;     =&gt; &#39;admin&#39;,</span>
-<span class=x>                &#39;controller&#39; =&gt; &#39;post&#39;,</span>
-<span class=x>                &#39;action&#39;     =&gt; &#39;write&#39;,</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+ * Each element in the array will be passed to
+ * Laminas\Navigation\Page\AbstractPage::factory() when constructing
+ * the navigation container below.
+ */
+$pages = [
+    [
+        'label'      =&gt; 'Home',
+        'title'      =&gt; 'Go Home',
+        'module'     =&gt; 'default',
+        'controller' =&gt; 'index',
+        'action'     =&gt; 'index',
+        'order'      =&gt; -100, // make sure home is the first page
+    ],
+    [
+        'label'      =&gt; 'Special offer this week only!',
+        'module'     =&gt; 'store',
+        'controller' =&gt; 'offer',
+        'action'     =&gt; 'amazing',
+        'visible'    =&gt; false, // not visible
+    ],
+    [
+        'label'      =&gt; 'Products',
+        'module'     =&gt; 'products',
+        'controller' =&gt; 'index',
+        'action'     =&gt; 'index',
+        'pages'      =&gt; [
+            [
+                'label'      =&gt; 'Foo Server',
+                'module'     =&gt; 'products',
+                'controller' =&gt; 'server',
+                'action'     =&gt; 'index',
+                'pages'      =&gt; [
+                    [
+                        'label'      =&gt; 'FAQ',
+                        'module'     =&gt; 'products',
+                        'controller' =&gt; 'server',
+                        'action'     =&gt; 'faq',
+                        'rel'        =&gt; [
+                            'canonical' =&gt; 'http://www.example.com/?page=faq',
+                            'alternate' =&gt; [
+                                'module'     =&gt; 'products',
+                                'controller' =&gt; 'server',
+                                'action'     =&gt; 'faq',
+                                'params'     =&gt; ['format' =&gt; 'xml'],
+                            ],
+                        ],
+                    ],
+                    [
+                        'label'      =&gt; 'Editions',
+                        'module'     =&gt; 'products',
+                        'controller' =&gt; 'server',
+                        'action'     =&gt; 'editions',
+                    ],
+                    [
+                        'label'      =&gt; 'System Requirements',
+                        'module'     =&gt; 'products',
+                        'controller' =&gt; 'server',
+                        'action'     =&gt; 'requirements',
+                    ],
+                ],
+            ],
+            [
+                'label'      =&gt; 'Foo Studio',
+                'module'     =&gt; 'products',
+                'controller' =&gt; 'studio',
+                'action'     =&gt; 'index',
+                'pages'      =&gt; [
+                    [
+                        'label'      =&gt; 'Customer Stories',
+                        'module'     =&gt; 'products',
+                        'controller' =&gt; 'studio',
+                        'action'     =&gt; 'customers',
+                    ],
+                    [
+                        'label'      =&gt; 'Support',
+                        'module'     =&gt; 'products',
+                        'controller' =&gt; 'studio',
+                        'action'     =&gt; 'support',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    [
+        'label'      =&gt; 'Company',
+        'title'      =&gt; 'About us',
+        'module'     =&gt; 'company',
+        'controller' =&gt; 'about',
+        'action'     =&gt; 'index',
+        'pages'      =&gt; [
+            [
+                'label'      =&gt; 'Investor Relations',
+                'module'     =&gt; 'company',
+                'controller' =&gt; 'about',
+                'action'     =&gt; 'investors',
+            ],
+            [
+                'label'      =&gt; 'News',
+                'class'      =&gt; 'rss', // class
+                'module'     =&gt; 'company',
+                'controller' =&gt; 'news',
+                'action'     =&gt; 'index',
+                'pages'      =&gt; [
+                    [
+                        'label'      =&gt; 'Press Releases',
+                        'module'     =&gt; 'company',
+                        'controller' =&gt; 'news',
+                        'action'     =&gt; 'press',
+                    ],
+                    [
+                        'label'      =&gt; 'Archive',
+                        'route'      =&gt; 'archive', // route
+                        'module'     =&gt; 'company',
+                        'controller' =&gt; 'news',
+                        'action'     =&gt; 'archive',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    [
+        'label'      =&gt; 'Community',
+        'module'     =&gt; 'community',
+        'controller' =&gt; 'index',
+        'action'     =&gt; 'index',
+        'pages'      =&gt; [
+            [
+                'label'      =&gt; 'My Account',
+                'module'     =&gt; 'community',
+                'controller' =&gt; 'account',
+                'action'     =&gt; 'index',
+                'resource'   =&gt; 'mvc:community.account', // resource
+            ],
+            [
+                'label' =&gt; 'Forums',
+                'uri'   =&gt; 'http://forums.example.com/',
+                'class' =&gt; 'external', // class,
+            ],
+        ],
+    ],
+    [
+        'label'      =&gt; 'Administration',
+        'module'     =&gt; 'admin',
+        'controller' =&gt; 'index',
+        'action'     =&gt; 'index',
+        'resource'   =&gt; 'mvc:admin', // resource
+        'pages'      =&gt; [
+            [
+                'label'      =&gt; 'Write new article',
+                'module'     =&gt; 'admin',
+                'controller' =&gt; 'post',
+                'action'     =&gt; 'write',
+            ],
+        ],
+    ],
+];
 
-<span class=x>// Create container from array</span>
-<span class=x>$container = new Navigation($pages);</span>
+// Create container from array
+$container = new Navigation($pages);
 
-<span class=x>// Store the container in the proxy helper:</span>
-<span class=x>$view-&gt;plugin(&#39;navigation&#39;)-&gt;setContainer($container);</span>
+// Store the container in the proxy helper:
+$view-&gt;plugin('navigation')-&gt;setContainer($container);
 
-<span class=x>// ...or simply:</span>
-<span class=x>$view-&gt;navigation($container);</span>
-</pre></div></p>
+// ...or simply:
+$view-&gt;navigation($container);</code></pre>
 <p>In addition to the container above, the following setup is assumed:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=c1>// module/MyModule/config/module.config.php</span>
+<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>&lt;?php
+// module/MyModule/config/module.config.php
 
-<span class=k>return</span> <span class=p>[</span>
-    <span class=cm>/* ... */</span>
-    <span class=s1>&#39;router&#39;</span> <span class=p>[</span>
-        <span class=s1>&#39;routes&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=s1>&#39;archive&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                <span class=s1>&#39;type&#39;</span>    <span class=o>=&gt;</span> <span class=s1>&#39;Segment&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;options&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                    <span class=s1>&#39;route&#39;</span>    <span class=o>=&gt;</span> <span class=s1>&#39;/archive/:year&#39;</span><span class=p>,</span>
-                    <span class=s1>&#39;defaults&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                        <span class=s1>&#39;module&#39;</span>     <span class=o>=&gt;</span> <span class=s1>&#39;company&#39;</span><span class=p>,</span>
-                        <span class=s1>&#39;controller&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;news&#39;</span><span class=p>,</span>
-                        <span class=s1>&#39;action&#39;</span>     <span class=o>=&gt;</span> <span class=s1>&#39;archive&#39;</span><span class=p>,</span>
-                        <span class=s1>&#39;year&#39;</span>       <span class=o>=&gt;</span> <span class=p>(</span><span class=nx>int</span><span class=p>)</span> <span class=nb>date</span><span class=p>(</span><span class=s1>&#39;Y&#39;</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span><span class=p>,</span>
-                    <span class=p>],</span>
-                    <span class=s1>&#39;constraints&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                        <span class=s1>&#39;year&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;\d+&#39;</span><span class=p>,</span>
-                    <span class=p>],</span>
-                <span class=p>],</span>
-            <span class=p>],</span>
-            <span class=cm>/* You can have other routes here... */</span>
-        <span class=p>],</span>
-    <span class=p>],</span>
-    <span class=cm>/* ... */</span>
-<span class=p>];</span>
-</pre></div></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=c1>// module/MyModule/Module.php</span>
+return [
+    /* ... */
+    'router' [
+        'routes' =&gt; [
+            'archive' =&gt; [
+                'type'    =&gt; 'Segment',
+                'options' =&gt; [
+                    'route'    =&gt; '/archive/:year',
+                    'defaults' =&gt; [
+                        'module'     =&gt; 'company',
+                        'controller' =&gt; 'news',
+                        'action'     =&gt; 'archive',
+                        'year'       =&gt; (int) date('Y') - 1,
+                    ],
+                    'constraints' =&gt; [
+                        'year' =&gt; '\d+',
+                    ],
+                ],
+            ],
+            /* You can have other routes here... */
+        ],
+    ],
+    /* ... */
+];</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>&lt;?php
+// module/MyModule/Module.php
 
-<span class=k>namespace</span> <span class=nx>MyModule</span><span class=p>;</span>
+namespace MyModule;
 
-<span class=k>use</span> <span class=nx>Laminas\View\HelperPluginManager</span><span class=p>;</span>
-<span class=k>use</span> <span class=nx>Laminas\Permissions\Acl\Acl</span><span class=p>;</span>
-<span class=k>use</span> <span class=nx>Laminas\Permissions\Acl\Role\GenericRole</span><span class=p>;</span>
-<span class=k>use</span> <span class=nx>Laminas\Permissions\Acl\Resource\GenericResource</span><span class=p>;</span>
+use Laminas\View\HelperPluginManager;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Permissions\Acl\Resource\GenericResource;
 
-<span class=k>class</span> <span class=nc>Module</span>
-<span class=p>{</span>
-    <span class=cm>/* ... */</span>
-    <span class=k>public</span> <span class=k>function</span> <span class=nf>getViewHelperConfig</span><span class=p>()</span>
-    <span class=p>{</span>
-        <span class=k>return</span> <span class=p>[</span>
-            <span class=s1>&#39;factories&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                <span class=c1>// This will overwrite the native navigation helper</span>
-                <span class=s1>&#39;navigation&#39;</span> <span class=o>=&gt;</span> <span class=k>function</span><span class=p>(</span><span class=nx>HelperPluginManager</span> <span class=nv>$pm</span><span class=p>)</span> <span class=p>{</span>
-                    <span class=c1>// Setup ACL:</span>
-                    <span class=nv>$acl</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Acl</span><span class=p>();</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>addRole</span><span class=p>(</span><span class=k>new</span> <span class=nx>GenericRole</span><span class=p>(</span><span class=s1>&#39;member&#39;</span><span class=p>));</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>addRole</span><span class=p>(</span><span class=k>new</span> <span class=nx>GenericRole</span><span class=p>(</span><span class=s1>&#39;admin&#39;</span><span class=p>));</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>addResource</span><span class=p>(</span><span class=k>new</span> <span class=nx>GenericResource</span><span class=p>(</span><span class=s1>&#39;mvc:admin&#39;</span><span class=p>));</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>addResource</span><span class=p>(</span><span class=k>new</span> <span class=nx>GenericResource</span><span class=p>(</span><span class=s1>&#39;mvc:community.account&#39;</span><span class=p>));</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>allow</span><span class=p>(</span><span class=s1>&#39;member&#39;</span><span class=p>,</span> <span class=s1>&#39;mvc:community.account&#39;</span><span class=p>);</span>
-                    <span class=nv>$acl</span><span class=o>-&gt;</span><span class=na>allow</span><span class=p>(</span><span class=s1>&#39;admin&#39;</span><span class=p>,</span> <span class=k>null</span><span class=p>);</span>
+class Module
+{
+    /* ... */
+    public function getViewHelperConfig()
+    {
+        return [
+            'factories' =&gt; [
+                // This will overwrite the native navigation helper
+                'navigation' =&gt; function(HelperPluginManager $pm) {
+                    // Setup ACL:
+                    $acl = new Acl();
+                    $acl-&gt;addRole(new GenericRole('member'));
+                    $acl-&gt;addRole(new GenericRole('admin'));
+                    $acl-&gt;addResource(new GenericResource('mvc:admin'));
+                    $acl-&gt;addResource(new GenericResource('mvc:community.account'));
+                    $acl-&gt;allow('member', 'mvc:community.account');
+                    $acl-&gt;allow('admin', null);
 
-                    <span class=c1>// Get an instance of the proxy helper</span>
-                    <span class=nv>$navigation</span> <span class=o>=</span> <span class=nv>$pm</span><span class=o>-&gt;</span><span class=na>get</span><span class=p>(</span><span class=s1>&#39;Laminas\View\Helper\Navigation&#39;</span><span class=p>);</span>
+                    // Get an instance of the proxy helper
+                    $navigation = $pm-&gt;get('Laminas\View\Helper\Navigation');
 
-                    <span class=c1>// Store ACL and role in the proxy helper:</span>
-                    <span class=nv>$navigation</span><span class=o>-&gt;</span><span class=na>setAcl</span><span class=p>(</span><span class=nv>$acl</span><span class=p>);</span>
-                    <span class=nv>$navigation</span><span class=o>-&gt;</span><span class=na>setRole</span><span class=p>(</span><span class=s1>&#39;member&#39;</span><span class=p>);</span>
+                    // Store ACL and role in the proxy helper:
+                    $navigation-&gt;setAcl($acl);
+                    $navigation-&gt;setRole('member');
 
-                    <span class=c1>// Return the new navigation helper instance</span>
-                    <span class=k>return</span> <span class=nv>$navigation</span><span class=p>;</span>
-                <span class=p>}</span>
-            <span class=p>]</span>
-        <span class=p>];</span>
-    <span class=p>}</span>
-    <span class=cm>/* ... */</span>
-<span class=p>}</span>
-</pre></div></div></div></div>
+                    // Return the new navigation helper instance
+                    return $navigation;
+                }
+            ]
+        ];
+    }
+    /* ... */
+}</code></pre></div></div></div>
 
 
 
@@ -946,9 +946,10 @@ it proxies to if the proxied helper doesn't already have any.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -985,7 +986,7 @@ it proxies to if the proxied helper doesn't already have any.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -994,8 +995,8 @@ it proxies to if the proxied helper doesn't already have any.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

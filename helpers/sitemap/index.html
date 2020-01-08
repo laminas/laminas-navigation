@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -400,174 +404,168 @@ require a request to the schema file. It can be enabled with
 </table></div>
 <h2 id="basic-usage">Basic usage</h2>
 <p>This example shows how to render an <em>XML</em> sitemap based on the setup we did further up.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In a view script or layout:</span>
+<pre class=codehilite><code class=language-php>// In a view script or layout:
 
-<span class=x>// format output</span>
-<span class=x>$this-&gt;navigation()</span>
-<span class=x>      -&gt;sitemap()</span>
-<span class=x>      -&gt;setFormatOutput(true); // default is false</span>
+// format output
+$this-&gt;navigation()
+      -&gt;sitemap()
+      -&gt;setFormatOutput(true); // default is false
 
-<span class=x>// Other possible methods:</span>
-<span class=x>// -&gt;setUseXmlDeclaration(false);             // default is true</span>
-<span class=x>// -&gt;setServerUrl(&#39;http://my.otherhost.com&#39;); // default is to detect automatically</span>
+// Other possible methods:
+// -&gt;setUseXmlDeclaration(false);             // default is true
+// -&gt;setServerUrl('http://my.otherhost.com'); // default is to detect automatically
 
-<span class=x>// print sitemap</span>
-<span class=x>echo $this-&gt;navigation()-&gt;sitemap();</span>
-</pre></div></p>
+// print sitemap
+echo $this-&gt;navigation()-&gt;sitemap();</code></pre>
 <p>Notice how pages that are invisible or pages with ACL roles incompatible with
 the view helper are filtered out:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class=nt>&lt;urlset</span> <span class=na>xmlns=</span><span class=s>&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;</span><span class=nt>&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/faq<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/editions<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/requirements<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio/customers<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio/support<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about/investors<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/news<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/news/press<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/archive<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/community<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/community/account<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://forums.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-<span class=nt>&lt;/urlset&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/faq&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/editions&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/requirements&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio/customers&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio/support&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about/investors&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/news&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/news/press&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/archive&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/community&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/community/account&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://forums.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre>
 <h2 id="rendering-using-no-acl-role">Rendering using no ACL role</h2>
 <p>Render the sitemap using no ACL role (should filter out <code>/community/account</code>):</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_xml-panel role=tab id=tab-group-2-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-2-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><div class=codehilite><pre><span></span><span class=x>echo $this-&gt;navigation()-&gt;sitemap()</span>
-<span class=x>    -&gt;setFormatOutput(true)</span>
-<span class=x>    -&gt;setRole();</span>
-</pre></div></div><div id=tab-group-2-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_xml-tab><div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class=nt>&lt;urlset</span> <span class=na>xmlns=</span><span class=s>&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;</span><span class=nt>&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/faq<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/editions<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server/requirements<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio/customers<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio/support<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about/investors<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/news<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/news/press<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/archive<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/community<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://forums.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-<span class=nt>&lt;/urlset&gt;</span>
-</pre></div></div></div></div>
+<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_xml-panel role=tab id=tab-group-2-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-2-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
+    -&gt;setFormatOutput(true)
+    -&gt;setRole();</code></pre></div><div id=tab-group-2-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_xml-tab><pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/faq&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/editions&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server/requirements&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio/customers&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio/support&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about/investors&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/news&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/news/press&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/archive&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/community&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://forums.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre></div></div></div>
 
 <h2 id="rendering-using-a-maximum-depth">Rendering using a maximum depth</h2>
 <p>Render the sitemap using a maximum depth of 1.</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-3><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-3-0_php-panel role=tab id=tab-group-3-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-3-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-3-1_xml-panel role=tab id=tab-group-3-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-3-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-3-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-3-0_php-tab><div class=codehilite><pre><span></span><span class=x>echo $this-&gt;navigation()-&gt;sitemap()</span>
-<span class=x>    -&gt;setFormatOutput(true)</span>
-<span class=x>    -&gt;setMaxDepth(1);</span>
-</pre></div></div><div id=tab-group-3-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-3-1_xml-tab><div class=codehilite><pre><span></span><span class=cp>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class=nt>&lt;urlset</span> <span class=na>xmlns=</span><span class=s>&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;</span><span class=nt>&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/server<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/products/studio<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/about/investors<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/company/news<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/community<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://www.example.com/community/account<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-  <span class=nt>&lt;url&gt;</span>
-    <span class=nt>&lt;loc&gt;</span>http://forums.example.com/<span class=nt>&lt;/loc&gt;</span>
-  <span class=nt>&lt;/url&gt;</span>
-<span class=nt>&lt;/urlset&gt;</span>
-</pre></div></div></div></div>
+<div class=md-fenced-code-tabs id=tab-tab-group-3><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-3-0_php-panel role=tab id=tab-group-3-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-3-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-3-1_xml-panel role=tab id=tab-group-3-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-3-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-3-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-3-0_php-tab><pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
+    -&gt;setFormatOutput(true)
+    -&gt;setMaxDepth(1);</code></pre></div><div id=tab-group-3-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-3-1_xml-tab><pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/server&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/products/studio&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/about/investors&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/company/news&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/community&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://www.example.com/community/account&lt;/loc&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;http://forums.example.com/&lt;/loc&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre></div></div></div>
 
 <blockquote>
 <h3>UTF-8 encoding used by default</h3>
@@ -775,9 +773,10 @@ to see how you can achieve this.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -814,7 +813,7 @@ to see how you can achieve this.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -823,8 +822,8 @@ to see how you can achieve this.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

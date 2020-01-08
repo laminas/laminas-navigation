@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -289,118 +293,114 @@
 </ul>
 <h3>Register laminas-navigation as module</h3>
 <p>Edit the application configuration file <code>config/application.config.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=k>return</span> <span class=p>[</span>
-    <span class=s1>&#39;modules&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-        <span class=s1>&#39;Laminas\Router&#39;</span><span class=p>,</span>
-        <span class=s1>&#39;Laminas\Log&#39;</span><span class=p>,</span>
-        <span class=s1>&#39;Laminas\Navigation&#39;</span><span class=p>,</span> <span class=c1>// &lt;-- Add this line</span>
-        <span class=c1>// ...</span>
-    <span class=p>],</span>
-<span class=p>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+return [
+    'modules' =&gt; [
+        'Laminas\Router',
+        'Laminas\Log',
+        'Laminas\Navigation', // &lt;-- Add this line
+        // ...
+    ],
+];</code></pre>
 <h3>Navigation container configuration</h3>
 <p>Add the container definition to your configuration file, e.g.
 <code>config/autoload/global.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=k>return</span> <span class=p>[</span>
-    <span class=c1>// ...</span>
+<pre class=codehilite><code class=language-php>&lt;?php
+return [
+    // ...
 
-    <span class=s1>&#39;navigation&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-        <span class=s1>&#39;default&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Home&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;home&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Page #1&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-1&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;pages&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                    <span class=p>[</span>
-                        <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Child #1&#39;</span><span class=p>,</span>
-                        <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-1-child&#39;</span><span class=p>,</span>
-                    <span class=p>],</span>
-                <span class=p>],</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Page #2&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-2&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-        <span class=p>],</span>
-    <span class=p>],</span>
-    <span class=c1>// ...</span>
-<span class=p>];</span>
-</pre></div></p>
+    'navigation' =&gt; [
+        'default' =&gt; [
+            [
+                'label' =&gt; 'Home',
+                'route' =&gt; 'home',
+            ],
+            [
+                'label' =&gt; 'Page #1',
+                'route' =&gt; 'page-1',
+                'pages' =&gt; [
+                    [
+                        'label' =&gt; 'Child #1',
+                        'route' =&gt; 'page-1-child',
+                    ],
+                ],
+            ],
+            [
+                'label' =&gt; 'Page #2',
+                'route' =&gt; 'page-2',
+            ],
+        ],
+    ],
+    // ...
+];</code></pre>
 <h3>Render the navigation</h3>
 <p>Calling the view helper for menus in your layout script:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- ... --&gt;</span>
+<pre class=codehilite><code class=language-php>&lt;!-- ... --&gt;
 
-<span class=x>&lt;body&gt;</span>
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>(</span><span class=s1>&#39;default&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/body&gt;</span>
-<span class=x>&lt;!-- ... --&gt;</span>
-</pre></div></p>
+&lt;body&gt;
+    &lt;?= $this-&gt;navigation('default')-&gt;menu() ?&gt;
+&lt;/body&gt;
+&lt;!-- ... --&gt;</code></pre>
 <h2 id="using-multiple-navigations">Using multiple navigations</h2>
 <p>Once the laminas-navigation module is registered, you can create as many navigation
 definitions as you wish, and the underlying factories will create navigation
 containers automatically.</p>
 <p>Add the container definitions to your configuration file, e.g.
 <code>config/autoload/global.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=k>return</span> <span class=p>[</span>
-    <span class=c1>// ...</span>
+<pre class=codehilite><code class=language-php>&lt;?php
+return [
+    // ...
 
-    <span class=s1>&#39;navigation&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
+    'navigation' =&gt; [
 
-        <span class=c1>// Navigation with name default</span>
-        <span class=s1>&#39;default&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Home&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;home&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Page #1&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-1&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;pages&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-                    <span class=p>[</span>
-                        <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Child #1&#39;</span><span class=p>,</span>
-                        <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-1-child&#39;</span><span class=p>,</span>
-                    <span class=p>],</span>
-                <span class=p>],</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Page #2&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;page-2&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-        <span class=p>],</span>
+        // Navigation with name default
+        'default' =&gt; [
+            [
+                'label' =&gt; 'Home',
+                'route' =&gt; 'home',
+            ],
+            [
+                'label' =&gt; 'Page #1',
+                'route' =&gt; 'page-1',
+                'pages' =&gt; [
+                    [
+                        'label' =&gt; 'Child #1',
+                        'route' =&gt; 'page-1-child',
+                    ],
+                ],
+            ],
+            [
+                'label' =&gt; 'Page #2',
+                'route' =&gt; 'page-2',
+            ],
+        ],
 
-        <span class=c1>// Navigation with name special</span>
-        <span class=s1>&#39;special&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Special&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;special&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Special Page #2&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;special-2&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-        <span class=p>],</span>
+        // Navigation with name special
+        'special' =&gt; [
+            [
+                'label' =&gt; 'Special',
+                'route' =&gt; 'special',
+            ],
+            [
+                'label' =&gt; 'Special Page #2',
+                'route' =&gt; 'special-2',
+            ],
+        ],
 
-        <span class=c1>// Navigation with name sitemap</span>
-        <span class=s1>&#39;sitemap&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Sitemap&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;sitemap&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-            <span class=p>[</span>
-                <span class=s1>&#39;label&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Sitemap Page #2&#39;</span><span class=p>,</span>
-                <span class=s1>&#39;route&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;sitemap-2&#39;</span><span class=p>,</span>
-            <span class=p>],</span>
-        <span class=p>],</span>
-    <span class=p>],</span>
-    <span class=c1>// ...</span>
-<span class=p>];</span>
-</pre></div></p>
+        // Navigation with name sitemap
+        'sitemap' =&gt; [
+            [
+                'label' =&gt; 'Sitemap',
+                'route' =&gt; 'sitemap',
+            ],
+            [
+                'label' =&gt; 'Sitemap Page #2',
+                'route' =&gt; 'sitemap-2',
+            ],
+        ],
+    ],
+    // ...
+];</code></pre>
 <blockquote>
 <h3>Container names have a prefix</h3>
 <p>There is one important point to know when using laminas-navigation as a module:
@@ -410,17 +410,16 @@ This helps ensure that no naming collisions occur with other services.</p>
 </blockquote>
 <p>The following example demonstrates rendering the navigation menus for the named
 <code>default</code>, <code>special</code>, and <code>sitemap</code> containers.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- ... --&gt;</span>
+<pre class=codehilite><code class=language-php>&lt;!-- ... --&gt;
 
-<span class=x>&lt;body&gt;</span>
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>(</span><span class=s1>&#39;Laminas\Navigation\Default&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+&lt;body&gt;
+    &lt;?= $this-&gt;navigation('Laminas\Navigation\Default')-&gt;menu() ?&gt;
 
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>(</span><span class=s1>&#39;Laminas\Navigation\Special&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+    &lt;?= $this-&gt;navigation('Laminas\Navigation\Special')-&gt;menu() ?&gt;
 
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>navigation</span><span class=p>(</span><span class=s1>&#39;Laminas\Navigation\Sitemap&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>menu</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/body&gt;</span>
-<span class=x>&lt;!-- ... --&gt;</span>
-</pre></div></p>
+    &lt;?= $this-&gt;navigation('Laminas\Navigation\Sitemap')-&gt;menu() ?&gt;
+&lt;/body&gt;
+&lt;!-- ... --&gt;</code></pre>
 
 
 
@@ -615,9 +614,10 @@ This helps ensure that no naming collisions occur with other services.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -654,7 +654,7 @@ This helps ensure that no naming collisions occur with other services.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-navigation//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-navigation/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -663,8 +663,8 @@ This helps ensure that no naming collisions occur with other services.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-navigation//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
