@@ -19,4 +19,3 @@ site_description: "Manage trees of pointers to web pages in order to build navig
 repo_url: 'https://github.com/laminas/laminas-navigation'
 extra:
     project: Components
-    project_url: 'https://docs.laminas.dev'
