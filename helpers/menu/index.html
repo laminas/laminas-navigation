@@ -12,14 +12,15 @@
     <title>Menu - laminas-navigation - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
 </head>
-<body id="page-top" class="components">
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         
-        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
             <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
@@ -203,7 +204,7 @@
         <div class="row">
 
             
-            <div class="col-6 offset-md-2">
+            <div class="col-8">
                 <h1 class="header__title">
                     Components
 
@@ -233,7 +234,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
+            <div class="col-md-9 col-sm-12 content" role="main">
                 
                 
                     
@@ -246,43 +247,43 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#basic-usage" class="toc__link">Basic usage</a>
+                        <a href="#basic-usage" class="toc__link nav-link">Basic usage</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#calling-rendermenu-directly" class="toc__link">Calling renderMenu() directly</a>
+                        <a href="#calling-rendermenu-directly" class="toc__link nav-link">Calling renderMenu() directly</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-the-deepest-active-menu" class="toc__link">Rendering the deepest active menu</a>
+                        <a href="#rendering-the-deepest-active-menu" class="toc__link nav-link">Rendering the deepest active menu</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-with-maximum-depth" class="toc__link">Rendering with maximum depth</a>
+                        <a href="#rendering-with-maximum-depth" class="toc__link nav-link">Rendering with maximum depth</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-with-minimum-depth" class="toc__link">Rendering with minimum depth</a>
+                        <a href="#rendering-with-minimum-depth" class="toc__link nav-link">Rendering with minimum depth</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-only-the-active-branch" class="toc__link">Rendering only the active branch</a>
+                        <a href="#rendering-only-the-active-branch" class="toc__link nav-link">Rendering only the active branch</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-only-the-active-branch-with-minimum-depth" class="toc__link">Rendering only the active branch with minimum depth</a>
+                        <a href="#rendering-only-the-active-branch-with-minimum-depth" class="toc__link nav-link">Rendering only the active branch with minimum depth</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-only-the-active-branch-with-maximum-depth" class="toc__link">Rendering only the active branch with maximum depth</a>
+                        <a href="#rendering-only-the-active-branch-with-maximum-depth" class="toc__link nav-link">Rendering only the active branch with maximum depth</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-only-the-active-branch-with-maximum-depth-and-no-parents" class="toc__link">Rendering only the active branch with maximum depth and no parents</a>
+                        <a href="#rendering-only-the-active-branch-with-maximum-depth-and-no-parents" class="toc__link nav-link">Rendering only the active branch with maximum depth and no parents</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#rendering-a-custom-menu-using-a-partial-view-script" class="toc__link">Rendering a custom menu using a partial view script</a>
+                        <a href="#rendering-a-custom-menu-using-a-partial-view-script" class="toc__link nav-link">Rendering a custom menu using a partial view script</a>
                     </li>
                 
             </ul>
@@ -290,8 +291,7 @@
     
 
                 
-            </div>
-            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+
                 
                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -996,7 +996,7 @@ check the access to a page manually.</p>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2">
+            <div class="col-md-12">
                 <h5>Laminas</h5>
                 <ul>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
@@ -1008,7 +1008,7 @@ check the access to a page manually.</p>
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2"> 
+            <div class="col-md-12">
                 <div class="row">
 
                     
@@ -1066,7 +1066,9 @@ check the access to a page manually.</p>
             siteName = 'laminas-navigation';
     </script>
     <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
         <script src="../../search/main.js"></script>
+    
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
