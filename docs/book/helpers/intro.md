@@ -300,12 +300,10 @@ $view->plugin('navigation')->setContainer($container);
 $view->navigation($container);
 ```
 
-In addition to the container above, the following setup is assumed:
+In addition to the container above, the following router setup is added to the
+configuration file of the module, e.g. `module/MyModule/config/module.config.php`
 
 ```php
-<?php
-// module/MyModule/config/module.config.php
-
 return [
     /* ... */
     'router' [
@@ -332,10 +330,10 @@ return [
 ];
 ```
 
-```php
-<?php
-// module/MyModule/Module.php
+The setup of ACL can be done in a module class, e.g.
+`module/MyModule/Module.php`:
 
+```php
 namespace MyModule;
 
 use Laminas\View\HelperPluginManager;
