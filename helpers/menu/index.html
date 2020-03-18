@@ -581,17 +581,18 @@ echo $this-&gt;navigation()
 the active branch.</p>
 <p>Calling <code>renderSubMenu($container, $ulClass, $indent)</code> is equivalent to calling
 <code>renderMenu($container, $options)</code> with the following options:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-5><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-5-0_php-panel role=tab id=tab-group-5-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-5-1_php-panel role=tab id=tab-group-5-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-5-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-5-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-5-0_php-tab><pre class=codehilite><code class=language-php>[
+<pre class=codehilite><code class=language-php>[
     'ulClass'          =&gt; $ulClass,
     'indent'           =&gt; $indent,
     'minDepth'         =&gt; null,
     'maxDepth'         =&gt; null,
     'onlyActiveBranch' =&gt; true,
     'renderParents'    =&gt; false,
-]</code></pre></div><div id=tab-group-5-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-5-1_php-tab><pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
+]</code></pre>
+<p>Usage of <code>renderSubMenu</code> method:</p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()
     -&gt;menu()
-    -&gt;renderSubMenu(null, 'sidebar', 4) ?&gt;</code></pre></div></div></div>
-
+    -&gt;renderSubMenu(null, 'sidebar', 4) ?&gt;</code></pre>
 <p>The output will be the same if 'FAQ' or 'Foo Server' is active:</p>
 <pre class=codehilite><code class=language-html>&lt;ul class=&quot;sidebar&quot;&gt;
     &lt;li class=&quot;active&quot;&gt;

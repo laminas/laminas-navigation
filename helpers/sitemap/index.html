@@ -534,9 +534,11 @@ the view helper are filtered out:</p>
 &lt;/urlset&gt;</code></pre>
 <h2 id="rendering-using-no-acl-role">Rendering using no ACL role</h2>
 <p>Render the sitemap using no ACL role (should filter out <code>/community/account</code>):</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_xml-panel role=tab id=tab-group-2-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-2-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
+<pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
     -&gt;setFormatOutput(true)
-    -&gt;setRole();</code></pre></div><div id=tab-group-2-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_xml-tab><pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    -&gt;setRole();</code></pre>
+<p>Output:</p>
+<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
   &lt;url&gt;
     &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
@@ -586,13 +588,14 @@ the view helper are filtered out:</p>
   &lt;url&gt;
     &lt;loc&gt;http://forums.example.com/&lt;/loc&gt;
   &lt;/url&gt;
-&lt;/urlset&gt;</code></pre></div></div></div>
-
+&lt;/urlset&gt;</code></pre>
 <h2 id="rendering-using-a-maximum-depth">Rendering using a maximum depth</h2>
 <p>Render the sitemap using a maximum depth of 1.</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-3><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-3-0_php-panel role=tab id=tab-group-3-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-3-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-3-1_xml-panel role=tab id=tab-group-3-1_xml-tab data-toggle=tab data-lang=xml aria-controls=tab-group-3-1_xml-panel aria-selected=false>Xml</a></li></ul><div class=tab-content><div id=tab-group-3-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-3-0_php-tab><pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
+<pre class=codehilite><code class=language-php>echo $this-&gt;navigation()-&gt;sitemap()
     -&gt;setFormatOutput(true)
-    -&gt;setMaxDepth(1);</code></pre></div><div id=tab-group-3-1_xml-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-3-1_xml-tab><pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    -&gt;setMaxDepth(1);</code></pre>
+<p>Output:</p>
+<pre class=codehilite><code class=language-xml>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
   &lt;url&gt;
     &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
@@ -624,8 +627,7 @@ the view helper are filtered out:</p>
   &lt;url&gt;
     &lt;loc&gt;http://forums.example.com/&lt;/loc&gt;
   &lt;/url&gt;
-&lt;/urlset&gt;</code></pre></div></div></div>
-
+&lt;/urlset&gt;</code></pre>
 <blockquote>
 <h3>UTF-8 encoding used by default</h3>
 <p>By default, laminas-view uses UTF-8 as its default encoding.  If you want to use

@@ -741,11 +741,9 @@ $view-&gt;plugin('navigation')-&gt;setContainer($container);
 
 // ...or simply:
 $view-&gt;navigation($container);</code></pre>
-<p>In addition to the container above, the following setup is assumed:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>&lt;?php
-// module/MyModule/config/module.config.php
-
-return [
+<p>In addition to the container above, the following router setup is added to the
+configuration file of the module, e.g. <code>module/MyModule/config/module.config.php</code></p>
+<pre class=codehilite><code class=language-php>return [
     /* ... */
     'router' [
         'routes' =&gt; [
@@ -768,10 +766,10 @@ return [
         ],
     ],
     /* ... */
-];</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>&lt;?php
-// module/MyModule/Module.php
-
-namespace MyModule;
+];</code></pre>
+<p>The setup of ACL can be done in a module class, e.g.
+<code>module/MyModule/Module.php</code>:</p>
+<pre class=codehilite><code class=language-php>namespace MyModule;
 
 use Laminas\View\HelperPluginManager;
 use Laminas\Permissions\Acl\Acl;
@@ -810,7 +808,7 @@ class Module
         ];
     }
     /* ... */
-}</code></pre></div></div></div>
+}</code></pre>
 
 
 
