@@ -171,6 +171,8 @@ Calling `renderSubMenu($container, $ulClass, $indent)` is equivalent to calling
 ]
 ```
 
+Usage of `renderSubMenu` method:
+
 ```php
 <?= $this->navigation()
     ->menu()
