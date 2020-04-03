@@ -480,7 +480,7 @@ link types.  <code>RENDER_CUSTOM</code> denotes non-standard relations specified
 <h2 id="basic-usage">Basic usage</h2>
 <h3>Specify relations in pages</h3>
 <p>This example shows how to specify relations in pages.</p>
-<pre class=codehilite><code class=language-php>use Laminas\Config\Config;
+<pre class="highlight"><code class="language-php">use Laminas\Config\Config;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page\AbstractPage;
 
@@ -522,55 +522,63 @@ $container = new Navigation([
         ],
     ],
 ]);</code></pre>
+
 <h3>Default rendering of links</h3>
 <p>This example shows how to render a menu from a container registered in the
 view helper.</p>
 <p>In a view script or layout:</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;navigation()-&gt;links() ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()-&gt;links() ?&gt;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;link rel=&quot;alternate&quot; href=&quot;/products/server/faq/format/xml&quot;&gt;
-&lt;link rel=&quot;start&quot; href=&quot;/&quot; title=&quot;Home&quot;&gt;
-&lt;link rel=&quot;next&quot; href=&quot;/products/server/editions&quot; title=&quot;Editions&quot;&gt;
-&lt;link rel=&quot;prev&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/products&quot; title=&quot;Products&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/company/about&quot; title=&quot;Company&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/community&quot; title=&quot;Community&quot;&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;http://www.example.com/?page=server-faq&quot;&gt;
-&lt;link rev=&quot;subsection&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
+&lt;link rel="start" href="/" title="Home"&gt;
+&lt;link rel="next" href="/products/server/editions" title="Editions"&gt;
+&lt;link rel="prev" href="/products/server" title="Foo Server"&gt;
+&lt;link rel="chapter" href="/products" title="Products"&gt;
+&lt;link rel="chapter" href="/company/about" title="Company"&gt;
+&lt;link rel="chapter" href="/community" title="Community"&gt;
+&lt;link rel="canonical" href="http://www.example.com/?page=server-faq"&gt;
+&lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
+
 <h3>Specify which relations to render</h3>
 <p>This example shows how to specify which relations to find and render.</p>
 <p>Render only start, next, and prev:</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Helper\Navigation\Links;
+<pre class="highlight"><code class="language-php">use Laminas\View\Helper\Navigation\Links;
 
 $links = $this-&gt;navigation()-&gt;links();
 $links-&gt;setRenderFlag(Links::RENDER_START | Links::RENDER_NEXT | Links::RENDER_PREV);
 echo $links;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;link rel=&quot;start&quot; href=&quot;/&quot; title=&quot;Home&quot;&gt;
-&lt;link rel=&quot;next&quot; href=&quot;/products/server/editions&quot; title=&quot;Editions&quot;&gt;
-&lt;link rel=&quot;prev&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;link rel="start" href="/" title="Home"&gt;
+&lt;link rel="next" href="/products/server/editions" title="Editions"&gt;
+&lt;link rel="prev" href="/products/server" title="Foo Server"&gt;</code></pre>
+
 <p>Render only native link types:</p>
-<pre class=codehilite><code class=language-php>$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CUSTOM);
+<pre class="highlight"><code class="language-php">$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CUSTOM);
 echo $links;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;link rel=&quot;alternate&quot; href=&quot;/products/server/faq/format/xml&quot;&gt;
-&lt;link rel=&quot;start&quot; href=&quot;/&quot; title=&quot;Home&quot;&gt;
-&lt;link rel=&quot;next&quot; href=&quot;/products/server/editions&quot; title=&quot;Editions&quot;&gt;
-&lt;link rel=&quot;prev&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/products&quot; title=&quot;Products&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/company/about&quot; title=&quot;Company&quot;&gt;
-&lt;link rel=&quot;chapter&quot; href=&quot;/community&quot; title=&quot;Community&quot;&gt;
-&lt;link rev=&quot;subsection&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
+&lt;link rel="start" href="/" title="Home"&gt;
+&lt;link rel="next" href="/products/server/editions" title="Editions"&gt;
+&lt;link rel="prev" href="/products/server" title="Foo Server"&gt;
+&lt;link rel="chapter" href="/products" title="Products"&gt;
+&lt;link rel="chapter" href="/company/about" title="Company"&gt;
+&lt;link rel="chapter" href="/community" title="Community"&gt;
+&lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
+
 <p>Render all but chapters:</p>
-<pre class=codehilite><code class=language-php>$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CHAPTER);
+<pre class="highlight"><code class="language-php">$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CHAPTER);
 echo $links;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;link rel=&quot;alternate&quot; href=&quot;/products/server/faq/format/xml&quot;&gt;
-&lt;link rel=&quot;start&quot; href=&quot;/&quot; title=&quot;Home&quot;&gt;
-&lt;link rel=&quot;next&quot; href=&quot;/products/server/editions&quot; title=&quot;Editions&quot;&gt;
-&lt;link rel=&quot;prev&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;
-&lt;link rel=&quot;canonical&quot; href=&quot;http://www.example.com/?page=server-faq&quot;&gt;
-&lt;link rev=&quot;subsection&quot; href=&quot;/products/server&quot; title=&quot;Foo Server&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
+&lt;link rel="start" href="/" title="Home"&gt;
+&lt;link rel="next" href="/products/server/editions" title="Editions"&gt;
+&lt;link rel="prev" href="/products/server" title="Foo Server"&gt;
+&lt;link rel="canonical" href="http://www.example.com/?page=server-faq"&gt;
+&lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
 
 
 

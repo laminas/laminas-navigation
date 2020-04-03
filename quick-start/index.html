@@ -352,7 +352,7 @@
 </ul>
 <h3>Register laminas-navigation as module</h3>
 <p>Edit the application configuration file <code>config/application.config.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 return [
     'modules' =&gt; [
         'Laminas\Router',
@@ -361,10 +361,11 @@ return [
         // ...
     ],
 ];</code></pre>
+
 <h3>Navigation container configuration</h3>
 <p>Add the container definition to your configuration file, e.g.
 <code>config/autoload/global.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 return [
     // ...
 
@@ -392,21 +393,23 @@ return [
     ],
     // ...
 ];</code></pre>
+
 <h3>Render the navigation</h3>
 <p>Calling the view helper for menus in your layout script:</p>
-<pre class=codehilite><code class=language-php>&lt;!-- ... --&gt;
+<pre class="highlight"><code class="language-php">&lt;!-- ... --&gt;
 
 &lt;body&gt;
     &lt;?= $this-&gt;navigation('default')-&gt;menu() ?&gt;
 &lt;/body&gt;
 &lt;!-- ... --&gt;</code></pre>
+
 <h2 id="using-multiple-navigations">Using multiple navigations</h2>
 <p>Once the laminas-navigation module is registered, you can create as many navigation
 definitions as you wish, and the underlying factories will create navigation
 containers automatically.</p>
 <p>Add the container definitions to your configuration file, e.g.
 <code>config/autoload/global.php</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 return [
     // ...
 
@@ -460,6 +463,7 @@ return [
     ],
     // ...
 ];</code></pre>
+
 <blockquote>
 <h3>Container names have a prefix</h3>
 <p>There is one important point to know when using laminas-navigation as a module:
@@ -469,7 +473,7 @@ This helps ensure that no naming collisions occur with other services.</p>
 </blockquote>
 <p>The following example demonstrates rendering the navigation menus for the named
 <code>default</code>, <code>special</code>, and <code>sitemap</code> containers.</p>
-<pre class=codehilite><code class=language-php>&lt;!-- ... --&gt;
+<pre class="highlight"><code class="language-php">&lt;!-- ... --&gt;
 
 &lt;body&gt;
     &lt;?= $this-&gt;navigation('Laminas\Navigation\Default')-&gt;menu() ?&gt;

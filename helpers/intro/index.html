@@ -530,10 +530,11 @@ implements the following methods:</p>
 <h3>Proxying calls to the navigation container</h3>
 <p>Navigation view helpers use the magic method <code>__call()</code> to proxy method calls to
 the navigation container that is registered in the view helper.</p>
-<pre class=codehilite><code class=language-php>$this-&gt;navigation()-&gt;addPage([
+<pre class="highlight"><code class="language-php">$this-&gt;navigation()-&gt;addPage([
     'type' =&gt; 'uri',
     'label' =&gt; 'New page',
 ]);</code></pre>
+
 <p>The call above will add a page to the container in the <code>Navigation</code> helper.</p>
 <h2 id="translation-of-labels-and-titles">Translation of labels and titles</h2>
 <p>The navigation helpers support translation of page labels and titles. You can
@@ -571,7 +572,7 @@ it proxies to if the proxied helper doesn't already have any.</p>
   labeled <code>FAQ</code> under "Foo Server".</li>
 <li>The assumed ACL and router setup is shown below the container setup.</li>
 </ul>
-<pre class=codehilite><code class=language-php>use Laminas\Navigation\Navigation;
+<pre class="highlight"><code class="language-php">use Laminas\Navigation\Navigation;
 
 /*
  * Navigation container
@@ -741,9 +742,10 @@ $view-&gt;plugin('navigation')-&gt;setContainer($container);
 
 // ...or simply:
 $view-&gt;navigation($container);</code></pre>
+
 <p>In addition to the container above, the following router setup is added to the
 configuration file of the module, e.g. <code>module/MyModule/config/module.config.php</code></p>
-<pre class=codehilite><code class=language-php>return [
+<pre class="highlight"><code class="language-php">return [
     /* ... */
     'router' [
         'routes' =&gt; [
@@ -767,9 +769,10 @@ configuration file of the module, e.g. <code>module/MyModule/config/module.confi
     ],
     /* ... */
 ];</code></pre>
+
 <p>The setup of ACL can be done in a module class, e.g.
 <code>module/MyModule/Module.php</code>:</p>
-<pre class=codehilite><code class=language-php>namespace MyModule;
+<pre class="highlight"><code class="language-php">namespace MyModule;
 
 use Laminas\View\HelperPluginManager;
 use Laminas\Permissions\Acl\Acl;
