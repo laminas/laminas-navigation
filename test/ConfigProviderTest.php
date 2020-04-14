@@ -22,6 +22,7 @@ class ConfigProviderTest extends TestCase
         ],
         'aliases' => [
             'navigation' => Navigation::class,
+            'Zend\Navigation\Navigation' => Navigation::class,
         ],
         'delegators' => [
             'ViewHelperManager' => [
