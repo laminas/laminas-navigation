@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -552,7 +552,6 @@ $container = new Navigation([
         'route' =&gt; 'api-tools-route',
     ],
 ]);</code></pre>
-
 <h2 id="adding-pages">Adding pages</h2>
 <p>Adding pages to a container can be done with the methods <code>addPage()</code>,
 <code>addPages()</code>, or <code>setPages()</code>.  See examples below for explanation.</p>
@@ -595,7 +594,6 @@ $container-&gt;addPages($pages);
 
 // remove existing pages and add the given pages
 $container-&gt;setPages($pages);</code></pre>
-
 <h2 id="removing-pages">Removing pages</h2>
 <p>Removing pages can be done with <code>removePage()</code> or <code>removePages()</code>.
 <code>removePage()</code> accepts an instance of a page or an integer. Integer arguments
@@ -631,7 +629,6 @@ $container-&gt;removePage(200);    // removes Page 2
 
 // remove all pages
 $container-&gt;removePages();      // removes all pages</code></pre>
-
 <h3>Remove a page recursively</h3>
 <p>Removing a page recursively can be done with the second parameter of
 the <code>removePage()</code> method, which expects a <code>boolean</code> value.</p>
@@ -663,7 +660,6 @@ $container-&gt;removePage(
     $container-&gt;findOneBy('route', 'page1/page1-1/page1-1-1'),
     true
 );</code></pre>
-
 <h2 id="finding-pages">Finding pages</h2>
 <p>Containers have three finder methods for retrieving pages. Each recursively
 searches the container testing for properties with values that match the one
@@ -775,7 +771,6 @@ $found = $container-&gt;findAllByfoo('bar');
 // Find all with controller = 'index':
 // Returns "Page 2" and "Page 3":
 $found = $container-&gt;findAllByController('index');</code></pre>
-
 <h2 id="iterating-containers">Iterating containers</h2>
 <p><code>Laminas\Navigation\AbstractContainer</code> implements <code>RecursiveIterator</code>.  iterate a
 container recursively, use the <code>RecursiveIteratorIterator</code> class.</p>
@@ -826,20 +821,16 @@ $it = new RecursiveIteratorIterator(
 foreach ($it as $page) {
     echo $page-&gt;label;
 }</code></pre>
-
 <h2 id="other-operations">Other operations</h2>
 <h3>hasPage</h3>
 <pre class="highlight"><code class="language-php">hasPage(AbstractPage $page) : bool</code></pre>
-
 <p>Check if the container has the given page.</p>
 <h3>hasPages</h3>
 <pre class="highlight"><code class="language-php">hasPages() : bool</code></pre>
-
 <p>Checks if there are any pages in the container, and is equivalent to
 <code>count($container) &gt; 0</code>.</p>
 <h3>toArray</h3>
 <pre class="highlight"><code class="language-php">toArray() : array</code></pre>
-
 <p>Converts the container and the pages in it to a (nested) array. This can be useful
 for serializing and debugging.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Navigation;

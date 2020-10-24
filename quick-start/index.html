@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -361,7 +361,6 @@ return [
         // ...
     ],
 ];</code></pre>
-
 <h3>Navigation container configuration</h3>
 <p>Add the container definition to your configuration file, e.g.
 <code>config/autoload/global.php</code>:</p>
@@ -393,7 +392,6 @@ return [
     ],
     // ...
 ];</code></pre>
-
 <h3>Render the navigation</h3>
 <p>Calling the view helper for menus in your layout script:</p>
 <pre class="highlight"><code class="language-php">&lt;!-- ... --&gt;
@@ -402,7 +400,6 @@ return [
     &lt;?= $this-&gt;navigation('default')-&gt;menu() ?&gt;
 &lt;/body&gt;
 &lt;!-- ... --&gt;</code></pre>
-
 <h2 id="using-multiple-navigations">Using multiple navigations</h2>
 <p>Once the laminas-navigation module is registered, you can create as many navigation
 definitions as you wish, and the underlying factories will create navigation
@@ -463,7 +460,6 @@ return [
     ],
     // ...
 ];</code></pre>
-
 <blockquote>
 <h3>Container names have a prefix</h3>
 <p>There is one important point to know when using laminas-navigation as a module:

@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -485,10 +485,8 @@ also allows using a partial view script.</p>
 view helper. Notice how pages are filtered out based on visibility and ACL.</p>
 <p>In a view script or layout:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()-&gt;menu()-&gt;render() ?&gt;</code></pre>
-
 <p>Or:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()-&gt;menu() ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li&gt;
@@ -555,7 +553,6 @@ view helper. Notice how pages are filtered out based on visibility and ACL.</p>
         &lt;/ul&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="calling-rendermenu-directly">Calling renderMenu() directly</h2>
 <p>This example shows how to render a menu that is not registered in the view
 helper by calling <code>renderMenu()</code> directly and specifying options.</p>
@@ -570,7 +567,6 @@ echo $this-&gt;navigation()
           -&gt;menu()
           -&gt;renderMenu($community, $options);
 ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="community"&gt;
     &lt;li&gt;
@@ -580,7 +576,6 @@ echo $this-&gt;navigation()
         &lt;a class="external" href="http://forums.example.com/"&gt;Forums&lt;/a&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-the-deepest-active-menu">Rendering the deepest active menu</h2>
 <p>This example shows how <code>renderSubMenu()</code> will render the deepest sub menu of
 the active branch.</p>
@@ -594,12 +589,10 @@ the active branch.</p>
     'onlyActiveBranch' =&gt; true,
     'renderParents'    =&gt; false,
 ]</code></pre>
-
 <p>Usage of <code>renderSubMenu</code> method:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;renderSubMenu(null, 'sidebar', 4) ?&gt;</code></pre>
-
 <p>The output will be the same if 'FAQ' or 'Foo Server' is active:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="sidebar"&gt;
     &lt;li class="active"&gt;
@@ -612,12 +605,10 @@ the active branch.</p>
         &lt;a href="/products/server/requirements"&gt;System Requirements&lt;/a&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-with-maximum-depth">Rendering with maximum depth</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setMaxDepth(1) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li&gt;
@@ -657,12 +648,10 @@ the active branch.</p>
         &lt;/ul&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-with-minimum-depth">Rendering with minimum depth</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setMinDepth(1) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li class="active"&gt;
@@ -711,12 +700,10 @@ the active branch.</p>
         &lt;a class="external" href="http://forums.example.com/"&gt;Forums&lt;/a&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-only-the-active-branch">Rendering only the active branch</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setOnlyActiveBranch(true) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li class="active"&gt;
@@ -739,13 +726,11 @@ the active branch.</p>
         &lt;/ul&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-only-the-active-branch-with-minimum-depth">Rendering only the active branch with minimum depth</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setOnlyActiveBranch(true)
     -&gt;setMinDepth(1) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li class="active"&gt;
@@ -763,13 +748,11 @@ the active branch.</p>
         &lt;/ul&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-only-the-active-branch-with-maximum-depth">Rendering only the active branch with maximum depth</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setOnlyActiveBranch(true)
     -&gt;setMaxDepth(1) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li class="active"&gt;
@@ -784,14 +767,12 @@ the active branch.</p>
         &lt;/ul&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-only-the-active-branch-with-maximum-depth-and-no-parents">Rendering only the active branch with maximum depth and no parents</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()
     -&gt;menu()
     -&gt;setOnlyActiveBranch(true)
     -&gt;setRenderParents(false)
     -&gt;setMaxDepth(1) ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="navigation"&gt;
     &lt;li class="active"&gt;
@@ -801,7 +782,6 @@ the active branch.</p>
         &lt;a href="/products/studio"&gt;Foo Studio&lt;/a&gt;
     &lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="rendering-a-custom-menu-using-a-partial-view-script">Rendering a custom menu using a partial view script</h2>
 <p>This example shows how to render a custom menu using a partial view script. By
 calling <code>setPartial()</code>, you can specify a partial view script that will be used
@@ -812,18 +792,15 @@ the <code>renderPartial()</code> method.</p>
 <p>In a layout:</p>
 <pre class="highlight"><code class="language-php">$this-&gt;navigation()-&gt;menu()-&gt;setPartial('my-module/partials/menu');
 echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
-
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">foreach ($this-&gt;container as $page) {
     echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
 }</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;a title="Go Home" href="/"&gt;Home&lt;/a&gt;
 &lt;a href="/products"&gt;Products&lt;/a&gt;
 &lt;a title="About us" href="/company/about"&gt;Company&lt;/a&gt;
 &lt;a href="/community"&gt;Community&lt;/a&gt;</code></pre>
-
 <h3>Using additional parameters in partial view scripts</h3>
 <p>Starting with version 2.6.0, you can assign custom variables to a
 partial script.</p>
@@ -837,7 +814,6 @@ echo $this-&gt;navigation()-&gt;menu()-&gt;renderPartialWithParams(
         'headline' =&gt; 'Links',
     ]
 );</code></pre>
-
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;h1&gt;&lt;?= $headline ?&gt;&lt;/h1&gt;
 
@@ -846,14 +822,12 @@ foreach ($this-&gt;container as $page) {
     echo $this-&gt;navigation()-&gt;menu()-&gt;htmlify($page) . PHP_EOL;
 }
 ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;h1&gt;Links&lt;/h1&gt;
 &lt;a title="Go Home" href="/"&gt;Home&lt;/a&gt;
 &lt;a href="/products"&gt;Products&lt;/a&gt;
 &lt;a title="About us" href="/company/about"&gt;Company&lt;/a&gt;
 &lt;a href="/community"&gt;Community&lt;/a&gt;</code></pre>
-
 <h3>Using menu options in partial view scripts</h3>
 <p>In a layout:</p>
 <pre class="highlight"><code class="language-php">// Set options
@@ -863,7 +837,6 @@ $this-&gt;navigation()-&gt;menu()
 
 // Output menu
 echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
-
 <p>In <code>module/MyModule/view/my-module/partials/menu.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;div class"&lt;?= $this-&gt;navigation()-&gt;menu()-&gt;getUlClass() ?&gt;"&gt;
     &lt;?php
@@ -872,7 +845,6 @@ echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
     }
     ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;div class="my-nav"&gt;
     &lt;a title="Go Home" href="/"&gt;Home&lt;/a&gt;
@@ -880,7 +852,6 @@ echo $this-&gt;navigation()-&gt;menu()-&gt;render();</code></pre>
     &lt;a title="About us" href="/company/about"&gt;Company&lt;/a&gt;
     &lt;a href="/community"&gt;Community&lt;/a&gt;
 &lt;/div&gt;</code></pre>
-
 <h3>Using ACLs with partial view scripts</h3>
 <p>If you want to use an ACL within your partial view script, then you will have to
 check the access to a page manually.</p>

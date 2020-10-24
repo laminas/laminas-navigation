@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -522,13 +522,11 @@ $container = new Navigation([
         ],
     ],
 ]);</code></pre>
-
 <h3>Default rendering of links</h3>
 <p>This example shows how to render a menu from a container registered in the
 view helper.</p>
 <p>In a view script or layout:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;navigation()-&gt;links() ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
 &lt;link rel="start" href="/" title="Home"&gt;
@@ -539,7 +537,6 @@ view helper.</p>
 &lt;link rel="chapter" href="/community" title="Community"&gt;
 &lt;link rel="canonical" href="http://www.example.com/?page=server-faq"&gt;
 &lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
-
 <h3>Specify which relations to render</h3>
 <p>This example shows how to specify which relations to find and render.</p>
 <p>Render only start, next, and prev:</p>
@@ -548,16 +545,13 @@ view helper.</p>
 $links = $this-&gt;navigation()-&gt;links();
 $links-&gt;setRenderFlag(Links::RENDER_START | Links::RENDER_NEXT | Links::RENDER_PREV);
 echo $links;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;link rel="start" href="/" title="Home"&gt;
 &lt;link rel="next" href="/products/server/editions" title="Editions"&gt;
 &lt;link rel="prev" href="/products/server" title="Foo Server"&gt;</code></pre>
-
 <p>Render only native link types:</p>
 <pre class="highlight"><code class="language-php">$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CUSTOM);
 echo $links;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
 &lt;link rel="start" href="/" title="Home"&gt;
@@ -567,11 +561,9 @@ echo $links;</code></pre>
 &lt;link rel="chapter" href="/company/about" title="Company"&gt;
 &lt;link rel="chapter" href="/community" title="Community"&gt;
 &lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
-
 <p>Render all but chapters:</p>
 <pre class="highlight"><code class="language-php">$links-&gt;setRenderFlag(Links::RENDER_ALL ^ Links::RENDER_CHAPTER);
 echo $links;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;link rel="alternate" href="/products/server/faq/format/xml"&gt;
 &lt;link rel="start" href="/" title="Home"&gt;

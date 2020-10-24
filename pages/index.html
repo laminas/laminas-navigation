@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -498,7 +498,6 @@ echo $page-&gt;foo;
 if ($page-&gt;meaning != 42) {
     // action should be taken
 }</code></pre>
-
 </blockquote>
 <h2 id="mvc-pages">MVC pages</h2>
 <p>MVC pages are defined using MVC parameters known from the
@@ -624,7 +623,6 @@ $page = new Page\Mvc([
     'params'     =&gt; ['id' =&gt; 1337],
     'query'      =&gt; ['format' =&gt; 'json'],
 ]);</code></pre>
-
 <h3>isActive() determines if page is active</h3>
 <p>This example demonstrates that MVC pages determine whether they are active by
 using the params found in the route match object.</p>
@@ -676,7 +674,6 @@ $page = new Page\Mvc([
 
 // returns false, because page requires the id param to be set in the request
 $page-&gt;isActive(); // returns false</code></pre>
-
 <h3>Using routes</h3>
 <p>Routes can be used with MVC pages. If a page has a route, this route will be
 used in <code>getHref()</code> to generate the URL for the page.</p>
@@ -712,7 +709,6 @@ $page = new Page\Mvc([
 
 // returns: /a/42
 $page-&gt;getHref();</code></pre>
-
 <h2 id="uri-pages">URI Pages</h2>
 <p>Pages of type <code>Laminas\Navigation\Page\Uri</code> can be used to link to pages on other
 domains or sites, or to implement custom logic for the page. In addition to the
@@ -770,7 +766,6 @@ class Page extends AbstractPage
         return 'something-completely-different';
     }
 }</code></pre>
-
 <h3>A custom page with properties</h3>
 <p>When adding properties to an extended page, there is no need to override/modify
 <code>setOptions()</code>.</p>
@@ -815,7 +810,6 @@ $page = new Page([
     'foo'     =&gt; 'bar',
     'foo_bar' =&gt; 'baz',
 ]);</code></pre>
-
 <h2 id="creating-pages-using-the-page-factory">Creating pages using the page factory</h2>
 <p>All pages (also custom classes), can be created using the page factory,
 <code>Laminas\Navigation\Page\AbstractPage::factory()</code>. The factory accepts either an
@@ -853,7 +847,6 @@ $page = AbstractPage::factory([
     'type'   =&gt; 'mvc',
     'label'  =&gt; 'My MVC page',
 ]);</code></pre>
-
 <h3>Creating a URI page using the page factory</h3>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Page\AbstractPage;
 
@@ -881,7 +874,6 @@ $page = AbstractPage::factory([
     'type'  =&gt; 'uri',
     'label' =&gt; 'My URI page',
 ]);</code></pre>
-
 <h3>Creating a custom page type using the page factory</h3>
 <p>To create a custom page type using the factory, use the option <code>type</code> to specify
 a class name to instantiate.</p>

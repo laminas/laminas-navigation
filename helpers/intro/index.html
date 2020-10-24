@@ -270,7 +270,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -534,7 +534,6 @@ the navigation container that is registered in the view helper.</p>
     'type' =&gt; 'uri',
     'label' =&gt; 'New page',
 ]);</code></pre>
-
 <p>The call above will add a page to the container in the <code>Navigation</code> helper.</p>
 <h2 id="translation-of-labels-and-titles">Translation of labels and titles</h2>
 <p>The navigation helpers support translation of page labels and titles. You can
@@ -742,7 +741,6 @@ $view-&gt;plugin('navigation')-&gt;setContainer($container);
 
 // ...or simply:
 $view-&gt;navigation($container);</code></pre>
-
 <p>In addition to the container above, the following router setup is added to the
 configuration file of the module, e.g. <code>module/MyModule/config/module.config.php</code></p>
 <pre class="highlight"><code class="language-php">return [
@@ -769,7 +767,6 @@ configuration file of the module, e.g. <code>module/MyModule/config/module.confi
     ],
     /* ... */
 ];</code></pre>
-
 <p>The setup of ACL can be done in a module class, e.g.
 <code>module/MyModule/Module.php</code>:</p>
 <pre class="highlight"><code class="language-php">namespace MyModule;
