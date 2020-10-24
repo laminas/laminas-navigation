@@ -27,13 +27,13 @@ class NavigationTest extends TestCase
     private $_navigation;
     // @codingStandardsIgnoreEnd
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_navigation = new \Laminas\Navigation\Navigation();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->_navigation = null;
         parent::tearDown();

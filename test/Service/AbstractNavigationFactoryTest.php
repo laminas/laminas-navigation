@@ -15,9 +15,9 @@ use Laminas\Navigation\Exception;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 use Laminas\Router;
-use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
 
 /**
@@ -27,7 +27,9 @@ use ReflectionMethod;
  */
 class AbstractNavigationFactoryTest extends TestCase
 {
-    public function setUp()
+    use ProphecyTrait;
+
+    public function setUp(): void
     {
         $this->factory = new TestAsset\TestNavigationFactory();
     }

@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
  */
 class MvcTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $routeClass = $this->getRouteClass();
         $this->route  = new $routeClass(

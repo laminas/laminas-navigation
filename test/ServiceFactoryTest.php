@@ -12,7 +12,6 @@ use Laminas\Config\Config;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
-use Laminas\Navigation;
 use Laminas\Navigation\Page\Mvc as MvcPage;
 use Laminas\Navigation\Service\ConstructedNavigationFactory;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
@@ -21,6 +20,7 @@ use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Tests the class Laminas\Navigation\MvcNavigationFactory
@@ -29,6 +29,8 @@ use PHPUnit\Framework\TestCase;
  */
 class ServiceFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var \Laminas\ServiceManager\ServiceManager
      */
@@ -37,7 +39,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $config = [
             'navigation' => [
