@@ -24,23 +24,6 @@ use PHPUnit\Framework\TestCase;
  */
 class PageTest extends TestCase
 {
-    /**
-     * Prepares the environment before running a test.
-     *
-     */
-    protected function setUp()
-    {
-    }
-
-    /**
-     * Tear down the environment after running a test
-     *
-     */
-    protected function tearDown()
-    {
-        // setConfig, setOptions
-    }
-
     public function testSetShouldMapToNativeProperties()
     {
         $page = AbstractPage::factory([
@@ -163,7 +146,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $label', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $label', $e->getMessage());
             }
         }
     }
@@ -190,7 +173,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                             'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains(
+                $this->assertStringContainsString(
                     'Invalid argument: $fragment',
                     $e->getMessage()
                 );
@@ -217,7 +200,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $id', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $id', $e->getMessage());
             }
         }
     }
@@ -251,7 +234,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $class', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $class', $e->getMessage());
             }
         }
     }
@@ -274,7 +257,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $title', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $title', $e->getMessage());
             }
         }
     }
@@ -297,7 +280,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $target', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $target', $e->getMessage());
             }
         }
     }
@@ -428,7 +411,7 @@ class PageTest extends TestCase
                 $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertContains('Invalid argument: $order', $e->getMessage());
+                $this->assertStringContainsString('Invalid argument: $order', $e->getMessage());
             }
         }
     }
@@ -493,7 +476,7 @@ class PageTest extends TestCase
             $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $resource', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
         }
     }
 
@@ -509,7 +492,7 @@ class PageTest extends TestCase
             $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $resource', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
         }
     }
 
@@ -788,7 +771,7 @@ class PageTest extends TestCase
             unset($page->uri);
             $this->fail('Should not be possible to unset native properties');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Unsetting native property', $e->getMessage());
+            $this->assertStringContainsString('Unsetting native property', $e->getMessage());
         }
     }
 
@@ -977,7 +960,7 @@ class PageTest extends TestCase
             $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $relations', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
         }
     }
 
@@ -1035,7 +1018,7 @@ class PageTest extends TestCase
             $this->fail('An invalid value was set, but a ' .
                         'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $relations', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
         }
     }
 
@@ -1209,7 +1192,7 @@ class PageTest extends TestCase
         ]);
 
         $page->setPermission(['my_permission', 'other_permission']);
-        $this->assertInternalType('array', $page->getPermission());
+        $this->assertIsArray($page->getPermission());
         $this->assertCount(2, $page->getPermission());
     }
 

@@ -9,6 +9,7 @@
 namespace LaminasTest\Navigation\Page;
 
 use Laminas\Navigation;
+use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Page\AbstractPage;
 use PHPUnit\Framework\TestCase;
 
@@ -152,11 +153,10 @@ class PageFactoryTest extends TestCase
         ]);
     }
 
-    /**
-     * @expectedException \Laminas\Navigation\Exception\InvalidArgumentException
-     */
     public function testShouldThrowExceptionOnInvalidMethodArgument()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         AbstractPage::factory('');
     }
 }

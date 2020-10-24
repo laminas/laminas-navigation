@@ -20,22 +20,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ContainerTest extends TestCase
 {
-    /**
-     * Prepares the environment before running a test.
-     *
-     */
-    protected function setUp()
-    {
-    }
-
-    /**
-     * Tear down the environment after running a test
-     *
-     */
-    protected function tearDown()
-    {
-    }
-
     public function testConstructWithArray()
     {
         $argument = [
@@ -86,7 +70,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $pages', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
 
         try {
@@ -95,7 +79,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $pages', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
 
         try {
@@ -104,7 +88,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\ExceptionInterface $e) {
-            $this->assertContains('Invalid argument: $pages', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
     }
 
@@ -546,7 +530,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $pages must be', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
         }
     }
 
@@ -560,7 +544,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertContains('Invalid argument: $pages must be', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
         }
     }
 
@@ -1087,7 +1071,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
-            $this->assertContains('Bad method call', $e->getMessage());
+            $this->assertStringContainsString('Bad method call', $e->getMessage());
         }
     }
 
@@ -1101,7 +1085,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
-            $this->assertContains('Bad method call', $e->getMessage());
+            $this->assertStringContainsString('Bad method call', $e->getMessage());
         }
     }
 
@@ -1196,7 +1180,7 @@ class ContainerTest extends TestCase
                         'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
                         'not thrown');
         } catch (Navigation\Exception\OutOfBoundsException $e) {
-            $this->assertContains('Corruption detected', $e->getMessage());
+            $this->assertStringContainsString('Corruption detected', $e->getMessage());
         }
     }
 
