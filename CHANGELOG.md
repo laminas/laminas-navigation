@@ -2,27 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.10.0 - TBD
+## 2.10.0 - 2020-10-24
 
 ### Added
 
 - [#10](https://github.com/laminas/laminas-navigation/pull/10) Add PHP 8.0 support
 
-### Changed
 
-- Nothing.
+-----
 
-### Deprecated
+### Release Notes for [2.10.0](https://github.com/laminas/laminas-navigation/milestone/1)
 
-- Nothing.
 
-### Removed
 
-- Nothing.
+### 2.10.0
 
-### Fixed
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-- Nothing.
+#### Enhancement,hacktoberfest-accepted
+
+ - [10: PHP 8.0 support](https://github.com/laminas/laminas-navigation/pull/10) thanks to @Thaix
 
 ## 2.9.1 - 2019-08-21
 
