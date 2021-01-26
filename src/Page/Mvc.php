@@ -446,7 +446,7 @@ class Mvc extends AbstractPage
                 __METHOD__,
                 RouteMatch::class,
                 MvcRouter\RouteMatch::class,
-                (is_object($router) ? get_class($router) : gettype($router))
+                (is_object($matches) ? get_class($matches) : gettype($matches))
             ));
         }
         $this->routeMatch = $matches;
