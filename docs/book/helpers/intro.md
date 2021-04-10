@@ -28,7 +28,7 @@ Method signature                                                       | Descrip
 `hasContainer() : bool`                                                | Is any navigation container currently registered?
 `setContainer(AbstractContainer $container) : self`                    | Set a navigation container.
 `getTranslator() : null\|Laminas\I18n\Translator\TranslatorInterface`     | Retrieve the current translator instance, if any.
-`setTranslator(Laminas\I18n\Translator\TranslatorInterface`) : self`      | Set a translator instance to use with labels.
+`setTranslator(Laminas\I18n\Translator\TranslatorInterface) : self`      | Set a translator instance to use with labels.
 `hasTranslator() : bool`                                               | Is a translator instance present?
 `isTranslatorEnabled() : bool`                                         | Should translation occur? To be `true`, both the flag enabling translation must be set, and a translator instance present.
 `setTranslatorEnabled(bool $flag) : self`                              | Set the flag indicating whether or not translation should occur.
@@ -66,7 +66,7 @@ Method signature                                                             | D
 If a container is not explicitly set, the helper will create an empty
 `Laminas\Navigation\Navigation` container when calling `$helper->getContainer()`.
 
-### Proxying calls to the navigation container
+## Proxying calls to the navigation container
 
 Navigation view helpers use the magic method `__call()` to proxy method calls to
 the navigation container that is registered in the view helper.

@@ -13,6 +13,8 @@ be either `rel` or `rev`. Most methods also take a `$type` param, which is used
 for specifying the link type (e.g. `alternate`, `start`, `next`, `prev`,
 `chapter`, etc).
 
+## Managing Relationships within the Helper
+
 Relationships can be added to page objects manually, or found by traversing the
 container registered in the helper. The method `findRelation($page, $rel,
 $type)` will first try to find the given `$rel` of `$type` from the `$page` by

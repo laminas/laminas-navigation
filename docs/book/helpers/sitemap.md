@@ -8,7 +8,7 @@ By default, the sitemap helper uses [sitemap validators](https://github.com/lami
 to validate each element that is rendered. This can be disabled by calling
 `$helper->setUseSitemapValidators(false)`.
 
-### Sitemap XML elements
+## Sitemap XML elements
 
 Element    | Type   | Description
 ---------- | ------ | -----------
