@@ -1,7 +1,6 @@
 # laminas-navigation
 
-[![Build Status](https://travis-ci.com/laminas/laminas-navigation.svg?branch=master)](https://travis-ci.com/laminas/laminas-navigation)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-navigation/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-navigation?branch=master)
+[![Build Status](https://github.com/laminas/laminas-navigation/workflows/Continuous%20Integration/badge.svg)](https://github.com/laminas/laminas-navigation/actions?query=workflow%3A"Continuous+Integration")
 
 `Laminas\Navigation` is a component for managing trees of pointers to web pages.
 Simply put: It can be used for creating menus, breadcrumbs, links, and sitemaps,
