@@ -32,7 +32,6 @@ Option name        | Description
 `onlyActiveBranch` | Whether only active branch should be rendered. Expects a `boolean` value.
 `renderParents`    | Whether parents should be rendered if only rendering active branch. Expects a `boolean` value.
 
-
 ## Basic usage
 
 This example shows how to render a menu from a container registered/found in the

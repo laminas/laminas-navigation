@@ -107,6 +107,7 @@ class SitemapMiddlewareFactory
 To [register the middleware](https://docs.laminas.dev/laminas-mvc-middleware/intro/#mapping-routes-to-middleware) for the application and to [create the route](https://docs.laminas.dev/laminas-mvc/quick-start/#create-a-route), extend the configuration of the module.
 Add the following lines to the module configuration file, e.g. `module/Application/config/module.config.php`:
 
+<!-- markdownlint-disable MD033 -->
 <pre class="language-php" data-line="8-9,14-23"><code>
 namespace Application;
 
@@ -137,6 +138,7 @@ return [
     // …
 ];
 </code></pre>
+<!-- markdownlint-restore -->
 
 ## Render Sitemap
 
@@ -174,8 +176,8 @@ Output:
 This all works with a [_classic_ controller](https://docs.laminas.dev/laminas-mvc/quick-start/#create-a-controller) as well.
 The Sitemap helper already creates all the XML content, so the rendering of the view layer can be also omitted here:
 
-* Get the response object of the controller 
-* Set the HTTP header for XML content 
+* Get the response object of the controller
+* Set the HTTP header for XML content
 * Set the rendered sitemap as content
 * Return the response object for controller action
 
