@@ -14,6 +14,8 @@ nav:
         - Menu: helpers/menu.md
         - Sitemap: helpers/sitemap.md
         - "Navigation Proxy": helpers/navigation.md
+    - Cookbook:
+        - "How to Create a XML Sitemap in a Mvc-Based Application?": cookbook/mvc-sitemap.md
 site_name: laminas-navigation
 site_description: "Manage trees of pointers to web pages in order to build navigation systems."
 repo_url: 'https://github.com/laminas/laminas-navigation'
