@@ -3,6 +3,7 @@ site_dir: docs/html
 nav:
     - Home: index.md
     - Introduction: intro.md
+    - Installation: installation.md
     - "Quick Start": quick-start.md
     - Reference:
         - Pages: pages.md
@@ -21,3 +22,6 @@ site_description: "Manage trees of pointers to web pages in order to build navig
 repo_url: 'https://github.com/laminas/laminas-navigation'
 extra:
     project: Components
+    installation:
+        config_provider_class: 'Laminas\Navigation\ConfigProvider'
+        module_class: 'Laminas\Navigation\Module'
