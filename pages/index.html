@@ -144,6 +144,20 @@
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -223,6 +237,29 @@
                                         
     <li class="subnavigation__list-item ">
         <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
     </li>
 
                                     
@@ -381,7 +418,7 @@ options in the table below and the same initialization process.</p>
 method for the option, it will be set as a custom property of the page.</p>
 <p>Read more on extending <code>Laminas\Navigation\Page\AbstractPage</code> in the section
 <a href="#creating-custom-page-types">"Creating custom page types"</a>.</p>
-<h3>Common page options</h3>
+<h3 id="common-page-options">Common page options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -479,7 +516,7 @@ method for the option, it will be set as a custom property of the page.</p>
 </tbody>
 </table></div>
 <blockquote>
-<h4>Custom properties</h4>
+<h4 id="custom-properties">Custom properties</h4>
 <p>All pages support setting and retrieval of custom properties by use of the
 magic methods <code>__set($name, $value)</code>, <code>__get($name)</code>, <code>__isset($name)</code> and
 <code>__unset($name)</code>. Custom properties may have any value, and will be included
@@ -507,14 +544,14 @@ to generate <code>href</code> attributes, and the <code>isActive()</code> method
 <code>Laminas\Router\RouteMatch</code> params with the page's params to determine if the page
 is active.</p>
 <blockquote>
-<h3>useRouteMatch flag</h3>
+<h3 id="useroutematch-flag">useRouteMatch flag</h3>
 <p>Starting in version 2.2.0, if you want to re-use any matched route parameters
 when generating a link, you can do so via the <code>useRouteMatch</code> flag. This is
 particularly useful when creating segment routes that include the currently
 selected language or locale as an initial segment, as it ensures the links
 generated all include the matched value.</p>
 </blockquote>
-<h3>MVC page options</h3>
+<h3 id="mvc-page-options">MVC page options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -576,11 +613,11 @@ generated all include the matched value.</p>
 </tbody>
 </table></div>
 <blockquote>
-<h3>URIs are relative to base URL</h3>
+<h3 id="uris-are-relative-to-base-url">URIs are relative to base URL</h3>
 <p>The URI returned is relative to the <code>baseUrl</code> in <code>Laminas\Router\Http\TreeRouteStack</code>.
 In the examples, the <code>baseUrl</code> is '/' for simplicity.</p>
 </blockquote>
-<h3>getHref() generates the page URI</h3>
+<h3 id="gethref-generates-the-page-uri">getHref() generates the page URI</h3>
 <p>This example demonstrates that MVC pages use <code>Laminas\Router\RouteStackInterface</code>
 internally to generate URIs when calling <code>$page-&gt;getHref()</code>.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Page;
@@ -623,7 +660,7 @@ $page = new Page\Mvc([
     'params'     =&gt; ['id' =&gt; 1337],
     'query'      =&gt; ['format' =&gt; 'json'],
 ]);</code></pre>
-<h3>isActive() determines if page is active</h3>
+<h3 id="isactive-determines-if-page-is-active">isActive() determines if page is active</h3>
 <p>This example demonstrates that MVC pages determine whether they are active by
 using the params found in the route match object.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Page;
@@ -674,11 +711,11 @@ $page = new Page\Mvc([
 
 // returns false, because page requires the id param to be set in the request
 $page-&gt;isActive(); // returns false</code></pre>
-<h3>Using routes</h3>
+<h3 id="using-routes">Using routes</h3>
 <p>Routes can be used with MVC pages. If a page has a route, this route will be
 used in <code>getHref()</code> to generate the URL for the page.</p>
 <blockquote>
-<h4>Default parameters are not necessary</h4>
+<h4 id="default-parameters-are-not-necessary">Default parameters are not necessary</h4>
 <p>Note that when using the <code>route</code> property in a page, you do not need to
 specify the default params that the route defines (controller, action, etc.).</p>
 </blockquote>
@@ -716,14 +753,14 @@ common page options, a URI page takes only one additional option, a <code>uri</c
 <code>uri</code> will be returned when calling <code>$page-&gt;getHref()</code>, and may be a <code>string</code> or
 <code>null</code>.</p>
 <blockquote>
-<h3>No auto-determination of active status</h3>
+<h3 id="no-auto-determination-of-active-status">No auto-determination of active status</h3>
 <p><code>Laminas\Navigation\Page\Uri</code> will not try to determine whether it should be
 active when calling <code>$page-&gt;isActive()</code>; it merely returns what currently is
 set. In order to make a URI page active, you must manually call
 <code>$page-&gt;setActive()</code> or specify the <code>active</code> as a page option during
 instantiation.</p>
 </blockquote>
-<h3>URI page options</h3>
+<h3 id="uri-page-options">URI page options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -753,7 +790,7 @@ first look for a method named <code>setInternalId()</code>, and pass the option 
 method if it exists. If the method does not exist, the option will be set as a
 custom property of the page, and be accessible via <code>$internalId =
 $page-&gt;internal_id;</code> or <code>$internalId = $page-&gt;get('internal_id');</code>.</p>
-<h3>Basic custom page example</h3>
+<h3 id="basic-custom-page-example">Basic custom page example</h3>
 <p>The only thing a custom page class needs to implement is the <code>getHref()</code> method.</p>
 <pre class="highlight"><code class="language-php">namespace My;
 
@@ -766,7 +803,7 @@ class Page extends AbstractPage
         return 'something-completely-different';
     }
 }</code></pre>
-<h3>A custom page with properties</h3>
+<h3 id="a-custom-page-with-properties">A custom page with properties</h3>
 <p>When adding properties to an extended page, there is no need to override/modify
 <code>setOptions()</code>.</p>
 <pre class="highlight"><code class="language-php">namespace My\Navigation;
@@ -820,7 +857,7 @@ created. If any of the MVC options are given, an MVC page will be created.</p>
 <p>If <code>type</code> is given, the factory will assume the value to be the name of the
 class that should be created. If the value is <code>mvc</code> or <code>uri</code>, an MVC or URI page
 will be created, respectively.</p>
-<h3>Creating an MVC page using the page factory</h3>
+<h3 id="creating-an-mvc-page-using-the-page-factory">Creating an MVC page using the page factory</h3>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Page\AbstractPage;
 
 // MVC page, as "action" is defined
@@ -847,7 +884,7 @@ $page = AbstractPage::factory([
     'type'   =&gt; 'mvc',
     'label'  =&gt; 'My MVC page',
 ]);</code></pre>
-<h3>Creating a URI page using the page factory</h3>
+<h3 id="creating-a-uri-page-using-the-page-factory">Creating a URI page using the page factory</h3>
 <pre class="highlight"><code class="language-php">use Laminas\Navigation\Page\AbstractPage;
 
 // URI page, as "uri" is present, with now MVC options
@@ -874,7 +911,7 @@ $page = AbstractPage::factory([
     'type'  =&gt; 'uri',
     'label' =&gt; 'My URI page',
 ]);</code></pre>
-<h3>Creating a custom page type using the page factory</h3>
+<h3 id="creating-a-custom-page-type-using-the-page-factory">Creating a custom page type using the page factory</h3>
 <p>To create a custom page type using the factory, use the option <code>type</code> to specify
 a class name to instantiate.</p>
 <pre class="highlight"><code class="language-php">namespace My\Navigation;
@@ -988,6 +1025,20 @@ $page = AbstractPage::factory([
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -1067,6 +1118,29 @@ $page = AbstractPage::factory([
                                         
     <li class="subnavigation__list-item ">
         <a href="../helpers/navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
     </li>
 
                                     

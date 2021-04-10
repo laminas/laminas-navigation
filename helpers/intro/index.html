@@ -144,6 +144,20 @@
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -232,6 +246,29 @@
                     
                 
             
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
         </ul>
     </div>
 
@@ -300,6 +337,10 @@
         <div class="toc">
             <h6 class="toc__headline">On this page</h6>
             <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#proxying-calls-to-the-navigation-container" class="toc__link nav-link">Proxying calls to the navigation container</a>
+                    </li>
                 
                     <li class="toc__entry">
                         <a href="#translation-of-labels-and-titles" class="toc__link nav-link">Translation of labels and titles</a>
@@ -400,7 +441,7 @@ defines the following methods:</p>
 <td>Retrieve the current translator instance, if any.</td>
 </tr>
 <tr>
-<td><code>setTranslator(Laminas\I18n\Translator\TranslatorInterface</code>) : self`</td>
+<td><code>setTranslator(Laminas\I18n\Translator\TranslatorInterface) : self</code></td>
 <td>Set a translator instance to use with labels.</td>
 </tr>
 <tr>
@@ -527,7 +568,7 @@ implements the following methods:</p>
 </table></div>
 <p>If a container is not explicitly set, the helper will create an empty
 <code>Laminas\Navigation\Navigation</code> container when calling <code>$helper-&gt;getContainer()</code>.</p>
-<h3>Proxying calls to the navigation container</h3>
+<h2 id="proxying-calls-to-the-navigation-container">Proxying calls to the navigation container</h2>
 <p>Navigation view helpers use the magic method <code>__call()</code> to proxy method calls to
 the navigation container that is registered in the view helper.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;navigation()-&gt;addPage([
@@ -543,7 +584,7 @@ helper using <code>$helper-&gt;setTranslator($translator)</code>.</p>
 <p>The <a href="../navigation/">proxy helper</a> will inject its own translator to the helper
 it proxies to if the proxied helper doesn't already have a translator.</p>
 <blockquote>
-<h3>Sitemaps do not use translation</h3>
+<h3 id="sitemaps-do-not-use-translation">Sitemaps do not use translation</h3>
 <p>There is no translation in the sitemap helper, since there are no page labels
 or titles involved in an XML sitemap.</p>
 </blockquote>
@@ -900,6 +941,20 @@ class Module
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -979,6 +1034,29 @@ class Module
                                         
     <li class="subnavigation__list-item ">
         <a href="../navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
     </li>
 
                                     

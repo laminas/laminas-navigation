@@ -144,6 +144,20 @@
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -232,6 +246,29 @@
                     
                 
             
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
         </ul>
     </div>
 
@@ -302,6 +339,10 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
+                        <a href="#managing-relationships-within-the-helper" class="toc__link nav-link">Managing Relationships within the Helper</a>
+                    </li>
+                
+                    <li class="toc__entry">
                         <a href="#basic-usage" class="toc__link nav-link">Basic usage</a>
                     </li>
                 
@@ -359,6 +400,7 @@ link types at:</p>
 be either <code>rel</code> or <code>rev</code>. Most methods also take a <code>$type</code> param, which is used
 for specifying the link type (e.g. <code>alternate</code>, <code>start</code>, <code>next</code>, <code>prev</code>,
 <code>chapter</code>, etc).</p>
+<h2 id="managing-relationships-within-the-helper">Managing Relationships within the Helper</h2>
 <p>Relationships can be added to page objects manually, or found by traversing the
 container registered in the helper. The method <code>findRelation($page, $rel,
 $type)</code> will first try to find the given <code>$rel</code> of <code>$type</code> from the <code>$page</code> by
@@ -388,7 +430,7 @@ relations that will be found by searching:</p>
   the active page if the active page is on level 2 (a <code>subsection</code>).</li>
 </ul>
 <blockquote>
-<h3>Allowed relation types</h3>
+<h3 id="allowed-relation-types">Allowed relation types</h3>
 <p>When looking for relations in the page instance (<code>$page-&gt;getRel($type)</code> or
 <code>$page-&gt;getRev($type)</code>), the helper accepts the values of type <code>string</code>,
 <code>array</code>, <code>Traversable</code>,
@@ -478,7 +520,7 @@ link types.  <code>RENDER_CUSTOM</code> denotes non-standard relations specified
 </tbody>
 </table></div>
 <h2 id="basic-usage">Basic usage</h2>
-<h3>Specify relations in pages</h3>
+<h3 id="specify-relations-in-pages">Specify relations in pages</h3>
 <p>This example shows how to specify relations in pages.</p>
 <pre class="highlight"><code class="language-php">use Laminas\Config\Config;
 use Laminas\Navigation\Navigation;
@@ -522,7 +564,7 @@ $container = new Navigation([
         ],
     ],
 ]);</code></pre>
-<h3>Default rendering of links</h3>
+<h3 id="default-rendering-of-links">Default rendering of links</h3>
 <p>This example shows how to render a menu from a container registered in the
 view helper.</p>
 <p>In a view script or layout:</p>
@@ -537,7 +579,7 @@ view helper.</p>
 &lt;link rel="chapter" href="/community" title="Community"&gt;
 &lt;link rel="canonical" href="http://www.example.com/?page=server-faq"&gt;
 &lt;link rev="subsection" href="/products/server" title="Foo Server"&gt;</code></pre>
-<h3>Specify which relations to render</h3>
+<h3 id="specify-which-relations-to-render">Specify which relations to render</h3>
 <p>This example shows how to specify which relations to find and render.</p>
 <p>Render only start, next, and prev:</p>
 <pre class="highlight"><code class="language-php">use Laminas\View\Helper\Navigation\Links;
@@ -662,6 +704,20 @@ echo $links;</code></pre>
                     
                         
                             <li class="subnavigation__list-item ">
+                                <a href="../../installation/" class="subnavigation__link">Installation</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
                                 <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
                             </li>
                         
@@ -741,6 +797,29 @@ echo $links;</code></pre>
                                         
     <li class="subnavigation__list-item ">
         <a href="../navigation/" class="subnavigation__link">Navigation Proxy</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/mvc-sitemap/" class="subnavigation__link">How to Create a XML Sitemap in a Mvc-Based Application?</a>
     </li>
 
                                     
