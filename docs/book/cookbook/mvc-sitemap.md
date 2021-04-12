@@ -1,7 +1,7 @@
 # How to Create a XML Sitemap in a Mvc-Based Application?
 
 The following example shows _one_ potential use case to render a [XML sitemap](https://www.sitemaps.org) within a laminas-mvc based application.
-The example uses a middleware and the [Sitemap view helper](../helpers/sitemap.md).
+The example uses a middleware as request handler and the [Sitemap view helper](../helpers/sitemap.md).
 
 The example is based on the [laminas-mvc skeleton application](https://github.com/laminas/laminas-mvc-skeleton).
 
@@ -34,19 +34,18 @@ return [
 The Sitemap helper already creates all the XML content, so the rendering of the view layer can be omitted.
 With the [custom response type `Laminas\Diactoros\Response\XmlResponse`](https://docs.laminas.dev/laminas-diactoros/v2/custom-responses/#xml-responses) the `Content-Type` header is set to `application/xml`.
 
-[Create a middleware class](https://docs.laminas.dev/laminas-mvc-middleware/intro/#writing-middleware) and inject the Sitemap helper via the constructor, e.g. `module/Application/Middleware/SitemapMiddleware.php`:
+[Create a middleware class](https://docs.laminas.dev/laminas-mvc-middleware/v2/quick-start/#writing-middleware) as request handler and inject the Sitemap helper via the constructor, e.g. `module/Application/Handler/SitemapHandler.php`:
 
 ```php
-namespace Application\Middleware;
+namespace Application\Handler;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Laminas\Diactoros\Response\XmlResponse;
 use Laminas\View\Helper\Navigation\Sitemap;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class SitemapMiddleware implements MiddlewareInterface
+class SitemapHandler implements RequestHandlerInterface
 {
     private Sitemap $sitemapHelper;
 
@@ -55,11 +54,8 @@ class SitemapMiddleware implements MiddlewareInterface
         $this->sitemapHelper = $sitemapHelper;
     }
 
-    public function process(
-        ServerRequestInterface $request,
-        DelegateInterface $delegate
-    ): ResponseInterface {
-        // Render sitemap and set as message body for response
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
         return new XmlResponse(
             $this->sitemapHelper->setContainer('default')->render()
         );
@@ -69,19 +65,19 @@ class SitemapMiddleware implements MiddlewareInterface
 
 ### Create Factory for Middleware
 
-Fetch the [Navigation Proxy helper](../helpers/navigation.md) from the [view helper manager](https://docs.laminas.dev/laminas-mvc/services/#plugin-managers) and fetch the Sitemap helper from Proxy helper in a [factory class](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#factories), e.g. `src/Application/Middleware/SitemapMiddlewareFactory.php`:
+Fetch the [Navigation Proxy helper](../helpers/navigation.md) from the [view helper manager](https://docs.laminas.dev/laminas-mvc/services/#plugin-managers) and fetch the Sitemap helper from Proxy helper in a [factory class](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#factories), e.g. `src/Application/Handler/SitemapHandlerFactory.php`:
 
 ```php
-namespace Application\Middleware;
+namespace Application\Handler;
 
 use Laminas\View\Helper\Navigation as NavigationProxyHelper;
 use Laminas\View\Helper\Navigation\Sitemap;
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
-class SitemapMiddlewareFactory
+class SitemapHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): SitemapMiddleware
+    public function __invoke(ContainerInterface $container): SitemapHandler
     {
         // View helper manager
         /** @var HelperPluginManager $viewHelperPluginManager */
@@ -97,20 +93,21 @@ class SitemapMiddlewareFactory
         /** @var Sitemap $sitemapHelper */
         $sitemapHelper = $navigationHelper->findHelper(Sitemap::class);
 
-        return new SitemapMiddleware($sitemapHelper);
+        return new SitemapHandler($sitemapHelper);
     }
 }
 ```
 
 ## Register Middleware and Create Route
 
-To [register the middleware](https://docs.laminas.dev/laminas-mvc-middleware/intro/#mapping-routes-to-middleware) for the application and to [create the route](https://docs.laminas.dev/laminas-mvc/quick-start/#create-a-route), extend the configuration of the module.
+To [register the middleware](https://docs.laminas.dev/laminas-mvc-middleware/v2/quick-start/#mapping-routes-to-middleware-and-request-handlers) for the application and to [create the route](https://docs.laminas.dev/laminas-mvc/quick-start/#create-a-route), extend the configuration of the module.
 Add the following lines to the module configuration file, e.g. `module/Application/config/module.config.php`:
 
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="8-9,14-23"><code>
+<pre class="language-php" data-line="3,9-10,15-25"><code>
 namespace Application;
 
+use Laminas\Mvc\Middleware\PipeSpec;
 use Laminas\Router\Http\Literal;
 
 return [
@@ -128,7 +125,8 @@ return [
                 'options' => [
                     'route'    => '/sitemap.xml',
                     'defaults' => [
-                        'middleware' => Middleware\SitemapMiddleware::class,
+                        'controller' => PipeSpec::class,
+                        'middleware' => Handler\SitemapHandler::class,
                     ],
                 ],
             ],
