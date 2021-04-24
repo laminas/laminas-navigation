@@ -30,6 +30,7 @@
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
+        "laminas/laminas-authentication": "^2.8.0",
         "laminas/laminas-coding-standard": "~1.0.0",
         "laminas/laminas-config": "^2.6 || ^3.1",
         "laminas/laminas-console": "^2.6",
@@ -46,6 +47,7 @@
         "phpunit/phpunit": "^9.4.1"
     },
     "suggest": {
+        "laminas/laminas-authentication": "^2.8, to provide role-based access restrictions to pages",
         "laminas/laminas-config": "^2.6 || ^3.1, to provide page configuration (optional, as arrays and Traversables are also allowed)",
         "laminas/laminas-permissions-acl": "^2.6, to provide ACL-based access restrictions to pages",
         "laminas/laminas-router": "^3.0, to use router-based URI generation with Mvc pages",
