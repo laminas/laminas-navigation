@@ -1,33 +1,19 @@
 {
     "name": "laminas/laminas-navigation",
     "description": "Manage trees of pointers to web pages in order to build navigation systems",
-    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "navigation"
     ],
     "homepage": "https://laminas.dev",
-    "support": {
-        "docs": "https://docs.laminas.dev/laminas-navigation/",
-        "issues": "https://github.com/laminas/laminas-navigation/issues",
-        "source": "https://github.com/laminas/laminas-navigation",
-        "rss": "https://github.com/laminas/laminas-navigation/releases.atom",
-        "chat": "https://laminas.dev/chat",
-        "forum": "https://discourse.laminas.dev"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laminas": {
-            "component": "Laminas\\Navigation",
-            "config-provider": "Laminas\\Navigation\\ConfigProvider"
-        }
-    },
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^7.3 || ~8.0.0",
         "laminas/laminas-stdlib": "^2.7 || ^3.0",
         "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "replace": {
+        "zendframework/zend-navigation": "^2.9.1"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
@@ -52,6 +38,15 @@
         "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3, to use the navigation factories",
         "laminas/laminas-view": "^2.8.1, to use the navigation view helpers"
     },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "component": "Laminas\\Navigation",
+            "config-provider": "Laminas\\Navigation\\ConfigProvider"
+        }
+    },
     "autoload": {
         "psr-4": {
             "Laminas\\Navigation\\": "src/"
@@ -72,7 +67,12 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zend-navigation": "^2.9.1"
+    "support": {
+        "issues": "https://github.com/laminas/laminas-navigation/issues",
+        "forum": "https://discourse.laminas.dev",
+        "chat": "https://laminas.dev/chat",
+        "source": "https://github.com/laminas/laminas-navigation",
+        "docs": "https://docs.laminas.dev/laminas-navigation/",
+        "rss": "https://github.com/laminas/laminas-navigation/releases.atom"
     }
 }
