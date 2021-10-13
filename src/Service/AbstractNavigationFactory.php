@@ -92,7 +92,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * @param ContainerInterface $container
      * @param array|\Laminas\Config\Config $pages
-     * @return null|array
+     * @return array
      * @throws \Laminas\Navigation\Exception\InvalidArgumentException
      */
     protected function preparePages(ContainerInterface $container, $pages)
