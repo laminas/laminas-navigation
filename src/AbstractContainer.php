@@ -312,12 +312,16 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $page) {
-            if ($page->get($property) == $value) {
+            $propertyValue = $page->get($property);
+            if ($propertyValue === $value) {
+                return $page;
+            }
+            if ((string) $propertyValue === $value) {
                 return $page;
             }
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -335,7 +339,12 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $page) {
-            if ($page->get($property) == $value) {
+            $propertyValue = $page->get($property);
+            if ($propertyValue === $value) {
+                $found[] = $page;
+                continue;
+            }
+            if ((string) $propertyValue === $value) {
                 $found[] = $page;
             }
         }

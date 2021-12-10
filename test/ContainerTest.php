@@ -955,6 +955,24 @@ class ContainerTest extends TestCase
         $this->assertNull($found);
     }
 
+    public function testFindOneByWithIntegerAsStringValueShouldReturnPage()
+    {
+        $nav = $this->_getFindByNavigation();
+        $nav->addPage(
+            [
+                'label'      => 'Page 4',
+                'module'     => 'page4',
+                'controller' => 'index',
+                'action'     => 'about',
+                'integer'    => 1000,
+            ]
+        );
+
+        $found = $nav->findOneBy('integer', '1000');
+        $this->assertInstanceOf(AbstractPage::class, $found);
+        $this->assertEquals('Page 4', $found->getLabel());
+    }
+
     public function testFindAllByShouldReturnAllMatchingPages()
     {
         $nav = $this->_getFindByNavigation();
@@ -979,6 +997,41 @@ class ContainerTest extends TestCase
 
         $expected = ['type' => 'array', 'count' => 0];
         $actual   = ['type' => gettype($found), 'count' => count($found)];
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testFindAllByWithIntegerAsStringValueShouldReturnPage()
+    {
+        $nav = $this->_getFindByNavigation();
+        $nav->addPage(
+            [
+                'label'      => 'Page 4',
+                'module'     => 'page4',
+                'controller' => 'index',
+                'action'     => 'about',
+                'integer'    => 1000,
+            ]
+        );
+        $nav->addPage(
+            [
+                'label'      => 'Page 5',
+                'module'     => 'page5',
+                'controller' => 'index',
+                'action'     => 'about',
+                'integer'    => 1000,
+            ]
+        );
+
+        $found = $nav->findAllBy('integer', '1000');
+        $this->assertContainsOnly(AbstractPage::class, $found, false);
+
+        $expected = ['Page 4', 'Page 5'];
+        $actual   = [];
+
+        foreach ($found as $page) {
+            $actual[] = $page->getLabel();
+        }
+
         $this->assertEquals($expected, $actual);
     }
 
