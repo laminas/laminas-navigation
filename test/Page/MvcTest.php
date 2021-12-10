@@ -6,11 +6,11 @@ namespace LaminasTest\Navigation\Page;
 
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
-use Laminas\Mvc\Router as MvcRouter;
 use Laminas\Navigation;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Page;
 use Laminas\Navigation\Page\Mvc;
+use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Literal as LiteralRoute;
 use Laminas\Router\Http\Regex as RegexRoute;
 use Laminas\Router\Http\Segment as SegmentRoute;
@@ -19,9 +19,7 @@ use Laminas\Router\RouteMatch;
 use LaminasTest\Navigation\TestAsset;
 use PHPUnit\Framework\TestCase;
 
-use function class_exists;
 use function ksort;
-use function sprintf;
 
 /**
  * Tests the class Laminas_Navigation_Page_Mvc
@@ -32,8 +30,7 @@ class MvcTest extends TestCase
 {
     protected function setUp(): void
     {
-        $routeClass  = $this->getRouteClass();
-        $this->route = new $routeClass(
+        $this->route = new RegexRoute(
             '((?<controller>[^/]+)(/(?<action>[^/]+))?)',
             '/%controller%/%action%',
             [
@@ -42,37 +39,11 @@ class MvcTest extends TestCase
             ]
         );
 
-        $routerClass  = $this->getRouterClass();
-        $this->router = new $routerClass();
+        $this->router = new TreeRouteStack();
         $this->router->addRoute('default', $this->route);
 
-        $routeMatchClass  = $this->getRouteMatchClass();
-        $this->routeMatch = new $routeMatchClass([]);
+        $this->routeMatch = new RouteMatch([]);
         $this->routeMatch->setMatchedRouteName('default');
-    }
-
-    public function getRouteClass($type = 'Regex')
-    {
-        $v2ClassName = sprintf('Laminas\Mvc\Router\Http\%s', $type);
-        $v3ClassName = sprintf('Laminas\Router\Http\%s', $type);
-
-        return class_exists($v2ClassName)
-            ? $v2ClassName
-            : $v3ClassName;
-    }
-
-    public function getRouterClass()
-    {
-        return class_exists(MvcRouter\Http\TreeRouteStack::class)
-            ? MvcRouter\Http\TreeRouteStack::class
-            : TreeRouteStack::class;
-    }
-
-    public function getRouteMatchClass()
-    {
-        return class_exists(MvcRouter\RouteMatch::class)
-            ? MvcRouter\RouteMatch::class
-            : RouteMatch::class;
     }
 
     public function testHrefGeneratedByRouterWithDefaultRoute()
@@ -183,15 +154,12 @@ class MvcTest extends TestCase
             'controller' => 'index',
         ]);
 
-        $routeClass = $this->getRouteClass('Literal');
-        $route      = new $routeClass('/roflcopter');
+        $route = new Literal('/roflcopter');
 
-        $routerClass = $this->getRouterClass();
-        $router      = new $routerClass();
+        $router = new TreeRouteStack();
         $router->addRoute('roflcopter', $route);
 
-        $routeMatchClass = $this->getRouteMatchClass();
-        $routeMatch      = new $routeMatchClass([
+        $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'Application\Controller',
             'controller'                          => 'index',
         ]);
@@ -251,8 +219,7 @@ class MvcTest extends TestCase
             ],
         ]);
 
-        $routeClass = $this->getRouteClass();
-        $route      = new $routeClass(
+        $route = new RegexRoute(
             '(lolcat/(?<action>[^/]+)/(?<page>\d+))',
             '/lolcat/%action%/%page%',
             [
@@ -283,8 +250,7 @@ class MvcTest extends TestCase
             ],
         ]);
 
-        $routeClass = $this->getRouteClass();
-        $route      = new $routeClass(
+        $route = new RegexRoute(
             '(lolcat/(?<action>[^/]+)/(?<page>\d+))',
             '/lolcat/%action%/%page%',
             [
@@ -559,8 +525,8 @@ class MvcTest extends TestCase
             'defaultRouter' => $this->router,
         ]);
 
-        $this->assertEquals($this->router, $page->getDefaultRouter());
-        $page->setDefaultRouter(null);
+        $this->assertEquals($this->router, $page::getDefaultRouter());
+        $page::setDefaultRouter(null);
     }
 
     public function testDefaultRouterCanBeSetWithGetter()
@@ -570,10 +536,10 @@ class MvcTest extends TestCase
             'action'     => 'index',
             'controller' => 'index',
         ]);
-        $page->setDefaultRouter($this->router);
+        $page::setDefaultRouter($this->router);
 
-        $this->assertEquals($this->router, $page->getDefaultRouter());
-        $page->setDefaultRouter(null);
+        $this->assertEquals($this->router, $page::getDefaultRouter());
+        $page::setDefaultRouter(null);
     }
 
     public function testNoExceptionForGetHrefIfDefaultRouterIsSet()
@@ -589,7 +555,7 @@ class MvcTest extends TestCase
         // If the default router is not used an exception will be thrown.
         // This method intentionally has no assertion.
         $this->assertNotEmpty($page->getHref());
-        $page->setDefaultRouter(null);
+        $page::setDefaultRouter(null);
     }
 
     public function testBoolSetAndGetUseRouteMatch()
@@ -645,15 +611,12 @@ class MvcTest extends TestCase
             'route' => 'lmaoplane',
         ]);
 
-        $routeClass = $this->getRouteClass('Segment');
-        $route      = new $routeClass('/lmaoplane[/:controller]');
+        $route = new SegmentRoute('/lmaoplane[/:controller]');
 
-        $routerClass = $this->getRouterClass();
-        $router      = new $routerClass();
+        $router = new TreeRouteStack();
         $router->addRoute('lmaoplane', $route);
 
-        $routeMatchClass = $this->getRouteMatchClass();
-        $routeMatch      = new $routeMatchClass([
+        $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'Application\Controller',
             'controller'                          => 'index',
         ]);
@@ -684,15 +647,12 @@ class MvcTest extends TestCase
             ]
         );
 
-        $routeClass = $this->getRouteClass('Literal');
-        $route      = new $routeClass('/foo');
+        $route = new LiteralRoute('/foo');
 
-        $routerClass = $this->getRouterClass();
-        $router      = new $routerClass();
+        $router = new TreeRouteStack();
         $router->addRoute('myRoute', $route);
 
-        $routeMatchClass = $this->getRouteMatchClass();
-        $routeMatch      = new $routeMatchClass(
+        $routeMatch = new RouteMatch(
             [
                 ModuleRouteListener::MODULE_NAMESPACE => 'Application\Controller',
                 'controller'                          => 'index',
@@ -730,8 +690,7 @@ class MvcTest extends TestCase
         );
         $parentPage->addPage($childPage);
 
-        $routerClass = $this->getRouterClass();
-        $router      = new $routerClass();
+        $router = new TreeRouteStack();
         $router->addRoutes(
             [
                 'parentPageRoute' => [
@@ -757,8 +716,7 @@ class MvcTest extends TestCase
             ]
         );
 
-        $routeMatchClass = $this->getRouteMatchClass();
-        $routeMatch      = new $routeMatchClass(
+        $routeMatch = new RouteMatch(
             [
                 ModuleRouteListener::MODULE_NAMESPACE => 'Application\Controller',
                 'controller'                          => 'barController',
@@ -789,7 +747,7 @@ class MvcTest extends TestCase
         $this->expectException(Exception\InvalidArgumentException::class);
 
         $page = new Page\Mvc();
-        $page->setRouter($this->getRouterClass());
+        $page->setRouter(TreeRouteStack::class);
         $page->setRouteMatch(null);
     }
 }
