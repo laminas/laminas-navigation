@@ -9,6 +9,7 @@ use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ErrorHandler;
 use RecursiveIterator;
 use RecursiveIteratorIterator;
+use ReturnTypeWillChange;
 use Traversable;
 
 use function array_key_exists;
@@ -420,6 +421,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * @return AbstractPage current page or null
      * @throws Exception\OutOfBoundsException  if the index is invalid
      */
+    #[ReturnTypeWillChange]
     public function current()
     {
         $this->sort();
@@ -443,6 +445,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return string  hash code of current page
      */
+    #[ReturnTypeWillChange]
     public function key()
     {
         $this->sort();
@@ -456,6 +459,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function next()
     {
         $this->sort();
@@ -469,6 +473,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         $this->sort();
@@ -482,6 +487,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return bool
      */
+    #[ReturnTypeWillChange]
     public function valid()
     {
         $this->sort();
@@ -495,6 +501,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return bool  whether container has any pages
      */
+    #[ReturnTypeWillChange]
     public function hasChildren()
     {
         return $this->valid() && $this->current()->hasPages();
@@ -507,6 +514,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return AbstractPage|null
      */
+    #[ReturnTypeWillChange]
     public function getChildren()
     {
         $hash = key($this->index);
@@ -527,6 +535,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @return int  number of pages in the container
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         return count($this->index);
