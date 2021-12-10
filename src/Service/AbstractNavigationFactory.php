@@ -7,7 +7,6 @@ namespace Laminas\Navigation\Service;
 use Interop\Container\ContainerInterface;
 use Laminas\Config;
 use Laminas\Http\Request;
-use Laminas\Mvc\Router as MvcRouter;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Navigation;
@@ -49,8 +48,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Create and return a new Navigation instance (v2).
      *
-     * @param null|string $name
-     * @param null|string $requestedName
      * @return Navigation
      */
     public function createService(ServiceLocatorInterface $container)
@@ -137,8 +134,8 @@ abstract class AbstractNavigationFactory implements FactoryInterface
 
     /**
      * @param array $pages
-     * @param RouteMatch|MvcRouter\RouteMatch $routeMatch
-     * @param Router|MvcRouter\RouteStackInterface $router
+     * @param RouteMatch $routeMatch
+     * @param Router $router
      * @param null|Request $request
      * @return array
      */
@@ -177,7 +174,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a route match argument provided to injectComponents is valid.
      *
-     * @param null|RouteMatch|MvcRouter\RouteMatch
+     * @param null|RouteMatch $routeMatch
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -187,14 +184,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             return;
         }
 
-        if (
-            ! $routeMatch instanceof RouteMatch
-            && ! $routeMatch instanceof MvcRouter\RouteMatch
-        ) {
+        if (! $routeMatch instanceof RouteMatch) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s or %s expected by %s::injectComponents; received %s',
+                '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
-                MvcRouter\RouteMatch::class,
                 self::class,
                 is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
             ));
@@ -204,7 +197,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a router argument provided to injectComponents is valid.
      *
-     * @param null|Router|MvcRouter\RouteStackInterface
+     * @param null|Router $router
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -214,14 +207,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             return;
         }
 
-        if (
-            ! $router instanceof Router
-            && ! $router instanceof MvcRouter\RouteStackInterface
-        ) {
+        if (! $router instanceof Router) {
             throw new Exception\InvalidArgumentException(sprintf(
-                '%s or %s expected by %s::injectComponents; received %s',
+                '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
-                MvcRouter\RouteMatch::class,
                 self::class,
                 is_object($router) ? get_class($router) : gettype($router)
             ));
