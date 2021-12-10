@@ -11,29 +11,20 @@ use PHPUnit\Framework\TestCase;
 use function count;
 use function var_export;
 
-/**
- * Laminas_Navigation
- */
-
-/**
- * @group      Laminas_Navigation
- */
 class NavigationTest extends TestCase
 {
-    /** @var     Laminas_Navigation */
-    // @codingStandardsIgnoreStart
-    private $_navigation;
-    // @codingStandardsIgnoreEnd
+    /** @var Navigation */
+    private $navigation;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->_navigation = new Navigation();
+        $this->navigation = new Navigation();
     }
 
     protected function tearDown(): void
     {
-        $this->_navigation = null;
+        $this->navigation = null;
         parent::tearDown();
     }
 
@@ -49,13 +40,13 @@ class NavigationTest extends TestCase
         $page2 = new Page\Uri(['uri' => 'page2']);
         $page3 = new Page\Uri(['uri' => 'page3']);
 
-        $this->_navigation->setPages([$page1, $page2, $page3]);
+        $this->navigation->setPages([$page1, $page2, $page3]);
 
         $page1->setOrder(1);
         $page3->setOrder(0);
         $page2->setOrder(2);
 
-        $pages = $this->_navigation->toArray();
+        $pages = $this->navigation->toArray();
 
         $this->assertSame(3, count($pages));
         $this->assertEquals('page3', $pages[0]['uri'], var_export($pages, true));

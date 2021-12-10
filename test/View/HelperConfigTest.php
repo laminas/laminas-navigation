@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HelperConfigTest extends TestCase
 {
-    public function navigationServiceNameProvider()
+    public function navigationServiceNameProvider(): array
     {
         return [
             ['navigation'],
@@ -32,8 +32,9 @@ class HelperConfigTest extends TestCase
     /**
      * @dataProvider navigationServiceNameProvider
      */
-    public function testConfigureServiceManagerWithConfig($navigationHelperServiceName)
-    {
+    public function testConfigureServiceManagerWithConfig(
+        string $navigationHelperServiceName
+    ) {
         $replacedMenuClass = NavigationHelper\Links::class;
 
         $serviceManager = new ServiceManager();

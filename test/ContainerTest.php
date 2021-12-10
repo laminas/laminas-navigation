@@ -764,22 +764,22 @@ class ContainerTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $page1_1 = Page\AbstractPage::factory([
+        $page11 = Page\AbstractPage::factory([
             'label' => 'Page 1.1',
             'uri'   => '#',
         ]);
 
-        $page1_2 = Page\AbstractPage::factory([
+        $page12 = Page\AbstractPage::factory([
             'label' => 'Page 1.2',
             'uri'   => '#',
         ]);
 
-        $page1_2_1 = Page\AbstractPage::factory([
+        $page121 = Page\AbstractPage::factory([
             'label' => 'Page 1.2.1',
             'uri'   => '#',
         ]);
 
-        $page1_3 = Page\AbstractPage::factory([
+        $page13 = Page\AbstractPage::factory([
             'label' => 'Page 1.3',
             'uri'   => '#',
         ]);
@@ -796,10 +796,10 @@ class ContainerTest extends TestCase
 
         $nav = new Navigation\Navigation([$page1, $page2, $page3]);
 
-        $page1->addPage($page1_1);
-        $page1->addPage($page1_2);
-        $page1_2->addPage($page1_2_1);
-        $page1->addPage($page1_3);
+        $page1->addPage($page11);
+        $page1->addPage($page12);
+        $page12->addPage($page121);
+        $page1->addPage($page13);
 
         $expected = [
             'haspage0'            => false,
@@ -811,8 +811,8 @@ class ContainerTest extends TestCase
         $actual = [
             'haspage0'            => $nav->hasPage($page0),
             'haspage2'            => $nav->hasPage($page2),
-            'haspage1_1'          => $nav->hasPage($page1_1),
-            'haspage1_1recursive' => $nav->hasPage($page1_1, true),
+            'haspage1_1'          => $nav->hasPage($page11),
+            'haspage1_1recursive' => $nav->hasPage($page11, true),
         ];
 
         $this->assertEquals($expected, $actual);

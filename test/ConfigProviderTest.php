@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
 {
-    private $config = [
+    private array $config = [
         'abstract_factories' => [
             Service\NavigationAbstractServiceFactory::class,
         ],
@@ -30,7 +30,7 @@ class ConfigProviderTest extends TestCase
         ],
     ];
 
-    public function testProvidesExpectedConfiguration()
+    public function testProvidesExpectedConfiguration(): ConfigProvider
     {
         $provider = new ConfigProvider();
         $this->assertEquals($this->config, $provider->getDependencyConfig());

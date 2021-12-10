@@ -8,9 +8,9 @@ use Laminas\Router\Http\TreeRouteStack;
 
 class Router extends TreeRouteStack
 {
-    const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
+    public const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
 
-    public function assemble(array $params = [], array $options = [])
+    public function assemble(array $params = [], array $options = []): string
     {
         return self::RETURN_URL;
     }

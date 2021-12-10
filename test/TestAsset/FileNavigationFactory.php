@@ -8,7 +8,7 @@ use Laminas\Navigation\Service\AbstractNavigationFactory;
 
 class FileNavigationFactory extends AbstractNavigationFactory
 {
-    protected function getName()
+    protected function getName(): string
     {
         return 'file';
     }

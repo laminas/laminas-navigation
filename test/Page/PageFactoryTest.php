@@ -113,7 +113,7 @@ class PageFactoryTest extends TestCase
             'label' => 'My Custom Page',
         ]);
 
-        return $this->assertInstanceOf(Page::class, $page);
+        $this->assertInstanceOf(Page::class, $page);
     }
 
     public function testShouldFailForInvalidType()
