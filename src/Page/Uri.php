@@ -1,9 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation\Page;
 
 use Laminas\Http\Request;
 use Laminas\Navigation\Exception;
+
+use function array_merge;
+use function is_string;
+use function substr;
 
 /**
  * Represents a page that is defined by specifying a URI
@@ -15,7 +21,7 @@ class Uri extends AbstractPage
      *
      * @var string|null
      */
-    protected $uri = null;
+    protected $uri;
 
     /**
      * Request object used to determine uri path
@@ -28,7 +34,6 @@ class Uri extends AbstractPage
      * Sets page URI
      *
      * @param  string $uri                page URI, must a string or null
-     *
      * @return Uri   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  if $uri is invalid
      */
@@ -115,10 +120,9 @@ class Uri extends AbstractPage
     /**
      * Sets request for assembling URLs
      *
-     * @param Request $request
      * @return self Fluent interface, returns self
      */
-    public function setRequest(Request $request = null)
+    public function setRequest(?Request $request = null)
     {
         $this->request = $request;
         return $this;

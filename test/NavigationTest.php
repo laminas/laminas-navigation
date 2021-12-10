@@ -1,9 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation;
 
+use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page;
 use PHPUnit\Framework\TestCase;
+
+use function count;
+use function var_export;
 
 /**
  * Laminas_Navigation
@@ -14,9 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class NavigationTest extends TestCase
 {
-    /**
-     * @var     Laminas_Navigation
-     */
+    /** @var     Laminas_Navigation */
     // @codingStandardsIgnoreStart
     private $_navigation;
     // @codingStandardsIgnoreEnd
@@ -24,7 +28,7 @@ class NavigationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->_navigation = new \Laminas\Navigation\Navigation();
+        $this->_navigation = new Navigation();
     }
 
     protected function tearDown(): void

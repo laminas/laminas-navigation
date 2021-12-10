@@ -1,12 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation\Page;
 
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
+use Laminas\Navigation\Page\Mvc;
+use Laminas\Navigation\Page\Uri;
 use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
+
+use function array_keys;
+use function array_merge;
+use function call_user_func;
+use function class_exists;
+use function is_array;
+use function is_int;
+use function is_numeric;
+use function is_string;
+use function method_exists;
+use function spl_object_hash;
+use function sprintf;
+use function str_replace;
+use function strtolower;
+use function ucwords;
 
 /**
  * Base class for Laminas\Navigation\Page pages
@@ -132,7 +151,7 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Parent container
      *
-     * @var \Laminas\Navigation\AbstractContainer|null
+     * @var AbstractContainer|null
      */
     protected $parent;
 
@@ -200,10 +219,10 @@ abstract class AbstractPage extends AbstractContainer
             if (is_string($type) && ! empty($type)) {
                 switch (strtolower($type)) {
                     case 'mvc':
-                        $type = 'Laminas\Navigation\Page\Mvc';
+                        $type = Mvc::class;
                         break;
                     case 'uri':
-                        $type = 'Laminas\Navigation\Page\Uri';
+                        $type = Uri::class;
                         break;
                 }
 
@@ -217,8 +236,8 @@ abstract class AbstractPage extends AbstractContainer
                 if (! $page instanceof self) {
                     throw new Exception\InvalidArgumentException(
                         sprintf(
-                            'Invalid argument: Detected type "%s", which ' .
-                            'is not an instance of Laminas\Navigation\Page',
+                            'Invalid argument: Detected type "%s", which '
+                            . 'is not an instance of Laminas\Navigation\Page',
                             $type
                         )
                     );
@@ -229,7 +248,7 @@ abstract class AbstractPage extends AbstractContainer
 
         if (static::$factories) {
             foreach (static::$factories as $factoryCallBack) {
-                if (($page = call_user_func($factoryCallBack, $options))) {
+                if ($page = call_user_func($factoryCallBack, $options)) {
                     return $page;
                 }
             }
@@ -466,7 +485,6 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string|null $target [optional] target to set. Default is
      *                             null, which sets no target.
-     *
      * @return AbstractPage fluent interface, returns self
      * @throws Exception\InvalidArgumentException if target is not string or null
      */
@@ -517,8 +535,8 @@ abstract class AbstractPage extends AbstractContainer
 
             if (! is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
-                    'Invalid argument: $relations must be an ' .
-                    'array or an instance of Traversable'
+                    'Invalid argument: $relations must be an '
+                    . 'array or an instance of Traversable'
                 );
             }
 
@@ -549,9 +567,7 @@ abstract class AbstractPage extends AbstractContainer
     public function getRel($relation = null)
     {
         if (null !== $relation) {
-            return isset($this->rel[$relation])
-                ? $this->rel[$relation]
-                : null;
+            return $this->rel[$relation] ?? null;
         }
 
         return $this->rel;
@@ -567,7 +583,6 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  array|Traversable $relations [optional] an associative array of
      *                                      reverse links to other pages
-     *
      * @throws Exception\InvalidArgumentException if $relations it not an array
      *                                            or Traversable object
      * @return AbstractPage fluent interface, returns self
@@ -583,8 +598,8 @@ abstract class AbstractPage extends AbstractContainer
 
             if (! is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
-                    'Invalid argument: $relations must be an ' .
-                    'array or an instance of Traversable'
+                    'Invalid argument: $relations must be an '
+                    . 'array or an instance of Traversable'
                 );
             }
 
@@ -608,7 +623,6 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  string $relation  [optional] name of relation to return. If not
      *                           given, all relations will be returned.
-     *
      * @return array             an array of relations. If $relation is not
      *                           specified, all relations will be returned in
      *                           an associative array.
@@ -616,10 +630,7 @@ abstract class AbstractPage extends AbstractContainer
     public function getRev($relation = null)
     {
         if (null !== $relation) {
-            return isset($this->rev[$relation])
-                ?
-                $this->rev[$relation]
-                :
+            return $this->rev[$relation] ??
                 null;
         }
 
@@ -646,8 +657,8 @@ abstract class AbstractPage extends AbstractContainer
 
         if (null !== $order && ! is_int($order)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid argument: $order must be an integer or null, ' .
-                'or a string that casts to an integer'
+                'Invalid argument: $order must be an integer or null, '
+                . 'or a string that casts to an integer'
             );
         }
 
@@ -682,15 +693,16 @@ abstract class AbstractPage extends AbstractContainer
      */
     public function setResource($resource = null)
     {
-        if (null === $resource
+        if (
+            null === $resource
             || is_string($resource)
             || $resource instanceof AclResource
         ) {
             $this->resource = $resource;
         } else {
             throw new Exception\InvalidArgumentException(
-                'Invalid argument: $resource must be null, a string, ' .
-                'or an instance of Laminas\Permissions\Acl\Resource\ResourceInterface'
+                'Invalid argument: $resource must be null, a string, '
+                . 'or an instance of Laminas\Permissions\Acl\Resource\ResourceInterface'
             );
         }
 
@@ -713,7 +725,6 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string|null $privilege  [optional] ACL privilege to associate
      *                                 with this page. Default is null, which
      *                                 sets no privilege.
-     *
      * @return AbstractPage fluent interface, returns self
      */
     public function setPrivilege($privilege = null)
@@ -738,7 +749,6 @@ abstract class AbstractPage extends AbstractContainer
      * @param  mixed|null $permission  [optional] permission to associate
      *                                  with this page. Default is null, which
      *                                  sets no permission.
-     *
      * @return AbstractPage fluent interface, returns self
      */
     public function setPermission($permission = null)
@@ -763,7 +773,6 @@ abstract class AbstractPage extends AbstractContainer
      * @param  string|null $textDomain  [optional] text domain to associate
      *                                  with this page. Default is null, which
      *                                  sets no text domain.
-     *
      * @return AbstractPage fluent interface, returns self
      */
     public function setTextDomain($textDomain = null)
@@ -789,7 +798,6 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @param  bool $active [optional] whether page should be
      *                      considered active or not. Default is true.
-     *
      * @return AbstractPage fluent interface, returns self
      */
     public function setActive($active = true)
@@ -826,7 +834,6 @@ abstract class AbstractPage extends AbstractContainer
      * @param  bool $recursive  [optional] whether page should be considered
      *                          active if any child pages are active. Default
      *                          is false.
-     *
      * @return bool             whether page should be considered active
      */
     public function getActive($recursive = false)
@@ -856,12 +863,12 @@ abstract class AbstractPage extends AbstractContainer
      * @param  bool $recursive  [optional] whether page should be considered
      *                          invisible if parent is invisible. Default is
      *                          false.
-     *
      * @return bool             whether page should be considered visible
      */
     public function isVisible($recursive = false)
     {
-        if ($recursive
+        if (
+            $recursive
             && isset($this->parent)
             && $this->parent instanceof self
         ) {
@@ -881,7 +888,6 @@ abstract class AbstractPage extends AbstractContainer
      * @param  bool $recursive  [optional] whether page should be considered
      *                          invisible if parent is invisible. Default is
      *                          false.
-     *
      * @return bool             whether page should be considered visible
      */
     public function getVisible($recursive = false)
@@ -897,7 +903,7 @@ abstract class AbstractPage extends AbstractContainer
      * @throws Exception\InvalidArgumentException
      * @return AbstractPage fluent interface, returns self
      */
-    public function setParent(AbstractContainer $parent = null)
+    public function setParent(?AbstractContainer $parent = null)
     {
         if ($parent === $this) {
             throw new Exception\InvalidArgumentException(
@@ -957,7 +963,8 @@ abstract class AbstractPage extends AbstractContainer
 
         $method = 'set' . static::normalizePropertyName($property);
 
-        if ($method != 'setOptions' && method_exists($this, $method)
+        if (
+            $method != 'setOptions' && method_exists($this, $method)
         ) {
             $this->$method($value);
         } else {
@@ -1200,22 +1207,22 @@ abstract class AbstractPage extends AbstractContainer
     public function toArray()
     {
         return array_merge($this->getCustomProperties(), [
-            'label'     => $this->getLabel(),
-            'fragment'  => $this->getFragment(),
-            'id'        => $this->getId(),
-            'class'     => $this->getClass(),
-            'title'     => $this->getTitle(),
-            'target'    => $this->getTarget(),
-            'rel'       => $this->getRel(),
-            'rev'       => $this->getRev(),
-            'order'     => $this->getOrder(),
-            'resource'  => $this->getResource(),
-            'privilege' => $this->getPrivilege(),
+            'label'      => $this->getLabel(),
+            'fragment'   => $this->getFragment(),
+            'id'         => $this->getId(),
+            'class'      => $this->getClass(),
+            'title'      => $this->getTitle(),
+            'target'     => $this->getTarget(),
+            'rel'        => $this->getRel(),
+            'rev'        => $this->getRev(),
+            'order'      => $this->getOrder(),
+            'resource'   => $this->getResource(),
+            'privilege'  => $this->getPrivilege(),
             'permission' => $this->getPermission(),
-            'active'    => $this->isActive(),
-            'visible'   => $this->isVisible(),
-            'type'      => get_class($this),
-            'pages'     => parent::toArray(),
+            'active'     => $this->isActive(),
+            'visible'    => $this->isVisible(),
+            'type'       => static::class,
+            'pages'      => parent::toArray(),
         ]);
     }
 

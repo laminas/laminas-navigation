@@ -1,19 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Page;
 
 use Laminas\Config;
 use Laminas\Navigation;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Page\AbstractPage;
-use Laminas\Navigation\Page\Mvc;
 use Laminas\Navigation\Page\Uri;
+use Laminas\Permissions\Acl\Resource\GenericResource;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+
+use function ksort;
 
 /**
  * Tests the class Laminas_Navigation_Page
  *
- * @author    Robin Skoglund
  * @group      Laminas_Navigation
  */
 class PageTest extends TestCase
@@ -21,7 +25,7 @@ class PageTest extends TestCase
     public function testSetShouldMapToNativeProperties()
     {
         $page = AbstractPage::factory([
-            'type' => 'mvc'
+            'type' => 'mvc',
         ]);
 
         $page->set('action', 'foo');
@@ -34,7 +38,7 @@ class PageTest extends TestCase
     public function testGetShouldMapToNativeProperties()
     {
         $page = AbstractPage::factory([
-            'type' => 'mvc'
+            'type' => 'mvc',
         ]);
 
         $page->setAction('foo');
@@ -47,7 +51,7 @@ class PageTest extends TestCase
     public function testShouldSetAndGetShouldMapToProperties()
     {
         $page = AbstractPage::factory([
-            'type' => 'uri'
+            'type' => 'uri',
         ]);
 
         $page->set('action', 'Laughing Out Loud');
@@ -57,8 +61,8 @@ class PageTest extends TestCase
     public function testSetShouldNotMapToSetOptionsToPreventRecursion()
     {
         $page = AbstractPage::factory([
-            'type' => 'uri',
-            'label' => 'foo'
+            'type'  => 'uri',
+            'label' => 'foo',
         ]);
 
         $options = ['label' => 'bar'];
@@ -71,8 +75,8 @@ class PageTest extends TestCase
     public function testSetShouldNotMapToSetConfigToPreventRecursion()
     {
         $page = AbstractPage::factory([
-            'type' => 'uri',
-            'label' => 'foo'
+            'type'  => 'uri',
+            'label' => 'foo',
         ]);
 
         $options = ['label' => 'bar'];
@@ -126,7 +130,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals('foo', $page->getLabel());
@@ -137,8 +141,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setLabel($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $label', $e->getMessage());
             }
@@ -151,7 +155,7 @@ class PageTest extends TestCase
     public function testSetAndGetFragmentIdentifier()
     {
         $page = AbstractPage::factory([
-            'uri'                => '#',
+            'uri'      => '#',
             'fragment' => 'foo',
         ]);
 
@@ -164,8 +168,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setFragment($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                            'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                            . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString(
                     'Invalid argument: $fragment',
@@ -179,7 +183,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(null, $page->getId());
@@ -191,8 +195,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setId($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $id', $e->getMessage());
             }
@@ -203,8 +207,8 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#',
-            'id' => 10
+            'uri'   => '#',
+            'id'    => 10,
         ]);
 
         $this->assertEquals(10, $page->getId());
@@ -214,7 +218,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(null, $page->getClass());
@@ -225,8 +229,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setClass($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $class', $e->getMessage());
             }
@@ -237,7 +241,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(null, $page->getTitle());
@@ -248,8 +252,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setTitle($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $title', $e->getMessage());
             }
@@ -260,7 +264,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(null, $page->getTarget());
@@ -271,8 +275,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setTarget($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $target', $e->getMessage());
             }
@@ -286,26 +290,26 @@ class PageTest extends TestCase
             'uri'   => '#',
             'rel'   => [
                 'prev' => 'foo',
-                'next' => 'baz'
+                'next' => 'baz',
             ],
             'rev'   => [
-                'alternate' => 'bat'
-            ]
+                'alternate' => 'bat',
+            ],
         ]);
 
         $expected = [
-            'rel'   => [
+            'rel' => [
                 'prev' => 'foo',
-                'next' => 'baz'
+                'next' => 'baz',
             ],
-            'rev'   => [
-                'alternate' => 'bat'
-            ]
+            'rev' => [
+                'alternate' => 'bat',
+            ],
         ];
 
         $actual = [
             'rel' => $page->getRel(),
-            'rev' => $page->getRev()
+            'rev' => $page->getRev(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -318,26 +322,26 @@ class PageTest extends TestCase
             'uri'   => '#',
             'rel'   => [
                 'prev' => 'foo',
-                'next' => 'baz'
+                'next' => 'baz',
             ],
             'rev'   => [
-                'alternate' => 'bat'
-            ]
+                'alternate' => 'bat',
+            ],
         ]));
 
         $expected = [
-            'rel'   => [
+            'rel' => [
                 'prev' => 'foo',
-                'next' => 'baz'
+                'next' => 'baz',
             ],
-            'rev'   => [
-                'alternate' => 'bat'
-            ]
+            'rev' => [
+                'alternate' => 'bat',
+            ],
         ];
 
         $actual = [
             'rel' => $page->getRel(),
-            'rev' => $page->getRev()
+            'rev' => $page->getRev(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -361,20 +365,21 @@ class PageTest extends TestCase
             'uri'   => '#',
             'rel'   => [
                 'prev' => 'foo',
-                'next' => 'baz'
+                'next' => 'baz',
             ],
             'rev'   => [
-                'next' => 'foo'
-            ]
+                'next' => 'foo',
+            ],
         ]);
 
         $expected = [
-            'foo', 'foo'
+            'foo',
+            'foo',
         ];
 
         $actual = [
             $page->getRel('prev'),
-            $page->getRev('next')
+            $page->getRev('next'),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -384,7 +389,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(null, $page->getOrder());
@@ -402,8 +407,8 @@ class PageTest extends TestCase
         foreach ($invalids as $invalid) {
             try {
                 $page->setOrder($invalid);
-                $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+                $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
             } catch (Navigation\Exception\InvalidArgumentException $e) {
                 $this->assertStringContainsString('Invalid argument: $order', $e->getMessage());
             }
@@ -414,7 +419,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
-            'label' => 'hello'
+            'label' => 'hello',
         ]);
 
         $page->setResource('foo');
@@ -426,7 +431,7 @@ class PageTest extends TestCase
         $page = AbstractPage::factory([
             'type'     => 'uri',
             'label'    => 'hello',
-            'resource' => 'foo'
+            'resource' => 'foo',
         ]);
 
         $page->setResource();
@@ -438,7 +443,7 @@ class PageTest extends TestCase
         $page = AbstractPage::factory([
             'type'     => 'uri',
             'label'    => 'hello',
-            'resource' => 'foo'
+            'resource' => 'foo',
         ]);
 
         $page->setResource(null);
@@ -448,11 +453,11 @@ class PageTest extends TestCase
     public function testSetResourceInterface()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello'
+            'type'  => 'uri',
+            'label' => 'hello',
         ]);
 
-        $resource = new \Laminas\Permissions\Acl\Resource\GenericResource('bar');
+        $resource = new GenericResource('bar');
 
         $page->setResource($resource);
         $this->assertEquals($resource, $page->getResource());
@@ -461,14 +466,14 @@ class PageTest extends TestCase
     public function testSetResourceShouldThrowExceptionWhenGivenInteger()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello'
+            'type'  => 'uri',
+            'label' => 'hello',
         ]);
 
         try {
             $page->setResource(0);
-            $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
         }
@@ -477,14 +482,14 @@ class PageTest extends TestCase
     public function testSetResourceShouldThrowExceptionWhenGivenObject()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello'
+            'type'  => 'uri',
+            'label' => 'hello',
         ]);
 
         try {
-            $page->setResource(new \stdClass());
-            $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+            $page->setResource(new stdClass());
+            $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
         }
@@ -493,9 +498,9 @@ class PageTest extends TestCase
     public function testSetPrivilegeNoParams()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello',
-            'privilege' => 'foo'
+            'type'      => 'uri',
+            'label'     => 'hello',
+            'privilege' => 'foo',
         ]);
 
         $page->setPrivilege();
@@ -505,9 +510,9 @@ class PageTest extends TestCase
     public function testSetPrivilegeNull()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello',
-            'privilege' => 'foo'
+            'type'      => 'uri',
+            'label'     => 'hello',
+            'privilege' => 'foo',
         ]);
 
         $page->setPrivilege(null);
@@ -517,9 +522,9 @@ class PageTest extends TestCase
     public function testSetPrivilegeString()
     {
         $page = AbstractPage::factory([
-            'type'     => 'uri',
-            'label'    => 'hello',
-            'privilege' => 'foo'
+            'type'      => 'uri',
+            'label'     => 'hello',
+            'privilege' => 'foo',
         ]);
 
         $page->setPrivilege('bar');
@@ -568,11 +573,11 @@ class PageTest extends TestCase
                     'pages'  => [
                         new Uri([
                             'label'  => 'Page 1.1',
-                            'active' => true
-                        ])
-                    ]
-                ])
-            ]
+                            'active' => true,
+                        ]),
+                    ],
+                ]),
+            ],
         ]);
 
         $this->assertFalse($page->isActive(false));
@@ -591,11 +596,11 @@ class PageTest extends TestCase
                     'pages'  => [
                         new Uri([
                             'label'  => 'Page 1.1',
-                            'active' => true
-                        ])
-                    ]
-                ])
-            ]
+                            'active' => true,
+                        ]),
+                    ],
+                ]),
+            ],
         ]);
 
         $this->assertFalse($page->getActive(false));
@@ -653,18 +658,18 @@ class PageTest extends TestCase
     public function testIsVisibleRecursiveTrueShouldReturnFalseIfParentInivisble()
     {
         $page = new Uri([
-            'label'  => 'Page 1',
+            'label'   => 'Page 1',
             'visible' => false,
-            'pages'  => [
+            'pages'   => [
                 new Uri([
-                    'label'  => 'Page 1.1',
-                    'pages'  => [
+                    'label' => 'Page 1.1',
+                    'pages' => [
                         new Uri([
-                            'label'  => 'Page 1.1'
-                        ])
-                    ]
-                ])
-            ]
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]),
+            ],
         ]);
 
         $childPage = $page->findOneByLabel('Page 1.1');
@@ -675,18 +680,18 @@ class PageTest extends TestCase
     public function testGetVisibleRecursiveTrueShouldReturnFalseIfParentInivisble()
     {
         $page = new Uri([
-            'label'  => 'Page 1',
+            'label'   => 'Page 1',
             'visible' => false,
-            'pages'  => [
+            'pages'   => [
                 new Uri([
-                    'label'  => 'Page 1.1',
-                    'pages'  => [
+                    'label' => 'Page 1.1',
+                    'pages' => [
                         new Uri([
-                            'label'  => 'Page 1.1'
-                        ])
-                    ]
-                ])
-            ]
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]),
+            ],
         ]);
 
         $childPage = $page->findOneByLabel('Page 1.1');
@@ -730,7 +735,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
-            'label' => 'hello'
+            'label' => 'hello',
         ]);
 
         $page->setTextdomain('foo');
@@ -741,7 +746,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => 'foo'
+            'uri'   => 'foo',
         ]);
 
         $this->assertSame('foo', $page->getUri());
@@ -756,7 +761,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => 'foo'
+            'uri'   => 'foo',
         ]);
 
         $this->assertTrue(isset($page->uri));
@@ -773,7 +778,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => 'foo'
+            'uri'   => 'foo',
         ]);
 
         $this->assertFalse(isset($page->category));
@@ -790,7 +795,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals('foo', (string) $page);
@@ -799,32 +804,32 @@ class PageTest extends TestCase
     public function testSetOptionsShouldTranslateToAccessor()
     {
         $page = AbstractPage::factory([
-            'label' => 'foo',
-            'action' => 'index',
-            'controller' => 'index'
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
         ]);
 
         $options = [
-            'label' => 'bar',
-            'action' => 'baz',
+            'label'      => 'bar',
+            'action'     => 'baz',
             'controller' => 'bat',
-            'id' => 'foo-test'
+            'id'         => 'foo-test',
         ];
 
         $page->setOptions($options);
 
         $expected = [
-            'label'       => 'bar',
-            'action'      => 'baz',
-            'controller'  => 'bat',
-            'id'          => 'foo-test'
+            'label'      => 'bar',
+            'action'     => 'baz',
+            'controller' => 'bat',
+            'id'         => 'foo-test',
         ];
 
         $actual = [
-            'label'       => $page->getLabel(),
-            'action'      => $page->getAction(),
-            'controller'  => $page->getController(),
-            'id'          => $page->getId()
+            'label'      => $page->getLabel(),
+            'action'     => $page->getAction(),
+            'controller' => $page->getController(),
+            'id'         => $page->getId(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -834,19 +839,19 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $options = [
-            'test' => 'test',
-            'meaning' => 42
+            'test'    => 'test',
+            'meaning' => 42,
         ];
 
         $page->setOptions($options);
 
         $actual = [
-            'test' => $page->test,
-            'meaning' => $page->meaning
+            'test'    => $page->test,
+            'meaning' => $page->meaning,
         ];
 
         $this->assertEquals($options, $actual);
@@ -856,7 +861,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'page',
-            'uri'   => '#'
+            'uri'   => '#',
         ]);
 
         $page->addRel('alternate', 'foo');
@@ -864,12 +869,12 @@ class PageTest extends TestCase
 
         $expected = [
             'rel' => ['alternate' => 'foo'],
-            'rev' => ['alternate' => 'bar']
+            'rev' => ['alternate' => 'bar'],
         ];
 
         $actual = [
             'rel' => $page->getRel(),
-            'rev' => $page->getRev()
+            'rev' => $page->getRev(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -879,7 +884,7 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'page',
-            'uri'   => '#'
+            'uri'   => '#',
         ]);
 
         $page->addRel('alternate', 'foo');
@@ -889,12 +894,12 @@ class PageTest extends TestCase
 
         $expected = [
             'rel' => [],
-            'rev' => []
+            'rev' => [],
         ];
 
         $actual = [
             'rel' => $page->getRel(),
-            'rev' => $page->getRev()
+            'rev' => $page->getRev(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -906,8 +911,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rel'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = ['alternate' => 'format/xml'];
@@ -921,8 +926,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rel'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = ['alternate' => 'format/xml'];
@@ -936,8 +941,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rel'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = [];
@@ -951,8 +956,8 @@ class PageTest extends TestCase
 
         try {
             $page->setRel('alternate');
-            $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
         }
@@ -964,8 +969,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rev'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = ['alternate' => 'format/xml'];
@@ -979,8 +984,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rev'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = ['alternate' => 'format/xml'];
@@ -994,8 +999,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rev'  => [
                 'foo' => 'bar',
-                'baz' => 'bat'
-            ]
+                'baz' => 'bat',
+            ],
         ]);
 
         $value = [];
@@ -1009,8 +1014,8 @@ class PageTest extends TestCase
 
         try {
             $page->setRev('alternate');
-            $this->fail('An invalid value was set, but a ' .
-                        'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid value was set, but a '
+                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
         }
@@ -1021,8 +1026,8 @@ class PageTest extends TestCase
         $page = AbstractPage::factory([
             'type' => 'uri',
             'rel'  => [
-                'foo' => 'bar'
-            ]
+                'foo' => 'bar',
+            ],
         ]);
 
         $this->assertEquals('bar', $page->getRel('foo'));
@@ -1033,8 +1038,8 @@ class PageTest extends TestCase
         $page = AbstractPage::factory([
             'type' => 'uri',
             'rev'  => [
-                'foo' => 'bar'
-            ]
+                'foo' => 'bar',
+            ],
         ]);
 
         $this->assertEquals('bar', $page->getRev('foo'));
@@ -1046,8 +1051,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rel'  => [
                 'alternate' => 'foo',
-                'foo' => 'bar'
-            ]
+                'foo'       => 'bar',
+            ],
         ]);
 
         $expected = ['alternate', 'foo'];
@@ -1060,8 +1065,8 @@ class PageTest extends TestCase
             'type' => 'uri',
             'rev'  => [
                 'alternate' => 'foo',
-                'foo' => 'bar'
-            ]
+                'foo'       => 'bar',
+            ],
         ]);
 
         $expected = ['alternate', 'foo'];
@@ -1072,21 +1077,21 @@ class PageTest extends TestCase
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
-            'uri' => '#',
-            'baz' => 'bat'
+            'uri'   => '#',
+            'baz'   => 'bat',
         ]);
 
         $options = [
-            'test' => 'test',
-            'meaning' => 42
+            'test'    => 'test',
+            'meaning' => 42,
         ];
 
         $page->setOptions($options);
 
         $expected = [
-            'baz' => 'bat',
-            'test' => 'test',
-            'meaning' => 42
+            'baz'     => 'bat',
+            'test'    => 'test',
+            'meaning' => 42,
         ];
 
         $this->assertEquals($expected, $page->getCustomProperties());
@@ -1095,74 +1100,71 @@ class PageTest extends TestCase
     public function testToArrayMethod()
     {
         $options = [
-            'label'    => 'foo',
-            'uri'      => 'http://www.example.com/foo.html',
-            'fragment' => 'bar',
-            'id'       => 'my-id',
-            'class'    => 'my-class',
-            'title'    => 'my-title',
-            'target'   => 'my-target',
-            'rel'      => [],
-            'rev'      => [],
-            'order'    => 100,
-            'active'   => true,
-            'visible'  => false,
-
-            'resource' => 'joker',
-            'privilege' => null,
+            'label'      => 'foo',
+            'uri'        => 'http://www.example.com/foo.html',
+            'fragment'   => 'bar',
+            'id'         => 'my-id',
+            'class'      => 'my-class',
+            'title'      => 'my-title',
+            'target'     => 'my-target',
+            'rel'        => [],
+            'rev'        => [],
+            'order'      => 100,
+            'active'     => true,
+            'visible'    => false,
+            'resource'   => 'joker',
+            'privilege'  => null,
             'permission' => null,
-
-            'foo'      => 'bar',
-            'meaning'  => 42,
-
-            'pages'    => [
+            'foo'        => 'bar',
+            'meaning'    => 42,
+            'pages'      => [
                 [
-                    'type'      => 'Laminas\Navigation\Page\Uri',
-                    'label'     => 'foo.bar',
-                    'fragment'  => null,
-                    'id'        => null,
-                    'class'     => null,
-                    'title'     => null,
-                    'target'    => null,
-                    'rel'       => [],
-                    'rev'       => [],
-                    'order'     => null,
-                    'resource'  => null,
-                    'privilege' => null,
+                    'type'       => Uri::class,
+                    'label'      => 'foo.bar',
+                    'fragment'   => null,
+                    'id'         => null,
+                    'class'      => null,
+                    'title'      => null,
+                    'target'     => null,
+                    'rel'        => [],
+                    'rev'        => [],
+                    'order'      => null,
+                    'resource'   => null,
+                    'privilege'  => null,
                     'permission' => null,
-                    'active'    => null,
-                    'visible'   => 1,
-                    'pages'     => [],
-                    'uri'       => 'http://www.example.com/foo.html',
+                    'active'     => null,
+                    'visible'    => 1,
+                    'pages'      => [],
+                    'uri'        => 'http://www.example.com/foo.html',
                 ],
                 [
-                    'label'     => 'foo.baz',
-                    'type'      => 'Laminas\Navigation\Page\Uri',
-                    'label'     => 'foo.bar',
-                    'fragment'  => null,
-                    'id'        => null,
-                    'class'     => null,
-                    'title'     => null,
-                    'target'    => null,
-                    'rel'       => [],
-                    'rev'       => [],
-                    'order'     => null,
-                    'resource'  => null,
-                    'privilege' => null,
+                    'label'      => 'foo.baz',
+                    'type'       => Uri::class,
+                    'label'      => 'foo.bar',
+                    'fragment'   => null,
+                    'id'         => null,
+                    'class'      => null,
+                    'title'      => null,
+                    'target'     => null,
+                    'rel'        => [],
+                    'rev'        => [],
+                    'order'      => null,
+                    'resource'   => null,
+                    'privilege'  => null,
                     'permission' => null,
-                    'active'    => null,
-                    'visible'   => 1,
-                    'pages'     => [],
-                    'uri'       => 'http://www.example.com/foo.html'
-                ]
-            ]
+                    'active'     => null,
+                    'visible'    => 1,
+                    'pages'      => [],
+                    'uri'        => 'http://www.example.com/foo.html',
+                ],
+            ],
         ];
 
-        $page = AbstractPage::factory($options);
+        $page    = AbstractPage::factory($options);
         $toArray = $page->toArray();
 
         // tweak options to what we expect toArray() to contain
-        $options['type'] = 'Laminas\Navigation\Page\Uri';
+        $options['type'] = Uri::class;
 
         ksort($options);
         ksort($toArray);
@@ -1172,7 +1174,7 @@ class PageTest extends TestCase
     public function testSetPermission()
     {
         $page = AbstractPage::factory([
-            'type'       => 'uri'
+            'type' => 'uri',
         ]);
 
         $page->setPermission('my_permission');
@@ -1182,7 +1184,7 @@ class PageTest extends TestCase
     public function testSetArrayPermission()
     {
         $page = AbstractPage::factory([
-            'type'       => 'uri'
+            'type' => 'uri',
         ]);
 
         $page->setPermission(['my_permission', 'other_permission']);
@@ -1193,10 +1195,10 @@ class PageTest extends TestCase
     public function testSetObjectPermission()
     {
         $page = AbstractPage::factory([
-            'type'       => 'uri'
+            'type' => 'uri',
         ]);
 
-        $permission = new \stdClass();
+        $permission       = new stdClass();
         $permission->name = 'my_permission';
 
         $page->setPermission($permission);

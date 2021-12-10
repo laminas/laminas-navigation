@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation;
 
 use Laminas\Navigation\ConfigProvider;
@@ -14,16 +16,16 @@ class ConfigProviderTest extends TestCase
         'abstract_factories' => [
             Service\NavigationAbstractServiceFactory::class,
         ],
-        'aliases' => [
-            'navigation' => Navigation::class,
+        'aliases'            => [
+            'navigation'                 => Navigation::class,
             'Zend\Navigation\Navigation' => Navigation::class,
         ],
-        'delegators' => [
+        'delegators'         => [
             'ViewHelperManager' => [
                 View\ViewHelperManagerDelegatorFactory::class,
             ],
         ],
-        'factories' => [
+        'factories'          => [
             Navigation::class => Service\DefaultNavigationFactory::class,
         ],
     ];

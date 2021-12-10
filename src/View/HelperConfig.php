@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation\View;
 
 use Laminas\ServiceManager\Config;
@@ -9,6 +11,13 @@ use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 use ReflectionProperty;
 use Traversable;
+
+use function in_array;
+use function is_array;
+use function iterator_to_array;
+use function method_exists;
+use function strtolower;
+use function strtr;
 
 /**
  * Service manager configuration for navigation view helpers
@@ -22,20 +31,20 @@ class HelperConfig extends Config
      */
     protected $config = [
         'abstract_factories' => [],
-        'aliases' => [
+        'aliases'            => [
             'navigation' => NavigationHelper::class,
             'Navigation' => NavigationHelper::class,
         ],
-        'delegators' => [],
-        'factories' => [
-            NavigationHelper::class    => NavigationHelperFactory::class,
+        'delegators'         => [],
+        'factories'          => [
+            NavigationHelper::class       => NavigationHelperFactory::class,
             'laminasviewhelpernavigation' => NavigationHelperFactory::class,
         ],
-        'initializers'  => [],
-        'invokables'    => [],
-        'lazy_services' => [],
-        'services'      => [],
-        'shared'        => [],
+        'initializers'       => [],
+        'invokables'         => [],
+        'lazy_services'      => [],
+        'services'           => [],
+        'shared'             => [],
     ];
 
     /**
@@ -46,8 +55,6 @@ class HelperConfig extends Config
     protected $navigationDelegatorFactory;
 
     /**
-     * Constructor.
-     *
      * Ensure incoming configuration is *merged* with the defaults defined.
      *
      * @param array
@@ -123,7 +130,8 @@ class HelperConfig extends Config
             $config = iterator_to_array($config);
         }
 
-        if (! isset($config['navigation_helpers'])
+        if (
+            ! isset($config['navigation_helpers'])
             || (! is_array($config['navigation_helpers']) && ! $config['navigation_helpers'] instanceof Traversable)
         ) {
             return;
@@ -135,7 +143,6 @@ class HelperConfig extends Config
     /**
      * Retrieve the parent container from the plugin manager, if possible.
      *
-     * @param ServiceManager $container
      * @return ServiceManager
      */
     private function getParentContainer(ServiceManager $container)
@@ -183,7 +190,7 @@ class HelperConfig extends Config
         }
 
         foreach ($invokables as $name => $class) {
-            $config['factories'][$class] = InvokableFactory::class;
+            $config['factories'][$class]                            = InvokableFactory::class;
             $config['factories'][$this->normalizeNameForV2($class)] = InvokableFactory::class;
 
             if ($name === $class) {
@@ -208,7 +215,8 @@ class HelperConfig extends Config
     {
         $factory = $this->prepareNavigationDelegatorFactory($isV3Container);
 
-        if (isset($this->config['delegators'][NavigationHelperFactory::class])
+        if (
+            isset($this->config['delegators'][NavigationHelperFactory::class])
             && in_array($factory, $this->config['delegators'][NavigationHelperFactory::class], true)
         ) {
             // Already present
@@ -216,7 +224,7 @@ class HelperConfig extends Config
         }
 
         // Inject the delegator factory
-        $this->config['delegators'][NavigationHelper::class][] = $factory;
+        $this->config['delegators'][NavigationHelper::class][]       = $factory;
         $this->config['delegators']['laminasviewhelpernavigation'][] = $factory;
     }
 

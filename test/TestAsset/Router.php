@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\TestAsset;
 
-class Router extends \Laminas\Router\Http\TreeRouteStack
+use Laminas\Router\Http\TreeRouteStack;
+
+class Router extends TreeRouteStack
 {
     const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
 

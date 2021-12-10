@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation;
 
 use Laminas\Config\Config;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
+use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page\Mvc as MvcPage;
 use Laminas\Navigation\Service\ConstructedNavigationFactory;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
@@ -25,9 +28,7 @@ class ServiceFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var \Laminas\ServiceManager\ServiceManager
-     */
+    /** @var ServiceManager */
     protected $serviceManager;
 
     /**
@@ -64,7 +65,7 @@ class ServiceFactoryTest extends TestCase
         $this->serviceManager = $serviceManager = new ServiceManager();
         $serviceManager->setService('config', $config);
 
-        $this->router = $router = $this->prophesize(RouteStackInterface::class);
+        $this->router  = $router = $this->prophesize(RouteStackInterface::class);
         $this->request = $request = $this->prophesize(HttpRequest::class);
 
         $routeMatch = new RouteMatch([
@@ -93,7 +94,7 @@ class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', TestAsset\FileNavigationFactory::class);
         $container = $this->serviceManager->get('Navigation');
 
-        $this->assertInstanceOf(\Laminas\Navigation\Navigation::class, $container);
+        $this->assertInstanceOf(Navigation::class, $container);
     }
 
     /**
@@ -107,8 +108,8 @@ class ServiceFactoryTest extends TestCase
         $recursive = function ($that, $pages) use (&$recursive) {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
-                    $that->assertInstanceOf('Laminas\Router\RouteStackInterface', $page->getRouter());
-                    $that->assertInstanceOf('Laminas\Router\RouteMatch', $page->getRouteMatch());
+                    $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
+                    $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
                 $recursive($that, $page->getPages());
@@ -132,8 +133,8 @@ class ServiceFactoryTest extends TestCase
                 ->method('injectComponents')
                 ->with(
                     $this->isType('array'),
-                    $this->isInstanceOf('Laminas\Router\RouteMatch'),
-                    $this->isInstanceOf('Laminas\Router\RouteStackInterface')
+                    $this->isInstanceOf(RouteMatch::class),
+                    $this->isInstanceOf(RouteStackInterface::class)
                 );
 
         $this->serviceManager->setFactory('Navigation', function ($services) use ($factory) {
@@ -158,8 +159,8 @@ class ServiceFactoryTest extends TestCase
         $recursive = function ($that, $pages) use (&$recursive) {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
-                    $that->assertInstanceOf('Laminas\Router\RouteStackInterface', $page->getRouter());
-                    $that->assertInstanceOf('Laminas\Router\RouteMatch', $page->getRouteMatch());
+                    $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
+                    $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
                 $recursive($that, $page->getPages());
@@ -187,16 +188,16 @@ class ServiceFactoryTest extends TestCase
         $argument = [
             [
                 'label' => 'Page 1',
-                'uri'   => 'page1.html'
+                'uri'   => 'page1.html',
             ],
             [
                 'label' => 'Page 2',
-                'uri'   => 'page2.html'
+                'uri'   => 'page2.html',
             ],
             [
                 'label' => 'Page 3',
-                'uri'   => 'page3.html'
-            ]
+                'uri'   => 'page3.html',
+            ],
         ];
 
         $factory = new ConstructedNavigationFactory($argument);
@@ -227,16 +228,16 @@ class ServiceFactoryTest extends TestCase
         $argument = new Config([
             [
                 'label' => 'Page 1',
-                'uri'   => 'page1.html'
+                'uri'   => 'page1.html',
             ],
             [
                 'label' => 'Page 2',
-                'uri'   => 'page2.html'
+                'uri'   => 'page2.html',
             ],
             [
                 'label' => 'Page 3',
-                'uri'   => 'page3.html'
-            ]
+                'uri'   => 'page3.html',
+            ],
         ]);
 
         $factory = new ConstructedNavigationFactory($argument);
@@ -265,7 +266,7 @@ class ServiceFactoryTest extends TestCase
             'Laminas\Navigation\File'
         );
 
-        $this->assertInstanceOf('Laminas\Navigation\Navigation', $container);
+        $this->assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
     }
 }

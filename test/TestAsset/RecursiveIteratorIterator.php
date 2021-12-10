@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\TestAsset;
+
+use ArrayAccess;
 
 class RecursiveIteratorIterator extends \RecursiveIteratorIterator
 {
-    /**
-     *
-     * @var \ArrayAccess|array
-     */
+    /** @var ArrayAccess|array */
     public $logger = [];
 
     public function beginIteration()

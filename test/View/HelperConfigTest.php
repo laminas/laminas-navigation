@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\View;
 
 use Laminas\Navigation\Service\DefaultNavigationFactory;
@@ -36,14 +38,14 @@ class HelperConfigTest extends TestCase
 
         $serviceManager = new ServiceManager();
         (new Config([
-            'services' => [
+            'services'  => [
                 'config' => [
                     'navigation_helpers' => [
                         'invokables' => [
                             'menu' => $replacedMenuClass,
                         ],
                     ],
-                    'navigation' => [
+                    'navigation'         => [
                         'file'    => __DIR__ . '/../_files/navigation.xml',
                         'default' => [
                             [
@@ -69,7 +71,7 @@ class HelperConfigTest extends TestCase
                 ],
             ],
             'factories' => [
-                'Navigation' => DefaultNavigationFactory::class,
+                'Navigation'        => DefaultNavigationFactory::class,
                 'ViewHelperManager' => function ($services) {
                     return new HelperPluginManager($services);
                 },

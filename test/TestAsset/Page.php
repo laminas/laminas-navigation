@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\TestAsset;
 
 use Laminas\Navigation\Page\AbstractPage;

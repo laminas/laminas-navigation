@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Service;
 
 use Laminas\Mvc\Application;
@@ -12,6 +14,8 @@ use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
+
+use function sprintf;
 
 /**
  * @todo Write tests covering full functionality. Tests were introduced to
@@ -30,8 +34,8 @@ class AbstractNavigationFactoryTest extends TestCase
     public function testCanInjectComponentsUsingLaminasRouterClasses()
     {
         $routeMatch = $this->prophesize(Router\RouteMatch::class)->reveal();
-        $router = $this->prophesize(Router\RouteStackInterface::class)->reveal();
-        $args = [[], $routeMatch, $router];
+        $router     = $this->prophesize(Router\RouteStackInterface::class)->reveal();
+        $args       = [[], $routeMatch, $router];
 
         $r = new ReflectionMethod($this->factory, 'injectComponents');
         $r->setAccessible(true);
@@ -70,7 +74,7 @@ class AbstractNavigationFactoryTest extends TestCase
             ->method('get')
             ->willReturnMap([
                 ['config', ['navigation' => ['testStubNavigation' => []]]],
-                ['Application', $applicationMock]
+                ['Application', $applicationMock],
             ]);
 
         $navigationFactory

@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation;
 
 use Traversable;
+
+use function is_array;
 
 /**
  * A simple container class for {@link Laminas\Navigation\Page} pages

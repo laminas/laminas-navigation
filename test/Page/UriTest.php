@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Page;
 
 use Laminas\Http\Request;
 use Laminas\Navigation;
 use Laminas\Navigation\Page;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 /**
  * Tests the class Laminas_Navigation_Page_Uri
@@ -18,7 +21,7 @@ class UriTest extends TestCase
     {
         $page = new Page\Uri([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals('#', $page->getUri());
@@ -28,7 +31,7 @@ class UriTest extends TestCase
     {
         $page = new Page\Uri([
             'label' => 'foo',
-            'uri' => null
+            'uri'   => null,
         ]);
 
         $this->assertNull($page->getUri(), 'getUri() should return null');
@@ -49,7 +52,7 @@ class UriTest extends TestCase
             Navigation\Exception\InvalidArgumentException::class
         );
 
-        $uri = new \stdClass();
+        $uri      = new stdClass();
         $uri->foo = 'bar';
 
         new Page\Uri(['uri' => $uri]);
@@ -59,7 +62,7 @@ class UriTest extends TestCase
     {
         $page = new Page\Uri([
             'label' => 'foo',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page->setUri('http://www.example.com/')->setUri('about:blank');
@@ -81,7 +84,7 @@ class UriTest extends TestCase
     {
         $page = new Page\Uri([
             'label' => 'foo',
-            'uri' => '/bar'
+            'uri'   => '/bar',
         ]);
 
         $request = new Request();
@@ -90,7 +93,7 @@ class UriTest extends TestCase
 
         $page->setRequest($request);
 
-        $this->assertInstanceOf('Laminas\Http\Request', $page->getRequest());
+        $this->assertInstanceOf(Request::class, $page->getRequest());
 
         $this->assertTrue($page->isActive());
     }
@@ -99,7 +102,7 @@ class UriTest extends TestCase
     {
         $page = new Page\Uri([
             'label' => 'foo',
-            'uri' => '/bar'
+            'uri'   => '/bar',
         ]);
 
         $request = new Request();

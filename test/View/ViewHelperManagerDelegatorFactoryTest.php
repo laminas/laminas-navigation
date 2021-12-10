@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\View;
 
 use Laminas\Navigation\View\ViewHelperManagerDelegatorFactory;
@@ -13,7 +15,7 @@ class ViewHelperManagerDelegatorFactoryTest extends TestCase
     public function testFactoryConfiguresViewHelperManagerWithNavigationHelpers()
     {
         $services = new ServiceManager();
-        $helpers = new HelperPluginManager($services);
+        $helpers  = new HelperPluginManager($services);
         $callback = function () use ($helpers) {
             return $helpers;
         };

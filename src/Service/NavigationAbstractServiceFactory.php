@@ -1,11 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation\Service;
 
+use ArrayAccess;
 use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+
+use function is_array;
+use function strlen;
+use function strpos;
+use function strtolower;
+use function substr;
 
 /**
  * Navigation abstract service factory
@@ -39,7 +48,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Can we create a navigation by the requested name? (v3)
      *
-     * @param ContainerInterface $container
      * @param string $requestedName Name by which service was requested, must
      *     start with Laminas\Navigation\
      * @return bool
@@ -57,7 +65,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Can we create a navigation by the requested name? (v2)
      *
-     * @param ServiceLocatorInterface $container
      * @param string $name Normalized name by which service was requested;
      *     ignored.
      * @param string $requestedName Name by which service was requested, must
@@ -74,7 +81,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      *
      * @return Navigation
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $config  = $this->getConfig($container);
         $factory = new ConstructedNavigationFactory($this->getNamedConfig($requestedName, $config));
@@ -84,7 +91,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Can we create a navigation by the requested name? (v2)
      *
-     * @param ServiceLocatorInterface $container
      * @param string $name Normalized name by which service was requested;
      *     ignored.
      * @param string $requestedName Name by which service was requested, must
@@ -99,7 +105,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Get navigation configuration, if any
      *
-     * @param  ContainerInterface $container
      * @return array
      */
     protected function getConfig(ContainerInterface $container)
@@ -114,7 +119,8 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config[self::CONFIG_KEY])
+        if (
+            ! isset($config[self::CONFIG_KEY])
             || ! is_array($config[self::CONFIG_KEY])
         ) {
             $this->config = [];
@@ -140,7 +146,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      * Does the configuration have a matching named section?
      *
      * @param string $name
-     * @param array|\ArrayAccess $config
+     * @param array|ArrayAccess $config
      * @return bool
      */
     private function hasNamedConfig($name, $config)
@@ -162,7 +168,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      * Get the matching named configuration section.
      *
      * @param string $name
-     * @param array|\ArrayAccess $config
+     * @param array|ArrayAccess $config
      * @return array
      */
     private function getNamedConfig($name, $config)

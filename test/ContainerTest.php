@@ -1,11 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation;
 
 use Laminas\Config;
 use Laminas\Navigation;
 use Laminas\Navigation\Page;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\Uri;
+use LaminasTest\Navigation\TestAsset\AbstractContainer;
 use PHPUnit\Framework\TestCase;
+use RecursiveIteratorIterator;
+use stdClass;
+
+use function count;
+use function gettype;
 
 /**
  * Tests the class Laminas_Navigation_Container
@@ -19,16 +29,16 @@ class ContainerTest extends TestCase
         $argument = [
             [
                 'label' => 'Page 1',
-                'uri'   => 'page1.html'
+                'uri'   => 'page1.html',
             ],
             [
                 'label' => 'Page 2',
-                'uri'   => 'page2.html'
+                'uri'   => 'page2.html',
             ],
             [
                 'label' => 'Page 3',
-                'uri'   => 'page3.html'
-            ]
+                'uri'   => 'page3.html',
+            ],
         ];
 
         $container = new Navigation\Navigation($argument);
@@ -40,16 +50,16 @@ class ContainerTest extends TestCase
         $argument = new Config\Config([
             [
                 'label' => 'Page 1',
-                'uri'   => 'page1.html'
+                'uri'   => 'page1.html',
             ],
             [
                 'label' => 'Page 2',
-                'uri'   => 'page2.html'
+                'uri'   => 'page2.html',
             ],
             [
                 'label' => 'Page 3',
-                'uri'   => 'page3.html'
-            ]
+                'uri'   => 'page3.html',
+            ],
         ]);
 
         $container = new Navigation\Navigation($argument);
@@ -60,27 +70,27 @@ class ContainerTest extends TestCase
     {
         try {
             $nav = new Navigation\Navigation('ok');
-            $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('An invalid argument was given to the constructor, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
 
         try {
             $nav = new Navigation\Navigation(1337);
-            $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('An invalid argument was given to the constructor, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
 
         try {
-            $nav = new Navigation\Navigation(new \stdClass());
-            $this->fail('An invalid argument was given to the constructor, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $nav = new Navigation\Navigation(new stdClass());
+            $this->fail('An invalid argument was given to the constructor, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\ExceptionInterface $e) {
             $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
         }
@@ -92,12 +102,12 @@ class ContainerTest extends TestCase
      */
     public function testAddPagesWithNullValueSkipsPage()
     {
-        $nav = new Navigation\Navigation([
+        $nav   = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
-            null
+            null,
         ]);
         $count = count($nav->getPages());
         $this->assertEquals(1, $count);
@@ -108,30 +118,30 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#',
-                'order' => -1
+                'uri'   => '#',
+                'order' => -1,
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 4',
-                'uri' => '#',
-                'order' => 100
+                'uri'   => '#',
+                'order' => 100,
             ],
             [
                 'label' => 'Page 5',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $expected = ['Page 2', 'Page 1', 'Page 3', 'Page 5', 'Page 4'];
-        $actual = [];
+        $actual   = [];
         foreach ($nav as $page) {
             $actual[] = $page->getLabel();
         }
@@ -143,45 +153,45 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 1.1',
-                        'uri' => '#',
+                        'uri'   => '#',
                         'pages' => [
                             [
                                 'label' => 'Page 1.1.1',
-                                'uri' => '#'
+                                'uri'   => '#',
                             ],
                             [
                                 'label' => 'Page 1.1.2',
-                                'uri' => '#'
-                            ]
-                        ]
+                                'uri'   => '#',
+                            ],
+                        ],
                     ],
                     [
                         'label' => 'Page 1.2',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 2.1',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
-        $actual = [];
+        $actual   = [];
         $expected = [
             'Page 1',
             'Page 1.1',
@@ -190,12 +200,12 @@ class ContainerTest extends TestCase
             'Page 1.2',
             'Page 2',
             'Page 2.1',
-            'Page 3'
+            'Page 3',
         ];
 
-        $iterator = new \RecursiveIteratorIterator(
+        $iterator = new RecursiveIteratorIterator(
             $nav,
-            \RecursiveIteratorIterator::SELF_FIRST
+            RecursiveIteratorIterator::SELF_FIRST
         );
         foreach ($iterator as $page) {
             $actual[] = $page->getLabel();
@@ -204,53 +214,53 @@ class ContainerTest extends TestCase
     }
 
     /**
+     * @link https://github.com/zendframework/zf2/issues/3211
+     *
      * @group 6825
      * @group 4517
      * @group 3211
-     *
-     * @link https://github.com/zendframework/zf2/issues/3211
      */
     public function testHasChildrenCompatibility()
     {
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 1.1',
-                        'uri' => '#',
+                        'uri'   => '#',
                         'pages' => [
                             [
                                 'label' => 'Page 1.1.1',
-                                'uri' => '#'
+                                'uri'   => '#',
                             ],
                             [
                                 'label' => 'Page 1.1.2',
-                                'uri' => '#'
-                            ]
-                        ]
+                                'uri'   => '#',
+                            ],
+                        ],
                     ],
                     [
                         'label' => 'Page 1.2',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 2.1',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $page1 = $nav->findOneBy('label', 'Page 1');
@@ -270,42 +280,42 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 1.1',
-                        'uri' => '#',
+                        'uri'   => '#',
                         'pages' => [
                             [
                                 'label' => 'Page 1.1.1',
-                                'uri' => '#'
+                                'uri'   => '#',
                             ],
                             [
                                 'label' => 'Page 1.1.2',
-                                'uri' => '#'
-                            ]
-                        ]
+                                'uri'   => '#',
+                            ],
+                        ],
                     ],
                     [
                         'label' => 'Page 1.2',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#',
+                'uri'   => '#',
                 'pages' => [
                     [
                         'label' => 'Page 2.1',
-                        'uri' => '#'
-                    ]
-                ]
+                        'uri'   => '#',
+                    ],
+                ],
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $expected = [
@@ -327,7 +337,7 @@ class ContainerTest extends TestCase
             'endIteration',
         ];
 
-        $iterator = new TestAsset\RecursiveIteratorIterator($nav, \RecursiveIteratorIterator::SELF_FIRST);
+        $iterator         = new TestAsset\RecursiveIteratorIterator($nav, RecursiveIteratorIterator::SELF_FIRST);
         $iterator->logger = [];
         $iterator->rewind();
         //#4517 logging with walking through RecursiveIterator
@@ -343,29 +353,29 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $nav->addPage($page3);
 
         $expected = [
             'before' => ['Page 1', 'Page 2', 'Page 3'],
-            'after'  => ['Page 3', 'Page 1', 'Page 2']
+            'after'  => ['Page 3', 'Page 1', 'Page 2'],
         ];
 
         $actual = [
             'before' => [],
-            'after'  => []
+            'after'  => [],
         ];
 
         foreach ($nav as $page) {
@@ -385,7 +395,7 @@ class ContainerTest extends TestCase
     {
         $pageOptions = [
             'label' => 'From array',
-            'uri' => '#array'
+            'uri'   => '#array',
         ];
 
         $nav = new Navigation\Navigation();
@@ -398,7 +408,7 @@ class ContainerTest extends TestCase
     {
         $pageOptions = [
             'label' => 'From config',
-            'uri' => '#config'
+            'uri'   => '#config',
         ];
 
         $pageOptions = new Config\Config($pageOptions);
@@ -413,7 +423,7 @@ class ContainerTest extends TestCase
     {
         $pageOptions = [
             'label' => 'From array 1',
-            'uri' => '#array'
+            'uri'   => '#array',
         ];
 
         $nav = new Navigation\Navigation([$pageOptions]);
@@ -430,13 +440,13 @@ class ContainerTest extends TestCase
         $nav->addPages([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
-                'label' => 'Page 2',
-                'action' => 'index',
-                'controller' => 'index'
-            ]
+                'label'      => 'Page 2',
+                'action'     => 'index',
+                'controller' => 'index',
+            ],
         ]);
 
         $this->assertEquals(
@@ -452,13 +462,13 @@ class ContainerTest extends TestCase
         $nav->addPages(new Config\Config([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
-                'label' => 'Page 2',
-                'action' => 'index',
-                'controller' => 'index'
-            ]
+                'label'      => 'Page 2',
+                'action'     => 'index',
+                'controller' => 'index',
+            ],
         ]));
 
         $this->assertEquals(
@@ -474,17 +484,17 @@ class ContainerTest extends TestCase
         $nav->addPages(new Config\Config([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             new Config\Config([
-                'label' => 'Page 2',
-                'action' => 'index',
-                'controller' => 'index'
+                'label'      => 'Page 2',
+                'action'     => 'index',
+                'controller' => 'index',
             ]),
             Page\AbstractPage::factory([
                 'label' => 'Page 3',
-                'uri' => '#'
-            ])
+                'uri'   => '#',
+            ]),
         ]));
 
         $this->assertEquals(
@@ -520,9 +530,9 @@ class ContainerTest extends TestCase
 
         try {
             $nav->addPages('this is a string');
-            $this->fail('An invalid argument was given to addPages(), ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('An invalid argument was given to addPages(), '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
         }
@@ -533,10 +543,10 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation();
 
         try {
-            $nav->addPages($pages = new \stdClass());
-            $this->fail('An invalid argument was given to addPages(), ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $nav->addPages($pages = new stdClass());
+            $this->fail('An invalid argument was given to addPages(), '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\InvalidArgumentException $e) {
             $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
         }
@@ -548,12 +558,12 @@ class ContainerTest extends TestCase
         $nav->addPages([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $nav->removePages();
@@ -571,19 +581,19 @@ class ContainerTest extends TestCase
         $nav->addPages([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $nav->setPages([
             [
                 'label' => 'Page 3',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $this->assertEquals(
@@ -597,27 +607,27 @@ class ContainerTest extends TestCase
     {
         $nav = new Navigation\Navigation([
             [
-                'uri' => 'Page 1'
+                'uri' => 'Page 1',
             ],
             [
-                'uri' => 'Page 2'
-            ]
+                'uri' => 'Page 2',
+            ],
         ]);
 
         $pages = $nav->getPages();
 
         $expected = [
-            'type' => 'array',
-            'count' => 2
+            'type'  => 'array',
+            'count' => 2,
         ];
 
         $actual = [
-            'type' => gettype($pages),
-            'count' => count($pages)
+            'type'  => gettype($pages),
+            'count' => count($pages),
         ];
 
         $this->assertEquals($expected, $actual);
-        $this->assertContainsOnly('Laminas\Navigation\Page\Uri', $pages, false);
+        $this->assertContainsOnly(Uri::class, $pages, false);
     }
 
     public function testGetPagesShouldReturnUnorderedPages()
@@ -625,30 +635,30 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 2',
-                'uri' => '#',
-                'order' => -1
+                'uri'   => '#',
+                'order' => -1,
             ],
             [
                 'label' => 'Page 4',
-                'uri' => '#',
-                'order' => 100
+                'uri'   => '#',
+                'order' => 100,
             ],
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 5',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $expected = ['Page 2', 'Page 4', 'Page 1', 'Page 5', 'Page 3'];
-        $actual = [];
+        $actual   = [];
         foreach ($nav->getPages() as $page) {
             $actual[] = $page->getLabel();
         }
@@ -660,21 +670,21 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#',
-                'order' => 32
+                'uri'   => '#',
+                'order' => 32,
             ],
             [
                 'label' => 'Page 3',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 4',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $expected = [
@@ -683,7 +693,7 @@ class ContainerTest extends TestCase
             'remove0again' => true,
             'remove1000'   => false,
             'count'        => 1,
-            'current'      => 'Page 4'
+            'current'      => 'Page 4',
         ];
 
         $actual = [
@@ -692,7 +702,7 @@ class ContainerTest extends TestCase
             'remove0again' => $nav->removePage(0),
             'remove1000'   => $nav->removePage(1000),
             'count'        => $nav->count(),
-            'current'      => $nav->current()->getLabel()
+            'current'      => $nav->current()->getLabel(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -703,17 +713,17 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $nav->addPage($page3);
@@ -726,17 +736,17 @@ class ContainerTest extends TestCase
         $nav = new Navigation\Navigation([
             [
                 'label' => 'Page 1',
-                'uri' => '#'
+                'uri'   => '#',
             ],
             [
                 'label' => 'Page 2',
-                'uri' => '#'
-            ]
+                'uri'   => '#',
+            ],
         ]);
 
         $page = Page\AbstractPage::factory([
             'label' => 'Page lol',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $this->assertEquals(false, $nav->removePage($page));
@@ -746,42 +756,42 @@ class ContainerTest extends TestCase
     {
         $page0 = Page\AbstractPage::factory([
             'label' => 'Page 0',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page1_1 = Page\AbstractPage::factory([
             'label' => 'Page 1.1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page1_2 = Page\AbstractPage::factory([
             'label' => 'Page 1.2',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page1_2_1 = Page\AbstractPage::factory([
             'label' => 'Page 1.2.1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page1_3 = Page\AbstractPage::factory([
             'label' => 'Page 1.3',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page3 = Page\AbstractPage::factory([
             'label' => 'Page 3',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $nav = new Navigation\Navigation([$page1, $page2, $page3]);
@@ -795,14 +805,14 @@ class ContainerTest extends TestCase
             'haspage0'            => false,
             'haspage2'            => true,
             'haspage1_1'          => false,
-            'haspage1_1recursive' => true
+            'haspage1_1recursive' => true,
         ];
 
         $actual = [
             'haspage0'            => $nav->hasPage($page0),
             'haspage2'            => $nav->hasPage($page2),
             'haspage1_1'          => $nav->hasPage($page1_1),
-            'haspage1_1recursive' => $nav->hasPage($page1_1, true)
+            'haspage1_1recursive' => $nav->hasPage($page1_1, true),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -816,31 +826,31 @@ class ContainerTest extends TestCase
         $nav4 = new Navigation\Navigation();
         $nav2->addPage([
             'label' => 'Page 1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
         $nav3->addPage([
-            'label' => 'Page 1',
-            'uri' => '#',
-            'visible' => true
+            'label'   => 'Page 1',
+            'uri'     => '#',
+            'visible' => true,
         ]);
         $nav4->addPage([
-            'label' => 'Page 1',
-            'uri' => '#',
-            'visible' => false
+            'label'   => 'Page 1',
+            'uri'     => '#',
+            'visible' => false,
         ]);
 
         $expected = [
-            'empty' => false,
-            'notempty' => true,
-            'visible' => true,
-            'notvisible' => false
+            'empty'      => false,
+            'notempty'   => true,
+            'visible'    => true,
+            'notvisible' => false,
         ];
 
         $actual = [
-            'empty' => $nav1->hasPages(),
-            'notempty' => $nav2->hasPages(),
-            'visible' => $nav3->hasPages(false),
-            'notvisible' => $nav4->hasPages(true)
+            'empty'      => $nav1->hasPages(),
+            'notempty'   => $nav2->hasPages(),
+            'visible'    => $nav3->hasPages(false),
+            'notvisible' => $nav4->hasPages(true),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -850,24 +860,24 @@ class ContainerTest extends TestCase
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2->setParent($page1);
 
         $expected = [
-            'parent' => 'Page 1',
-            'hasPages' => true
+            'parent'   => 'Page 1',
+            'hasPages' => true,
         ];
 
         $actual = [
-            'parent' => $page2->getParent()->getLabel(),
-            'hasPages' => $page1->hasPages()
+            'parent'   => $page2->getParent()->getLabel(),
+            'hasPages' => $page1->hasPages(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -877,12 +887,12 @@ class ContainerTest extends TestCase
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2->setParent($page1);
@@ -895,25 +905,25 @@ class ContainerTest extends TestCase
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
         $page2->setParent($page1);
         $page2->setParent(null);
 
         $expected = [
-            'parent' => null,
-            'haspages' => false
+            'parent'   => null,
+            'haspages' => false,
         ];
 
         $actual = [
-            'parent' => $page2->getParent(),
-            'haspages' => $page2->hasPages()
+            'parent'   => $page2->getParent(),
+            'haspages' => $page2->hasPages(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -924,7 +934,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBy('page2', 'page2');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -933,7 +943,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBy('id', 'page_2_and_3');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -950,10 +960,10 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllBy('id', 'page_2_and_3');
-        $this->assertContainsOnly('Laminas\Navigation\Page\AbstractPage', $found, false);
+        $this->assertContainsOnly(AbstractPage::class, $found, false);
 
         $expected = ['Page 2', 'Page 3'];
-        $actual = [];
+        $actual   = [];
 
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
@@ -964,11 +974,11 @@ class ContainerTest extends TestCase
 
     public function testFindAllByShouldReturnEmptyArrayifNotFound()
     {
-        $nav = $this->_getFindByNavigation();
+        $nav   = $this->_getFindByNavigation();
         $found = $nav->findAllBy('id', 'non-existent');
 
         $expected = ['type' => 'array', 'count' => 0];
-        $actual = ['type' => gettype($found), 'count' => count($found)];
+        $actual   = ['type' => gettype($found), 'count' => count($found)];
         $this->assertEquals($expected, $actual);
     }
 
@@ -977,7 +987,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findBy('id', 'page_2_and_3');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
     }
 
     public function testFindOneByMagicMethodNativeProperty()
@@ -985,7 +995,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneById('page_2_and_3');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -994,7 +1004,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findOneBypage2('page2');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -1003,10 +1013,10 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllById('page_2_and_3');
-        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly(AbstractPage::class, $found, false);
 
         $expected = ['Page 2', 'Page 3'];
-        $actual = [];
+        $actual   = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1019,10 +1029,10 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByAction('about');
-        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly(AbstractPage::class, $found, false);
 
         $expected = ['Page 3'];
-        $actual = [];
+        $actual   = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1035,10 +1045,10 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByaction('about');
-        $this->assertContainsOnly('Laminas\Navigation\Page\\AbstractPage', $found, false);
+        $this->assertContainsOnly(AbstractPage::class, $found, false);
 
         $expected = ['Page 1.3', 'Page 3'];
-        $actual = [];
+        $actual   = [];
         foreach ($found as $page) {
             $actual[] = $page->getLabel();
         }
@@ -1051,7 +1061,7 @@ class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findById('page_2_and_3');
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\AbstractPage', $found);
+        $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
@@ -1061,9 +1071,9 @@ class ContainerTest extends TestCase
 
         try {
             $found = $nav->findSomeById('page_2_and_3');
-            $this->fail('An invalid magic finder method was used, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('An invalid magic finder method was used, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
             $this->assertStringContainsString('Bad method call', $e->getMessage());
         }
@@ -1075,9 +1085,9 @@ class ContainerTest extends TestCase
 
         try {
             $found = $nav->getPagez();
-            $this->fail('An invalid magic finder method was used, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('An invalid magic finder method was used, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\BadMethodCallException $e) {
             $this->assertStringContainsString('Bad method call', $e->getMessage());
         }
@@ -1102,21 +1112,21 @@ class ContainerTest extends TestCase
                         'label' => 'Page 1.1',
                         'uri'   => 'page-1.1',
                         'foo'   => 'bar',
-                        'title' => 'The given title'
+                        'title' => 'The given title',
                     ],
                     [
                         'label' => 'Page 1.2',
                         'uri'   => 'page-1.2',
-                        'title' => 'The given title'
+                        'title' => 'The given title',
                     ],
                     [
                         'type'   => 'uri',
                         'label'  => 'Page 1.3',
                         'uri'    => 'page-1.3',
                         'title'  => 'The given title',
-                        'action' => 'about'
-                    ]
-                ]
+                        'action' => 'about',
+                    ],
+                ],
             ],
             [
                 'id'         => 'page_2_and_3',
@@ -1124,15 +1134,15 @@ class ContainerTest extends TestCase
                 'module'     => 'page2',
                 'controller' => 'index',
                 'action'     => 'page1',
-                'page2'      => 'page2'
+                'page2'      => 'page2',
             ],
             [
                 'id'         => 'page_2_and_3',
                 'label'      => 'Page 3',
                 'module'     => 'page3',
                 'controller' => 'index',
-                'action'     => 'about'
-            ]
+                'action'     => 'about',
+            ],
         ]);
     }
 
@@ -1141,13 +1151,13 @@ class ContainerTest extends TestCase
         $container = new Navigation\Navigation([
             [
                 'label' => 'Page 2',
-                'type'  => 'uri'
+                'type'  => 'uri',
             ],
             [
                 'label' => 'Page 1',
                 'type'  => 'uri',
-                'order' => -1
-            ]
+                'order' => -1,
+            ],
         ]);
 
         $page = $container->current();
@@ -1156,23 +1166,23 @@ class ContainerTest extends TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid()
     {
-        $container = new \LaminasTest\Navigation\TestAsset\AbstractContainer([
+        $container = new AbstractContainer([
             [
                 'label' => 'Page 2',
-                'type'  => 'uri'
+                'type'  => 'uri',
             ],
             [
                 'label' => 'Page 1',
                 'type'  => 'uri',
-                'order' => -1
-            ]
+                'order' => -1,
+            ],
         ]);
 
         try {
             $page = $container->current();
-            $this->fail('AbstractContainer index is invalid, ' .
-                        'but a Laminas\Navigation\Exception\InvalidArgumentException was ' .
-                        'not thrown');
+            $this->fail('AbstractContainer index is invalid, '
+                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
+                        . 'not thrown');
         } catch (Navigation\Exception\OutOfBoundsException $e) {
             $this->assertStringContainsString('Corruption detected', $e->getMessage());
         }
@@ -1187,8 +1197,8 @@ class ContainerTest extends TestCase
     public function testKeyShouldReturnCurrentPageHash()
     {
         $container = new Navigation\Navigation();
-        $page = Page\AbstractPage::factory([
-            'type' => 'uri'
+        $page      = Page\AbstractPage::factory([
+            'type' => 'uri',
         ]);
         $container->addPage($page);
 
@@ -1198,8 +1208,8 @@ class ContainerTest extends TestCase
     public function testGetChildrenShouldReturnTheCurrentPage()
     {
         $container = new Navigation\Navigation();
-        $page = Page\AbstractPage::factory([
-            'type' => 'uri'
+        $page      = Page\AbstractPage::factory([
+            'type' => 'uri',
         ]);
         $container->addPage($page);
 
@@ -1229,8 +1239,8 @@ class ContainerTest extends TestCase
                                 'route' => 'baz',
                             ],
                         ],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ]);
 
