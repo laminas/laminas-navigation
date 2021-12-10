@@ -108,7 +108,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  AbstractPage|array|Traversable $page  page to add
      * @return self fluent interface, returns self
-     * @throws Exception\InvalidArgumentException if page is invalid
+     * @throws Exception\InvalidArgumentException If page is invalid.
      */
     public function addPage($page)
     {
@@ -151,8 +151,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  array|Traversable|AbstractContainer $pages pages to add
      * @return self fluent interface, returns self
-     * @throws Exception\InvalidArgumentException if $pages is not array,
-     *                                            Traversable or AbstractContainer
+     * @throws Exception\InvalidArgumentException If $pages is not array,
+     *                                            Traversable or AbstractContainer.
      */
     public function addPages($pages)
     {
@@ -378,7 +378,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  string $method             method name
      * @param  array  $arguments          method arguments
-     * @throws Exception\BadMethodCallException  if method does not exist
+     * @return mixed
+     * @throws Exception\BadMethodCallException  If method does not exist.
      */
     public function __call($method, $arguments)
     {
@@ -419,7 +420,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Implements RecursiveIterator interface.
      *
      * @return AbstractPage current page or null
-     * @throws Exception\OutOfBoundsException  if the index is invalid
+     * @throws Exception\OutOfBoundsException  If the index is invalid.
      */
     #[ReturnTypeWillChange]
     public function current()
@@ -523,7 +524,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             return $this->pages[$hash];
         }
 
-        return;
+        return null;
     }
 
     // Countable interface:

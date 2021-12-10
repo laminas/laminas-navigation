@@ -17,7 +17,7 @@ class Navigation extends AbstractContainer
      * Creates a new navigation container
      *
      * @param  array|Traversable $pages    [optional] pages to add
-     * @throws Exception\InvalidArgumentException  if $pages is invalid
+     * @throws Exception\InvalidArgumentException  If $pages is invalid.
      */
     public function __construct($pages = null)
     {

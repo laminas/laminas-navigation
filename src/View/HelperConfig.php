@@ -56,8 +56,6 @@ class HelperConfig extends Config
 
     /**
      * Ensure incoming configuration is *merged* with the defaults defined.
-     *
-     * @param array
      */
     public function __construct(array $config = [])
     {

@@ -29,14 +29,14 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      *
      * @var string
      */
-    const CONFIG_KEY = 'navigation';
+    public const CONFIG_KEY = 'navigation';
 
     /**
      * Service manager factory prefix
      *
      * @var string
      */
-    const SERVICE_PREFIX = 'Laminas\\Navigation\\';
+    public const SERVICE_PREFIX = 'Laminas\\Navigation\\';
 
     /**
      * Navigation configuration

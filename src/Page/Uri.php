@@ -35,7 +35,7 @@ class Uri extends AbstractPage
      *
      * @param  string $uri                page URI, must a string or null
      * @return Uri   fluent interface, returns self
-     * @throws Exception\InvalidArgumentException  if $uri is invalid
+     * @throws Exception\InvalidArgumentException  If $uri is invalid.
      */
     public function setUri($uri)
     {
@@ -72,7 +72,7 @@ class Uri extends AbstractPage
 
         $fragment = $this->getFragment();
         if (null !== $fragment) {
-            if ('#' == substr($uri, -1)) {
+            if ('#' === substr($uri, -1)) {
                 return $uri . $fragment;
             } else {
                 return $uri . '#' . $fragment;
@@ -97,7 +97,7 @@ class Uri extends AbstractPage
     {
         if (! $this->active) {
             if ($this->getRequest() instanceof Request) {
-                if ($this->getRequest()->getUri()->getPath() == $this->getUri()) {
+                if ($this->getRequest()->getUri()->getPath() === $this->getUri()) {
                     $this->active = true;
                     return true;
                 }

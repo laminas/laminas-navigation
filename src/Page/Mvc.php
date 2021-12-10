@@ -29,8 +29,8 @@ use function strlen;
  */
 class Mvc extends AbstractPage
 {
-    const MODULE_NAMESPACE    = '__NAMESPACE__';
-    const ORIGINAL_CONTROLLER = '__CONTROLLER__';
+    public const MODULE_NAMESPACE    = '__NAMESPACE__';
+    public const ORIGINAL_CONTROLLER = '__CONTROLLER__';
 
     /**
      * Action name to use when assembling URL
@@ -157,7 +157,7 @@ class Mvc extends AbstractPage
                 if (null !== $this->getRoute()) {
                     if (
                         $this->routeMatch->getMatchedRouteName() === $this->getRoute()
-                        && (count(array_intersect_assoc($reqParams, $pageParams)) == count($pageParams))
+                        && (count(array_intersect_assoc($reqParams, $pageParams)) === count($pageParams))
                     ) {
                         $this->active = true;
                         return $this->active;
@@ -187,7 +187,7 @@ class Mvc extends AbstractPage
                 $pageParams['action'] = 'index';
             }
 
-            if (count(array_intersect_assoc($reqParams, $pageParams)) == count($pageParams)) {
+            if (count(array_intersect_assoc($reqParams, $pageParams)) === count($pageParams)) {
                 $this->active = true;
                 return true;
             }
@@ -205,7 +205,7 @@ class Mvc extends AbstractPage
      * @see RouteStackInterface
      *
      * @return string  page href
-     * @throws Exception\DomainException if no router is set
+     * @throws Exception\DomainException If no router is set.
      */
     public function getHref()
     {
@@ -285,7 +285,7 @@ class Mvc extends AbstractPage
      *
      * @param  string $action             action name
      * @return Mvc   fluent interface, returns self
-     * @throws Exception\InvalidArgumentException  if invalid $action is given
+     * @throws Exception\InvalidArgumentException  If invalid $action is given.
      */
     public function setAction($action)
     {
@@ -319,7 +319,7 @@ class Mvc extends AbstractPage
      *
      * @param  string|null $controller    controller name
      * @return Mvc   fluent interface, returns self
-     * @throws Exception\InvalidArgumentException  if invalid controller name is given
+     * @throws Exception\InvalidArgumentException  If invalid controller name is given.
      */
     public function setController($controller)
     {
