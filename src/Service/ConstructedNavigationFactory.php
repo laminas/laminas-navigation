@@ -1,21 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation\Service;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Config\Config;
 
 /**
  * Constructed factory to set pages during construction.
  */
 class ConstructedNavigationFactory extends AbstractNavigationFactory
 {
-    /**
-     * @var string|\Laminas\Config\Config|array
-     */
+    /** @var string|Config|array */
     protected $config;
 
     /**
-     * @param string|\Laminas\Config\Config|array $config
+     * @param string|Config|array $config
      */
     public function __construct($config)
     {
@@ -23,8 +24,7 @@ class ConstructedNavigationFactory extends AbstractNavigationFactory
     }
 
     /**
-     * @param ContainerInterface $container
-     * @return array|null|\Laminas\Config\Config
+     * @return array|null|Config
      */
     public function getPages(ContainerInterface $container)
     {

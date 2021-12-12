@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Page;
 
 use Laminas\Navigation;
 use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\Mvc;
+use Laminas\Navigation\Page\Uri;
+use LaminasTest\Navigation\TestAsset\InvalidPage;
+use LaminasTest\Navigation\TestAsset\Page;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,20 +24,20 @@ class PageFactoryTest extends TestCase
     {
         AbstractPage::addFactory(function ($page) {
             if (isset($page['factory_uri'])) {
-                return new \Laminas\Navigation\Page\Uri($page);
+                return new Uri($page);
             } elseif (isset($page['factory_mvc'])) {
-                return new \Laminas\Navigation\Page\Mvc($page);
+                return new Mvc($page);
             }
         });
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Uri', AbstractPage::factory([
-            'label' => 'URI Page',
-            'factory_uri' => '#'
+        $this->assertInstanceOf(Uri::class, AbstractPage::factory([
+            'label'       => 'URI Page',
+            'factory_uri' => '#',
         ]));
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Mvc', AbstractPage::factory([
-            'label' => 'URI Page',
-            'factory_mvc' => '#'
+        $this->assertInstanceOf(Mvc::class, AbstractPage::factory([
+            'label'       => 'URI Page',
+            'factory_mvc' => '#',
         ]));
     }
 
@@ -39,75 +45,75 @@ class PageFactoryTest extends TestCase
     {
         $pages = [
             AbstractPage::factory([
-                'label' => 'MVC Page',
-                'action' => 'index'
+                'label'  => 'MVC Page',
+                'action' => 'index',
+            ]),
+            AbstractPage::factory([
+                'label'      => 'MVC Page',
+                'controller' => 'index',
             ]),
             AbstractPage::factory([
                 'label' => 'MVC Page',
-                'controller' => 'index'
+                'route' => 'home',
             ]),
-            AbstractPage::factory([
-                'label' => 'MVC Page',
-                'route' => 'home'
-            ])
         ];
 
-        $this->assertContainsOnly('Laminas\Navigation\Page\Mvc', $pages);
+        $this->assertContainsOnly(Mvc::class, $pages);
     }
 
     public function testDetectUriPage()
     {
         $page = AbstractPage::factory([
             'label' => 'URI Page',
-            'uri' => '#'
+            'uri'   => '#',
         ]);
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Uri', $page);
+        $this->assertInstanceOf(Uri::class, $page);
     }
 
     public function testMvcShouldHaveDetectionPrecedence()
     {
         $page = AbstractPage::factory([
-            'label' => 'MVC Page',
-            'action' => 'index',
+            'label'      => 'MVC Page',
+            'action'     => 'index',
             'controller' => 'index',
-            'uri' => '#'
+            'uri'        => '#',
         ]);
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Mvc', $page);
+        $this->assertInstanceOf(Mvc::class, $page);
     }
 
     public function testSupportsMvcShorthand()
     {
         $mvcPage = AbstractPage::factory([
-            'type' => 'mvc',
-            'label' => 'MVC Page',
-            'action' => 'index',
-            'controller' => 'index'
+            'type'       => 'mvc',
+            'label'      => 'MVC Page',
+            'action'     => 'index',
+            'controller' => 'index',
         ]);
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Mvc', $mvcPage);
+        $this->assertInstanceOf(Mvc::class, $mvcPage);
     }
 
     public function testSupportsUriShorthand()
     {
         $uriPage = AbstractPage::factory([
-            'type' => 'uri',
+            'type'  => 'uri',
             'label' => 'URI Page',
-            'uri' => 'http://www.example.com/'
+            'uri'   => 'http://www.example.com/',
         ]);
 
-        $this->assertInstanceOf('Laminas\\Navigation\\Page\\Uri', $uriPage);
+        $this->assertInstanceOf(Uri::class, $uriPage);
     }
 
     public function testSupportsCustomPageTypes()
     {
         $page = AbstractPage::factory([
-            'type' => 'LaminasTest\Navigation\TestAsset\Page',
-            'label' => 'My Custom Page'
+            'type'  => Page::class,
+            'label' => 'My Custom Page',
         ]);
 
-        return $this->assertInstanceOf('LaminasTest\\Navigation\\TestAsset\\Page', $page);
+        $this->assertInstanceOf(Page::class, $page);
     }
 
     public function testShouldFailForInvalidType()
@@ -117,8 +123,8 @@ class PageFactoryTest extends TestCase
         );
 
         AbstractPage::factory([
-            'type' => 'LaminasTest\Navigation\TestAsset\InvalidPage',
-            'label' => 'My Invalid Page'
+            'type'  => InvalidPage::class,
+            'label' => 'My Invalid Page',
         ]);
     }
 
@@ -129,8 +135,8 @@ class PageFactoryTest extends TestCase
         );
 
         $pageConfig = [
-            'type' => 'My_NonExistent_Page',
-            'label' => 'My non-existent Page'
+            'type'  => 'My_NonExistent_Page',
+            'label' => 'My non-existent Page',
         ];
 
         AbstractPage::factory($pageConfig);
@@ -143,7 +149,7 @@ class PageFactoryTest extends TestCase
         );
 
         AbstractPage::factory([
-            'label' => 'My Invalid Page'
+            'label' => 'My Invalid Page',
         ]);
     }
 

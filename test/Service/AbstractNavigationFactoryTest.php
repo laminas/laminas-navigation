@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Service;
 
 use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
-use Laminas\Mvc\Router as MvcRouter;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Service\AbstractNavigationFactory;
@@ -13,6 +14,8 @@ use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
+
+use function sprintf;
 
 /**
  * @todo Write tests covering full functionality. Tests were introduced to
@@ -31,8 +34,8 @@ class AbstractNavigationFactoryTest extends TestCase
     public function testCanInjectComponentsUsingLaminasRouterClasses()
     {
         $routeMatch = $this->prophesize(Router\RouteMatch::class)->reveal();
-        $router = $this->prophesize(Router\RouteStackInterface::class)->reveal();
-        $args = [[], $routeMatch, $router];
+        $router     = $this->prophesize(Router\RouteStackInterface::class)->reveal();
+        $args       = [[], $routeMatch, $router];
 
         $r = new ReflectionMethod($this->factory, 'injectComponents');
         $r->setAccessible(true);
@@ -49,41 +52,11 @@ class AbstractNavigationFactoryTest extends TestCase
         $this->assertSame([], $pages);
     }
 
-    public function testCanInjectComponentsUsingLaminasMvcRouterClasses()
-    {
-        if (! class_exists(MvcRouter\RouteMatch::class)) {
-            $this->markTestSkipped('Test does not run for laminas-mvc v3 releases');
-        }
-
-        $routeMatch = $this->prophesize(MvcRouter\RouteMatch::class)->reveal();
-        $router = $this->prophesize(MvcRouter\RouteStackInterface::class)->reveal();
-        $args = [[], $routeMatch, $router];
-
-        $r = new ReflectionMethod($this->factory, 'injectComponents');
-        $r->setAccessible(true);
-        try {
-            $pages = $r->invokeArgs($this->factory, $args);
-        } catch (Exception\InvalidArgumentException $e) {
-            $message = sprintf(
-                'injectComponents should not raise exception for laminas-mvc router classes; received %s',
-                $e->getMessage()
-            );
-            $this->fail($message);
-        }
-
-        $this->assertSame([], $pages);
-    }
-
     public function testCanCreateNavigationInstanceV2()
     {
-        $routerMatchClass = $this->getRouteMatchClass();
-        $routerClass = $this->getRouterClass();
-        $routeMatch = new $routerMatchClass([]);
-        $router = new $routerClass();
-
         $mvcEventStub = new MvcEvent();
-        $mvcEventStub->setRouteMatch($routeMatch);
-        $mvcEventStub->setRouter($router);
+        $mvcEventStub->setRouteMatch(new Router\RouteMatch([]));
+        $mvcEventStub->setRouter(new Router\Http\TreeRouteStack());
 
         $applicationMock = $this->getMockBuilder(Application::class)
             ->disableOriginalConstructor()
@@ -101,7 +74,7 @@ class AbstractNavigationFactoryTest extends TestCase
             ->method('get')
             ->willReturnMap([
                 ['config', ['navigation' => ['testStubNavigation' => []]]],
-                ['Application', $applicationMock]
+                ['Application', $applicationMock],
             ]);
 
         $navigationFactory
@@ -112,19 +85,5 @@ class AbstractNavigationFactoryTest extends TestCase
         $navigation = $navigationFactory->createService($serviceManagerMock);
 
         $this->assertInstanceOf(Navigation::class, $navigation);
-    }
-
-    public function getRouterClass()
-    {
-        return class_exists(MvcRouter\Http\TreeRouteStack::class)
-            ? MvcRouter\Http\TreeRouteStack::class
-            : Router\Http\TreeRouteStack::class;
-    }
-
-    public function getRouteMatchClass()
-    {
-        return class_exists(MvcRouter\RouteMatch::class)
-            ? MvcRouter\RouteMatch::class
-            : Router\RouteMatch::class;
     }
 }

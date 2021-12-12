@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\Service\TestAsset;
 
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 
 class TestNavigationFactory extends AbstractNavigationFactory
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $factoryName;
 
     /**

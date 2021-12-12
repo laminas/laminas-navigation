@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation;
 
 use Laminas\Navigation\ConfigProvider;
@@ -10,25 +12,25 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigProviderTest extends TestCase
 {
-    private $config = [
+    private array $config = [
         'abstract_factories' => [
             Service\NavigationAbstractServiceFactory::class,
         ],
-        'aliases' => [
-            'navigation' => Navigation::class,
+        'aliases'            => [
+            'navigation'                 => Navigation::class,
             'Zend\Navigation\Navigation' => Navigation::class,
         ],
-        'delegators' => [
+        'delegators'         => [
             'ViewHelperManager' => [
                 View\ViewHelperManagerDelegatorFactory::class,
             ],
         ],
-        'factories' => [
+        'factories'          => [
             Navigation::class => Service\DefaultNavigationFactory::class,
         ],
     ];
 
-    public function testProvidesExpectedConfiguration()
+    public function testProvidesExpectedConfiguration(): ConfigProvider
     {
         $provider = new ConfigProvider();
         $this->assertEquals($this->config, $provider->getDependencyConfig());

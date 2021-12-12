@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\Navigation\TestAsset;
 
-class Router extends \Laminas\Router\Http\TreeRouteStack
-{
-    const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
+use Laminas\Router\Http\TreeRouteStack;
 
-    public function assemble(array $params = [], array $options = [])
+class Router extends TreeRouteStack
+{
+    public const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';
+
+    public function assemble(array $params = [], array $options = []): string
     {
         return self::RETURN_URL;
     }

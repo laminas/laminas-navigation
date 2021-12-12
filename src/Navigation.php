@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\Navigation;
 
 use Traversable;
+
+use function is_array;
 
 /**
  * A simple container class for {@link Laminas\Navigation\Page} pages
@@ -13,7 +17,7 @@ class Navigation extends AbstractContainer
      * Creates a new navigation container
      *
      * @param  array|Traversable $pages    [optional] pages to add
-     * @throws Exception\InvalidArgumentException  if $pages is invalid
+     * @throws Exception\InvalidArgumentException  If $pages is invalid.
      */
     public function __construct($pages = null)
     {
