@@ -2,67 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/containers/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/installation/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/intro/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/pages/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/quick-start/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/cookbook/mvc-sitemap/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/breadcrumbs/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/intro/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/links/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/menu/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/navigation/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-navigation/helpers/sitemap/</loc>
-         <lastmod>2021-12-06</lastmod>
+         <lastmod>2021-12-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
