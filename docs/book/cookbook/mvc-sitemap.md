@@ -29,7 +29,7 @@ return [
 ];
 ```
 
-## Create Middleware
+## Create Request Handler
 
 The Sitemap helper already creates all the XML content, so the rendering of the view layer can be omitted.
 With the [custom response type `Laminas\Diactoros\Response\XmlResponse`](https://docs.laminas.dev/laminas-diactoros/v2/custom-responses/#xml-responses) the `Content-Type` header is set to `application/xml`.
@@ -63,7 +63,7 @@ class SitemapHandler implements RequestHandlerInterface
 }
 ```
 
-### Create Factory for Middleware
+### Create Factory for Request Handler
 
 Fetch the [Navigation Proxy helper](../helpers/navigation.md) from the [view helper manager](https://docs.laminas.dev/laminas-mvc/services/#plugin-managers) and fetch the Sitemap helper from Proxy helper in a [factory class](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#factories), e.g. `src/Application/Handler/SitemapHandlerFactory.php`:
 
@@ -104,7 +104,7 @@ To [register the middleware](https://docs.laminas.dev/laminas-mvc-middleware/v2/
 Add the following lines to the module configuration file, e.g. `module/Application/config/module.config.php`:
 
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="3,9-10,15-25"><code>
+<pre class="language-php" data-line="3-4,9-10,15-25"><code>
 namespace Application;
 
 use Laminas\Mvc\Middleware\PipeSpec;
@@ -114,7 +114,7 @@ return [
     'service_manager' => [
         'factories' => [
             // Add this line
-            Middleware\SitemapMiddleware::class => Middleware\SitemapMiddlewareFactory::class,
+            Handler\SitemapHandler::class => Handler\SitemapHandlerFactory::class,
         ],
     ],
     'router'          => [
