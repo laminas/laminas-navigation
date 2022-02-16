@@ -5,7 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manage trees of pointers to web pages in order to build navigation systems.">  
+    <meta name="description" content="Manage trees of pointers to web pages in order to build navigation systems."> 
+
+    
+    
+    <meta name="docsearch:version" content="latest">
+    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:component" content="laminas-navigation">
+
     <link rel="canonical" href="https://docs.laminas.dev/laminas-navigation/cookbook/mvc-sitemap/">
     <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
 
@@ -343,7 +350,7 @@
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#create-middleware" class="toc__link nav-link">Create Middleware</a>
+                        <a href="#create-request-handler" class="toc__link nav-link">Create Request Handler</a>
                     </li>
                 
                     <li class="toc__entry">
@@ -421,7 +428,7 @@ The example uses a middleware as request handler and the <a href="../../helpers/
     ],
     // …
 ];</code></pre>
-<h2 id="create-middleware">Create Middleware</h2>
+<h2 id="create-request-handler">Create Request Handler</h2>
 <p>The Sitemap helper already creates all the XML content, so the rendering of the view layer can be omitted.
 With the <a href="https://docs.laminas.dev/laminas-diactoros/v2/custom-responses/#xml-responses">custom response type <code>Laminas\Diactoros\Response\XmlResponse</code></a> the <code>Content-Type</code> header is set to <code>application/xml</code>.</p>
 <p><a href="https://docs.laminas.dev/laminas-mvc-middleware/v2/quick-start/#writing-middleware">Create a middleware class</a> as request handler and inject the Sitemap helper via the constructor, e.g. <code>module/Application/Handler/SitemapHandler.php</code>:</p>
@@ -449,7 +456,7 @@ class SitemapHandler implements RequestHandlerInterface
         );
     }
 }</code></pre>
-<h3 id="create-factory-for-middleware">Create Factory for Middleware</h3>
+<h3 id="create-factory-for-request-handler">Create Factory for Request Handler</h3>
 <p>Fetch the <a href="../../helpers/navigation/">Navigation Proxy helper</a> from the <a href="https://docs.laminas.dev/laminas-mvc/services/#plugin-managers">view helper manager</a> and fetch the Sitemap helper from Proxy helper in a <a href="https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/#factories">factory class</a>, e.g. <code>src/Application/Handler/SitemapHandlerFactory.php</code>:</p>
 <pre class="highlight"><code class="language-php">namespace Application\Handler;
 
@@ -483,7 +490,7 @@ class SitemapHandlerFactory
 <p>To <a href="https://docs.laminas.dev/laminas-mvc-middleware/v2/quick-start/#mapping-routes-to-middleware-and-request-handlers">register the middleware</a> for the application and to <a href="https://docs.laminas.dev/laminas-mvc/quick-start/#create-a-route">create the route</a>, extend the configuration of the module.
 Add the following lines to the module configuration file, e.g. <code>module/Application/config/module.config.php</code>:</p>
 <!-- markdownlint-disable MD033 -->
-<pre class="language-php" data-line="3,9-10,15-25"><code>
+<pre class="language-php" data-line="3-4,9-10,15-25"><code>
 namespace Application;
 
 use Laminas\Mvc\Middleware\PipeSpec;
@@ -493,7 +500,7 @@ return [
     'service_manager' => [
         'factories' => [
             // Add this line
-            Middleware\SitemapMiddleware::class => Middleware\SitemapMiddlewareFactory::class,
+            Handler\SitemapHandler::class => Handler\SitemapHandlerFactory::class,
         ],
     ],
     'router'          => [
@@ -592,7 +599,9 @@ class IndexController extends AbstractActionController
         <li class="page-nav__item">
             
                 <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../helpers/navigation/">
-                    <i class="fa fa-chevron-left"></i> Previous
+                    <small class="page-nav__label">Previous</small>
+                    <i class="fa fa-chevron-left"></i>
+                    Navigation Proxy
                 </a>
             
         </li>
@@ -859,7 +868,7 @@ class IndexController extends AbstractActionController
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-navigation/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2022 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
