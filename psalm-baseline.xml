@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+  <file src="src/AbstractContainer.php">
+    <ImplementedReturnTypeMismatch occurrences="3">
+      <code>AbstractPage</code>
+      <code>AbstractPage|null</code>
+      <code>string</code>
+    </ImplementedReturnTypeMismatch>
+    <InvalidArgument occurrences="1">
+      <code>$page</code>
+    </InvalidArgument>
+    <InvalidReturnStatement occurrences="1">
+      <code>$this-&gt;findAllBy($property, $value)</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>AbstractPage|null</code>
+    </InvalidReturnType>
+    <MixedArgument occurrences="1">
+      <code>$page</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="13">
+      <code>$childPage</code>
+      <code>$found[]</code>
+      <code>$found[]</code>
+      <code>$newIndex[$hash]</code>
+      <code>$order</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$pages[]</code>
+      <code>$propertyValue</code>
+      <code>$propertyValue</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="3">
+      <code>AbstractPage</code>
+      <code>AbstractPage|null</code>
+      <code>AbstractPage|null</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="6">
+      <code>get</code>
+      <code>get</code>
+      <code>getOrder</code>
+      <code>hasPage</code>
+      <code>isVisible</code>
+      <code>toArray</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="4">
+      <code>$page</code>
+      <code>$page</code>
+      <code>$this-&gt;pages[$hash]</code>
+      <code>$this-&gt;pages[$hash]</code>
+    </MixedReturnStatement>
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>key($this-&gt;index)</code>
+      <code>string</code>
+    </MixedReturnTypeCoercion>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$page</code>
+    </PossiblyInvalidArgument>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_int($page)</code>
+    </RedundantConditionGivenDocblockType>
+    <UnusedFunctionCall occurrences="1">
+      <code>current</code>
+    </UnusedFunctionCall>
+  </file>
+  <file src="src/ConfigProvider.php">
+    <MixedArrayOffset occurrences="1"/>
+    <UndefinedClass occurrences="1">
+      <code>\Zend\Navigation\Navigation</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Navigation.php">
+    <InvalidArgument occurrences="1">
+      <code>$pages</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/Page/AbstractPage.php">
+    <DocblockTypeContradiction occurrences="14">
+      <code>! is_string($property)</code>
+      <code>! is_string($property)</code>
+      <code>is_array($options)</code>
+      <code>is_array($relations)</code>
+      <code>is_array($relations)</code>
+      <code>is_string($order)</code>
+      <code>is_string($visible)</code>
+      <code>null !== $class &amp;&amp; ! is_string($class)</code>
+      <code>null !== $fragment &amp;&amp; ! is_string($fragment)</code>
+      <code>null !== $id &amp;&amp; ! is_string($id)</code>
+      <code>null !== $label &amp;&amp; ! is_string($label)</code>
+      <code>null !== $order &amp;&amp; ! is_int($order)</code>
+      <code>null !== $target &amp;&amp; ! is_string($target)</code>
+      <code>null !== $title &amp;&amp; ! is_string($title)</code>
+    </DocblockTypeContradiction>
+    <InvalidNullableReturnType occurrences="1">
+      <code>string</code>
+    </InvalidNullableReturnType>
+    <InvalidToString occurrences="1">
+      <code>string</code>
+    </InvalidToString>
+    <MissingReturnType occurrences="1">
+      <code>addFactory</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$visible</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$key</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="7">
+      <code>$factoryCallBack</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$relation</code>
+      <code>$relation</code>
+      <code>$type</code>
+      <code>$value</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="1">
+      <code>call_user_func($factoryCallBack, $options)</code>
+    </MixedFunctionCall>
+    <MixedInferredReturnType occurrences="3">
+      <code>AbstractPage</code>
+      <code>array</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="2">
+      <code>isActive</code>
+      <code>new $type($options)</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="3">
+      <code>$page</code>
+      <code>$this-&gt;rel[$relation] ?? null</code>
+    </MixedReturnStatement>
+    <NullableReturnStatement occurrences="4">
+      <code>$this-&gt;label</code>
+      <code>$this-&gt;label</code>
+      <code>$this-&gt;rel[$relation] ?? null</code>
+    </NullableReturnStatement>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$textDomain</code>
+    </PropertyNotSetInConstructor>
+    <RedundantCast occurrences="1">
+      <code>(string) $id</code>
+    </RedundantCast>
+    <RedundantCastGivenDocblockType occurrences="2">
+      <code>(bool) $active</code>
+      <code>(bool) $visible</code>
+    </RedundantCastGivenDocblockType>
+    <RedundantConditionGivenDocblockType occurrences="4">
+      <code>is_string($relation)</code>
+      <code>is_string($relation)</code>
+      <code>null !== $fragment</code>
+      <code>null !== $label</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Page/Mvc.php">
+    <DocblockTypeContradiction occurrences="4">
+      <code>! is_string($route)</code>
+      <code>null !== $action &amp;&amp; ! is_string($action)</code>
+      <code>null !== $controller &amp;&amp; ! is_string($controller)</code>
+      <code>null === $router</code>
+    </DocblockTypeContradiction>
+    <MixedInferredReturnType occurrences="4">
+      <code>Mvc</code>
+      <code>Mvc</code>
+      <code>bool</code>
+      <code>string</code>
+    </MixedInferredReturnType>
+    <PossiblyNullPropertyAssignmentValue occurrences="10">
+      <code>$action</code>
+      <code>$controller</code>
+      <code>$query</code>
+      <code>$route</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PropertyNotSetInConstructor occurrences="8">
+      <code>$action</code>
+      <code>$controller</code>
+      <code>$hrefCache</code>
+      <code>$query</code>
+      <code>$route</code>
+      <code>$routeMatch</code>
+      <code>$router</code>
+      <code>Mvc</code>
+    </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $useRouteMatch</code>
+    </RedundantCastGivenDocblockType>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>null !== $action</code>
+      <code>null !== $route</code>
+    </RedundantConditionGivenDocblockType>
+    <UndefinedClass occurrences="2">
+      <code>MvcRouter\RouteMatch</code>
+      <code>MvcRouter\RouteStackInterface</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="3">
+      <code>RouteMatch|MvcRouter\RouteMatch</code>
+      <code>RouteStackInterface|MvcRouter\RouteStackInterface</code>
+      <code>null|RouteStackInterface|MvcRouter\RouteStackInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Page/Uri.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>null !== $uri &amp;&amp; ! is_string($uri)</code>
+    </DocblockTypeContradiction>
+    <ImplicitToStringCast occurrences="1">
+      <code>$request</code>
+    </ImplicitToStringCast>
+    <InvalidNullableReturnType occurrences="1">
+      <code>string</code>
+    </InvalidNullableReturnType>
+    <InvalidReturnStatement occurrences="1">
+      <code>$this-&gt;request</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>Request</code>
+    </InvalidReturnType>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;uri</code>
+    </NullableReturnStatement>
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
+      <code>$request</code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$request</code>
+      <code>Uri</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>null !== $uri</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Service/AbstractNavigationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>AbstractNavigationFactory</code>
+    </DeprecatedInterface>
+    <DocblockTypeContradiction occurrences="3">
+      <code>gettype($routeMatch)</code>
+      <code>gettype($router)</code>
+      <code>null === $this-&gt;pages</code>
+    </DocblockTypeContradiction>
+    <MissingConstructor occurrences="2">
+      <code>$pages</code>
+      <code>$pages</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="4">
+      <code>$configuration['navigation'][$this-&gt;getName()]</code>
+      <code>$page['pages']</code>
+      <code>$routeMatch</code>
+      <code>$router</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$configuration['navigation']</code>
+      <code>$page['pages']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="4">
+      <code>$page['pages']</code>
+      <code>$page['request']</code>
+      <code>$page['routeMatch']</code>
+      <code>$page['router']</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="6">
+      <code>$application</code>
+      <code>$configuration</code>
+      <code>$page</code>
+      <code>$request</code>
+      <code>$routeMatch</code>
+      <code>$router</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="6">
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getRequest</code>
+      <code>getRouteMatch</code>
+      <code>getRouter</code>
+    </MixedMethodCall>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$pages</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$pages</code>
+    </PossiblyNullArgument>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>is_object($routeMatch)</code>
+      <code>is_object($router)</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Service/ConstructedNavigationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>ConstructedNavigationFactory</code>
+    </DeprecatedInterface>
+    <DocblockTypeContradiction occurrences="1">
+      <code>null === $this-&gt;pages</code>
+    </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>array|null|Config</code>
+    </ImplementedReturnTypeMismatch>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;getPagesFromConfig($this-&gt;config)</code>
+    </PossiblyNullArgument>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>ConstructedNavigationFactory</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Service/DefaultNavigationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>DefaultNavigationFactory</code>
+    </DeprecatedInterface>
+  </file>
+  <file src="src/Service/NavigationAbstractServiceFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>NavigationAbstractServiceFactory</code>
+    </DeprecatedInterface>
+    <MissingConstructor occurrences="1">
+      <code>$config</code>
+    </MissingConstructor>
+    <MissingParamType occurrences="1">
+      <code>$requestedName</code>
+    </MissingParamType>
+    <MixedArgument occurrences="2">
+      <code>$requestedName</code>
+      <code>$requestedName</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;config</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="3">
+      <code>$config[$withoutPrefix]</code>
+      <code>$config[strtolower($withoutPrefix)]</code>
+      <code>$this-&gt;config</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="2">
+      <code>$container</code>
+      <code>$container</code>
+    </ParamNameMismatch>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>$this-&gt;config !== null</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/View/HelperConfig.php">
+    <DeprecatedMethod occurrences="1">
+      <code>getServiceLocator</code>
+    </DeprecatedMethod>
+    <InvalidArgument occurrences="1">
+      <code>$this-&gt;config['delegators'][NavigationHelperFactory::class]</code>
+    </InvalidArgument>
+    <InvalidPropertyAssignmentValue occurrences="2">
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+    </InvalidPropertyAssignmentValue>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$container-&gt;getServiceLocator() ?: $container</code>
+    </LessSpecificReturnStatement>
+    <MissingClosureParamType occurrences="8">
+      <code>$callback</code>
+      <code>$callback</code>
+      <code>$canonicalName</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$name</code>
+      <code>$options</code>
+      <code>$requestedName</code>
+    </MissingClosureParamType>
+    <MissingClosureReturnType occurrences="2">
+      <code>function ($container, $canonicalName, $requestedName, $callback) use ($config) {</code>
+      <code>function ($container, $name, $callback, $options) use ($config) {</code>
+    </MissingClosureReturnType>
+    <MixedArgument occurrences="6">
+      <code>$class</code>
+      <code>$config['invokables']</code>
+      <code>$pluginManager</code>
+      <code>$pluginManager</code>
+      <code>$services</code>
+      <code>$services-&gt;get('config')</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$config</code>
+      <code>$config</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAssignment occurrences="3">
+      <code>$config['aliases'][$name]</code>
+      <code>$config['factories'][$class]</code>
+      <code>$config['factories'][$this-&gt;normalizeNameForV2($class)]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="1">
+      <code>$config['factories'][$class]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="7">
+      <code>$class</code>
+      <code>$config['aliases'][$name]</code>
+      <code>$helper</code>
+      <code>$helper</code>
+      <code>$pluginManager</code>
+      <code>$pluginManager</code>
+      <code>$services</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="2">
+      <code>$callback()</code>
+      <code>$callback()</code>
+    </MixedFunctionCall>
+    <MixedInferredReturnType occurrences="1">
+      <code>ServiceManager</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="2">
+      <code>getPluginManager</code>
+      <code>getPluginManager</code>
+    </MixedMethodCall>
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>$this-&gt;config</code>
+    </MixedPropertyTypeCoercion>
+    <MixedReturnStatement occurrences="1">
+      <code>$r-&gt;getValue($container) ?: $container</code>
+    </MixedReturnStatement>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$config</code>
+    </NonInvariantDocblockPropertyType>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$config['navigation_helpers']</code>
+    </PossiblyInvalidArgument>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$navigationDelegatorFactory</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>$container-&gt;getServiceLocator()</code>
+    </RedundantConditionGivenDocblockType>
+    <RedundantPropertyInitializationCheck occurrences="1">
+      <code>isset($this-&gt;navigationDelegatorFactory)</code>
+    </RedundantPropertyInitializationCheck>
+    <UnusedClosureParam occurrences="6">
+      <code>$canonicalName</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$name</code>
+      <code>$options</code>
+      <code>$requestedName</code>
+    </UnusedClosureParam>
+  </file>
+  <file src="src/View/NavigationHelperFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>NavigationHelperFactory</code>
+    </DeprecatedInterface>
+    <MixedInferredReturnType occurrences="1">
+      <code>ContainerInterface</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="2">
+      <code>$container-&gt;getServiceLocator() ?: $container</code>
+      <code>$r-&gt;getValue($container) ?: $container</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>getServiceLocator</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/View/ViewHelperManagerDelegatorFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>ViewHelperManagerDelegatorFactory</code>
+    </DeprecatedInterface>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$viewHelpers</code>
+    </LessSpecificReturnStatement>
+    <MissingParamType occurrences="4">
+      <code>$callback</code>
+      <code>$name</code>
+      <code>$name</code>
+      <code>$requestedName</code>
+    </MissingParamType>
+    <MixedArgument occurrences="2">
+      <code>$callback</code>
+      <code>$viewHelpers</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$viewHelpers</code>
+    </MixedAssignment>
+    <MoreSpecificReturnType occurrences="1">
+      <code>HelperPluginManager</code>
+    </MoreSpecificReturnType>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="test/ConfigProviderTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testInvocationProvidesDependencyConfiguration</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/ContainerTest.php">
+    <InvalidArgument occurrences="5">
+      <code>$pages = new stdClass()</code>
+      <code>'ok'</code>
+      <code>'this is a string'</code>
+      <code>1337</code>
+      <code>new stdClass()</code>
+    </InvalidArgument>
+    <InvalidCatch occurrences="1"/>
+    <MissingReturnType occurrences="54">
+      <code>_getFindByNavigation</code>
+      <code>testAddPageShouldWorkWithArray</code>
+      <code>testAddPageShouldWorkWithConfig</code>
+      <code>testAddPageShouldWorkWithPageInstance</code>
+      <code>testAddPagesShouldThrowExceptionWhenGivenAnArbitraryObject</code>
+      <code>testAddPagesShouldThrowExceptionWhenGivenString</code>
+      <code>testAddPagesShouldWorkWithArray</code>
+      <code>testAddPagesShouldWorkWithConfig</code>
+      <code>testAddPagesShouldWorkWithMixedArray</code>
+      <code>testAddPagesShouldWorkWithNavigationContainer</code>
+      <code>testAddPagesWithNullValueSkipsPage</code>
+      <code>testConstructWithArray</code>
+      <code>testConstructWithConfig</code>
+      <code>testConstructorShouldThrowExceptionOnInvalidArgument</code>
+      <code>testCurrent</code>
+      <code>testCurrentShouldThrowExceptionIfIndexIsInvalid</code>
+      <code>testDetailedRecursiveIteration</code>
+      <code>testFindAllByMagicLowercaseFindsBothNativeAndCustomProps</code>
+      <code>testFindAllByMagicUcfirstPropDoesNotFindCustomLowercaseProps</code>
+      <code>testFindAllByShouldReturnAllMatchingPages</code>
+      <code>testFindAllByShouldReturnEmptyArrayifNotFound</code>
+      <code>testFindAllByWithIntegerAsStringValueShouldReturnPage</code>
+      <code>testFindAllByWithMagicMethodNativeProperty</code>
+      <code>testFindByMagicMethodIsEquivalentToFindOneBy</code>
+      <code>testFindByShouldDefaultToFindOneBy</code>
+      <code>testFindOneByMagicMethodCustomProperty</code>
+      <code>testFindOneByMagicMethodNativeProperty</code>
+      <code>testFindOneByShouldReturnNullIfNotFound</code>
+      <code>testFindOneByShouldReturnOnlyOnePage</code>
+      <code>testFindOneByWithIntegerAsStringValueShouldReturnPage</code>
+      <code>testFinderMethodsShouldWorkWithCustomProperties</code>
+      <code>testGetChildrenShouldReturnNullWhenContainerIsEmpty</code>
+      <code>testGetChildrenShouldReturnTheCurrentPage</code>
+      <code>testGetPagesShouldReturnAnArrayOfPages</code>
+      <code>testGetPagesShouldReturnUnorderedPages</code>
+      <code>testHasChildrenCompatibility</code>
+      <code>testHasPage</code>
+      <code>testHasPages</code>
+      <code>testInvalidMagicFinderMethodShouldThrowException</code>
+      <code>testInvalidMagicMethodShouldThrowException</code>
+      <code>testIterationShouldBeOrderAware</code>
+      <code>testKeyShouldReturnCurrentPageHash</code>
+      <code>testKeyWhenContainerIsEmpty</code>
+      <code>testRecursiveIteration</code>
+      <code>testRemovePageRecursively</code>
+      <code>testRemovingAllPages</code>
+      <code>testRemovingPageByInstance</code>
+      <code>testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer</code>
+      <code>testRemovingPageByOrder</code>
+      <code>testSetParentShouldRemoveFromOldParentPage</code>
+      <code>testSetParentShouldWorkWithNull</code>
+      <code>testSetParentShouldWorkWithPage</code>
+      <code>testSettingPageOrderShouldUpdateContainerOrder</code>
+      <code>testSettingPages</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="7">
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$this-&gt;_getFindByNavigation()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="38">
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$actual[]</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$found</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+      <code>$page</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="27">
+      <code>addPage</code>
+      <code>addPage</code>
+      <code>addPage</code>
+      <code>findAllBy</code>
+      <code>findAllBy</code>
+      <code>findAllBy</code>
+      <code>findAllByAction</code>
+      <code>findAllById</code>
+      <code>findAllByaction</code>
+      <code>findBy</code>
+      <code>findById</code>
+      <code>findOneBy</code>
+      <code>findOneBy</code>
+      <code>findOneBy</code>
+      <code>findOneBy</code>
+      <code>findOneById</code>
+      <code>findOneBypage2</code>
+      <code>findSomeById</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getLabel</code>
+      <code>getPagez</code>
+      <code>toArray</code>
+    </MixedMethodCall>
+    <PossiblyNullArgument occurrences="2">
+      <code>$container-&gt;findOneBy('route', 'bar')</code>
+      <code>$container-&gt;findOneBy('route', 'baz')</code>
+    </PossiblyNullArgument>
+    <PossiblyNullReference occurrences="3">
+      <code>getLabel</code>
+      <code>hasChildren</code>
+      <code>hasChildren</code>
+    </PossiblyNullReference>
+    <TooManyArguments occurrences="1"/>
+    <UnusedVariable occurrences="6">
+      <code>$found</code>
+      <code>$found</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$nav</code>
+      <code>$page</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/NavigationTest.php">
+    <MissingReturnType occurrences="1">
+      <code>testNavigationArraySortsCorrectly</code>
+    </MissingReturnType>
+    <MixedArrayAccess occurrences="3">
+      <code>$pages[0]['uri']</code>
+      <code>$pages[1]['uri']</code>
+      <code>$pages[2]['uri']</code>
+    </MixedArrayAccess>
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
+      <code>null</code>
+    </PossiblyNullPropertyAssignmentValue>
+  </file>
+  <file src="test/Page/MvcTest.php">
+    <InvalidArgument occurrences="1">
+      <code>TreeRouteStack::class</code>
+    </InvalidArgument>
+    <MissingReturnType occurrences="29">
+      <code>testActionAndControllerAccessors</code>
+      <code>testBoolSetAndGetUseRouteMatch</code>
+      <code>testDefaultRouterCanBeSetWithConstructor</code>
+      <code>testDefaultRouterCanBeSetWithGetter</code>
+      <code>testGetHrefPassesQueryPartToRouter</code>
+      <code>testGetHrefWithFragmentIdentifier</code>
+      <code>testHrefGeneratedByRouterRequiresNoRoute</code>
+      <code>testHrefGeneratedByRouterWithDefaultRoute</code>
+      <code>testHrefGeneratedIsRouteAware</code>
+      <code>testHrefRouteMatchEnabledWithoutRouteMatchObject</code>
+      <code>testInheritedRouteMatchParamsWorkWithModuleRouteListener</code>
+      <code>testIsActiveReturnsFalseOnDifferentControllerAction</code>
+      <code>testIsActiveReturnsFalseWhenMatchingRouteButNonMatchingParams</code>
+      <code>testIsActiveReturnsFalseWhenNoRouteAndNoMatchedRouteNameIsSet</code>
+      <code>testIsActiveReturnsFalseWhenRequestHasLessParams</code>
+      <code>testIsActiveReturnsTrueOnIdenticalControllerAction</code>
+      <code>testIsActiveReturnsTrueOnIdenticalIncludingPageParams</code>
+      <code>testIsActiveReturnsTrueWhenMatchingRoute</code>
+      <code>testIsActiveReturnsTrueWhenMatchingRouteWhileUsingModuleRouteListener</code>
+      <code>testIsActiveReturnsTrueWhenRequestHasMoreParams</code>
+      <code>testMistakeDetectIsActiveOnIndexController</code>
+      <code>testMvcPageParamsInheritRouteMatchParams</code>
+      <code>testNoExceptionForGetHrefIfDefaultRouterIsSet</code>
+      <code>testRecursiveDetectIsActiveWhenRouteNameIsKnown</code>
+      <code>testRouteAccessor</code>
+      <code>testSetAndGetParams</code>
+      <code>testSetRouteMatchThrowsExceptionOnInvalidParameter</code>
+      <code>testSpecifyingAnotherUrlHelperToGenerateHrefs</code>
+      <code>testToArrayMethod</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="8">
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="4">
+      <code>addRoute</code>
+      <code>addRoute</code>
+      <code>setMatchedRouteName</code>
+      <code>setMatchedRouteName</code>
+    </MixedMethodCall>
+    <NullArgument occurrences="5">
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+      <code>null</code>
+    </NullArgument>
+    <PossiblyInvalidCast occurrences="2">
+      <code>$invalid</code>
+      <code>$invalid</code>
+    </PossiblyInvalidCast>
+    <PossiblyNullArgument occurrences="5">
+      <code>$event-&gt;getRouteMatch()</code>
+      <code>$event-&gt;getRouteMatch()</code>
+      <code>$event-&gt;getRouteMatch()</code>
+      <code>$event-&gt;getRouteMatch()</code>
+      <code>$event-&gt;getRouteMatch()</code>
+    </PossiblyNullArgument>
+    <UndefinedThisPropertyAssignment occurrences="3">
+      <code>$this-&gt;route</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;router</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="12">
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;routeMatch</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+      <code>$this-&gt;router</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Page/PageFactoryTest.php">
+    <InvalidArgument occurrences="1">
+      <code>''</code>
+    </InvalidArgument>
+    <MissingClosureParamType occurrences="1">
+      <code>$page</code>
+    </MissingClosureParamType>
+    <MissingReturnType occurrences="11">
+      <code>testDetectFactoryPage</code>
+      <code>testDetectMvcPage</code>
+      <code>testDetectUriPage</code>
+      <code>testMvcShouldHaveDetectionPrecedence</code>
+      <code>testShouldFailForInvalidType</code>
+      <code>testShouldFailForNonExistantType</code>
+      <code>testShouldFailIfUnableToDetermineType</code>
+      <code>testShouldThrowExceptionOnInvalidMethodArgument</code>
+      <code>testSupportsCustomPageTypes</code>
+      <code>testSupportsMvcShorthand</code>
+      <code>testSupportsUriShorthand</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="2">
+      <code>$page</code>
+      <code>$page</code>
+    </MixedArgument>
+  </file>
+  <file src="test/Page/PageTest.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>'stdClass'</code>
+    </ArgumentTypeCoercion>
+    <DuplicateArrayKey occurrences="1">
+      <code>'label'      =&gt; 'foo.bar'</code>
+    </DuplicateArrayKey>
+    <InvalidArgument occurrences="8">
+      <code>$invalid</code>
+      <code>'alternate'</code>
+      <code>'alternate'</code>
+      <code>[]</code>
+      <code>[]</code>
+      <code>[]</code>
+      <code>[]</code>
+      <code>new stdClass()</code>
+    </InvalidArgument>
+    <InvalidCast occurrences="2">
+      <code>[]</code>
+      <code>[]</code>
+    </InvalidCast>
+    <InvalidScalarArgument occurrences="16">
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>'-25'</code>
+      <code>'1'</code>
+      <code>'False'</code>
+      <code>'true'</code>
+      <code>'true'</code>
+      <code>0</code>
+      <code>0</code>
+      <code>0</code>
+      <code>1</code>
+      <code>1</code>
+    </InvalidScalarArgument>
+    <MissingReturnType occurrences="74">
+      <code>testAddingRelations</code>
+      <code>testConstructingWithRelationsInArray</code>
+      <code>testConstructingWithRelationsInConfig</code>
+      <code>testConstructingWithTraversableOptions</code>
+      <code>testGetActiveOnNewlyConstructedPageShouldReturnFalse</code>
+      <code>testGetActiveShouldReturnTrueIfPageIsActive</code>
+      <code>testGetActiveWithRecursiveTrueShouldReturnTrueIfChildActive</code>
+      <code>testGetCustomProperties</code>
+      <code>testGetDefinedRel</code>
+      <code>testGetDefinedRev</code>
+      <code>testGetRelWithArgumentShouldRetrieveSpecificRelation</code>
+      <code>testGetRevWithArgumentShouldRetrieveSpecificRelation</code>
+      <code>testGetShouldMapToNativeProperties</code>
+      <code>testGetShouldThrowExceptionIfPropertyIsEmpty</code>
+      <code>testGetShouldThrowExceptionIfPropertyIsNotString</code>
+      <code>testGetVisibleOnNewlyConstructedPageShouldReturnTrue</code>
+      <code>testGetVisibleRecursiveTrueShouldReturnFalseIfParentInivisble</code>
+      <code>testGetVisibleShouldReturnFalseIfPageIsNotVisible</code>
+      <code>testGettingSpecificRelations</code>
+      <code>testIdCouldBeAnInteger</code>
+      <code>testIsActiveOnNewlyConstructedPageShouldReturnFalse</code>
+      <code>testIsActiveRecursiveOnNewlyConstructedPageShouldReturnFalse</code>
+      <code>testIsActiveShouldReturnTrueIfPageIsActive</code>
+      <code>testIsActiveWithRecursiveTrueShouldReturnTrueIfChildActive</code>
+      <code>testIsVisibleOnNewlyConstructedPageShouldReturnTrue</code>
+      <code>testIsVisibleRecursiveTrueShouldReturnFalseIfParentInivisble</code>
+      <code>testIsVisibleShouldReturnFalseIfPageIsNotVisible</code>
+      <code>testMagicOverLoadsShouldCheckNativeProperties</code>
+      <code>testMagicOverLoadsShouldHandleCustomProperties</code>
+      <code>testMagicOverLoadsShouldSetAndGetNativeProperties</code>
+      <code>testMagicToStringMethodShouldReturnLabel</code>
+      <code>testRemovingRelations</code>
+      <code>testSetActiveShouldJuggleValue</code>
+      <code>testSetActiveWithNoParamShouldSetFalse</code>
+      <code>testSetAndGetClass</code>
+      <code>testSetAndGetFragmentIdentifier</code>
+      <code>testSetAndGetId</code>
+      <code>testSetAndGetLabel</code>
+      <code>testSetAndGetOrder</code>
+      <code>testSetAndGetTarget</code>
+      <code>testSetAndGetTitle</code>
+      <code>testSetArrayPermission</code>
+      <code>testSetObjectPermission</code>
+      <code>testSetOptionsShouldSetCustomProperties</code>
+      <code>testSetOptionsShouldTranslateToAccessor</code>
+      <code>testSetParentShouldThrowExceptionIfPageItselfIsParent</code>
+      <code>testSetPermission</code>
+      <code>testSetPrivilegeNoParams</code>
+      <code>testSetPrivilegeNull</code>
+      <code>testSetPrivilegeString</code>
+      <code>testSetRelShouldThrowExceptionWhenNotNullOrArrayOrConfig</code>
+      <code>testSetRelShouldWithNoParamsShouldResetRelations</code>
+      <code>testSetRelShouldWorkWithArray</code>
+      <code>testSetRelShouldWorkWithConfig</code>
+      <code>testSetResourceInterface</code>
+      <code>testSetResourceNoParam</code>
+      <code>testSetResourceNull</code>
+      <code>testSetResourceShouldThrowExceptionWhenGivenInteger</code>
+      <code>testSetResourceShouldThrowExceptionWhenGivenObject</code>
+      <code>testSetResourceString</code>
+      <code>testSetRevShouldThrowExceptionWhenNotNullOrArrayOrConfig</code>
+      <code>testSetRevShouldWithNoParamsShouldResetRelations</code>
+      <code>testSetRevShouldWorkWithArray</code>
+      <code>testSetRevShouldWorkWithConfig</code>
+      <code>testSetShouldMapToNativeProperties</code>
+      <code>testSetShouldNotMapToSetConfigToPreventRecursion</code>
+      <code>testSetShouldNotMapToSetOptionsToPreventRecursion</code>
+      <code>testSetShouldThrowExceptionIfPropertyIsEmpty</code>
+      <code>testSetShouldThrowExceptionIfPropertyIsNotString</code>
+      <code>testSetTranslatorTextDomainString</code>
+      <code>testSetVisibleShouldJuggleValue</code>
+      <code>testSetVisibleWithNoParamShouldSetVisble</code>
+      <code>testShouldSetAndGetShouldMapToProperties</code>
+      <code>testToArrayMethod</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="1">
+      <code>$page-&gt;getPermission()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$childPage</code>
+      <code>$childPage</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="4">
+      <code>getVisible</code>
+      <code>getVisible</code>
+      <code>isVisible</code>
+      <code>isVisible</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="1">
+      <code>$page-&gt;getPermission()-&gt;name</code>
+    </MixedPropertyFetch>
+    <PossiblyInvalidCast occurrences="2">
+      <code>$invalid</code>
+      <code>$invalid</code>
+    </PossiblyInvalidCast>
+    <PossiblyNullArgument occurrences="1">
+      <code>$page-&gt;getPermission()</code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyFetch occurrences="1">
+      <code>$page-&gt;getPermission()-&gt;name</code>
+    </PossiblyNullPropertyFetch>
+  </file>
+  <file src="test/Page/UriTest.php">
+    <MissingReturnType occurrences="9">
+      <code>testGetHref</code>
+      <code>testGetHrefWithFragmentIdentifier</code>
+      <code>testIsActiveReturnsFalseOnNonMatchingRequestUri</code>
+      <code>testIsActiveReturnsTrueWhenHasMatchingRequestUri</code>
+      <code>testSetAndGetUri</code>
+      <code>testUriOptionAsInteger</code>
+      <code>testUriOptionAsNull</code>
+      <code>testUriOptionAsObject</code>
+      <code>testUriOptionAsString</code>
+    </MissingReturnType>
+  </file>
+  <file src="test/Service/AbstractNavigationFactoryTest.php">
+    <MissingReturnType occurrences="2">
+      <code>testCanCreateNavigationInstanceV2</code>
+      <code>testCanInjectComponentsUsingLaminasRouterClasses</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+    </MixedArgument>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;factory</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="1">
+      <code>$this-&gt;factory</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Service/TestAsset/TestNavigationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>TestNavigationFactory</code>
+    </DeprecatedInterface>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>TestNavigationFactory</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="test/ServiceFactoryTest.php">
+    <DeprecatedMethod occurrences="1">
+      <code>setMethods</code>
+    </DeprecatedMethod>
+    <InvalidFunctionCall occurrences="1">
+      <code>$factory($services, 'Navigation')</code>
+    </InvalidFunctionCall>
+    <MissingClosureParamType occurrences="4">
+      <code>$pages</code>
+      <code>$pages</code>
+      <code>$that</code>
+      <code>$that</code>
+    </MissingClosureParamType>
+    <MissingClosureReturnType occurrences="3">
+      <code>function ($services) use ($factory) {</code>
+      <code>function ($that, $pages) use (&amp;$recursive) {</code>
+      <code>function ($that, $pages) use (&amp;$recursive) {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="9">
+      <code>testConstructedFromArray</code>
+      <code>testConstructedFromConfig</code>
+      <code>testConstructedFromFileString</code>
+      <code>testConstructedNavigationFactoryInjectRouterAndMatcher</code>
+      <code>testDefaultFactory</code>
+      <code>testDefaultFactoryAcceptsFileString</code>
+      <code>testMvcPagesGetInjectedWithComponents</code>
+      <code>testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory</code>
+      <code>testNavigationAbstractServiceFactory</code>
+    </MissingReturnType>
+    <MixedAssignment occurrences="9">
+      <code>$container</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$container</code>
+      <code>$page</code>
+      <code>$page</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="2">
+      <code>$recursive($that, $page-&gt;getPages())</code>
+      <code>$recursive($that, $page-&gt;getPages())</code>
+    </MixedFunctionCall>
+    <MixedMethodCall occurrences="12">
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>count</code>
+      <code>count</code>
+      <code>count</code>
+      <code>count</code>
+      <code>getPages</code>
+      <code>getPages</code>
+      <code>getPages</code>
+      <code>getPages</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="3">
+      <code>$this-&gt;mvcEvent</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;router</code>
+    </UndefinedThisPropertyAssignment>
+    <UnusedVariable occurrences="1">
+      <code>$container</code>
+    </UnusedVariable>
+  </file>
+  <file src="test/TestAsset/AbstractContainer.php">
+    <InvalidReturnType occurrences="1">
+      <code>addPage</code>
+    </InvalidReturnType>
+  </file>
+  <file src="test/TestAsset/FileNavigationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>FileNavigationFactory</code>
+    </DeprecatedInterface>
+  </file>
+  <file src="test/TestAsset/Page.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>Page</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="test/TestAsset/RecursiveIteratorIterator.php">
+    <InvalidReturnType occurrences="2">
+      <code>beginIteration</code>
+      <code>endIteration</code>
+    </InvalidReturnType>
+    <NullReference occurrences="1">
+      <code>getLabel</code>
+    </NullReference>
+  </file>
+  <file src="test/TestAsset/Router.php">
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>Router</code>
+      <code>Router</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="test/View/HelperConfigTest.php">
+    <MissingClosureParamType occurrences="1">
+      <code>$services</code>
+    </MissingClosureParamType>
+    <MissingReturnType occurrences="1">
+      <code>testConfigureServiceManagerWithConfig</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="2">
+      <code>$helpers</code>
+      <code>$services</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$helpers</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>findHelper</code>
+    </MixedMethodCall>
+  </file>
+  <file src="test/View/ViewHelperManagerDelegatorFactoryTest.php">
+    <MissingClosureReturnType occurrences="1">
+      <code>function () use ($helpers) {</code>
+    </MissingClosureReturnType>
+    <MissingReturnType occurrences="1">
+      <code>testFactoryConfiguresViewHelperManagerWithNavigationHelpers</code>
+    </MissingReturnType>
+  </file>
+</files>

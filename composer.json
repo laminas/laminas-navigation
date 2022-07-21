@@ -46,7 +46,9 @@
         "laminas/laminas-uri": "^2.9.1",
         "laminas/laminas-view": "^2.14.2",
         "phpspec/prophecy-phpunit": "^2.0.1",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "psalm/plugin-phpunit": "^0.17.0",
+        "vimeo/psalm": "^4.24"
     },
     "suggest": {
         "laminas/laminas-config": "^3.7, to provide page configuration (optional, as arrays and Traversables are also allowed)",
@@ -73,7 +75,8 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+        "static-analysis": "psalm --shepherd --stats"
     },
     "conflict": {
         "zendframework/zend-navigation": "*"
