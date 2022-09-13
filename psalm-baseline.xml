@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
   <file src="src/AbstractContainer.php">
     <ImplementedReturnTypeMismatch occurrences="3">
       <code>AbstractPage</code>
@@ -499,11 +499,6 @@
       <code>$container</code>
     </ParamNameMismatch>
   </file>
-  <file src="test/ConfigProviderTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testInvocationProvidesDependencyConfiguration</code>
-    </MissingReturnType>
-  </file>
   <file src="test/ContainerTest.php">
     <InvalidArgument occurrences="5">
       <code>$pages = new stdClass()</code>
@@ -513,61 +508,8 @@
       <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidCatch occurrences="1"/>
-    <MissingReturnType occurrences="54">
+    <MissingReturnType occurrences="1">
       <code>_getFindByNavigation</code>
-      <code>testAddPageShouldWorkWithArray</code>
-      <code>testAddPageShouldWorkWithConfig</code>
-      <code>testAddPageShouldWorkWithPageInstance</code>
-      <code>testAddPagesShouldThrowExceptionWhenGivenAnArbitraryObject</code>
-      <code>testAddPagesShouldThrowExceptionWhenGivenString</code>
-      <code>testAddPagesShouldWorkWithArray</code>
-      <code>testAddPagesShouldWorkWithConfig</code>
-      <code>testAddPagesShouldWorkWithMixedArray</code>
-      <code>testAddPagesShouldWorkWithNavigationContainer</code>
-      <code>testAddPagesWithNullValueSkipsPage</code>
-      <code>testConstructWithArray</code>
-      <code>testConstructWithConfig</code>
-      <code>testConstructorShouldThrowExceptionOnInvalidArgument</code>
-      <code>testCurrent</code>
-      <code>testCurrentShouldThrowExceptionIfIndexIsInvalid</code>
-      <code>testDetailedRecursiveIteration</code>
-      <code>testFindAllByMagicLowercaseFindsBothNativeAndCustomProps</code>
-      <code>testFindAllByMagicUcfirstPropDoesNotFindCustomLowercaseProps</code>
-      <code>testFindAllByShouldReturnAllMatchingPages</code>
-      <code>testFindAllByShouldReturnEmptyArrayifNotFound</code>
-      <code>testFindAllByWithIntegerAsStringValueShouldReturnPage</code>
-      <code>testFindAllByWithMagicMethodNativeProperty</code>
-      <code>testFindByMagicMethodIsEquivalentToFindOneBy</code>
-      <code>testFindByShouldDefaultToFindOneBy</code>
-      <code>testFindOneByMagicMethodCustomProperty</code>
-      <code>testFindOneByMagicMethodNativeProperty</code>
-      <code>testFindOneByShouldReturnNullIfNotFound</code>
-      <code>testFindOneByShouldReturnOnlyOnePage</code>
-      <code>testFindOneByWithIntegerAsStringValueShouldReturnPage</code>
-      <code>testFinderMethodsShouldWorkWithCustomProperties</code>
-      <code>testGetChildrenShouldReturnNullWhenContainerIsEmpty</code>
-      <code>testGetChildrenShouldReturnTheCurrentPage</code>
-      <code>testGetPagesShouldReturnAnArrayOfPages</code>
-      <code>testGetPagesShouldReturnUnorderedPages</code>
-      <code>testHasChildrenCompatibility</code>
-      <code>testHasPage</code>
-      <code>testHasPages</code>
-      <code>testInvalidMagicFinderMethodShouldThrowException</code>
-      <code>testInvalidMagicMethodShouldThrowException</code>
-      <code>testIterationShouldBeOrderAware</code>
-      <code>testKeyShouldReturnCurrentPageHash</code>
-      <code>testKeyWhenContainerIsEmpty</code>
-      <code>testRecursiveIteration</code>
-      <code>testRemovePageRecursively</code>
-      <code>testRemovingAllPages</code>
-      <code>testRemovingPageByInstance</code>
-      <code>testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer</code>
-      <code>testRemovingPageByOrder</code>
-      <code>testSetParentShouldRemoveFromOldParentPage</code>
-      <code>testSetParentShouldWorkWithNull</code>
-      <code>testSetParentShouldWorkWithPage</code>
-      <code>testSettingPageOrderShouldUpdateContainerOrder</code>
-      <code>testSettingPages</code>
     </MissingReturnType>
     <MixedArgument occurrences="7">
       <code>$found</code>
@@ -667,9 +609,6 @@
     </UnusedVariable>
   </file>
   <file src="test/NavigationTest.php">
-    <MissingReturnType occurrences="1">
-      <code>testNavigationArraySortsCorrectly</code>
-    </MissingReturnType>
     <MixedArrayAccess occurrences="3">
       <code>$pages[0]['uri']</code>
       <code>$pages[1]['uri']</code>
@@ -683,37 +622,6 @@
     <InvalidArgument occurrences="1">
       <code>TreeRouteStack::class</code>
     </InvalidArgument>
-    <MissingReturnType occurrences="29">
-      <code>testActionAndControllerAccessors</code>
-      <code>testBoolSetAndGetUseRouteMatch</code>
-      <code>testDefaultRouterCanBeSetWithConstructor</code>
-      <code>testDefaultRouterCanBeSetWithGetter</code>
-      <code>testGetHrefPassesQueryPartToRouter</code>
-      <code>testGetHrefWithFragmentIdentifier</code>
-      <code>testHrefGeneratedByRouterRequiresNoRoute</code>
-      <code>testHrefGeneratedByRouterWithDefaultRoute</code>
-      <code>testHrefGeneratedIsRouteAware</code>
-      <code>testHrefRouteMatchEnabledWithoutRouteMatchObject</code>
-      <code>testInheritedRouteMatchParamsWorkWithModuleRouteListener</code>
-      <code>testIsActiveReturnsFalseOnDifferentControllerAction</code>
-      <code>testIsActiveReturnsFalseWhenMatchingRouteButNonMatchingParams</code>
-      <code>testIsActiveReturnsFalseWhenNoRouteAndNoMatchedRouteNameIsSet</code>
-      <code>testIsActiveReturnsFalseWhenRequestHasLessParams</code>
-      <code>testIsActiveReturnsTrueOnIdenticalControllerAction</code>
-      <code>testIsActiveReturnsTrueOnIdenticalIncludingPageParams</code>
-      <code>testIsActiveReturnsTrueWhenMatchingRoute</code>
-      <code>testIsActiveReturnsTrueWhenMatchingRouteWhileUsingModuleRouteListener</code>
-      <code>testIsActiveReturnsTrueWhenRequestHasMoreParams</code>
-      <code>testMistakeDetectIsActiveOnIndexController</code>
-      <code>testMvcPageParamsInheritRouteMatchParams</code>
-      <code>testNoExceptionForGetHrefIfDefaultRouterIsSet</code>
-      <code>testRecursiveDetectIsActiveWhenRouteNameIsKnown</code>
-      <code>testRouteAccessor</code>
-      <code>testSetAndGetParams</code>
-      <code>testSetRouteMatchThrowsExceptionOnInvalidParameter</code>
-      <code>testSpecifyingAnotherUrlHelperToGenerateHrefs</code>
-      <code>testToArrayMethod</code>
-    </MissingReturnType>
     <MixedArgument occurrences="8">
       <code>$this-&gt;routeMatch</code>
       <code>$this-&gt;routeMatch</code>
@@ -775,19 +683,6 @@
     <MissingClosureParamType occurrences="1">
       <code>$page</code>
     </MissingClosureParamType>
-    <MissingReturnType occurrences="11">
-      <code>testDetectFactoryPage</code>
-      <code>testDetectMvcPage</code>
-      <code>testDetectUriPage</code>
-      <code>testMvcShouldHaveDetectionPrecedence</code>
-      <code>testShouldFailForInvalidType</code>
-      <code>testShouldFailForNonExistantType</code>
-      <code>testShouldFailIfUnableToDetermineType</code>
-      <code>testShouldThrowExceptionOnInvalidMethodArgument</code>
-      <code>testSupportsCustomPageTypes</code>
-      <code>testSupportsMvcShorthand</code>
-      <code>testSupportsUriShorthand</code>
-    </MissingReturnType>
     <MixedArgument occurrences="2">
       <code>$page</code>
       <code>$page</code>
@@ -832,82 +727,6 @@
       <code>1</code>
       <code>1</code>
     </InvalidScalarArgument>
-    <MissingReturnType occurrences="74">
-      <code>testAddingRelations</code>
-      <code>testConstructingWithRelationsInArray</code>
-      <code>testConstructingWithRelationsInConfig</code>
-      <code>testConstructingWithTraversableOptions</code>
-      <code>testGetActiveOnNewlyConstructedPageShouldReturnFalse</code>
-      <code>testGetActiveShouldReturnTrueIfPageIsActive</code>
-      <code>testGetActiveWithRecursiveTrueShouldReturnTrueIfChildActive</code>
-      <code>testGetCustomProperties</code>
-      <code>testGetDefinedRel</code>
-      <code>testGetDefinedRev</code>
-      <code>testGetRelWithArgumentShouldRetrieveSpecificRelation</code>
-      <code>testGetRevWithArgumentShouldRetrieveSpecificRelation</code>
-      <code>testGetShouldMapToNativeProperties</code>
-      <code>testGetShouldThrowExceptionIfPropertyIsEmpty</code>
-      <code>testGetShouldThrowExceptionIfPropertyIsNotString</code>
-      <code>testGetVisibleOnNewlyConstructedPageShouldReturnTrue</code>
-      <code>testGetVisibleRecursiveTrueShouldReturnFalseIfParentInivisble</code>
-      <code>testGetVisibleShouldReturnFalseIfPageIsNotVisible</code>
-      <code>testGettingSpecificRelations</code>
-      <code>testIdCouldBeAnInteger</code>
-      <code>testIsActiveOnNewlyConstructedPageShouldReturnFalse</code>
-      <code>testIsActiveRecursiveOnNewlyConstructedPageShouldReturnFalse</code>
-      <code>testIsActiveShouldReturnTrueIfPageIsActive</code>
-      <code>testIsActiveWithRecursiveTrueShouldReturnTrueIfChildActive</code>
-      <code>testIsVisibleOnNewlyConstructedPageShouldReturnTrue</code>
-      <code>testIsVisibleRecursiveTrueShouldReturnFalseIfParentInivisble</code>
-      <code>testIsVisibleShouldReturnFalseIfPageIsNotVisible</code>
-      <code>testMagicOverLoadsShouldCheckNativeProperties</code>
-      <code>testMagicOverLoadsShouldHandleCustomProperties</code>
-      <code>testMagicOverLoadsShouldSetAndGetNativeProperties</code>
-      <code>testMagicToStringMethodShouldReturnLabel</code>
-      <code>testRemovingRelations</code>
-      <code>testSetActiveShouldJuggleValue</code>
-      <code>testSetActiveWithNoParamShouldSetFalse</code>
-      <code>testSetAndGetClass</code>
-      <code>testSetAndGetFragmentIdentifier</code>
-      <code>testSetAndGetId</code>
-      <code>testSetAndGetLabel</code>
-      <code>testSetAndGetOrder</code>
-      <code>testSetAndGetTarget</code>
-      <code>testSetAndGetTitle</code>
-      <code>testSetArrayPermission</code>
-      <code>testSetObjectPermission</code>
-      <code>testSetOptionsShouldSetCustomProperties</code>
-      <code>testSetOptionsShouldTranslateToAccessor</code>
-      <code>testSetParentShouldThrowExceptionIfPageItselfIsParent</code>
-      <code>testSetPermission</code>
-      <code>testSetPrivilegeNoParams</code>
-      <code>testSetPrivilegeNull</code>
-      <code>testSetPrivilegeString</code>
-      <code>testSetRelShouldThrowExceptionWhenNotNullOrArrayOrConfig</code>
-      <code>testSetRelShouldWithNoParamsShouldResetRelations</code>
-      <code>testSetRelShouldWorkWithArray</code>
-      <code>testSetRelShouldWorkWithConfig</code>
-      <code>testSetResourceInterface</code>
-      <code>testSetResourceNoParam</code>
-      <code>testSetResourceNull</code>
-      <code>testSetResourceShouldThrowExceptionWhenGivenInteger</code>
-      <code>testSetResourceShouldThrowExceptionWhenGivenObject</code>
-      <code>testSetResourceString</code>
-      <code>testSetRevShouldThrowExceptionWhenNotNullOrArrayOrConfig</code>
-      <code>testSetRevShouldWithNoParamsShouldResetRelations</code>
-      <code>testSetRevShouldWorkWithArray</code>
-      <code>testSetRevShouldWorkWithConfig</code>
-      <code>testSetShouldMapToNativeProperties</code>
-      <code>testSetShouldNotMapToSetConfigToPreventRecursion</code>
-      <code>testSetShouldNotMapToSetOptionsToPreventRecursion</code>
-      <code>testSetShouldThrowExceptionIfPropertyIsEmpty</code>
-      <code>testSetShouldThrowExceptionIfPropertyIsNotString</code>
-      <code>testSetTranslatorTextDomainString</code>
-      <code>testSetVisibleShouldJuggleValue</code>
-      <code>testSetVisibleWithNoParamShouldSetVisble</code>
-      <code>testShouldSetAndGetShouldMapToProperties</code>
-      <code>testToArrayMethod</code>
-    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$page-&gt;getPermission()</code>
     </MixedArgument>
@@ -935,23 +754,9 @@
       <code>$page-&gt;getPermission()-&gt;name</code>
     </PossiblyNullPropertyFetch>
   </file>
-  <file src="test/Page/UriTest.php">
-    <MissingReturnType occurrences="9">
-      <code>testGetHref</code>
-      <code>testGetHrefWithFragmentIdentifier</code>
-      <code>testIsActiveReturnsFalseOnNonMatchingRequestUri</code>
-      <code>testIsActiveReturnsTrueWhenHasMatchingRequestUri</code>
-      <code>testSetAndGetUri</code>
-      <code>testUriOptionAsInteger</code>
-      <code>testUriOptionAsNull</code>
-      <code>testUriOptionAsObject</code>
-      <code>testUriOptionAsString</code>
-    </MissingReturnType>
-  </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
-    <MissingReturnType occurrences="2">
+    <MissingReturnType occurrences="1">
       <code>testCanCreateNavigationInstanceV2</code>
-      <code>testCanInjectComponentsUsingLaminasRouterClasses</code>
     </MissingReturnType>
     <MixedArgument occurrences="2">
       <code>$this-&gt;factory</code>
@@ -985,23 +790,11 @@
       <code>$that</code>
       <code>$that</code>
     </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="3">
-      <code>function ($services) use ($factory) {</code>
+    <MissingClosureReturnType occurrences="2">
       <code>function ($that, $pages) use (&amp;$recursive) {</code>
       <code>function ($that, $pages) use (&amp;$recursive) {</code>
     </MissingClosureReturnType>
-    <MissingReturnType occurrences="9">
-      <code>testConstructedFromArray</code>
-      <code>testConstructedFromConfig</code>
-      <code>testConstructedFromFileString</code>
-      <code>testConstructedNavigationFactoryInjectRouterAndMatcher</code>
-      <code>testDefaultFactory</code>
-      <code>testDefaultFactoryAcceptsFileString</code>
-      <code>testMvcPagesGetInjectedWithComponents</code>
-      <code>testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory</code>
-      <code>testNavigationAbstractServiceFactory</code>
-    </MissingReturnType>
-    <MixedAssignment occurrences="9">
+    <MixedAssignment occurrences="8">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
@@ -1035,9 +828,6 @@
       <code>$this-&gt;request</code>
       <code>$this-&gt;router</code>
     </UndefinedThisPropertyAssignment>
-    <UnusedVariable occurrences="1">
-      <code>$container</code>
-    </UnusedVariable>
   </file>
   <file src="test/TestAsset/AbstractContainer.php">
     <InvalidReturnType occurrences="1">
@@ -1094,8 +884,5 @@
     <MissingClosureReturnType occurrences="1">
       <code>function () use ($helpers) {</code>
     </MissingClosureReturnType>
-    <MissingReturnType occurrences="1">
-      <code>testFactoryConfiguresViewHelperManagerWithNavigationHelpers</code>
-    </MissingReturnType>
   </file>
 </files>

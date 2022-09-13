@@ -15,11 +15,11 @@
         </exclude>
     </groups>
 
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
+    <coverage>
+        <include>
             <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 
     <php>
         <ini name="date.timezone" value="UTC"/>

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Laminas\Navigation\Service;
 
 use ArrayAccess;
-use Interop\Container\ContainerInterface;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 use function is_array;
 use function strlen;

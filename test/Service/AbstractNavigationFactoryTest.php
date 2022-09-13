@@ -31,7 +31,7 @@ class AbstractNavigationFactoryTest extends TestCase
         $this->factory = new TestAsset\TestNavigationFactory();
     }
 
-    public function testCanInjectComponentsUsingLaminasRouterClasses()
+    public function testCanInjectComponentsUsingLaminasRouterClasses(): void
     {
         $routeMatch = $this->prophesize(Router\RouteMatch::class)->reveal();
         $router     = $this->prophesize(Router\RouteStackInterface::class)->reveal();

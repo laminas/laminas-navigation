@@ -18,6 +18,7 @@ use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Container\ContainerInterface;
 
 /**
  * Tests the class Laminas\Navigation\MvcNavigationFactory
@@ -89,7 +90,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\AbstractNavigationFactory
      */
-    public function testDefaultFactoryAcceptsFileString()
+    public function testDefaultFactoryAcceptsFileString(): void
     {
         $this->serviceManager->setFactory('Navigation', TestAsset\FileNavigationFactory::class);
         $container = $this->serviceManager->get('Navigation');
@@ -100,7 +101,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\DefaultNavigationFactory
      */
-    public function testMvcPagesGetInjectedWithComponents()
+    public function testMvcPagesGetInjectedWithComponents(): void
     {
         $this->serviceManager->setFactory('Navigation', DefaultNavigationFactory::class);
         $container = $this->serviceManager->get('Navigation');
@@ -121,7 +122,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testConstructedNavigationFactoryInjectRouterAndMatcher()
+    public function testConstructedNavigationFactoryInjectRouterAndMatcher(): void
     {
         $builder = $this->getMockBuilder(ConstructedNavigationFactory::class);
         $builder->setConstructorArgs([__DIR__ . '/_files/navigation_mvc.xml'])
@@ -137,17 +138,23 @@ class ServiceFactoryTest extends TestCase
                     $this->isInstanceOf(RouteStackInterface::class)
                 );
 
-        $this->serviceManager->setFactory('Navigation', function ($services) use ($factory) {
-            return $factory($services, 'Navigation');
-        });
+        $this->serviceManager->setFactory(
+            'Navigation',
+            static function (ContainerInterface $services) use ($factory): Navigation {
+                $navigation = $factory($services, 'Navigation');
+                self::assertInstanceOf(Navigation::class, $navigation);
 
-        $container = $this->serviceManager->get('Navigation');
+                return $navigation;
+            }
+        );
+
+        $this->serviceManager->get('Navigation');
     }
 
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory()
+    public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory(): void
     {
         $this->serviceManager->setFactory('Navigation', function ($services) {
             $argument = __DIR__ . '/_files/navigation_mvc.xml';
@@ -172,7 +179,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\DefaultNavigationFactory
      */
-    public function testDefaultFactory()
+    public function testDefaultFactory(): void
     {
         $this->serviceManager->setFactory('Navigation', DefaultNavigationFactory::class);
 
@@ -183,7 +190,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testConstructedFromArray()
+    public function testConstructedFromArray(): void
     {
         $argument = [
             [
@@ -210,7 +217,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testConstructedFromFileString()
+    public function testConstructedFromFileString(): void
     {
         $argument = __DIR__ . '/_files/navigation.xml';
         $factory  = new ConstructedNavigationFactory($argument);
@@ -223,7 +230,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testConstructedFromConfig()
+    public function testConstructedFromConfig(): void
     {
         $argument = new Config([
             [
@@ -250,7 +257,7 @@ class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\NavigationAbstractServiceFactory
      */
-    public function testNavigationAbstractServiceFactory()
+    public function testNavigationAbstractServiceFactory(): void
     {
         $factory = new NavigationAbstractServiceFactory();
 

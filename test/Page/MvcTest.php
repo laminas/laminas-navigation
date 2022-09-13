@@ -46,7 +46,7 @@ class MvcTest extends TestCase
         $this->routeMatch->setMatchedRouteName('default');
     }
 
-    public function testHrefGeneratedByRouterWithDefaultRoute()
+    public function testHrefGeneratedByRouterWithDefaultRoute(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -61,7 +61,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/news/view', $page->getHref());
     }
 
-    public function testHrefGeneratedByRouterRequiresNoRoute()
+    public function testHrefGeneratedByRouterRequiresNoRoute(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -76,7 +76,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/news/view', $page->getHref());
     }
 
-    public function testHrefRouteMatchEnabledWithoutRouteMatchObject()
+    public function testHrefRouteMatchEnabledWithoutRouteMatchObject(): void
     {
         $page   = new Page\Mvc([
             'label'           => 'foo',
@@ -89,7 +89,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/test/route', $page->getHref());
     }
 
-    public function testHrefGeneratedIsRouteAware()
+    public function testHrefGeneratedIsRouteAware(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -125,7 +125,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/lolcat/myaction/1337', $page->getHref());
     }
 
-    public function testIsActiveReturnsTrueWhenMatchingRoute()
+    public function testIsActiveReturnsTrueWhenMatchingRoute(): void
     {
         $page = new Page\Mvc([
             'label' => 'spiffyjrwashere',
@@ -146,7 +146,7 @@ class MvcTest extends TestCase
         $this->assertEquals(true, $page->isActive());
     }
 
-    public function testIsActiveReturnsTrueWhenMatchingRouteWhileUsingModuleRouteListener()
+    public function testIsActiveReturnsTrueWhenMatchingRouteWhileUsingModuleRouteListener(): void
     {
         $page = new Page\Mvc([
             'label'      => 'mpinkstonwashere',
@@ -178,7 +178,7 @@ class MvcTest extends TestCase
         $this->assertEquals(true, $page->isActive());
     }
 
-    public function testIsActiveReturnsFalseWhenMatchingRouteButNonMatchingParams()
+    public function testIsActiveReturnsFalseWhenMatchingRouteButNonMatchingParams(): void
     {
         $page       = new Page\Mvc([
             'label'  => 'foo',
@@ -193,7 +193,7 @@ class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    public function testIsActiveReturnsFalseWhenNoRouteAndNoMatchedRouteNameIsSet()
+    public function testIsActiveReturnsFalseWhenNoRouteAndNoMatchedRouteNameIsSet(): void
     {
         $page = new Page\Mvc();
 
@@ -206,7 +206,7 @@ class MvcTest extends TestCase
     /**
      * @group Laminas-8922
      */
-    public function testGetHrefWithFragmentIdentifier()
+    public function testGetHrefWithFragmentIdentifier(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -237,7 +237,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/lolcat/myaction/1337#qux', $page->getHref());
     }
 
-    public function testGetHrefPassesQueryPartToRouter()
+    public function testGetHrefPassesQueryPartToRouter(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -275,7 +275,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/lolcat/myaction/1337?foo=bar&baz=qux', $page->getHref());
     }
 
-    public function testIsActiveReturnsTrueOnIdenticalControllerAction()
+    public function testIsActiveReturnsTrueOnIdenticalControllerAction(): void
     {
         $page = new Page\Mvc([
             'action'     => 'index',
@@ -292,7 +292,7 @@ class MvcTest extends TestCase
         $this->assertTrue($page->isActive());
     }
 
-    public function testIsActiveReturnsFalseOnDifferentControllerAction()
+    public function testIsActiveReturnsFalseOnDifferentControllerAction(): void
     {
         $page = new Page\Mvc([
             'action'     => 'bar',
@@ -309,7 +309,7 @@ class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    public function testIsActiveReturnsTrueOnIdenticalIncludingPageParams()
+    public function testIsActiveReturnsTrueOnIdenticalIncludingPageParams(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -331,7 +331,7 @@ class MvcTest extends TestCase
         $this->assertTrue($page->isActive());
     }
 
-    public function testIsActiveReturnsTrueWhenRequestHasMoreParams()
+    public function testIsActiveReturnsTrueWhenRequestHasMoreParams(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -350,7 +350,7 @@ class MvcTest extends TestCase
         $this->assertTrue($page->isActive());
     }
 
-    public function testIsActiveReturnsFalseWhenRequestHasLessParams()
+    public function testIsActiveReturnsFalseWhenRequestHasLessParams(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -372,7 +372,7 @@ class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    public function testActionAndControllerAccessors()
+    public function testActionAndControllerAccessors(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -405,7 +405,7 @@ class MvcTest extends TestCase
         }
     }
 
-    public function testRouteAccessor()
+    public function testRouteAccessor(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -438,7 +438,7 @@ class MvcTest extends TestCase
         }
     }
 
-    public function testSetAndGetParams()
+    public function testSetAndGetParams(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -461,7 +461,7 @@ class MvcTest extends TestCase
         $this->assertEquals([], $page->getParams());
     }
 
-    public function testToArrayMethod()
+    public function testToArrayMethod(): void
     {
         $options = [
             'label'       => 'foo',
@@ -501,7 +501,7 @@ class MvcTest extends TestCase
         $this->assertEquals($options, $toArray);
     }
 
-    public function testSpecifyingAnotherUrlHelperToGenerateHrefs()
+    public function testSpecifyingAnotherUrlHelperToGenerateHrefs(): void
     {
         $newRouter = new TestAsset\Router();
 
@@ -516,7 +516,7 @@ class MvcTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDefaultRouterCanBeSetWithConstructor()
+    public function testDefaultRouterCanBeSetWithConstructor(): void
     {
         $page = new Page\Mvc([
             'label'         => 'foo',
@@ -529,7 +529,7 @@ class MvcTest extends TestCase
         $page::setDefaultRouter(null);
     }
 
-    public function testDefaultRouterCanBeSetWithGetter()
+    public function testDefaultRouterCanBeSetWithGetter(): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -542,7 +542,7 @@ class MvcTest extends TestCase
         $page::setDefaultRouter(null);
     }
 
-    public function testNoExceptionForGetHrefIfDefaultRouterIsSet()
+    public function testNoExceptionForGetHrefIfDefaultRouterIsSet(): void
     {
         $page = new Page\Mvc([
             'label'         => 'foo',
@@ -558,7 +558,7 @@ class MvcTest extends TestCase
         $page::setDefaultRouter(null);
     }
 
-    public function testBoolSetAndGetUseRouteMatch()
+    public function testBoolSetAndGetUseRouteMatch(): void
     {
         $page = new Page\Mvc([
             'useRouteMatch' => 2,
@@ -578,7 +578,7 @@ class MvcTest extends TestCase
         $this->assertSame(true, $page->useRouteMatch());
     }
 
-    public function testMvcPageParamsInheritRouteMatchParams()
+    public function testMvcPageParamsInheritRouteMatchParams(): void
     {
         $page = new Page\Mvc([
             'label' => 'lollerblades',
@@ -604,7 +604,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/lollerblades/view/23', $page->getHref());
     }
 
-    public function testInheritedRouteMatchParamsWorkWithModuleRouteListener()
+    public function testInheritedRouteMatchParamsWorkWithModuleRouteListener(): void
     {
         $page = new Page\Mvc([
             'label' => 'mpinkstonwashere',
@@ -638,7 +638,7 @@ class MvcTest extends TestCase
         $this->assertEquals('/lmaoplane/index', $page->getHref());
     }
 
-    public function testMistakeDetectIsActiveOnIndexController()
+    public function testMistakeDetectIsActiveOnIndexController(): void
     {
         $page = new Page\Mvc(
             [
@@ -674,7 +674,7 @@ class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    public function testRecursiveDetectIsActiveWhenRouteNameIsKnown()
+    public function testRecursiveDetectIsActiveWhenRouteNameIsKnown(): void
     {
         $parentPage = new Page\Mvc(
             [
@@ -742,7 +742,7 @@ class MvcTest extends TestCase
         $this->assertTrue($parentPage->isActive(true));
     }
 
-    public function testSetRouteMatchThrowsExceptionOnInvalidParameter()
+    public function testSetRouteMatchThrowsExceptionOnInvalidParameter(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
 

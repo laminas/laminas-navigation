@@ -17,7 +17,7 @@ use stdClass;
  */
 class UriTest extends TestCase
 {
-    public function testUriOptionAsString()
+    public function testUriOptionAsString(): void
     {
         $page = new Page\Uri([
             'label' => 'foo',
@@ -27,7 +27,7 @@ class UriTest extends TestCase
         $this->assertEquals('#', $page->getUri());
     }
 
-    public function testUriOptionAsNull()
+    public function testUriOptionAsNull(): void
     {
         $page = new Page\Uri([
             'label' => 'foo',
@@ -37,7 +37,7 @@ class UriTest extends TestCase
         $this->assertNull($page->getUri(), 'getUri() should return null');
     }
 
-    public function testUriOptionAsInteger()
+    public function testUriOptionAsInteger(): void
     {
         $this->expectException(
             Navigation\Exception\InvalidArgumentException::class
@@ -46,7 +46,7 @@ class UriTest extends TestCase
         new Page\Uri(['uri' => 1337]);
     }
 
-    public function testUriOptionAsObject()
+    public function testUriOptionAsObject(): void
     {
         $this->expectException(
             Navigation\Exception\InvalidArgumentException::class
@@ -58,7 +58,7 @@ class UriTest extends TestCase
         new Page\Uri(['uri' => $uri]);
     }
 
-    public function testSetAndGetUri()
+    public function testSetAndGetUri(): void
     {
         $page = new Page\Uri([
             'label' => 'foo',
@@ -70,7 +70,7 @@ class UriTest extends TestCase
         $this->assertEquals('about:blank', $page->getUri());
     }
 
-    public function testGetHref()
+    public function testGetHref(): void
     {
         $uri = 'spotify:album:4YzcWwBUSzibRsqD9Sgu4A';
 
@@ -80,7 +80,7 @@ class UriTest extends TestCase
         $this->assertEquals($uri, $page->getHref());
     }
 
-    public function testIsActiveReturnsTrueWhenHasMatchingRequestUri()
+    public function testIsActiveReturnsTrueWhenHasMatchingRequestUri(): void
     {
         $page = new Page\Uri([
             'label' => 'foo',
@@ -98,7 +98,7 @@ class UriTest extends TestCase
         $this->assertTrue($page->isActive());
     }
 
-    public function testIsActiveReturnsFalseOnNonMatchingRequestUri()
+    public function testIsActiveReturnsFalseOnNonMatchingRequestUri(): void
     {
         $page = new Page\Uri([
             'label' => 'foo',
@@ -117,7 +117,7 @@ class UriTest extends TestCase
     /**
      * @group Laminas-8922
      */
-    public function testGetHrefWithFragmentIdentifier()
+    public function testGetHrefWithFragmentIdentifier(): void
     {
         $uri = 'http://www.example.com/foo.html';
 

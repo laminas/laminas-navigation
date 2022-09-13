@@ -35,26 +35,26 @@
         "laminas/laminas-stdlib": "^2.7 || ^3.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.3.0",
+        "laminas/laminas-coding-standard": "~2.4.0",
         "laminas/laminas-config": "^3.7.0",
-        "laminas/laminas-http": "^2.15.1",
-        "laminas/laminas-i18n": "^2.13.0",
-        "laminas/laminas-mvc": "^3.3.0",
-        "laminas/laminas-permissions-acl": "^2.9.0",
-        "laminas/laminas-router": "^3.5.0",
-        "laminas/laminas-servicemanager": "^3.10.0",
+        "laminas/laminas-http": "^2.16.0",
+        "laminas/laminas-i18n": "^2.17.0",
+        "laminas/laminas-mvc": "^3.3.4",
+        "laminas/laminas-permissions-acl": "^2.10.0",
+        "laminas/laminas-router": "^3.9.0",
+        "laminas/laminas-servicemanager": "^3.16.0",
         "laminas/laminas-uri": "^2.9.1",
-        "laminas/laminas-view": "^2.14.2",
+        "laminas/laminas-view": "^2.22.1",
         "phpspec/prophecy-phpunit": "^2.0.1",
-        "phpunit/phpunit": "^9.5.10",
+        "phpunit/phpunit": "^9.5.24",
         "psalm/plugin-phpunit": "^0.17.0",
-        "vimeo/psalm": "^4.24"
+        "vimeo/psalm": "^4.27"
     },
     "suggest": {
         "laminas/laminas-config": "^3.7, to provide page configuration (optional, as arrays and Traversables are also allowed)",
         "laminas/laminas-permissions-acl": "^2.9, to provide ACL-based access restrictions to pages",
         "laminas/laminas-router": "^3.5, to use router-based URI generation with Mvc pages",
-        "laminas/laminas-servicemanager": "^3.10, to use the navigation factories",
+        "laminas/laminas-servicemanager": "^3.16, to use the navigation factories",
         "laminas/laminas-view": "^2.14, to use the navigation view helpers"
     },
     "autoload": {

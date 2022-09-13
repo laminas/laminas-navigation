@@ -34,7 +34,7 @@ class NavigationTest extends TestCase
      * @group   Laminas-8337
      * @group   Laminas-8313
      */
-    public function testNavigationArraySortsCorrectly()
+    public function testNavigationArraySortsCorrectly(): void
     {
         $page1 = new Page\Uri(['uri' => 'page1']);
         $page2 = new Page\Uri(['uri' => 'page2']);

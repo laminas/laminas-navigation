@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\Service;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Config;
 use Laminas\Http\Request;
 use Laminas\Navigation\Exception;
@@ -15,6 +14,7 @@ use Laminas\Router\RouteStackInterface as Router;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\Stdlib\ArrayUtils;
+use Psr\Container\ContainerInterface;
 use Traversable;
 
 use function file_exists;

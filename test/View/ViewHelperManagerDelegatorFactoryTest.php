@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ViewHelperManagerDelegatorFactoryTest extends TestCase
 {
-    public function testFactoryConfiguresViewHelperManagerWithNavigationHelpers()
+    public function testFactoryConfiguresViewHelperManagerWithNavigationHelpers(): void
     {
         $services = new ServiceManager();
         $helpers  = new HelperPluginManager($services);
