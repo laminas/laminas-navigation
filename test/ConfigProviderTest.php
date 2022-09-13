@@ -40,7 +40,7 @@ class ConfigProviderTest extends TestCase
     /**
      * @depends testProvidesExpectedConfiguration
      */
-    public function testInvocationProvidesDependencyConfiguration(ConfigProvider $provider)
+    public function testInvocationProvidesDependencyConfiguration(ConfigProvider $provider): void
     {
         $this->assertEquals(['dependencies' => $provider->getDependencyConfig()], $provider());
     }

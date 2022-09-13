@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PageFactoryTest extends TestCase
 {
-    public function testDetectFactoryPage()
+    public function testDetectFactoryPage(): void
     {
         AbstractPage::addFactory(function ($page) {
             if (isset($page['factory_uri'])) {
@@ -41,7 +41,7 @@ class PageFactoryTest extends TestCase
         ]));
     }
 
-    public function testDetectMvcPage()
+    public function testDetectMvcPage(): void
     {
         $pages = [
             AbstractPage::factory([
@@ -61,7 +61,7 @@ class PageFactoryTest extends TestCase
         $this->assertContainsOnly(Mvc::class, $pages);
     }
 
-    public function testDetectUriPage()
+    public function testDetectUriPage(): void
     {
         $page = AbstractPage::factory([
             'label' => 'URI Page',
@@ -71,7 +71,7 @@ class PageFactoryTest extends TestCase
         $this->assertInstanceOf(Uri::class, $page);
     }
 
-    public function testMvcShouldHaveDetectionPrecedence()
+    public function testMvcShouldHaveDetectionPrecedence(): void
     {
         $page = AbstractPage::factory([
             'label'      => 'MVC Page',
@@ -83,7 +83,7 @@ class PageFactoryTest extends TestCase
         $this->assertInstanceOf(Mvc::class, $page);
     }
 
-    public function testSupportsMvcShorthand()
+    public function testSupportsMvcShorthand(): void
     {
         $mvcPage = AbstractPage::factory([
             'type'       => 'mvc',
@@ -95,7 +95,7 @@ class PageFactoryTest extends TestCase
         $this->assertInstanceOf(Mvc::class, $mvcPage);
     }
 
-    public function testSupportsUriShorthand()
+    public function testSupportsUriShorthand(): void
     {
         $uriPage = AbstractPage::factory([
             'type'  => 'uri',
@@ -106,7 +106,7 @@ class PageFactoryTest extends TestCase
         $this->assertInstanceOf(Uri::class, $uriPage);
     }
 
-    public function testSupportsCustomPageTypes()
+    public function testSupportsCustomPageTypes(): void
     {
         $page = AbstractPage::factory([
             'type'  => Page::class,
@@ -116,7 +116,7 @@ class PageFactoryTest extends TestCase
         $this->assertInstanceOf(Page::class, $page);
     }
 
-    public function testShouldFailForInvalidType()
+    public function testShouldFailForInvalidType(): void
     {
         $this->expectException(
             Navigation\Exception\InvalidArgumentException::class
@@ -128,7 +128,7 @@ class PageFactoryTest extends TestCase
         ]);
     }
 
-    public function testShouldFailForNonExistantType()
+    public function testShouldFailForNonExistantType(): void
     {
         $this->expectException(
             Navigation\Exception\InvalidArgumentException::class
@@ -142,7 +142,7 @@ class PageFactoryTest extends TestCase
         AbstractPage::factory($pageConfig);
     }
 
-    public function testShouldFailIfUnableToDetermineType()
+    public function testShouldFailIfUnableToDetermineType(): void
     {
         $this->expectException(
             Navigation\Exception\InvalidArgumentException::class
@@ -153,7 +153,7 @@ class PageFactoryTest extends TestCase
         ]);
     }
 
-    public function testShouldThrowExceptionOnInvalidMethodArgument()
+    public function testShouldThrowExceptionOnInvalidMethodArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

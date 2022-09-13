@@ -24,7 +24,7 @@ use function gettype;
  */
 class ContainerTest extends TestCase
 {
-    public function testConstructWithArray()
+    public function testConstructWithArray(): void
     {
         $argument = [
             [
@@ -45,7 +45,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(3, $container->count());
     }
 
-    public function testConstructWithConfig()
+    public function testConstructWithConfig(): void
     {
         $argument = new Config\Config([
             [
@@ -66,7 +66,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(3, $container->count());
     }
 
-    public function testConstructorShouldThrowExceptionOnInvalidArgument()
+    public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
     {
         try {
             $nav = new Navigation\Navigation('ok');
@@ -100,7 +100,7 @@ class ContainerTest extends TestCase
      * @group 3823
      * @group 3840
      */
-    public function testAddPagesWithNullValueSkipsPage()
+    public function testAddPagesWithNullValueSkipsPage(): void
     {
         $nav   = new Navigation\Navigation([
             [
@@ -113,7 +113,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, $count);
     }
 
-    public function testIterationShouldBeOrderAware()
+    public function testIterationShouldBeOrderAware(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -148,7 +148,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRecursiveIteration()
+    public function testRecursiveIteration(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -220,7 +220,7 @@ class ContainerTest extends TestCase
      * @group 4517
      * @group 3211
      */
-    public function testHasChildrenCompatibility()
+    public function testHasChildrenCompatibility(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -275,7 +275,7 @@ class ContainerTest extends TestCase
      * @group 4517
      * @group 3211
      */
-    public function testDetailedRecursiveIteration()
+    public function testDetailedRecursiveIteration(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -348,7 +348,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $iterator->logger);
     }
 
-    public function testSettingPageOrderShouldUpdateContainerOrder()
+    public function testSettingPageOrderShouldUpdateContainerOrder(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -391,7 +391,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testAddPageShouldWorkWithArray()
+    public function testAddPageShouldWorkWithArray(): void
     {
         $pageOptions = [
             'label' => 'From array',
@@ -404,7 +404,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($nav));
     }
 
-    public function testAddPageShouldWorkWithConfig()
+    public function testAddPageShouldWorkWithConfig(): void
     {
         $pageOptions = [
             'label' => 'From config',
@@ -419,7 +419,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($nav));
     }
 
-    public function testAddPageShouldWorkWithPageInstance()
+    public function testAddPageShouldWorkWithPageInstance(): void
     {
         $pageOptions = [
             'label' => 'From array 1',
@@ -434,7 +434,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(2, count($nav));
     }
 
-    public function testAddPagesShouldWorkWithArray()
+    public function testAddPagesShouldWorkWithArray(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages([
@@ -456,7 +456,7 @@ class ContainerTest extends TestCase
         );
     }
 
-    public function testAddPagesShouldWorkWithConfig()
+    public function testAddPagesShouldWorkWithConfig(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages(new Config\Config([
@@ -478,7 +478,7 @@ class ContainerTest extends TestCase
         );
     }
 
-    public function testAddPagesShouldWorkWithMixedArray()
+    public function testAddPagesShouldWorkWithMixedArray(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages(new Config\Config([
@@ -507,7 +507,7 @@ class ContainerTest extends TestCase
     /**
      * @group Laminas-9815
      */
-    public function testAddPagesShouldWorkWithNavigationContainer()
+    public function testAddPagesShouldWorkWithNavigationContainer(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages($this->_getFindByNavigation());
@@ -524,7 +524,7 @@ class ContainerTest extends TestCase
         );
     }
 
-    public function testAddPagesShouldThrowExceptionWhenGivenString()
+    public function testAddPagesShouldThrowExceptionWhenGivenString(): void
     {
         $nav = new Navigation\Navigation();
 
@@ -538,7 +538,7 @@ class ContainerTest extends TestCase
         }
     }
 
-    public function testAddPagesShouldThrowExceptionWhenGivenAnArbitraryObject()
+    public function testAddPagesShouldThrowExceptionWhenGivenAnArbitraryObject(): void
     {
         $nav = new Navigation\Navigation();
 
@@ -552,7 +552,7 @@ class ContainerTest extends TestCase
         }
     }
 
-    public function testRemovingAllPages()
+    public function testRemovingAllPages(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages([
@@ -575,7 +575,7 @@ class ContainerTest extends TestCase
         );
     }
 
-    public function testSettingPages()
+    public function testSettingPages(): void
     {
         $nav = new Navigation\Navigation();
         $nav->addPages([
@@ -603,7 +603,7 @@ class ContainerTest extends TestCase
         );
     }
 
-    public function testGetPagesShouldReturnAnArrayOfPages()
+    public function testGetPagesShouldReturnAnArrayOfPages(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -630,7 +630,7 @@ class ContainerTest extends TestCase
         $this->assertContainsOnly(Uri::class, $pages, false);
     }
 
-    public function testGetPagesShouldReturnUnorderedPages()
+    public function testGetPagesShouldReturnUnorderedPages(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -665,7 +665,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRemovingPageByOrder()
+    public function testRemovingPageByOrder(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -708,7 +708,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRemovingPageByInstance()
+    public function testRemovingPageByInstance(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -731,7 +731,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(true, $nav->removePage($page3));
     }
 
-    public function testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer()
+    public function testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer(): void
     {
         $nav = new Navigation\Navigation([
             [
@@ -752,7 +752,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(false, $nav->removePage($page));
     }
 
-    public function testHasPage()
+    public function testHasPage(): void
     {
         $page0 = Page\AbstractPage::factory([
             'label' => 'Page 0',
@@ -818,7 +818,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testHasPages()
+    public function testHasPages(): void
     {
         $nav1 = new Navigation\Navigation();
         $nav2 = new Navigation\Navigation();
@@ -856,7 +856,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetParentShouldWorkWithPage()
+    public function testSetParentShouldWorkWithPage(): void
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
@@ -883,7 +883,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetParentShouldWorkWithNull()
+    public function testSetParentShouldWorkWithNull(): void
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
@@ -901,7 +901,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(null, $page2->getParent());
     }
 
-    public function testSetParentShouldRemoveFromOldParentPage()
+    public function testSetParentShouldRemoveFromOldParentPage(): void
     {
         $page1 = Page\AbstractPage::factory([
             'label' => 'Page 1',
@@ -929,7 +929,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFinderMethodsShouldWorkWithCustomProperties()
+    public function testFinderMethodsShouldWorkWithCustomProperties(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -938,7 +938,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testFindOneByShouldReturnOnlyOnePage()
+    public function testFindOneByShouldReturnOnlyOnePage(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -947,7 +947,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testFindOneByShouldReturnNullIfNotFound()
+    public function testFindOneByShouldReturnNullIfNotFound(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -955,7 +955,7 @@ class ContainerTest extends TestCase
         $this->assertNull($found);
     }
 
-    public function testFindOneByWithIntegerAsStringValueShouldReturnPage()
+    public function testFindOneByWithIntegerAsStringValueShouldReturnPage(): void
     {
         $nav = $this->_getFindByNavigation();
         $nav->addPage(
@@ -973,7 +973,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 4', $found->getLabel());
     }
 
-    public function testFindAllByShouldReturnAllMatchingPages()
+    public function testFindAllByShouldReturnAllMatchingPages(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -990,7 +990,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindAllByShouldReturnEmptyArrayifNotFound()
+    public function testFindAllByShouldReturnEmptyArrayifNotFound(): void
     {
         $nav   = $this->_getFindByNavigation();
         $found = $nav->findAllBy('id', 'non-existent');
@@ -1000,7 +1000,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindAllByWithIntegerAsStringValueShouldReturnPage()
+    public function testFindAllByWithIntegerAsStringValueShouldReturnPage(): void
     {
         $nav = $this->_getFindByNavigation();
         $nav->addPage(
@@ -1035,7 +1035,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindByShouldDefaultToFindOneBy()
+    public function testFindByShouldDefaultToFindOneBy(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1043,7 +1043,7 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(AbstractPage::class, $found);
     }
 
-    public function testFindOneByMagicMethodNativeProperty()
+    public function testFindOneByMagicMethodNativeProperty(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1052,7 +1052,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testFindOneByMagicMethodCustomProperty()
+    public function testFindOneByMagicMethodCustomProperty(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1061,7 +1061,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testFindAllByWithMagicMethodNativeProperty()
+    public function testFindAllByWithMagicMethodNativeProperty(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1077,7 +1077,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindAllByMagicUcfirstPropDoesNotFindCustomLowercaseProps()
+    public function testFindAllByMagicUcfirstPropDoesNotFindCustomLowercaseProps(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1093,7 +1093,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindAllByMagicLowercaseFindsBothNativeAndCustomProps()
+    public function testFindAllByMagicLowercaseFindsBothNativeAndCustomProps(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1109,7 +1109,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindByMagicMethodIsEquivalentToFindOneBy()
+    public function testFindByMagicMethodIsEquivalentToFindOneBy(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1118,7 +1118,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testInvalidMagicFinderMethodShouldThrowException()
+    public function testInvalidMagicFinderMethodShouldThrowException(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1132,7 +1132,7 @@ class ContainerTest extends TestCase
         }
     }
 
-    public function testInvalidMagicMethodShouldThrowException()
+    public function testInvalidMagicMethodShouldThrowException(): void
     {
         $nav = $this->_getFindByNavigation();
 
@@ -1199,7 +1199,7 @@ class ContainerTest extends TestCase
         ]);
     }
 
-    public function testCurrent()
+    public function testCurrent(): void
     {
         $container = new Navigation\Navigation([
             [
@@ -1217,7 +1217,7 @@ class ContainerTest extends TestCase
         $this->assertEquals('Page 1', $page->getLabel());
     }
 
-    public function testCurrentShouldThrowExceptionIfIndexIsInvalid()
+    public function testCurrentShouldThrowExceptionIfIndexIsInvalid(): void
     {
         $container = new AbstractContainer([
             [
@@ -1241,13 +1241,13 @@ class ContainerTest extends TestCase
         }
     }
 
-    public function testKeyWhenContainerIsEmpty()
+    public function testKeyWhenContainerIsEmpty(): void
     {
         $container = new Navigation\Navigation();
         $this->assertEquals(null, $container->key());
     }
 
-    public function testKeyShouldReturnCurrentPageHash()
+    public function testKeyShouldReturnCurrentPageHash(): void
     {
         $container = new Navigation\Navigation();
         $page      = Page\AbstractPage::factory([
@@ -1258,7 +1258,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($page->hashCode(), $container->key());
     }
 
-    public function testGetChildrenShouldReturnTheCurrentPage()
+    public function testGetChildrenShouldReturnTheCurrentPage(): void
     {
         $container = new Navigation\Navigation();
         $page      = Page\AbstractPage::factory([
@@ -1269,7 +1269,7 @@ class ContainerTest extends TestCase
         $this->assertEquals($page, $container->getChildren());
     }
 
-    public function testGetChildrenShouldReturnNullWhenContainerIsEmpty()
+    public function testGetChildrenShouldReturnNullWhenContainerIsEmpty(): void
     {
         $container = new Navigation\Navigation();
 
@@ -1279,7 +1279,7 @@ class ContainerTest extends TestCase
     /**
      * @group GH-5929
      */
-    public function testRemovePageRecursively()
+    public function testRemovePageRecursively(): void
     {
         $container = new Navigation\Navigation([
             [

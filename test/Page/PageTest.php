@@ -22,7 +22,7 @@ use function ksort;
  */
 class PageTest extends TestCase
 {
-    public function testSetShouldMapToNativeProperties()
+    public function testSetShouldMapToNativeProperties(): void
     {
         $page = AbstractPage::factory([
             'type' => 'mvc',
@@ -35,7 +35,7 @@ class PageTest extends TestCase
         $this->assertEquals('bar', $page->getAction());
     }
 
-    public function testGetShouldMapToNativeProperties()
+    public function testGetShouldMapToNativeProperties(): void
     {
         $page = AbstractPage::factory([
             'type' => 'mvc',
@@ -48,7 +48,7 @@ class PageTest extends TestCase
         $this->assertEquals('bar', $page->get('Action'));
     }
 
-    public function testShouldSetAndGetShouldMapToProperties()
+    public function testShouldSetAndGetShouldMapToProperties(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -58,7 +58,7 @@ class PageTest extends TestCase
         $this->assertEquals('Laughing Out Loud', $page->get('action'));
     }
 
-    public function testSetShouldNotMapToSetOptionsToPreventRecursion()
+    public function testSetShouldNotMapToSetOptionsToPreventRecursion(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -72,7 +72,7 @@ class PageTest extends TestCase
         $this->assertEquals($options, $page->get('options'));
     }
 
-    public function testSetShouldNotMapToSetConfigToPreventRecursion()
+    public function testSetShouldNotMapToSetConfigToPreventRecursion(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -86,7 +86,7 @@ class PageTest extends TestCase
         $this->assertEquals($options, $page->get('config'));
     }
 
-    public function testSetShouldThrowExceptionIfPropertyIsNotString()
+    public function testSetShouldThrowExceptionIfPropertyIsNotString(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -96,7 +96,7 @@ class PageTest extends TestCase
         $page->set([], true);
     }
 
-    public function testSetShouldThrowExceptionIfPropertyIsEmpty()
+    public function testSetShouldThrowExceptionIfPropertyIsEmpty(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -106,7 +106,7 @@ class PageTest extends TestCase
         $page->set('', true);
     }
 
-    public function testGetShouldThrowExceptionIfPropertyIsNotString()
+    public function testGetShouldThrowExceptionIfPropertyIsNotString(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -116,7 +116,7 @@ class PageTest extends TestCase
         $page->get([]);
     }
 
-    public function testGetShouldThrowExceptionIfPropertyIsEmpty()
+    public function testGetShouldThrowExceptionIfPropertyIsEmpty(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -126,7 +126,7 @@ class PageTest extends TestCase
         $page->get('');
     }
 
-    public function testSetAndGetLabel()
+    public function testSetAndGetLabel(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -152,7 +152,7 @@ class PageTest extends TestCase
     /**
      * @group Laminas-8922
      */
-    public function testSetAndGetFragmentIdentifier()
+    public function testSetAndGetFragmentIdentifier(): void
     {
         $page = AbstractPage::factory([
             'uri'      => '#',
@@ -179,7 +179,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetAndGetId()
+    public function testSetAndGetId(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -203,7 +203,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testIdCouldBeAnInteger()
+    public function testIdCouldBeAnInteger(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -214,7 +214,7 @@ class PageTest extends TestCase
         $this->assertEquals(10, $page->getId());
     }
 
-    public function testSetAndGetClass()
+    public function testSetAndGetClass(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -237,7 +237,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetAndGetTitle()
+    public function testSetAndGetTitle(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -260,7 +260,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetAndGetTarget()
+    public function testSetAndGetTarget(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -283,7 +283,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testConstructingWithRelationsInArray()
+    public function testConstructingWithRelationsInArray(): void
     {
         $page = AbstractPage::factory([
             'label' => 'bar',
@@ -315,7 +315,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testConstructingWithRelationsInConfig()
+    public function testConstructingWithRelationsInConfig(): void
     {
         $page = AbstractPage::factory(new Config\Config([
             'label' => 'bar',
@@ -347,7 +347,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testConstructingWithTraversableOptions()
+    public function testConstructingWithTraversableOptions(): void
     {
         $options = ['label' => 'bar'];
 
@@ -358,7 +358,7 @@ class PageTest extends TestCase
         $this->assertEquals($options, $actual);
     }
 
-    public function testGettingSpecificRelations()
+    public function testGettingSpecificRelations(): void
     {
         $page = AbstractPage::factory([
             'label' => 'bar',
@@ -385,7 +385,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetAndGetOrder()
+    public function testSetAndGetOrder(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -415,7 +415,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetResourceString()
+    public function testSetResourceString(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -426,7 +426,7 @@ class PageTest extends TestCase
         $this->assertEquals('foo', $page->getResource());
     }
 
-    public function testSetResourceNoParam()
+    public function testSetResourceNoParam(): void
     {
         $page = AbstractPage::factory([
             'type'     => 'uri',
@@ -438,7 +438,7 @@ class PageTest extends TestCase
         $this->assertEquals(null, $page->getResource());
     }
 
-    public function testSetResourceNull()
+    public function testSetResourceNull(): void
     {
         $page = AbstractPage::factory([
             'type'     => 'uri',
@@ -450,7 +450,7 @@ class PageTest extends TestCase
         $this->assertEquals(null, $page->getResource());
     }
 
-    public function testSetResourceInterface()
+    public function testSetResourceInterface(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -463,7 +463,7 @@ class PageTest extends TestCase
         $this->assertEquals($resource, $page->getResource());
     }
 
-    public function testSetResourceShouldThrowExceptionWhenGivenInteger()
+    public function testSetResourceShouldThrowExceptionWhenGivenInteger(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -479,7 +479,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetResourceShouldThrowExceptionWhenGivenObject()
+    public function testSetResourceShouldThrowExceptionWhenGivenObject(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -495,7 +495,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetPrivilegeNoParams()
+    public function testSetPrivilegeNoParams(): void
     {
         $page = AbstractPage::factory([
             'type'      => 'uri',
@@ -507,7 +507,7 @@ class PageTest extends TestCase
         $this->assertEquals(null, $page->getPrivilege());
     }
 
-    public function testSetPrivilegeNull()
+    public function testSetPrivilegeNull(): void
     {
         $page = AbstractPage::factory([
             'type'      => 'uri',
@@ -519,7 +519,7 @@ class PageTest extends TestCase
         $this->assertEquals(null, $page->getPrivilege());
     }
 
-    public function testSetPrivilegeString()
+    public function testSetPrivilegeString(): void
     {
         $page = AbstractPage::factory([
             'type'      => 'uri',
@@ -531,37 +531,37 @@ class PageTest extends TestCase
         $this->assertEquals('bar', $page->getPrivilege());
     }
 
-    public function testGetActiveOnNewlyConstructedPageShouldReturnFalse()
+    public function testGetActiveOnNewlyConstructedPageShouldReturnFalse(): void
     {
         $page = new Uri();
         $this->assertFalse($page->getActive());
     }
 
-    public function testIsActiveOnNewlyConstructedPageShouldReturnFalse()
+    public function testIsActiveOnNewlyConstructedPageShouldReturnFalse(): void
     {
         $page = new Uri();
         $this->assertFalse($page->isActive());
     }
 
-    public function testIsActiveRecursiveOnNewlyConstructedPageShouldReturnFalse()
+    public function testIsActiveRecursiveOnNewlyConstructedPageShouldReturnFalse(): void
     {
         $page = new Uri();
         $this->assertFalse($page->isActive(true));
     }
 
-    public function testGetActiveShouldReturnTrueIfPageIsActive()
+    public function testGetActiveShouldReturnTrueIfPageIsActive(): void
     {
         $page = new Uri(['active' => true]);
         $this->assertTrue($page->getActive());
     }
 
-    public function testIsActiveShouldReturnTrueIfPageIsActive()
+    public function testIsActiveShouldReturnTrueIfPageIsActive(): void
     {
         $page = new Uri(['active' => true]);
         $this->assertTrue($page->isActive());
     }
 
-    public function testIsActiveWithRecursiveTrueShouldReturnTrueIfChildActive()
+    public function testIsActiveWithRecursiveTrueShouldReturnTrueIfChildActive(): void
     {
         $page = new Uri([
             'label'  => 'Page 1',
@@ -584,7 +584,7 @@ class PageTest extends TestCase
         $this->assertTrue($page->isActive(true));
     }
 
-    public function testGetActiveWithRecursiveTrueShouldReturnTrueIfChildActive()
+    public function testGetActiveWithRecursiveTrueShouldReturnTrueIfChildActive(): void
     {
         $page = new Uri([
             'label'  => 'Page 1',
@@ -607,14 +607,14 @@ class PageTest extends TestCase
         $this->assertTrue($page->getActive(true));
     }
 
-    public function testSetActiveWithNoParamShouldSetFalse()
+    public function testSetActiveWithNoParamShouldSetFalse(): void
     {
         $page = new Uri();
         $page->setActive();
         $this->assertTrue($page->getActive());
     }
 
-    public function testSetActiveShouldJuggleValue()
+    public function testSetActiveShouldJuggleValue(): void
     {
         $page = new Uri();
 
@@ -631,31 +631,31 @@ class PageTest extends TestCase
         $this->assertFalse($page->getActive());
     }
 
-    public function testIsVisibleOnNewlyConstructedPageShouldReturnTrue()
+    public function testIsVisibleOnNewlyConstructedPageShouldReturnTrue(): void
     {
         $page = new Uri();
         $this->assertTrue($page->isVisible());
     }
 
-    public function testGetVisibleOnNewlyConstructedPageShouldReturnTrue()
+    public function testGetVisibleOnNewlyConstructedPageShouldReturnTrue(): void
     {
         $page = new Uri();
         $this->assertTrue($page->getVisible());
     }
 
-    public function testIsVisibleShouldReturnFalseIfPageIsNotVisible()
+    public function testIsVisibleShouldReturnFalseIfPageIsNotVisible(): void
     {
         $page = new Uri(['visible' => false]);
         $this->assertFalse($page->isVisible());
     }
 
-    public function testGetVisibleShouldReturnFalseIfPageIsNotVisible()
+    public function testGetVisibleShouldReturnFalseIfPageIsNotVisible(): void
     {
         $page = new Uri(['visible' => false]);
         $this->assertFalse($page->getVisible());
     }
 
-    public function testIsVisibleRecursiveTrueShouldReturnFalseIfParentInivisble()
+    public function testIsVisibleRecursiveTrueShouldReturnFalseIfParentInivisble(): void
     {
         $page = new Uri([
             'label'   => 'Page 1',
@@ -677,7 +677,7 @@ class PageTest extends TestCase
         $this->assertFalse($childPage->isVisible(true));
     }
 
-    public function testGetVisibleRecursiveTrueShouldReturnFalseIfParentInivisble()
+    public function testGetVisibleRecursiveTrueShouldReturnFalseIfParentInivisble(): void
     {
         $page = new Uri([
             'label'   => 'Page 1',
@@ -699,14 +699,14 @@ class PageTest extends TestCase
         $this->assertFalse($childPage->getVisible(true));
     }
 
-    public function testSetVisibleWithNoParamShouldSetVisble()
+    public function testSetVisibleWithNoParamShouldSetVisble(): void
     {
         $page = new Uri(['visible' => false]);
         $page->setVisible();
         $this->assertTrue($page->isVisible());
     }
 
-    public function testSetVisibleShouldJuggleValue()
+    public function testSetVisibleShouldJuggleValue(): void
     {
         $page = new Uri();
 
@@ -731,7 +731,7 @@ class PageTest extends TestCase
         $this->assertFalse($page->isVisible());
     }
 
-    public function testSetTranslatorTextDomainString()
+    public function testSetTranslatorTextDomainString(): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
@@ -742,7 +742,7 @@ class PageTest extends TestCase
         $this->assertEquals('foo', $page->getTextdomain());
     }
 
-    public function testMagicOverLoadsShouldSetAndGetNativeProperties()
+    public function testMagicOverLoadsShouldSetAndGetNativeProperties(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -757,7 +757,7 @@ class PageTest extends TestCase
         $this->assertSame('bar', $page->uri);
     }
 
-    public function testMagicOverLoadsShouldCheckNativeProperties()
+    public function testMagicOverLoadsShouldCheckNativeProperties(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -774,7 +774,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testMagicOverLoadsShouldHandleCustomProperties()
+    public function testMagicOverLoadsShouldHandleCustomProperties(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -791,7 +791,7 @@ class PageTest extends TestCase
         $this->assertFalse(isset($page->category));
     }
 
-    public function testMagicToStringMethodShouldReturnLabel()
+    public function testMagicToStringMethodShouldReturnLabel(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -801,7 +801,7 @@ class PageTest extends TestCase
         $this->assertEquals('foo', (string) $page);
     }
 
-    public function testSetOptionsShouldTranslateToAccessor()
+    public function testSetOptionsShouldTranslateToAccessor(): void
     {
         $page = AbstractPage::factory([
             'label'      => 'foo',
@@ -835,7 +835,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetOptionsShouldSetCustomProperties()
+    public function testSetOptionsShouldSetCustomProperties(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -857,7 +857,7 @@ class PageTest extends TestCase
         $this->assertEquals($options, $actual);
     }
 
-    public function testAddingRelations()
+    public function testAddingRelations(): void
     {
         $page = AbstractPage::factory([
             'label' => 'page',
@@ -880,7 +880,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRemovingRelations()
+    public function testRemovingRelations(): void
     {
         $page = AbstractPage::factory([
             'label' => 'page',
@@ -905,7 +905,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetRelShouldWorkWithArray()
+    public function testSetRelShouldWorkWithArray(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -920,7 +920,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRel());
     }
 
-    public function testSetRelShouldWorkWithConfig()
+    public function testSetRelShouldWorkWithConfig(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -935,7 +935,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRel());
     }
 
-    public function testSetRelShouldWithNoParamsShouldResetRelations()
+    public function testSetRelShouldWithNoParamsShouldResetRelations(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -950,7 +950,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRel());
     }
 
-    public function testSetRelShouldThrowExceptionWhenNotNullOrArrayOrConfig()
+    public function testSetRelShouldThrowExceptionWhenNotNullOrArrayOrConfig(): void
     {
         $page = AbstractPage::factory(['type' => 'uri']);
 
@@ -963,7 +963,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testSetRevShouldWorkWithArray()
+    public function testSetRevShouldWorkWithArray(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -978,7 +978,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRev());
     }
 
-    public function testSetRevShouldWorkWithConfig()
+    public function testSetRevShouldWorkWithConfig(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -993,7 +993,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRev());
     }
 
-    public function testSetRevShouldWithNoParamsShouldResetRelations()
+    public function testSetRevShouldWithNoParamsShouldResetRelations(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1008,7 +1008,7 @@ class PageTest extends TestCase
         $this->assertEquals($value, $page->getRev());
     }
 
-    public function testSetRevShouldThrowExceptionWhenNotNullOrArrayOrConfig()
+    public function testSetRevShouldThrowExceptionWhenNotNullOrArrayOrConfig(): void
     {
         $page = AbstractPage::factory(['type' => 'uri']);
 
@@ -1021,7 +1021,7 @@ class PageTest extends TestCase
         }
     }
 
-    public function testGetRelWithArgumentShouldRetrieveSpecificRelation()
+    public function testGetRelWithArgumentShouldRetrieveSpecificRelation(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1033,7 +1033,7 @@ class PageTest extends TestCase
         $this->assertEquals('bar', $page->getRel('foo'));
     }
 
-    public function testGetRevWithArgumentShouldRetrieveSpecificRelation()
+    public function testGetRevWithArgumentShouldRetrieveSpecificRelation(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1045,7 +1045,7 @@ class PageTest extends TestCase
         $this->assertEquals('bar', $page->getRev('foo'));
     }
 
-    public function testGetDefinedRel()
+    public function testGetDefinedRel(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1059,7 +1059,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $page->getDefinedRel());
     }
 
-    public function testGetDefinedRev()
+    public function testGetDefinedRev(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1073,7 +1073,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $page->getDefinedRev());
     }
 
-    public function testGetCustomProperties()
+    public function testGetCustomProperties(): void
     {
         $page = AbstractPage::factory([
             'label' => 'foo',
@@ -1097,7 +1097,7 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $page->getCustomProperties());
     }
 
-    public function testToArrayMethod()
+    public function testToArrayMethod(): void
     {
         $options = [
             'label'      => 'foo',
@@ -1171,7 +1171,7 @@ class PageTest extends TestCase
         $this->assertEquals($options, $toArray);
     }
 
-    public function testSetPermission()
+    public function testSetPermission(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1181,7 +1181,7 @@ class PageTest extends TestCase
         $this->assertEquals('my_permission', $page->getPermission());
     }
 
-    public function testSetArrayPermission()
+    public function testSetArrayPermission(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1192,7 +1192,7 @@ class PageTest extends TestCase
         $this->assertCount(2, $page->getPermission());
     }
 
-    public function testSetObjectPermission()
+    public function testSetObjectPermission(): void
     {
         $page = AbstractPage::factory([
             'type' => 'uri',
@@ -1206,7 +1206,7 @@ class PageTest extends TestCase
         $this->assertEquals('my_permission', $page->getPermission()->name);
     }
 
-    public function testSetParentShouldThrowExceptionIfPageItselfIsParent()
+    public function testSetParentShouldThrowExceptionIfPageItselfIsParent(): void
     {
         $page = AbstractPage::factory(
             [
