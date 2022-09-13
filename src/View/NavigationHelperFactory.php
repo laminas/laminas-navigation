@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\View;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Navigation as NavigationHelper;
+use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 
 use function method_exists;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\Service;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Config\Config;
+use Psr\Container\ContainerInterface;
 
 /**
  * Constructed factory to set pages during construction.
