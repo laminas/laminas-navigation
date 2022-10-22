@@ -17,7 +17,6 @@ use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -27,8 +26,6 @@ use Psr\Container\ContainerInterface;
  */
 class ServiceFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     /** @var ServiceManager */
     protected $serviceManager;
 
@@ -66,8 +63,8 @@ class ServiceFactoryTest extends TestCase
         $this->serviceManager = $serviceManager = new ServiceManager();
         $serviceManager->setService('config', $config);
 
-        $this->router  = $router = $this->prophesize(RouteStackInterface::class);
-        $this->request = $request = $this->prophesize(HttpRequest::class);
+        $this->router  = $router = $this->createMock(RouteStackInterface::class);
+        $this->request = $request = $this->createMock(HttpRequest::class);
 
         $routeMatch = new RouteMatch([
             'controller' => 'post',
@@ -75,15 +72,15 @@ class ServiceFactoryTest extends TestCase
             'id'         => '1337',
         ]);
 
-        $this->mvcEvent = $mvcEvent = $this->prophesize(MvcEvent::class);
-        $mvcEvent->getRouteMatch()->willReturn($routeMatch);
-        $mvcEvent->getRouter()->willReturn($router->reveal());
-        $mvcEvent->getRequest()->willReturn($request->reveal());
+        $this->mvcEvent = $mvcEvent = $this->createMock(MvcEvent::class);
+        $mvcEvent->expects(self::any())->method('getRouteMatch')->willReturn($routeMatch);
+        $mvcEvent->expects(self::any())->method('getRouter')->willReturn($router);
+        $mvcEvent->expects(self::any())->method('getRequest')->willReturn($request);
 
-        $application = $this->prophesize(Application::class);
-        $application->getMvcEvent()->willReturn($mvcEvent->reveal());
+        $application = $this->createMock(Application::class);
+        $application->expects(self::any())->method('getMvcEvent')->willReturn($mvcEvent);
 
-        $serviceManager->setService('Application', $application->reveal());
+        $serviceManager->setService('Application', $application);
         $serviceManager->setAllowOverride(true);
     }
 

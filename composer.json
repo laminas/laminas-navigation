@@ -18,7 +18,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.4.99"
+            "php": "8.0.99"
         },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -31,24 +31,23 @@
         }
     },
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
         "laminas/laminas-stdlib": "^2.7 || ^3.0"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.4.0",
-        "laminas/laminas-config": "^3.7.0",
-        "laminas/laminas-http": "^2.16.0",
-        "laminas/laminas-i18n": "^2.17.0",
-        "laminas/laminas-mvc": "^3.3.4",
-        "laminas/laminas-permissions-acl": "^2.10.0",
-        "laminas/laminas-router": "^3.9.0",
-        "laminas/laminas-servicemanager": "^3.16.0",
-        "laminas/laminas-uri": "^2.9.1",
-        "laminas/laminas-view": "^2.22.1",
-        "phpspec/prophecy-phpunit": "^2.0.1",
-        "phpunit/phpunit": "^9.5.24",
+        "laminas/laminas-config": "^3.8.0",
+        "laminas/laminas-http": "^2.17.0",
+        "laminas/laminas-i18n": "^2.19.0",
+        "laminas/laminas-mvc": "^3.5.0",
+        "laminas/laminas-permissions-acl": "^2.12.0",
+        "laminas/laminas-router": "^3.10.0",
+        "laminas/laminas-servicemanager": "^3.19.0",
+        "laminas/laminas-uri": "^2.10.0",
+        "laminas/laminas-view": "^2.24.0",
+        "phpunit/phpunit": "^9.5.25",
         "psalm/plugin-phpunit": "^0.17.0",
-        "vimeo/psalm": "^4.27"
+        "vimeo/psalm": "^4.29"
     },
     "suggest": {
         "laminas/laminas-config": "^3.7, to provide page configuration (optional, as arrays and Traversables are also allowed)",
