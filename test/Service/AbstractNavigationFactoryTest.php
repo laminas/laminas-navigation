@@ -12,7 +12,6 @@ use Laminas\Navigation\Service\AbstractNavigationFactory;
 use Laminas\Router;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
 
 use function sprintf;
@@ -24,8 +23,6 @@ use function sprintf;
  */
 class AbstractNavigationFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function setUp(): void
     {
         $this->factory = new TestAsset\TestNavigationFactory();
@@ -33,8 +30,8 @@ class AbstractNavigationFactoryTest extends TestCase
 
     public function testCanInjectComponentsUsingLaminasRouterClasses(): void
     {
-        $routeMatch = $this->prophesize(Router\RouteMatch::class)->reveal();
-        $router     = $this->prophesize(Router\RouteStackInterface::class)->reveal();
+        $routeMatch = $this->createMock(Router\RouteMatch::class);
+        $router     = $this->createMock(Router\RouteStackInterface::class);
         $args       = [[], $routeMatch, $router];
 
         $r = new ReflectionMethod($this->factory, 'injectComponents');

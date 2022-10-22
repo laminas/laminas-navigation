@@ -18,7 +18,6 @@ use Psr\Container\ContainerInterface;
 use Traversable;
 
 use function file_exists;
-use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
@@ -189,7 +188,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
                 self::class,
-                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
+                is_object($routeMatch) ? $routeMatch::class : gettype($routeMatch)
             ));
         }
     }
@@ -212,7 +211,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
                 self::class,
-                is_object($router) ? get_class($router) : gettype($router)
+                is_object($router) ? $router::class : gettype($router)
             ));
         }
     }

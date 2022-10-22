@@ -12,7 +12,6 @@ use Laminas\Router\RouteStackInterface;
 use function array_intersect_assoc;
 use function array_merge;
 use function count;
-use function get_class;
 use function gettype;
 use function is_object;
 use function is_string;
@@ -459,7 +458,7 @@ class Mvc extends AbstractPage
                 __METHOD__,
                 RouteMatch::class,
                 MvcRouter\RouteMatch::class,
-                is_object($matches) ? get_class($matches) : gettype($matches)
+                is_object($matches) ? $matches::class : gettype($matches)
             ));
         }
         $this->routeMatch = $matches;
@@ -517,7 +516,7 @@ class Mvc extends AbstractPage
                 __METHOD__,
                 RouteStackInterface::class,
                 MvcRouter\RouteStackInterface::class,
-                is_object($router) ? get_class($router) : gettype($router)
+                is_object($router) ? $router::class : gettype($router)
             ));
         }
         $this->router = $router;
