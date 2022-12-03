@@ -1,84 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
+<files psalm-version="5.1.0@4defa177c89397c5e14737a80fe4896584130674">
   <file src="src/AbstractContainer.php">
-    <ImplementedReturnTypeMismatch occurrences="3">
-      <code>AbstractPage</code>
-      <code>AbstractPage|null</code>
-      <code>string</code>
+    <DocblockTypeContradiction occurrences="2">
+      <code>! is_array($page) &amp;&amp; ! $page instanceof Traversable</code>
+      <code>! is_array($pages) &amp;&amp; ! $pages instanceof Traversable</code>
+    </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>TPage|null</code>
     </ImplementedReturnTypeMismatch>
-    <InvalidArgument occurrences="1">
-      <code>$page</code>
-    </InvalidArgument>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;pages</code>
+    </InvalidPropertyAssignmentValue>
     <InvalidReturnStatement occurrences="1">
       <code>$this-&gt;findAllBy($property, $value)</code>
     </InvalidReturnStatement>
     <InvalidReturnType occurrences="1">
-      <code>AbstractPage|null</code>
+      <code>TPage|null</code>
     </InvalidReturnType>
     <MixedArgument occurrences="1">
       <code>$page</code>
     </MixedArgument>
-    <MixedAssignment occurrences="13">
-      <code>$childPage</code>
+    <MixedAssignment occurrences="7">
       <code>$found[]</code>
       <code>$found[]</code>
-      <code>$newIndex[$hash]</code>
-      <code>$order</code>
       <code>$page</code>
       <code>$page</code>
       <code>$page</code>
-      <code>$page</code>
-      <code>$page</code>
-      <code>$pages[]</code>
       <code>$propertyValue</code>
       <code>$propertyValue</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
-      <code>AbstractPage</code>
-      <code>AbstractPage|null</code>
-      <code>AbstractPage|null</code>
+    <MixedInferredReturnType occurrences="1">
+      <code>TPage|null</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="6">
+    <MixedMethodCall occurrences="2">
       <code>get</code>
       <code>get</code>
-      <code>getOrder</code>
-      <code>hasPage</code>
-      <code>isVisible</code>
-      <code>toArray</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="4">
+    <MixedReturnStatement occurrences="2">
       <code>$page</code>
       <code>$page</code>
-      <code>$this-&gt;pages[$hash]</code>
-      <code>$this-&gt;pages[$hash]</code>
     </MixedReturnStatement>
     <MixedReturnTypeCoercion occurrences="2">
-      <code>key($this-&gt;index)</code>
-      <code>string</code>
+      <code>$found</code>
+      <code>list&lt;TPage&gt;</code>
     </MixedReturnTypeCoercion>
     <PossiblyInvalidArgument occurrences="1">
       <code>$page</code>
     </PossiblyInvalidArgument>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>is_int($page)</code>
-    </RedundantConditionGivenDocblockType>
     <UnusedFunctionCall occurrences="1">
       <code>current</code>
     </UnusedFunctionCall>
   </file>
   <file src="src/ConfigProvider.php">
-    <MixedArrayOffset occurrences="1"/>
     <UndefinedClass occurrences="1">
       <code>\Zend\Navigation\Navigation</code>
     </UndefinedClass>
   </file>
   <file src="src/Navigation.php">
-    <InvalidArgument occurrences="1">
-      <code>$pages</code>
-    </InvalidArgument>
+    <TypeDoesNotContainType occurrences="1">
+      <code>$pages &amp;&amp; (! is_array($pages) &amp;&amp; ! $pages instanceof Traversable)</code>
+    </TypeDoesNotContainType>
   </file>
   <file src="src/Page/AbstractPage.php">
-    <DocblockTypeContradiction occurrences="14">
+    <DocblockTypeContradiction occurrences="13">
       <code>! is_string($property)</code>
       <code>! is_string($property)</code>
       <code>is_array($options)</code>
@@ -90,10 +74,10 @@
       <code>null !== $fragment &amp;&amp; ! is_string($fragment)</code>
       <code>null !== $id &amp;&amp; ! is_string($id)</code>
       <code>null !== $label &amp;&amp; ! is_string($label)</code>
-      <code>null !== $order &amp;&amp; ! is_int($order)</code>
       <code>null !== $target &amp;&amp; ! is_string($target)</code>
       <code>null !== $title &amp;&amp; ! is_string($title)</code>
     </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch occurrences="1"/>
     <InvalidNullableReturnType occurrences="1">
       <code>string</code>
     </InvalidNullableReturnType>
@@ -109,9 +93,10 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$key</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="8">
       <code>$factoryCallBack</code>
-      <code>$page</code>
+      <code>$name</code>
+      <code>$name</code>
       <code>$page</code>
       <code>$relation</code>
       <code>$relation</code>
@@ -126,12 +111,12 @@
       <code>array</code>
       <code>array</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>isActive</code>
+    <MixedMethodCall occurrences="1">
       <code>new $type($options)</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="3">
+    <MixedReturnStatement occurrences="5">
       <code>$page</code>
+      <code>$this-&gt;rel[$relation] ?? null</code>
       <code>$this-&gt;rel[$relation] ?? null</code>
     </MixedReturnStatement>
     <NullableReturnStatement occurrences="4">
@@ -155,6 +140,9 @@
       <code>null !== $fragment</code>
       <code>null !== $label</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainType occurrences="1">
+      <code>null !== $order &amp;&amp; ! is_int($order)</code>
+    </TypeDoesNotContainType>
   </file>
   <file src="src/Page/Mvc.php">
     <DocblockTypeContradiction occurrences="4">
@@ -163,6 +151,7 @@
       <code>null !== $controller &amp;&amp; ! is_string($controller)</code>
       <code>null === $router</code>
     </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch occurrences="1"/>
     <MixedInferredReturnType occurrences="4">
       <code>Mvc</code>
       <code>Mvc</code>
@@ -202,7 +191,7 @@
       <code>MvcRouter\RouteMatch</code>
       <code>MvcRouter\RouteStackInterface</code>
     </UndefinedClass>
-    <UndefinedDocblockClass occurrences="3">
+    <UndefinedDocblockClass occurrences="4">
       <code>RouteMatch|MvcRouter\RouteMatch</code>
       <code>RouteStackInterface|MvcRouter\RouteStackInterface</code>
       <code>null|RouteStackInterface|MvcRouter\RouteStackInterface</code>
@@ -212,6 +201,7 @@
     <DocblockTypeContradiction occurrences="1">
       <code>null !== $uri &amp;&amp; ! is_string($uri)</code>
     </DocblockTypeContradiction>
+    <ImplementedReturnTypeMismatch occurrences="1"/>
     <ImplicitToStringCast occurrences="1">
       <code>$request</code>
     </ImplicitToStringCast>
@@ -257,8 +247,9 @@
       <code>$routeMatch</code>
       <code>$router</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="2">
+    <MixedArrayAccess occurrences="3">
       <code>$configuration['navigation']</code>
+      <code>$configuration['navigation'][$this-&gt;getName()]</code>
       <code>$page['pages']</code>
     </MixedArrayAccess>
     <MixedArrayAssignment occurrences="4">
@@ -340,9 +331,10 @@
       <code>array</code>
       <code>array</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="3">
+    <MixedReturnStatement occurrences="4">
       <code>$config[$withoutPrefix]</code>
       <code>$config[strtolower($withoutPrefix)]</code>
+      <code>$this-&gt;config</code>
       <code>$this-&gt;config</code>
     </MixedReturnStatement>
     <ParamNameMismatch occurrences="2">
@@ -354,104 +346,62 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/HelperConfig.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$config['navigation_helpers']</code>
+    </ArgumentTypeCoercion>
     <DeprecatedMethod occurrences="1">
       <code>getServiceLocator</code>
     </DeprecatedMethod>
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;config['delegators'][NavigationHelperFactory::class]</code>
-    </InvalidArgument>
-    <InvalidPropertyAssignmentValue occurrences="2">
-      <code>$this-&gt;config</code>
-      <code>$this-&gt;config</code>
-    </InvalidPropertyAssignmentValue>
     <LessSpecificReturnStatement occurrences="1">
       <code>$container-&gt;getServiceLocator() ?: $container</code>
     </LessSpecificReturnStatement>
-    <MissingClosureParamType occurrences="8">
-      <code>$callback</code>
-      <code>$callback</code>
-      <code>$canonicalName</code>
-      <code>$container</code>
+    <MissingClosureParamType occurrences="2">
       <code>$container</code>
       <code>$name</code>
-      <code>$options</code>
-      <code>$requestedName</code>
     </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="2">
-      <code>function ($container, $canonicalName, $requestedName, $callback) use ($config) {</code>
-      <code>function ($container, $name, $callback, $options) use ($config) {</code>
-    </MissingClosureReturnType>
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="5">
       <code>$class</code>
-      <code>$config['invokables']</code>
-      <code>$pluginManager</code>
       <code>$pluginManager</code>
       <code>$services</code>
       <code>$services-&gt;get('config')</code>
+      <code>$this-&gt;config[$type]</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$config</code>
-      <code>$config</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayAssignment occurrences="3">
+    <MixedArrayAssignment occurrences="5">
       <code>$config['aliases'][$name]</code>
       <code>$config['factories'][$class]</code>
       <code>$config['factories'][$this-&gt;normalizeNameForV2($class)]</code>
+      <code>$this-&gt;config['delegators']['laminasviewhelpernavigation']</code>
+      <code>$this-&gt;config['delegators'][NavigationHelper::class]</code>
     </MixedArrayAssignment>
     <MixedArrayOffset occurrences="1">
       <code>$config['factories'][$class]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="4">
       <code>$class</code>
       <code>$config['aliases'][$name]</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$pluginManager</code>
       <code>$pluginManager</code>
       <code>$services</code>
     </MixedAssignment>
-    <MixedFunctionCall occurrences="2">
-      <code>$callback()</code>
-      <code>$callback()</code>
-    </MixedFunctionCall>
     <MixedInferredReturnType occurrences="1">
       <code>ServiceManager</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>getPluginManager</code>
+    <MixedMethodCall occurrences="1">
       <code>getPluginManager</code>
     </MixedMethodCall>
-    <MixedPropertyTypeCoercion occurrences="1">
-      <code>$this-&gt;config</code>
-    </MixedPropertyTypeCoercion>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement occurrences="2">
+      <code>$r-&gt;getValue($container) ?: $container</code>
       <code>$r-&gt;getValue($container) ?: $container</code>
     </MixedReturnStatement>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$config</code>
-    </NonInvariantDocblockPropertyType>
-    <ParamNameMismatch occurrences="1">
-      <code>$container</code>
-    </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$config['navigation_helpers']</code>
-    </PossiblyInvalidArgument>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$navigationDelegatorFactory</code>
-    </PropertyNotSetInConstructor>
+    <PropertyTypeCoercion occurrences="2">
+      <code>$this-&gt;config</code>
+      <code>$this-&gt;config</code>
+    </PropertyTypeCoercion>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>$container-&gt;getServiceLocator()</code>
     </RedundantConditionGivenDocblockType>
-    <RedundantPropertyInitializationCheck occurrences="1">
-      <code>isset($this-&gt;navigationDelegatorFactory)</code>
-    </RedundantPropertyInitializationCheck>
-    <UnusedClosureParam occurrences="6">
-      <code>$canonicalName</code>
-      <code>$container</code>
+    <UnusedClosureParam occurrences="2">
       <code>$container</code>
       <code>$name</code>
-      <code>$options</code>
-      <code>$requestedName</code>
     </UnusedClosureParam>
   </file>
   <file src="src/View/NavigationHelperFactory.php">
@@ -462,15 +412,12 @@
       <code>ContainerInterface</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="2">
-      <code>$container-&gt;getServiceLocator() ?: $container</code>
+      <code>$r-&gt;getValue($container) ?: $container</code>
       <code>$r-&gt;getValue($container) ?: $container</code>
     </MixedReturnStatement>
     <ParamNameMismatch occurrences="1">
       <code>$container</code>
     </ParamNameMismatch>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/View/ViewHelperManagerDelegatorFactory.php">
     <DeprecatedInterface occurrences="1">
@@ -520,14 +467,13 @@
       <code>$found</code>
       <code>$this-&gt;_getFindByNavigation()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="38">
+    <MixedAssignment occurrences="36">
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
-      <code>$actual[]</code>
       <code>$found</code>
       <code>$found</code>
       <code>$found</code>
@@ -552,7 +498,6 @@
       <code>$nav</code>
       <code>$nav</code>
       <code>$nav</code>
-      <code>$page</code>
       <code>$page</code>
       <code>$page</code>
       <code>$page</code>
@@ -560,7 +505,7 @@
       <code>$page</code>
       <code>$page</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="27">
+    <MixedMethodCall occurrences="26">
       <code>addPage</code>
       <code>addPage</code>
       <code>addPage</code>
@@ -579,7 +524,6 @@
       <code>findOneById</code>
       <code>findOneBypage2</code>
       <code>findSomeById</code>
-      <code>getLabel</code>
       <code>getLabel</code>
       <code>getLabel</code>
       <code>getLabel</code>
@@ -609,11 +553,6 @@
     </UnusedVariable>
   </file>
   <file src="test/NavigationTest.php">
-    <MixedArrayAccess occurrences="3">
-      <code>$pages[0]['uri']</code>
-      <code>$pages[1]['uri']</code>
-      <code>$pages[2]['uri']</code>
-    </MixedArrayAccess>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -683,10 +622,12 @@
     <MissingClosureParamType occurrences="1">
       <code>$page</code>
     </MissingClosureParamType>
-    <MixedArgument occurrences="2">
-      <code>$page</code>
+    <MixedArgument occurrences="1">
       <code>$page</code>
     </MixedArgument>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$page</code>
+    </PossiblyInvalidArgument>
   </file>
   <file src="test/Page/PageTest.php">
     <ArgumentTypeCoercion occurrences="1">
@@ -695,10 +636,26 @@
     <DuplicateArrayKey occurrences="1">
       <code>'label'      =&gt; 'foo.bar'</code>
     </DuplicateArrayKey>
-    <InvalidArgument occurrences="8">
+    <InvalidArgument occurrences="24">
       <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>$invalid</code>
+      <code>'-25'</code>
+      <code>'1'</code>
+      <code>'False'</code>
       <code>'alternate'</code>
       <code>'alternate'</code>
+      <code>'true'</code>
+      <code>'true'</code>
+      <code>0</code>
+      <code>0</code>
+      <code>0</code>
+      <code>1</code>
+      <code>1</code>
       <code>[]</code>
       <code>[]</code>
       <code>[]</code>
@@ -709,24 +666,6 @@
       <code>[]</code>
       <code>[]</code>
     </InvalidCast>
-    <InvalidScalarArgument occurrences="16">
-      <code>$invalid</code>
-      <code>$invalid</code>
-      <code>$invalid</code>
-      <code>$invalid</code>
-      <code>$invalid</code>
-      <code>$invalid</code>
-      <code>'-25'</code>
-      <code>'1'</code>
-      <code>'False'</code>
-      <code>'true'</code>
-      <code>'true'</code>
-      <code>0</code>
-      <code>0</code>
-      <code>0</code>
-      <code>1</code>
-      <code>1</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="1">
       <code>$page-&gt;getPermission()</code>
     </MixedArgument>
@@ -795,7 +734,6 @@
       <code>function ($that, $pages) use (&amp;$recursive) {</code>
     </MissingClosureReturnType>
     <MixedAssignment occurrences="8">
-      <code>$container</code>
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>

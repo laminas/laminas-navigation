@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation;
 
+use Laminas\Navigation\Page\AbstractPage;
 use Traversable;
 
 use function is_array;
 
 /**
  * A simple container class for {@link Laminas\Navigation\Page} pages
+ *
+ * @template TPage of AbstractPage
+ * @template-extends AbstractContainer<TPage>
  */
 class Navigation extends AbstractContainer
 {

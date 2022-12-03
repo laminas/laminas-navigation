@@ -33,20 +33,23 @@ use const E_WARNING;
  * Laminas\Navigation\Container
  *
  * AbstractContainer class for Laminas\Navigation\Page classes.
+ *
+ * @template TPage of AbstractPage
+ * @template-implements RecursiveIterator<string, TPage>
  */
 abstract class AbstractContainer implements Countable, RecursiveIterator
 {
     /**
      * Contains sub pages
      *
-     * @var array
+     * @var array<string, TPage>
      */
     protected $pages = [];
 
     /**
      * An index that contains the order in which to iterate pages
      *
-     * @var array
+     * @var array<string, int|null>
      */
     protected $index = [];
 
@@ -106,8 +109,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * This method will inject the container as the given page's parent by
      * calling {@link Page\AbstractPage::setParent()}.
      *
-     * @param  AbstractPage|array|Traversable $page  page to add
-     * @return self fluent interface, returns self
+     * @param  TPage|array|Traversable $page  page to add
+     * @return $this
      * @throws Exception\InvalidArgumentException If page is invalid.
      */
     public function addPage($page)
@@ -150,7 +153,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Adds several pages at once
      *
      * @param  array|Traversable|AbstractContainer $pages pages to add
-     * @return self fluent interface, returns self
+     * @return $this
      * @throws Exception\InvalidArgumentException If $pages is not array,
      *                                            Traversable or AbstractContainer.
      */
@@ -186,7 +189,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Sets pages this container should have, removing existing pages
      *
      * @param  array $pages pages to set
-     * @return self fluent interface, returns self
+     * @return $this
      */
     public function setPages(array $pages)
     {
@@ -197,7 +200,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns pages in the container
      *
-     * @return array  array of Page\AbstractPage instances
+     * @return array<string, TPage>
      */
     public function getPages()
     {
@@ -207,7 +210,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Removes the given page from the container
      *
-     * @param  AbstractPage|int $page      page to remove, either a page
+     * @param  TPage|int $page      page to remove, either a page
      *                                          instance or a specific page order
      * @param  bool                  $recursive [optional] whether to remove recursively
      * @return bool whether the removal was successful
@@ -233,7 +236,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         }
 
         if ($recursive) {
-            /** @var AbstractPage $childPage */
             foreach ($this->pages as $childPage) {
                 if ($childPage->hasPage($page, true)) {
                     $childPage->removePage($page, true);
@@ -248,7 +250,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Removes all pages in container
      *
-     * @return self fluent interface, returns self
+     * @return $this
      */
     public function removePages()
     {
@@ -260,7 +262,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Checks if the container has the given page
      *
-     * @param  AbstractPage $page page to look for
+     * @param  TPage $page page to look for
      * @param  bool $recursive [optional] whether to search recursively.
      *                         Default is false.
      * @return bool whether page is in container
@@ -305,7 +307,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  string $property        name of property to match against
      * @param  mixed  $value           value to match property against
-     * @return AbstractPage|null  matching page or null
+     * @return TPage|null  matching page or null
      */
     public function findOneBy($property, $value)
     {
@@ -330,7 +332,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  string $property  name of property to match against
      * @param  mixed  $value     value to match property against
-     * @return array  array containing only Page\AbstractPage instances
+     * @return list<TPage> containing only Page\AbstractPage instances
      */
     public function findAllBy($property, $value)
     {
@@ -363,7 +365,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *                           matching pages are found. If false, null will
      *                           be returned if no matching page is found.
      *                           Default is false.
-     * @return AbstractPage|null  matching page or null
+     * @return TPage|null  matching page or null
      */
     public function findBy($property, $value, $all = false)
     {
@@ -408,7 +410,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns an array representation of all pages in container
      *
-     * @return array
+     * @return list<array>
      */
     public function toArray()
     {
@@ -424,11 +426,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     // RecursiveIterator interface:
 
     /**
-     * Returns current page
-     *
-     * Implements RecursiveIterator interface.
-     *
-     * @return AbstractPage current page or null
+     * @inheritDoc
+     * @return TPage
      * @throws Exception\OutOfBoundsException  If the index is invalid.
      */
     #[ReturnTypeWillChange]
@@ -522,7 +521,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * Implements RecursiveIterator interface.
      *
-     * @return AbstractPage|null
+     * @return TPage|null
      */
     #[ReturnTypeWillChange]
     public function getChildren()

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Laminas\Navigation\View;
 
 use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Helper\Navigation as NavigationHelper;
+use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 use Traversable;
 
@@ -21,13 +23,15 @@ use function strtr;
 
 /**
  * Service manager configuration for navigation view helpers
+ *
+ * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
  */
 class HelperConfig extends Config
 {
     /**
      * Default configuration to apply.
      *
-     * @var string[][]
+     * @var ServiceManagerConfigurationType
      */
     protected $config = [
         'abstract_factories' => [],
@@ -50,12 +54,14 @@ class HelperConfig extends Config
     /**
      * Navigation helper delegator factory.
      *
-     * @var callable
+     * @var (callable(ContainerInterface, string, callable(): object, array<mixed>|null): object)|null
      */
     protected $navigationDelegatorFactory;
 
     /**
      * Ensure incoming configuration is *merged* with the defaults defined.
+     *
+     * @param ServiceManagerConfigurationType $config
      */
     public function __construct(array $config = [])
     {
@@ -76,22 +82,21 @@ class HelperConfig extends Config
      * ensuring that any overrides provided via configuration are propagated
      * to it.
      *
-     * @param  ServiceManager $serviceManager
      * @return ServiceManager
      */
-    public function configureServiceManager(ServiceManager $container)
+    public function configureServiceManager(ServiceManager $serviceManager)
     {
-        $services = $this->getParentContainer($container);
+        $services = $this->getParentContainer($serviceManager);
 
         if ($services->has('config')) {
             $this->mergeHelpersFromConfiguration($services->get('config'));
         }
 
-        $this->injectNavigationDelegatorFactory(method_exists($container, 'configure'));
+        $this->injectNavigationDelegatorFactory();
 
-        parent::configureServiceManager($container);
+        parent::configureServiceManager($serviceManager);
 
-        return $container;
+        return $serviceManager;
     }
 
     /**
@@ -100,7 +105,7 @@ class HelperConfig extends Config
      * Processes invokables as invokable factories and optionally additional
      * aliases.
      *
-     * @param array $config
+     * @param ServiceManagerConfigurationType $config
      * @return void
      */
     private function mergeConfig(array $config)
@@ -206,12 +211,11 @@ class HelperConfig extends Config
     /**
      * Inject the navigation helper delegator factory into the configuration.
      *
-     * @param bool $isV3Container
      * @return void
      */
-    private function injectNavigationDelegatorFactory($isV3Container)
+    private function injectNavigationDelegatorFactory()
     {
-        $factory = $this->prepareNavigationDelegatorFactory($isV3Container);
+        $factory = $this->prepareNavigationDelegatorFactory();
 
         if (
             isset($this->config['delegators'][NavigationHelperFactory::class])
@@ -230,57 +234,32 @@ class HelperConfig extends Config
      * Return a delegator factory that configures the navigation plugin manager
      * with the configuration in this class.
      *
-     * @param bool $isV3Container
-     * @return callable
+     * @return callable(ContainerInterface, string, callable(): object, array<mixed>|null): object
      */
-    private function prepareNavigationDelegatorFactory($isV3Container)
+    private function prepareNavigationDelegatorFactory()
     {
         if (isset($this->navigationDelegatorFactory)) {
             return $this->navigationDelegatorFactory;
         }
 
-        $this->navigationDelegatorFactory = $isV3Container
-            ? $this->prepareV3NavigationDelegatorFactory($this->config)
-            : $this->prepareV2NavigationDelegatorFactory($this->config);
+        $config                           = $this->config;
+        $this->navigationDelegatorFactory =
+            /**
+             * @param callable(): object $callback
+             */
+            static function (
+                $container,
+                $name,
+                $callback
+            ) use ($config): object {
+                $helper = $callback();
+
+                $pluginManager = $helper->getPluginManager();
+                (new Config($config))->configureServiceManager($pluginManager);
+
+                return $helper;
+            };
 
         return $this->navigationDelegatorFactory;
-    }
-
-    /**
-     * Return a delegator factory compatible with v2
-     *
-     * @param array $config Configuration to use when configuring the
-     *     navigation plugin manager.
-     * @return callable
-     */
-    private function prepareV2NavigationDelegatorFactory(array $config)
-    {
-        return function ($container, $canonicalName, $requestedName, $callback) use ($config) {
-            $helper = $callback();
-
-            $pluginManager = $helper->getPluginManager();
-            (new Config($config))->configureServiceManager($pluginManager);
-
-            return $helper;
-        };
-    }
-
-    /**
-     * Return a delegator factory compatible with v3
-     *
-     * @param array $config Configuration to use when configuring the
-     *     navigation plugin manager.
-     * @return callable
-     */
-    private function prepareV3NavigationDelegatorFactory(array $config)
-    {
-        return function ($container, $name, $callback, $options) use ($config) {
-            $helper = $callback();
-
-            $pluginManager = $helper->getPluginManager();
-            (new Config($config))->configureServiceManager($pluginManager);
-
-            return $helper;
-        };
     }
 }
