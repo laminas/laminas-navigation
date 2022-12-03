@@ -6,15 +6,16 @@
       <code>! is_array($pages) &amp;&amp; ! $pages instanceof Traversable</code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="1">
-      <code>AbstractPage|null</code>
+      <code>TPage|null</code>
     </ImplementedReturnTypeMismatch>
-    <InvalidReturnStatement occurrences="2">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;pages</code>
+    </InvalidPropertyAssignmentValue>
+    <InvalidReturnStatement occurrences="1">
       <code>$this-&gt;findAllBy($property, $value)</code>
-      <code>$this-&gt;pages[$hash]</code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="2">
-      <code>AbstractPage|null</code>
-      <code>TPage</code>
+    <InvalidReturnType occurrences="1">
+      <code>TPage|null</code>
     </InvalidReturnType>
     <MixedArgument occurrences="1">
       <code>$page</code>
@@ -29,7 +30,7 @@
       <code>$propertyValue</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>AbstractPage|null</code>
+      <code>TPage|null</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="2">
       <code>get</code>
@@ -39,12 +40,13 @@
       <code>$page</code>
       <code>$page</code>
     </MixedReturnStatement>
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>$found</code>
+      <code>list&lt;TPage&gt;</code>
+    </MixedReturnTypeCoercion>
     <PossiblyInvalidArgument occurrences="1">
       <code>$page</code>
     </PossiblyInvalidArgument>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>is_int($page)</code>
-    </RedundantConditionGivenDocblockType>
     <UnusedFunctionCall occurrences="1">
       <code>current</code>
     </UnusedFunctionCall>
@@ -465,14 +467,13 @@
       <code>$found</code>
       <code>$this-&gt;_getFindByNavigation()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="38">
+    <MixedAssignment occurrences="36">
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
       <code>$actual[]</code>
-      <code>$actual[]</code>
       <code>$found</code>
       <code>$found</code>
       <code>$found</code>
@@ -497,7 +498,6 @@
       <code>$nav</code>
       <code>$nav</code>
       <code>$nav</code>
-      <code>$page</code>
       <code>$page</code>
       <code>$page</code>
       <code>$page</code>
@@ -505,7 +505,7 @@
       <code>$page</code>
       <code>$page</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="27">
+    <MixedMethodCall occurrences="26">
       <code>addPage</code>
       <code>addPage</code>
       <code>addPage</code>
@@ -524,7 +524,6 @@
       <code>findOneById</code>
       <code>findOneBypage2</code>
       <code>findSomeById</code>
-      <code>getLabel</code>
       <code>getLabel</code>
       <code>getLabel</code>
       <code>getLabel</code>

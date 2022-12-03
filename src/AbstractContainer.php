@@ -42,7 +42,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Contains sub pages
      *
-     * @var array<string, AbstractPage>
+     * @var array<string, TPage>
      */
     protected $pages = [];
 
@@ -109,7 +109,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * This method will inject the container as the given page's parent by
      * calling {@link Page\AbstractPage::setParent()}.
      *
-     * @param  AbstractPage|array|Traversable $page  page to add
+     * @param  TPage|array|Traversable $page  page to add
      * @return $this
      * @throws Exception\InvalidArgumentException If page is invalid.
      */
@@ -200,7 +200,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns pages in the container
      *
-     * @return array  array of Page\AbstractPage instances
+     * @return array<string, TPage>
      */
     public function getPages()
     {
@@ -210,7 +210,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Removes the given page from the container
      *
-     * @param  AbstractPage|int $page      page to remove, either a page
+     * @param  TPage|int $page      page to remove, either a page
      *                                          instance or a specific page order
      * @param  bool                  $recursive [optional] whether to remove recursively
      * @return bool whether the removal was successful
@@ -262,7 +262,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Checks if the container has the given page
      *
-     * @param  AbstractPage $page page to look for
+     * @param  TPage $page page to look for
      * @param  bool $recursive [optional] whether to search recursively.
      *                         Default is false.
      * @return bool whether page is in container
@@ -307,7 +307,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  string $property        name of property to match against
      * @param  mixed  $value           value to match property against
-     * @return AbstractPage|null  matching page or null
+     * @return TPage|null  matching page or null
      */
     public function findOneBy($property, $value)
     {
@@ -332,7 +332,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * @param  string $property  name of property to match against
      * @param  mixed  $value     value to match property against
-     * @return array  array containing only Page\AbstractPage instances
+     * @return list<TPage> containing only Page\AbstractPage instances
      */
     public function findAllBy($property, $value)
     {
@@ -365,7 +365,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *                           matching pages are found. If false, null will
      *                           be returned if no matching page is found.
      *                           Default is false.
-     * @return AbstractPage|null  matching page or null
+     * @return TPage|null  matching page or null
      */
     public function findBy($property, $value, $all = false)
     {
@@ -521,7 +521,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      *
      * Implements RecursiveIterator interface.
      *
-     * @return AbstractPage|null
+     * @return TPage|null
      */
     #[ReturnTypeWillChange]
     public function getChildren()
