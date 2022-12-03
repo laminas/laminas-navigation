@@ -1208,7 +1208,8 @@ abstract class AbstractPage extends AbstractContainer
      *
      * @see ResourceInterface
      *
-     * @return array{
+     * @return array
+     * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,
      *     id: string|null,
