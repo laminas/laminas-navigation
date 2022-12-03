@@ -33,20 +33,23 @@ use const E_WARNING;
  * Laminas\Navigation\Container
  *
  * AbstractContainer class for Laminas\Navigation\Page classes.
+ *
+ * @template TPage of AbstractPage
+ * @template-implements RecursiveIterator<string, TPage>
  */
 abstract class AbstractContainer implements Countable, RecursiveIterator
 {
     /**
      * Contains sub pages
      *
-     * @var array
+     * @var array<string, AbstractPage>
      */
     protected $pages = [];
 
     /**
      * An index that contains the order in which to iterate pages
      *
-     * @var array
+     * @var array<string, int|null>
      */
     protected $index = [];
 
@@ -107,7 +110,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * calling {@link Page\AbstractPage::setParent()}.
      *
      * @param  AbstractPage|array|Traversable $page  page to add
-     * @return self fluent interface, returns self
+     * @return $this
      * @throws Exception\InvalidArgumentException If page is invalid.
      */
     public function addPage($page)
@@ -150,7 +153,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Adds several pages at once
      *
      * @param  array|Traversable|AbstractContainer $pages pages to add
-     * @return self fluent interface, returns self
+     * @return $this
      * @throws Exception\InvalidArgumentException If $pages is not array,
      *                                            Traversable or AbstractContainer.
      */
@@ -186,7 +189,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Sets pages this container should have, removing existing pages
      *
      * @param  array $pages pages to set
-     * @return self fluent interface, returns self
+     * @return $this
      */
     public function setPages(array $pages)
     {
@@ -233,7 +236,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         }
 
         if ($recursive) {
-            /** @var AbstractPage $childPage */
             foreach ($this->pages as $childPage) {
                 if ($childPage->hasPage($page, true)) {
                     $childPage->removePage($page, true);
@@ -248,7 +250,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Removes all pages in container
      *
-     * @return self fluent interface, returns self
+     * @return $this
      */
     public function removePages()
     {
@@ -408,7 +410,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns an array representation of all pages in container
      *
-     * @return array
+     * @return list<array>
      */
     public function toArray()
     {
@@ -424,11 +426,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     // RecursiveIterator interface:
 
     /**
-     * Returns current page
+     * @inheritDoc
      *
-     * Implements RecursiveIterator interface.
+     * @return TPage
      *
-     * @return AbstractPage current page or null
      * @throws Exception\OutOfBoundsException  If the index is invalid.
      */
     #[ReturnTypeWillChange]

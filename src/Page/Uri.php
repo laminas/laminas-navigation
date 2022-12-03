@@ -6,6 +6,7 @@ namespace Laminas\Navigation\Page;
 
 use Laminas\Http\Request;
 use Laminas\Navigation\Exception;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 
 use function array_merge;
 use function is_string;
@@ -13,6 +14,9 @@ use function substr;
 
 /**
  * Represents a page that is defined by specifying a URI
+ *
+ * @template TPage of AbstractPage
+ * @template-extends AbstractPage<TPage>
  */
 class Uri extends AbstractPage
 {
@@ -131,7 +135,25 @@ class Uri extends AbstractPage
     /**
      * Returns an array representation of the page
      *
-     * @return array
+     * @return array{
+     *     label: string|null,
+     *     fragment: string|null,
+     *     id: string|null,
+     *     class: string|null,
+     *     title: string|null,
+     *     target: string|null,
+     *     rel: array|null,
+     *     rev: array|null,
+     *     order: int|null,
+     *     resource: ResourceInterface|string|null,
+     *     privilege: string|null,
+     *     permission: mixed|null,
+     *     active: bool,
+     *     visible: bool,
+     *     pages: list<array>,
+     *     uri: string|null,
+     *     ...
+     * }
      */
     public function toArray()
     {

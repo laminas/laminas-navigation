@@ -7,6 +7,7 @@ namespace LaminasTest\Navigation\TestAsset;
 use Laminas\Navigation\Page\AbstractPage;
 use Traversable;
 
+/** @template-extends \Laminas\Navigation\AbstractContainer<AbstractPage> */
 class AbstractContainer extends \Laminas\Navigation\AbstractContainer
 {
     /**

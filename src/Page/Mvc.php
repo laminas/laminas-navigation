@@ -6,6 +6,7 @@ namespace Laminas\Navigation\Page;
 
 use Laminas\Mvc\Router as MvcRouter;
 use Laminas\Navigation\Exception;
+use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 
@@ -25,6 +26,9 @@ use function strlen;
  * The two constants defined were originally provided via the laminas-mvc class
  * ModuleRouteListener; to remove the requirement on that component, they are
  * reproduced here.
+ *
+ * @template TPage of AbstractPage
+ * @template-extends AbstractPage<TPage>
  */
 class Mvc extends AbstractPage
 {
@@ -572,7 +576,30 @@ class Mvc extends AbstractPage
     /**
      * Returns an array representation of the page
      *
-     * @return array  associative array containing all page properties
+     * @return array{
+     *     label: string|null,
+     *     fragment: string|null,
+     *     id: string|null,
+     *     class: string|null,
+     *     title: string|null,
+     *     target: string|null,
+     *     rel: array|null,
+     *     rev: array|null,
+     *     order: int|null,
+     *     resource: ResourceInterface|string|null,
+     *     privilege: string|null,
+     *     permission: mixed|null,
+     *     active: bool,
+     *     visible: bool,
+     *     pages: list<array>,
+     *     action: string|null,
+     *     controller: string|null,
+     *     params: array,
+     *     route: string,
+     *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
+     *     route_match: RouteMatch,
+     *     ...
+     * }
      */
     public function toArray()
     {

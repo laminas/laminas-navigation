@@ -6,6 +6,7 @@ namespace LaminasTest\Navigation\TestAsset;
 
 use Laminas\Navigation\Page\AbstractPage;
 
+/** @template-extends AbstractPage<AbstractPage> */
 class Page extends AbstractPage
 {
     /**

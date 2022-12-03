@@ -7,6 +7,10 @@ namespace LaminasTest\Navigation\TestAsset;
 use ArrayAccess;
 use ReturnTypeWillChange;
 
+/**
+ * @template TIterator of \IteratorAggregate|\RecursiveIterator
+ * @template-extends \RecursiveIteratorIterator<TIterator>
+ */
 class RecursiveIteratorIterator extends \RecursiveIteratorIterator
 {
     /** @var ArrayAccess|array */
