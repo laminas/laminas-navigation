@@ -1206,6 +1206,8 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Returns an array representation of the page
      *
+     * @see ResourceInterface
+     *
      * @return array{
      *     label: string|null,
      *     fragment: string|null,

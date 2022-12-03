@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace LaminasTest\Navigation\TestAsset;
 
 use ArrayAccess;
+use IteratorAggregate;
+use RecursiveIterator;
 use ReturnTypeWillChange;
 
 /**
- * @template TIterator of \IteratorAggregate|\RecursiveIterator
+ * @template TIterator of IteratorAggregate|RecursiveIterator
  * @template-extends \RecursiveIteratorIterator<TIterator>
  */
 class RecursiveIteratorIterator extends \RecursiveIteratorIterator

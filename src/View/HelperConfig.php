@@ -60,6 +60,7 @@ class HelperConfig extends Config
 
     /**
      * Ensure incoming configuration is *merged* with the defaults defined.
+     *
      * @param ServiceManagerConfigurationType $config
      */
     public function __construct(array $config = [])
@@ -81,7 +82,6 @@ class HelperConfig extends Config
      * ensuring that any overrides provided via configuration are propagated
      * to it.
      *
-     * @param  ServiceManager $serviceManager
      * @return ServiceManager
      */
     public function configureServiceManager(ServiceManager $serviceManager)
@@ -248,17 +248,17 @@ class HelperConfig extends Config
              * @param callable(): object $callback
              */
             static function (
-            $container,
-            $name,
-            $callback
-        ) use ($config): object {
-            $helper = $callback();
+                $container,
+                $name,
+                $callback
+            ) use ($config): object {
+                $helper = $callback();
 
-            $pluginManager = $helper->getPluginManager();
-            (new Config($config))->configureServiceManager($pluginManager);
+                $pluginManager = $helper->getPluginManager();
+                (new Config($config))->configureServiceManager($pluginManager);
 
-            return $helper;
-        };
+                return $helper;
+            };
 
         return $this->navigationDelegatorFactory;
     }

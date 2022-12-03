@@ -427,9 +427,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * @inheritDoc
-     *
      * @return TPage
-     *
      * @throws Exception\OutOfBoundsException  If the index is invalid.
      */
     #[ReturnTypeWillChange]

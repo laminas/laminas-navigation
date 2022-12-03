@@ -576,6 +576,8 @@ class Mvc extends AbstractPage
     /**
      * Returns an array representation of the page
      *
+     * @see ResourceInterface
+     *
      * @return array{
      *     label: string|null,
      *     fragment: string|null,
