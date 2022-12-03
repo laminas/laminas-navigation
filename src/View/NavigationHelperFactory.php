@@ -10,8 +10,6 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
 use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 
-use function method_exists;
-
 class NavigationHelperFactory implements FactoryInterface
 {
     /**
@@ -50,14 +48,8 @@ class NavigationHelperFactory implements FactoryInterface
      */
     private function getApplicationServicesFromContainer(ContainerInterface $container)
     {
-        // v3
-        if (method_exists($container, 'configure')) {
-            $r = new ReflectionProperty($container, 'creationContext');
-            $r->setAccessible(true);
-            return $r->getValue($container) ?: $container;
-        }
-
-        // v2
-        return $container->getServiceLocator() ?: $container;
+        $r = new ReflectionProperty($container, 'creationContext');
+        $r->setAccessible(true);
+        return $r->getValue($container) ?: $container;
     }
 }
