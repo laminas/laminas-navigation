@@ -18,9 +18,8 @@ use Psr\Container\ContainerInterface;
 use Traversable;
 
 use function file_exists;
-use function gettype;
+use function get_debug_type;
 use function is_array;
-use function is_object;
 use function is_string;
 use function sprintf;
 
@@ -173,11 +172,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a route match argument provided to injectComponents is valid.
      *
-     * @param null|RouteMatch $routeMatch
-     * @return void
+     * @psalm-assert RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
-    private function validateRouteMatch($routeMatch)
+    private function validateRouteMatch(mixed $routeMatch): void
     {
         if (null === $routeMatch) {
             return;
@@ -188,7 +186,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
                 self::class,
-                is_object($routeMatch) ? $routeMatch::class : gettype($routeMatch)
+                get_debug_type($routeMatch)
             ));
         }
     }
@@ -196,11 +194,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a router argument provided to injectComponents is valid.
      *
-     * @param null|Router $router
-     * @return void
+     * @psalm-assert Router|null $router
      * @throws Exception\InvalidArgumentException
      */
-    private function validateRouter($router)
+    private function validateRouter(mixed $router): void
     {
         if (null === $router) {
             return;
@@ -211,7 +208,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 '%s expected by %s::injectComponents; received %s',
                 RouteMatch::class,
                 self::class,
-                is_object($router) ? $router::class : gettype($router)
+                get_debug_type($router),
             ));
         }
     }

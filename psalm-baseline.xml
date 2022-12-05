@@ -232,9 +232,7 @@
     <DeprecatedInterface occurrences="1">
       <code>AbstractNavigationFactory</code>
     </DeprecatedInterface>
-    <DocblockTypeContradiction occurrences="3">
-      <code>gettype($routeMatch)</code>
-      <code>gettype($router)</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>null === $this-&gt;pages</code>
     </DocblockTypeContradiction>
     <MissingConstructor occurrences="2">
@@ -283,10 +281,6 @@
     <PossiblyNullArgument occurrences="1">
       <code>$pages</code>
     </PossiblyNullArgument>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>is_object($routeMatch)</code>
-      <code>is_object($router)</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Service/ConstructedNavigationFactory.php">
     <DeprecatedInterface occurrences="1">
@@ -558,7 +552,15 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Page/MvcTest.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="9">
+      <code>$newRouter</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
       <code>TreeRouteStack::class</code>
     </InvalidArgument>
     <MixedArgument occurrences="8">
@@ -694,6 +696,9 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
+    <InvalidArgument occurrences="1">
+      <code>new Router\Http\TreeRouteStack()</code>
+    </InvalidArgument>
     <MissingReturnType occurrences="1">
       <code>testCanCreateNavigationInstanceV2</code>
     </MissingReturnType>
