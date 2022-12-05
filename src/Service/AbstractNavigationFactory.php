@@ -150,7 +150,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             $hasUri = isset($page['uri']);
             $hasMvc = isset($page['action']) || isset($page['controller']) || isset($page['route']);
             if ($hasMvc) {
-                if (! isset($page['routeMatch'])) {
+                if (! isset($page['routeMatch']) && $routeMatch) {
                     $page['routeMatch'] = $routeMatch;
                 }
                 if (! isset($page['router'])) {
@@ -172,7 +172,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a route match argument provided to injectComponents is valid.
      *
-     * @psalm-assert RouteMatch $routeMatch
+     * @psalm-assert RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouteMatch(mixed $routeMatch): void
@@ -194,7 +194,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a router argument provided to injectComponents is valid.
      *
-     * @psalm-assert Router $router
+     * @psalm-assert Router|null $router
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouter(mixed $router): void
