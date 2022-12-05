@@ -552,7 +552,15 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Page/MvcTest.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="9">
+      <code>$newRouter</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
+      <code>$router</code>
       <code>TreeRouteStack::class</code>
     </InvalidArgument>
     <MixedArgument occurrences="8">
@@ -688,6 +696,9 @@
     </PossiblyNullPropertyFetch>
   </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
+    <InvalidArgument occurrences="1">
+      <code>new Router\Http\TreeRouteStack()</code>
+    </InvalidArgument>
     <MissingReturnType occurrences="1">
       <code>testCanCreateNavigationInstanceV2</code>
     </MissingReturnType>
