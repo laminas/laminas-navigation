@@ -6,8 +6,6 @@ namespace Laminas\Navigation\Page;
 
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
-use Laminas\Navigation\Page\Mvc;
-use Laminas\Navigation\Page\Uri;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
 use Laminas\Stdlib\ArrayUtils;
@@ -31,8 +29,7 @@ use function ucwords;
 /**
  * Base class for Laminas\Navigation\Page pages
  *
- * @template TPage of AbstractPage
- * @template-extends AbstractContainer<TPage>
+ * @template-extends AbstractContainer<AbstractPage>
  */
 abstract class AbstractPage extends AbstractContainer
 {
