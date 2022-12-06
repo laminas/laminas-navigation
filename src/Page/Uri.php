@@ -14,9 +14,6 @@ use function substr;
 
 /**
  * Represents a page that is defined by specifying a URI
- *
- * @template TPage of AbstractPage
- * @template-extends AbstractPage<TPage>
  */
 class Uri extends AbstractPage
 {
