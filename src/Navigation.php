@@ -12,7 +12,8 @@ use function is_array;
 /**
  * A simple container class for {@link Laminas\Navigation\Page} pages
  *
- * @template-extends AbstractContainer<AbstractPage>
+ * @template TPage of AbstractPage
+ * @template-extends AbstractContainer<TPage>
  */
 class Navigation extends AbstractContainer
 {
