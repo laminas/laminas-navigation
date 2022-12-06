@@ -26,9 +26,6 @@ use function strlen;
  * The two constants defined were originally provided via the laminas-mvc class
  * ModuleRouteListener; to remove the requirement on that component, they are
  * reproduced here.
- *
- * @template TPage of AbstractPage
- * @template-extends AbstractPage<TPage>
  */
 class Mvc extends AbstractPage
 {
