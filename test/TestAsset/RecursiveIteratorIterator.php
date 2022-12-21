@@ -15,8 +15,8 @@ use ReturnTypeWillChange;
  */
 class RecursiveIteratorIterator extends \RecursiveIteratorIterator
 {
-    /** @var ArrayAccess|array */
-    public $logger = [];
+    /** @var list<string> */
+    public array $logger = [];
 
     #[ReturnTypeWillChange]
     public function beginIteration()
