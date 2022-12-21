@@ -338,6 +338,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     {
         $found = [];
 
+        /** @var iterable<TPage> $iterator */
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $page) {
