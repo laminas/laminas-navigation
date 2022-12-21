@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\Navigation\TestAsset;
 
-use ArrayAccess;
 use IteratorAggregate;
 use RecursiveIterator;
 use ReturnTypeWillChange;
