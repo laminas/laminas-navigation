@@ -1596,16 +1596,16 @@
         },
         {
             "name": "laminas/laminas-permissions-acl",
-            "version": "2.13.0",
+            "version": "2.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-permissions-acl.git",
-                "reference": "a13454dc3013cdcb388c95c418866e93dc781300"
+                "reference": "86cecb540cf8f2e088d70d8acef1fc9203ed5023"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-permissions-acl/zipball/a13454dc3013cdcb388c95c418866e93dc781300",
-                "reference": "a13454dc3013cdcb388c95c418866e93dc781300",
+                "url": "https://api.github.com/repos/laminas/laminas-permissions-acl/zipball/86cecb540cf8f2e088d70d8acef1fc9203ed5023",
+                "reference": "86cecb540cf8f2e088d70d8acef1fc9203ed5023",
                 "shasum": ""
             },
             "require": {
@@ -1616,8 +1616,9 @@
                 "zendframework/zend-permissions-acl": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~2.4.0",
+                "laminas/laminas-coding-standard": "~2.5.0",
                 "laminas/laminas-servicemanager": "^3.19",
+                "phpbench/phpbench": "^1.2",
                 "phpunit/phpunit": "^9.5.26",
                 "psalm/plugin-phpunit": "^0.18.0",
                 "vimeo/psalm": "^5.0"
@@ -1655,7 +1656,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2022-12-01T10:29:36+00:00"
+            "time": "2023-02-01T16:19:54+00:00"
         },
         {
             "name": "laminas/laminas-router",
