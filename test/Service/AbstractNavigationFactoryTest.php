@@ -35,7 +35,6 @@ class AbstractNavigationFactoryTest extends TestCase
         $args       = [[], $routeMatch, $router];
 
         $r = new ReflectionMethod($this->factory, 'injectComponents');
-        $r->setAccessible(true);
         try {
             $pages = $r->invokeArgs($this->factory, $args);
         } catch (Exception\InvalidArgumentException $e) {

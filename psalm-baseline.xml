@@ -158,6 +158,9 @@
       <code>null !== $fragment</code>
       <code>null !== $label</code>
     </RedundantConditionGivenDocblockType>
+    <MethodSignatureMustProvideReturnType occurrences="1">
+      <code>__toString</code>
+    </MethodSignatureMustProvideReturnType>
   </file>
   <file src="src/Page/Mvc.php">
     <DocblockTypeContradiction>
@@ -427,6 +430,9 @@
     <ArgumentTypeCoercion>
       <code>$config['navigation_helpers']</code>
     </ArgumentTypeCoercion>
+    <MixedPropertyTypeCoercion occurrences="2">
+      <code>$this->config</code>
+    </MixedPropertyTypeCoercion>
     <DeprecatedMethod>
       <code>getServiceLocator</code>
     </DeprecatedMethod>
@@ -481,6 +487,12 @@
       <code>$container</code>
       <code>$name</code>
     </UnusedClosureParam>
+    <DeprecatedInterface occurrences="1">
+      <code>HelperConfig</code>
+    </DeprecatedInterface>
+    <DeprecatedClass occurrences="3">
+      <code>HelperConfig</code>
+    </DeprecatedClass>
   </file>
   <file src="src/View/NavigationHelperFactory.php">
     <DeprecatedInterface>
@@ -899,6 +911,9 @@
     <MixedMethodCall>
       <code>getLabel</code>
     </MixedMethodCall>
+    <NullReference>
+      <code>getLabel</code>
+    </NullReference>
   </file>
   <file src="test/TestAsset/Router.php">
     <PropertyNotSetInConstructor>

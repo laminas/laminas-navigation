@@ -6,7 +6,6 @@ namespace LaminasTest\Navigation\View;
 
 use Laminas\Navigation\Service\DefaultNavigationFactory;
 use Laminas\Navigation\View\HelperConfig;
-use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 use Laminas\View\HelperPluginManager;
@@ -37,8 +36,7 @@ class HelperConfigTest extends TestCase
     ) {
         $replacedMenuClass = NavigationHelper\Links::class;
 
-        $serviceManager = new ServiceManager();
-        (new Config([
+        $serviceManager = new ServiceManager([
             'services'  => [
                 'config' => [
                     'navigation_helpers' => [
@@ -77,7 +75,7 @@ class HelperConfigTest extends TestCase
                     return new HelperPluginManager($services);
                 },
             ],
-        ]))->configureServiceManager($serviceManager);
+        ]);
 
         $helpers = $serviceManager->get('ViewHelperManager');
         (new HelperConfig())->configureServiceManager($helpers);
