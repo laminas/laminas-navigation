@@ -156,7 +156,6 @@ class HelperConfig extends Config
         // v3:
         if (method_exists($container, 'configure')) {
             $r = new ReflectionProperty($container, 'creationContext');
-            $r->setAccessible(true);
             return $r->getValue($container) ?: $container;
         }
 

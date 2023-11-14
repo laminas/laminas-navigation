@@ -49,7 +49,6 @@ class NavigationHelperFactory implements FactoryInterface
     private function getApplicationServicesFromContainer(ContainerInterface $container)
     {
         $r = new ReflectionProperty($container, 'creationContext');
-        $r->setAccessible(true);
         return $r->getValue($container) ?: $container;
     }
 }
