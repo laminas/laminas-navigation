@@ -393,7 +393,7 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Sets page id
      *
-     * @param  string|null $id [optional] id to set. Default is null,
+     * @param  string|int|null $id [optional] id to set. Default is null,
      *                         which sets no id.
      * @return $this
      * @throws Exception\InvalidArgumentException  If not given string or null.
@@ -641,7 +641,7 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Sets page order to use in parent container
      *
-     * @param  int|null $order page order in container.
+     * @param  int|numeric-string|null $order page order in container.
      *                         Default is null, which sets no
      *                         specific order.
      * @return $this
@@ -845,7 +845,7 @@ abstract class AbstractPage extends AbstractContainer
     /**
      * Sets whether the page should be visible or not
      *
-     * @param  bool $visible [optional] whether page should be
+     * @param  bool|'true'|'false'|'TRUE'|'FALSE' $visible [optional] whether page should be
      *                       considered visible or not. Default is true.
      * @return $this
      */

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.6.0@e784128902dfe01d489c4123d69918a9f3c1eac5">
+<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
-      <code>! is_array($page) &amp;&amp; ! $page instanceof Traversable</code>
-      <code>! is_array($pages) &amp;&amp; ! $pages instanceof Traversable</code>
+      <code><![CDATA[! is_array($page) && ! $page instanceof Traversable]]></code>
+      <code><![CDATA[! is_array($pages) && ! $pages instanceof Traversable]]></code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch>
       <code>TPage|null</code>
     </ImplementedReturnTypeMismatch>
     <InvalidPropertyAssignmentValue>
-      <code>$this-&gt;pages</code>
+      <code><![CDATA[$this->pages]]></code>
     </InvalidPropertyAssignmentValue>
     <InvalidReturnStatement>
-      <code>$this-&gt;findAllBy($property, $value)</code>
+      <code><![CDATA[$this->findAllBy($property, $value)]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
       <code>TPage|null</code>
@@ -50,7 +50,7 @@
   </file>
   <file src="src/Navigation.php">
     <DocblockTypeContradiction>
-      <code>$pages &amp;&amp; (! is_array($pages) &amp;&amp; ! $pages instanceof Traversable)</code>
+      <code><![CDATA[$pages && (! is_array($pages) && ! $pages instanceof Traversable)]]></code>
     </DocblockTypeContradiction>
   </file>
   <file src="src/Page/AbstractPage.php">
@@ -60,15 +60,12 @@
       <code>is_array($options)</code>
       <code>is_array($relations)</code>
       <code>is_array($relations)</code>
-      <code>is_string($order)</code>
-      <code>is_string($visible)</code>
-      <code>null !== $class &amp;&amp; ! is_string($class)</code>
-      <code>null !== $fragment &amp;&amp; ! is_string($fragment)</code>
-      <code>null !== $id &amp;&amp; ! is_string($id)</code>
-      <code>null !== $label &amp;&amp; ! is_string($label)</code>
-      <code>null !== $order &amp;&amp; ! is_int($order)</code>
-      <code>null !== $target &amp;&amp; ! is_string($target)</code>
-      <code>null !== $title &amp;&amp; ! is_string($title)</code>
+      <code><![CDATA[null !== $class && ! is_string($class)]]></code>
+      <code><![CDATA[null !== $fragment && ! is_string($fragment)]]></code>
+      <code><![CDATA[null !== $id && ! is_string($id) && ! is_numeric($id)]]></code>
+      <code><![CDATA[null !== $label && ! is_string($label)]]></code>
+      <code><![CDATA[null !== $target && ! is_string($target)]]></code>
+      <code><![CDATA[null !== $title && ! is_string($title)]]></code>
     </DocblockTypeContradiction>
     <InvalidNullableReturnType>
       <code>string</code>
@@ -77,7 +74,7 @@
       <code>string</code>
     </InvalidToString>
     <LessSpecificImplementedReturnType>
-      <code>array{
+      <code><![CDATA[array{
      *     label: string|null,
      *     fragment: string|null,
      *     id: string|null,
@@ -92,16 +89,13 @@
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
-     *     pages: list&lt;array&gt;,
+     *     pages: list<array>,
      *     ...
-     * }</code>
+     * }]]></code>
     </LessSpecificImplementedReturnType>
     <MissingReturnType>
       <code>addFactory</code>
     </MissingReturnType>
-    <MixedArgument>
-      <code>$visible</code>
-    </MixedArgument>
     <MixedArgumentTypeCoercion>
       <code>$key</code>
     </MixedArgumentTypeCoercion>
@@ -128,29 +122,25 @@
     </MixedMethodCall>
     <MixedReturnStatement>
       <code>$page</code>
-      <code>$this-&gt;rel[$relation] ?? null</code>
-      <code>$this-&gt;rel[$relation] ?? null</code>
-      <code>$this-&gt;rev[$relation] ??
-                null</code>
-      <code>$this-&gt;rev[$relation] ??
-                null</code>
+      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
     </MixedReturnStatement>
     <NullableReturnStatement>
-      <code>$this-&gt;label</code>
-      <code>$this-&gt;label</code>
-      <code>$this-&gt;rel[$relation] ?? null</code>
-      <code>$this-&gt;rev[$relation] ??
-                null</code>
+      <code><![CDATA[$this->label]]></code>
+      <code><![CDATA[$this->label]]></code>
+      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
     </NullableReturnStatement>
     <PropertyNotSetInConstructor>
       <code>$textDomain</code>
     </PropertyNotSetInConstructor>
-    <RedundantCast>
-      <code>(string) $id</code>
-    </RedundantCast>
     <RedundantCastGivenDocblockType>
       <code>(bool) $active</code>
-      <code>(bool) $visible</code>
     </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType>
       <code>is_string($relation)</code>
@@ -158,19 +148,16 @@
       <code>null !== $fragment</code>
       <code>null !== $label</code>
     </RedundantConditionGivenDocblockType>
-    <MethodSignatureMustProvideReturnType occurrences="1">
-      <code>__toString</code>
-    </MethodSignatureMustProvideReturnType>
   </file>
   <file src="src/Page/Mvc.php">
     <DocblockTypeContradiction>
       <code>! is_string($route)</code>
-      <code>null !== $action &amp;&amp; ! is_string($action)</code>
-      <code>null !== $controller &amp;&amp; ! is_string($controller)</code>
+      <code><![CDATA[null !== $action && ! is_string($action)]]></code>
+      <code><![CDATA[null !== $controller && ! is_string($controller)]]></code>
       <code>null === $router</code>
     </DocblockTypeContradiction>
     <LessSpecificImplementedReturnType>
-      <code>array{
+      <code><![CDATA[array{
      *     label: string|null,
      *     fragment: string|null,
      *     id: string|null,
@@ -185,7 +172,7 @@
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
-     *     pages: list&lt;array&gt;,
+     *     pages: list<array>,
      *     action: string|null,
      *     controller: string|null,
      *     params: array,
@@ -193,7 +180,7 @@
      *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
      *     route_match: RouteMatch,
      *     ...
-     * }</code>
+     * }]]></code>
     </LessSpecificImplementedReturnType>
     <MixedInferredReturnType>
       <code>Mvc</code>
@@ -237,7 +224,7 @@
     <UndefinedDocblockClass>
       <code>RouteMatch|MvcRouter\RouteMatch</code>
       <code>RouteStackInterface|MvcRouter\RouteStackInterface</code>
-      <code>array{
+      <code><![CDATA[array{
      *     label: string|null,
      *     fragment: string|null,
      *     id: string|null,
@@ -252,7 +239,7 @@
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
-     *     pages: list&lt;array&gt;,
+     *     pages: list<array>,
      *     action: string|null,
      *     controller: string|null,
      *     params: array,
@@ -260,13 +247,13 @@
      *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
      *     route_match: RouteMatch,
      *     ...
-     * }</code>
+     * }]]></code>
       <code>null|RouteStackInterface|MvcRouter\RouteStackInterface</code>
     </UndefinedDocblockClass>
   </file>
   <file src="src/Page/Uri.php">
     <DocblockTypeContradiction>
-      <code>null !== $uri &amp;&amp; ! is_string($uri)</code>
+      <code><![CDATA[null !== $uri && ! is_string($uri)]]></code>
     </DocblockTypeContradiction>
     <ImplicitToStringCast>
       <code>$request</code>
@@ -275,13 +262,13 @@
       <code>string</code>
     </InvalidNullableReturnType>
     <InvalidReturnStatement>
-      <code>$this-&gt;request</code>
+      <code><![CDATA[$this->request]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
       <code>Request</code>
     </InvalidReturnType>
     <LessSpecificImplementedReturnType>
-      <code>array{
+      <code><![CDATA[array{
      *     label: string|null,
      *     fragment: string|null,
      *     id: string|null,
@@ -296,13 +283,13 @@
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
-     *     pages: list&lt;array&gt;,
+     *     pages: list<array>,
      *     uri: string|null,
      *     ...
-     * }</code>
+     * }]]></code>
     </LessSpecificImplementedReturnType>
     <NullableReturnStatement>
-      <code>$this-&gt;uri</code>
+      <code><![CDATA[$this->uri]]></code>
     </NullableReturnStatement>
     <PossiblyNullPropertyAssignmentValue>
       <code>$request</code>
@@ -320,28 +307,28 @@
       <code>AbstractNavigationFactory</code>
     </DeprecatedInterface>
     <DocblockTypeContradiction>
-      <code>null === $this-&gt;pages</code>
+      <code><![CDATA[null === $this->pages]]></code>
     </DocblockTypeContradiction>
     <MissingConstructor>
       <code>$pages</code>
       <code>$pages</code>
     </MissingConstructor>
     <MixedArgument>
-      <code>$configuration['navigation'][$this-&gt;getName()]</code>
-      <code>$page['pages']</code>
+      <code><![CDATA[$configuration['navigation'][$this->getName()]]]></code>
+      <code><![CDATA[$page['pages']]]></code>
       <code>$routeMatch</code>
       <code>$router</code>
     </MixedArgument>
     <MixedArrayAccess>
-      <code>$configuration['navigation']</code>
-      <code>$configuration['navigation'][$this-&gt;getName()]</code>
-      <code>$page['pages']</code>
+      <code><![CDATA[$configuration['navigation']]]></code>
+      <code><![CDATA[$configuration['navigation'][$this->getName()]]]></code>
+      <code><![CDATA[$page['pages']]]></code>
     </MixedArrayAccess>
     <MixedArrayAssignment>
-      <code>$page['pages']</code>
-      <code>$page['request']</code>
-      <code>$page['routeMatch']</code>
-      <code>$page['router']</code>
+      <code><![CDATA[$page['pages']]]></code>
+      <code><![CDATA[$page['request']]]></code>
+      <code><![CDATA[$page['routeMatch']]]></code>
+      <code><![CDATA[$page['router']]]></code>
     </MixedArrayAssignment>
     <MixedAssignment>
       <code>$application</code>
@@ -374,13 +361,13 @@
       <code>ConstructedNavigationFactory</code>
     </DeprecatedInterface>
     <DocblockTypeContradiction>
-      <code>null === $this-&gt;pages</code>
+      <code><![CDATA[null === $this->pages]]></code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch>
       <code>array|null|Config</code>
     </ImplementedReturnTypeMismatch>
     <PossiblyNullArgument>
-      <code>$this-&gt;getPagesFromConfig($this-&gt;config)</code>
+      <code><![CDATA[$this->getPagesFromConfig($this->config)]]></code>
     </PossiblyNullArgument>
     <PropertyNotSetInConstructor>
       <code>ConstructedNavigationFactory</code>
@@ -406,7 +393,7 @@
       <code>$requestedName</code>
     </MixedArgument>
     <MixedAssignment>
-      <code>$this-&gt;config</code>
+      <code><![CDATA[$this->config]]></code>
     </MixedAssignment>
     <MixedInferredReturnType>
       <code>array</code>
@@ -415,29 +402,34 @@
     <MixedReturnStatement>
       <code>$config[$withoutPrefix]</code>
       <code>$config[strtolower($withoutPrefix)]</code>
-      <code>$this-&gt;config</code>
-      <code>$this-&gt;config</code>
+      <code><![CDATA[$this->config]]></code>
+      <code><![CDATA[$this->config]]></code>
     </MixedReturnStatement>
     <ParamNameMismatch>
       <code>$container</code>
       <code>$container</code>
     </ParamNameMismatch>
     <RedundantConditionGivenDocblockType>
-      <code>$this-&gt;config !== null</code>
+      <code><![CDATA[$this->config !== null]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/HelperConfig.php">
     <ArgumentTypeCoercion>
-      <code>$config['navigation_helpers']</code>
+      <code><![CDATA[$config['navigation_helpers']]]></code>
     </ArgumentTypeCoercion>
-    <MixedPropertyTypeCoercion occurrences="2">
-      <code>$this->config</code>
-    </MixedPropertyTypeCoercion>
+    <DeprecatedClass>
+      <code>Config</code>
+      <code>new Config($config)</code>
+      <code>parent::configureServiceManager($serviceManager)</code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code>HelperConfig</code>
+    </DeprecatedInterface>
     <DeprecatedMethod>
       <code>getServiceLocator</code>
     </DeprecatedMethod>
     <LessSpecificReturnStatement>
-      <code>$container-&gt;getServiceLocator() ?: $container</code>
+      <code><![CDATA[$container->getServiceLocator() ?: $container]]></code>
     </LessSpecificReturnStatement>
     <MissingClosureParamType>
       <code>$container</code>
@@ -447,22 +439,22 @@
       <code>$class</code>
       <code>$pluginManager</code>
       <code>$services</code>
-      <code>$services-&gt;get('config')</code>
-      <code>$this-&gt;config[$type]</code>
+      <code><![CDATA[$services->get('config')]]></code>
+      <code><![CDATA[$this->config[$type]]]></code>
     </MixedArgument>
     <MixedArrayAssignment>
-      <code>$config['aliases'][$name]</code>
-      <code>$config['factories'][$class]</code>
-      <code>$config['factories'][$this-&gt;normalizeNameForV2($class)]</code>
-      <code>$this-&gt;config['delegators']['laminasviewhelpernavigation']</code>
-      <code>$this-&gt;config['delegators'][NavigationHelper::class]</code>
+      <code><![CDATA[$config['aliases'][$name]]]></code>
+      <code><![CDATA[$config['factories'][$class]]]></code>
+      <code><![CDATA[$config['factories'][$this->normalizeNameForV2($class)]]]></code>
+      <code><![CDATA[$this->config['delegators']['laminasviewhelpernavigation']]]></code>
+      <code><![CDATA[$this->config['delegators'][NavigationHelper::class]]]></code>
     </MixedArrayAssignment>
     <MixedArrayOffset>
-      <code>$config['factories'][$class]</code>
+      <code><![CDATA[$config['factories'][$class]]]></code>
     </MixedArrayOffset>
     <MixedAssignment>
       <code>$class</code>
-      <code>$config['aliases'][$name]</code>
+      <code><![CDATA[$config['aliases'][$name]]]></code>
       <code>$pluginManager</code>
       <code>$services</code>
     </MixedAssignment>
@@ -472,27 +464,17 @@
     <MixedMethodCall>
       <code>getPluginManager</code>
     </MixedMethodCall>
+    <MixedPropertyTypeCoercion>
+      <code><![CDATA[$this->config]]></code>
+      <code><![CDATA[$this->config]]></code>
+    </MixedPropertyTypeCoercion>
     <MixedReturnStatement>
-      <code>$r-&gt;getValue($container) ?: $container</code>
-      <code>$r-&gt;getValue($container) ?: $container</code>
+      <code><![CDATA[$r->getValue($container) ?: $container]]></code>
+      <code><![CDATA[$r->getValue($container) ?: $container]]></code>
     </MixedReturnStatement>
-    <PropertyTypeCoercion>
-      <code>$this-&gt;config</code>
-      <code>$this-&gt;config</code>
-    </PropertyTypeCoercion>
     <RedundantConditionGivenDocblockType>
-      <code>$container-&gt;getServiceLocator()</code>
+      <code><![CDATA[$container->getServiceLocator()]]></code>
     </RedundantConditionGivenDocblockType>
-    <UnusedClosureParam>
-      <code>$container</code>
-      <code>$name</code>
-    </UnusedClosureParam>
-    <DeprecatedInterface occurrences="1">
-      <code>HelperConfig</code>
-    </DeprecatedInterface>
-    <DeprecatedClass occurrences="3">
-      <code>HelperConfig</code>
-    </DeprecatedClass>
   </file>
   <file src="src/View/NavigationHelperFactory.php">
     <DeprecatedInterface>
@@ -502,8 +484,8 @@
       <code>ContainerInterface</code>
     </MixedInferredReturnType>
     <MixedReturnStatement>
-      <code>$r-&gt;getValue($container) ?: $container</code>
-      <code>$r-&gt;getValue($container) ?: $container</code>
+      <code><![CDATA[$r->getValue($container) ?: $container]]></code>
+      <code><![CDATA[$r->getValue($container) ?: $container]]></code>
     </MixedReturnStatement>
     <ParamNameMismatch>
       <code>$container</code>
@@ -539,20 +521,20 @@
   <file src="test/ContainerTest.php">
     <InvalidArgument>
       <code>$pages = new stdClass()</code>
-      <code>'ok'</code>
-      <code>'this is a string'</code>
+      <code><![CDATA['ok']]></code>
+      <code><![CDATA['this is a string']]></code>
       <code>1337</code>
       <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidCatch>
-      <code>try {
+      <code><![CDATA[try {
             $nav = new Navigation\Navigation(new stdClass());
-            $this-&gt;fail('An invalid argument was given to the constructor, '
+            $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
         } catch (Navigation\Exception\ExceptionInterface $e) {
-            $this-&gt;assertStringContainsString('Invalid argument: $pages', $e-&gt;getMessage());
-        }</code>
+            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
+        }]]></code>
     </InvalidCatch>
     <MissingReturnType>
       <code>_getFindByNavigation</code>
@@ -564,7 +546,7 @@
       <code>$found</code>
       <code>$found</code>
       <code>$found</code>
-      <code>$this-&gt;_getFindByNavigation()</code>
+      <code><![CDATA[$this->_getFindByNavigation()]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code>$actual[]</code>
@@ -633,8 +615,8 @@
       <code>toArray</code>
     </MixedMethodCall>
     <PossiblyNullArgument>
-      <code>$container-&gt;findOneBy('route', 'bar')</code>
-      <code>$container-&gt;findOneBy('route', 'baz')</code>
+      <code><![CDATA[$container->findOneBy('route', 'bar')]]></code>
+      <code><![CDATA[$container->findOneBy('route', 'baz')]]></code>
     </PossiblyNullArgument>
     <PossiblyNullReference>
       <code>getLabel</code>
@@ -642,17 +624,17 @@
       <code>hasChildren</code>
     </PossiblyNullReference>
     <TooManyArguments>
-      <code>new AbstractContainer([
+      <code><![CDATA[new AbstractContainer([
             [
-                'label' =&gt; 'Page 2',
-                'type'  =&gt; 'uri',
+                'label' => 'Page 2',
+                'type'  => 'uri',
             ],
             [
-                'label' =&gt; 'Page 1',
-                'type'  =&gt; 'uri',
-                'order' =&gt; -1,
+                'label' => 'Page 1',
+                'type'  => 'uri',
+                'order' => -1,
             ],
-        ])</code>
+        ])]]></code>
     </TooManyArguments>
     <UnusedVariable>
       <code>$found</code>
@@ -681,14 +663,14 @@
       <code>TreeRouteStack::class</code>
     </InvalidArgument>
     <MixedArgument>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
     </MixedArgument>
     <MixedMethodCall>
       <code>addRoute</code>
@@ -708,35 +690,35 @@
       <code>$invalid</code>
     </PossiblyInvalidCast>
     <PossiblyNullArgument>
-      <code>$event-&gt;getRouteMatch()</code>
-      <code>$event-&gt;getRouteMatch()</code>
-      <code>$event-&gt;getRouteMatch()</code>
-      <code>$event-&gt;getRouteMatch()</code>
-      <code>$event-&gt;getRouteMatch()</code>
+      <code><![CDATA[$event->getRouteMatch()]]></code>
+      <code><![CDATA[$event->getRouteMatch()]]></code>
+      <code><![CDATA[$event->getRouteMatch()]]></code>
+      <code><![CDATA[$event->getRouteMatch()]]></code>
+      <code><![CDATA[$event->getRouteMatch()]]></code>
     </PossiblyNullArgument>
     <UndefinedThisPropertyAssignment>
-      <code>$this-&gt;route</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;router</code>
+      <code><![CDATA[$this->route]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->router]]></code>
     </UndefinedThisPropertyAssignment>
     <UndefinedThisPropertyFetch>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;routeMatch</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
-      <code>$this-&gt;router</code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->routeMatch]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
+      <code><![CDATA[$this->router]]></code>
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Page/PageFactoryTest.php">
     <InvalidArgument>
-      <code>''</code>
+      <code><![CDATA['']]></code>
     </InvalidArgument>
     <MissingClosureParamType>
       <code>$page</code>
@@ -750,10 +732,10 @@
   </file>
   <file src="test/Page/PageTest.php">
     <ArgumentTypeCoercion>
-      <code>'stdClass'</code>
+      <code><![CDATA['stdClass']]></code>
     </ArgumentTypeCoercion>
     <DuplicateArrayKey>
-      <code>'label'      =&gt; 'foo.bar'</code>
+      <code><![CDATA['label'      => 'foo.bar']]></code>
     </DuplicateArrayKey>
     <InvalidArgument>
       <code>$invalid</code>
@@ -763,13 +745,10 @@
       <code>$invalid</code>
       <code>$invalid</code>
       <code>$invalid</code>
-      <code>'-25'</code>
-      <code>'1'</code>
-      <code>'False'</code>
-      <code>'alternate'</code>
-      <code>'alternate'</code>
-      <code>'true'</code>
-      <code>'true'</code>
+      <code><![CDATA['False']]></code>
+      <code><![CDATA['alternate']]></code>
+      <code><![CDATA['alternate']]></code>
+      <code><![CDATA['true']]></code>
       <code>0</code>
       <code>0</code>
       <code>0</code>
@@ -786,7 +765,7 @@
       <code>[]</code>
     </InvalidCast>
     <MixedArgument>
-      <code>$page-&gt;getPermission()</code>
+      <code><![CDATA[$page->getPermission()]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code>$childPage</code>
@@ -799,17 +778,17 @@
       <code>isVisible</code>
     </MixedMethodCall>
     <MixedPropertyFetch>
-      <code>$page-&gt;getPermission()-&gt;name</code>
+      <code><![CDATA[$page->getPermission()->name]]></code>
     </MixedPropertyFetch>
     <PossiblyInvalidCast>
       <code>$invalid</code>
       <code>$invalid</code>
     </PossiblyInvalidCast>
     <PossiblyNullArgument>
-      <code>$page-&gt;getPermission()</code>
+      <code><![CDATA[$page->getPermission()]]></code>
     </PossiblyNullArgument>
     <PossiblyNullPropertyFetch>
-      <code>$page-&gt;getPermission()-&gt;name</code>
+      <code><![CDATA[$page->getPermission()->name]]></code>
     </PossiblyNullPropertyFetch>
   </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
@@ -820,14 +799,14 @@
       <code>testCanCreateNavigationInstanceV2</code>
     </MissingReturnType>
     <MixedArgument>
-      <code>$this-&gt;factory</code>
-      <code>$this-&gt;factory</code>
+      <code><![CDATA[$this->factory]]></code>
+      <code><![CDATA[$this->factory]]></code>
     </MixedArgument>
     <UndefinedThisPropertyAssignment>
-      <code>$this-&gt;factory</code>
+      <code><![CDATA[$this->factory]]></code>
     </UndefinedThisPropertyAssignment>
     <UndefinedThisPropertyFetch>
-      <code>$this-&gt;factory</code>
+      <code><![CDATA[$this->factory]]></code>
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Service/TestAsset/TestNavigationFactory.php">
@@ -843,7 +822,7 @@
       <code>setMethods</code>
     </DeprecatedMethod>
     <InvalidFunctionCall>
-      <code>$factory($services, 'Navigation')</code>
+      <code><![CDATA[$factory($services, 'Navigation')]]></code>
     </InvalidFunctionCall>
     <MissingClosureParamType>
       <code>$pages</code>
@@ -852,8 +831,8 @@
       <code>$that</code>
     </MissingClosureParamType>
     <MissingClosureReturnType>
-      <code>function ($that, $pages) use (&amp;$recursive) {</code>
-      <code>function ($that, $pages) use (&amp;$recursive) {</code>
+      <code><![CDATA[function ($that, $pages) use (&$recursive) {]]></code>
+      <code><![CDATA[function ($that, $pages) use (&$recursive) {]]></code>
     </MissingClosureReturnType>
     <MixedAssignment>
       <code>$container</code>
@@ -865,10 +844,6 @@
       <code>$page</code>
       <code>$page</code>
     </MixedAssignment>
-    <MixedFunctionCall>
-      <code>$recursive($that, $page-&gt;getPages())</code>
-      <code>$recursive($that, $page-&gt;getPages())</code>
-    </MixedFunctionCall>
     <MixedMethodCall>
       <code>assertInstanceOf</code>
       <code>assertInstanceOf</code>
@@ -884,9 +859,9 @@
       <code>getPages</code>
     </MixedMethodCall>
     <UndefinedThisPropertyAssignment>
-      <code>$this-&gt;mvcEvent</code>
-      <code>$this-&gt;request</code>
-      <code>$this-&gt;router</code>
+      <code><![CDATA[$this->mvcEvent]]></code>
+      <code><![CDATA[$this->request]]></code>
+      <code><![CDATA[$this->router]]></code>
     </UndefinedThisPropertyAssignment>
   </file>
   <file src="test/TestAsset/AbstractContainer.php">
@@ -905,12 +880,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="test/TestAsset/RecursiveIteratorIterator.php">
-    <InvalidPropertyAssignmentValue>
-      <code>$this-&gt;logger</code>
-    </InvalidPropertyAssignmentValue>
-    <MixedMethodCall>
-      <code>getLabel</code>
-    </MixedMethodCall>
     <NullReference>
       <code>getLabel</code>
     </NullReference>
