@@ -78,6 +78,7 @@
         "static-analysis": "psalm --shepherd --stats"
     },
     "conflict": {
+        "laminas/laminas-mvc": "<3.0.0",
         "zendframework/zend-navigation": "*"
     }
 }
