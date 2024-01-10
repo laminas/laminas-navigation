@@ -71,7 +71,7 @@ pages    | `array\|Travsersable\|null`                                     | `NU
 ## MVC pages
 
 MVC pages are defined using MVC parameters known from the
-[laminas-mvc](https://laminas.github.com/laminas-mvc/) component. An MVC page
+[laminas-mvc](https://docs.laminas.dev/laminas-mvc/) component. An MVC page
 will use `Laminas\Router\RouteStackInterface` internally in the `getHref()` method
 to generate `href` attributes, and the `isActive()` method will compare the
 `Laminas\Router\RouteMatch` params with the page's params to determine if the page
