@@ -7,8 +7,8 @@ typically rendered like the following:
 You are here: Home > Products > FantasticProduct 1.0
 ```
 
-The `breadcrumbs()` helper follows the [Breadcrumbs Pattern](http://developer.yahoo.com/ypatterns/pattern.php?pattern=breadcrumbs)
-as outlined in the Yahoo! Design Pattern Library, and allows simple
+The `breadcrumbs()` helper follows the [Breadcrumbs Pattern](https://en.wikipedia.org/wiki/Breadcrumb_navigation)
+as original outlined in the Yahoo! Design Pattern Library, and allows simple
 customization (minimum/maximum depth, indentation, separator, and whether the
 last element should be linked), or rendering using a partial view script.
 
