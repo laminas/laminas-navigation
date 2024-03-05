@@ -42,7 +42,7 @@
         "laminas/laminas-mvc": "^3.7",
         "laminas/laminas-permissions-acl": "^2.16",
         "laminas/laminas-router": "^3.12.0",
-        "laminas/laminas-servicemanager": "^3.22.1",
+        "laminas/laminas-servicemanager": "^4.0.0",
         "laminas/laminas-uri": "^2.11.0",
         "laminas/laminas-view": "^2.33",
         "phpunit/phpunit": "^9.6.15",
