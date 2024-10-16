@@ -384,7 +384,7 @@ class Mvc extends AbstractPage
      */
     public function setParams(?array $params = null)
     {
-        $this->params    = empty($params) ? [] : $params;
+        $this->params    = $params ?? [];
         $this->hrefCache = null;
         return $this;
     }
