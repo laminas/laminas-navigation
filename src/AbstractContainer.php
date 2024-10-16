@@ -221,7 +221,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             $hash = $page->hashCode();
         } elseif (is_int($page)) {
             $this->sort();
-            if (! $hash = array_search($page, $this->index)) {
+            $hash = array_search($page, $this->index);
+            if ($hash === false) {
                 return false;
             }
         } else {

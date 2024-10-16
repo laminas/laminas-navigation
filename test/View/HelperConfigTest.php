@@ -18,7 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 class HelperConfigTest extends TestCase
 {
-    public function navigationServiceNameProvider(): array
+    /** @return list<array{0: string}> */
+    public static function navigationServiceNameProvider(): array
     {
         return [
             ['navigation'],

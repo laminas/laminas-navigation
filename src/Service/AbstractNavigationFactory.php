@@ -131,7 +131,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     }
 
     /**
-     * @param array $pages
      * @param RouteMatch $routeMatch
      * @param Router $router
      * @param null|Request $request
