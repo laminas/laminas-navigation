@@ -23,6 +23,8 @@ use function sprintf;
  */
 class AbstractNavigationFactoryTest extends TestCase
 {
+    private TestAsset\TestNavigationFactory $factory;
+
     public function setUp(): void
     {
         $this->factory = new TestAsset\TestNavigationFactory();
@@ -54,17 +56,13 @@ class AbstractNavigationFactoryTest extends TestCase
         $mvcEventStub->setRouteMatch(new Router\RouteMatch([]));
         $mvcEventStub->setRouter(new Router\Http\TreeRouteStack());
 
-        $applicationMock = $this->getMockBuilder(Application::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $applicationMock = $this->createMock(Application::class);
 
         $applicationMock->expects($this->any())
             ->method('getMvcEvent')
             ->willReturn($mvcEventStub);
 
-        $serviceManagerMock = $this->getMockBuilder(ServiceManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $serviceManagerMock = $this->createMock(ServiceManager::class);
 
         $serviceManagerMock->expects($this->any())
             ->method('get')

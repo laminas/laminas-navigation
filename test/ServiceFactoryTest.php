@@ -16,6 +16,7 @@ use Laminas\Navigation\Service\NavigationAbstractServiceFactory;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
@@ -28,6 +29,10 @@ class ServiceFactoryTest extends TestCase
 {
     /** @var ServiceManager */
     protected $serviceManager;
+
+    private MockObject $router;
+    private MockObject $request;
+    private MvcEvent $mvcEvent;
 
     /**
      * Prepares the environment before running a test.

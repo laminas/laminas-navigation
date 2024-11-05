@@ -28,6 +28,10 @@ use function ksort;
  */
 class MvcTest extends TestCase
 {
+    private RegexRoute $route;
+    private TreeRouteStack $router;
+    private RouteMatch $routeMatch;
+
     protected function setUp(): void
     {
         $this->route = new RegexRoute(
