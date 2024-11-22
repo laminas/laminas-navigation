@@ -40,7 +40,7 @@ With the [custom response type `Laminas\Diactoros\Response\XmlResponse`](https:/
 namespace Application\Handler;
 
 use Laminas\Diactoros\Response\XmlResponse;
-use Laminas\View\Helper\Navigation\Sitemap;
+use Laminas\Navigation\View\Helper\Sitemap;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -70,8 +70,8 @@ Fetch the [Navigation Proxy helper](../helpers/navigation.md) from the [view hel
 ```php
 namespace Application\Handler;
 
-use Laminas\View\Helper\Navigation as NavigationProxyHelper;
-use Laminas\View\Helper\Navigation\Sitemap;
+use Laminas\Navigation\View\Helper as NavigationProxyHelper;
+use Laminas\Navigation\View\Helper\Sitemap;
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
@@ -184,7 +184,7 @@ namespace Application\Controller;
 
 use Laminas\Http\Response;
 use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Helper\Navigation\Sitemap;
+use Laminas\Navigation\View\Helper\Sitemap;
 
 class IndexController extends AbstractActionController
 {

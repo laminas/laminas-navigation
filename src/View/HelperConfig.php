@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\View;
 
+use Laminas\Navigation\View\Helper\Navigation as NavigationHelper;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\ArrayUtils;
-use Laminas\View\Helper\Navigation as NavigationHelper;
 use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 use Traversable;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\View;
 
+use Laminas\Navigation\View\Helper\Navigation as NavigationHelper;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Laminas\View\Helper\Navigation as NavigationHelper;
 use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 

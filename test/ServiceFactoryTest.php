@@ -128,7 +128,7 @@ class ServiceFactoryTest extends TestCase
     {
         $builder = $this->getMockBuilder(ConstructedNavigationFactory::class);
         $builder->setConstructorArgs([__DIR__ . '/_files/navigation_mvc.xml'])
-                ->setMethods(['injectComponents']);
+                ->onlyMethods(['injectComponents']);
 
         $factory = $builder->getMock();
 

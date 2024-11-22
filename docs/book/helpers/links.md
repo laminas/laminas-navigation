@@ -193,7 +193,7 @@ This example shows how to specify which relations to find and render.
 Render only start, next, and prev:
 
 ```php
-use Laminas\View\Helper\Navigation\Links;
+use Laminas\Navigation\View\Helper\Links;
 
 $links = $this->navigation()->links();
 $links->setRenderFlag(Links::RENDER_START | Links::RENDER_NEXT | Links::RENDER_PREV);

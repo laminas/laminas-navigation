@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace LaminasTest\Navigation\View;
 
+use Laminas\Navigation\View\Helper\Navigation;
 use Laminas\Navigation\View\ViewHelperManagerDelegatorFactory;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Helper\Navigation as NavigationHelper;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +22,6 @@ class ViewHelperManagerDelegatorFactoryTest extends TestCase
         $this->assertSame($helpers, $factory($services, 'ViewHelperManager', $callback));
 
         $this->assertTrue($helpers->has('navigation'));
-        $this->assertTrue($helpers->has(NavigationHelper::class));
+        $this->assertTrue($helpers->has(Navigation::class));
     }
 }
