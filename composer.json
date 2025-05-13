@@ -35,7 +35,7 @@
         "laminas/laminas-stdlib": "^2.7 || ^3.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "~3.0.1",
+        "laminas/laminas-coding-standard": "~3.1.0",
         "laminas/laminas-config": "^3.9.0",
         "laminas/laminas-http": "^2.19",
         "laminas/laminas-i18n": "^2.29",
