@@ -47,7 +47,7 @@
         "laminas/laminas-view": "^2.35",
         "phpunit/phpunit": "^9.6.21",
         "psalm/plugin-phpunit": "^0.19.0",
-        "vimeo/psalm": "^5.26.1"
+        "vimeo/psalm": "^6.0.0"
     },
     "suggest": {
         "laminas/laminas-config": "^3.7, to provide page configuration (optional, as arrays and Traversables are also allowed)",
