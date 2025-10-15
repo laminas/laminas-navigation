@@ -21,7 +21,7 @@ use function sprintf;
  *     resolve zendframework/zend-navigation#37, and cover one specific
  *     method to ensure argument validation works correctly.
  */
-class AbstractNavigationFactoryTest extends TestCase
+final class AbstractNavigationFactoryTest extends TestCase
 {
     private TestAsset\TestNavigationFactory $factory;
 

@@ -6,7 +6,7 @@ namespace LaminasTest\Navigation\Service\TestAsset;
 
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 
-class TestNavigationFactory extends AbstractNavigationFactory
+final class TestNavigationFactory extends AbstractNavigationFactory
 {
     /** @var string */
     private $factoryName;

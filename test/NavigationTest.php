@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use function count;
 use function var_export;
 
-class NavigationTest extends TestCase
+final class NavigationTest extends TestCase
 {
     /** @var Navigation */
     private $navigation;

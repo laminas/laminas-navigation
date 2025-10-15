@@ -15,7 +15,7 @@ use stdClass;
  *
  * @group      Laminas_Navigation
  */
-class UriTest extends TestCase
+final class UriTest extends TestCase
 {
     public function testUriOptionAsString(): void
     {

@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @group      Laminas_Navigation
  */
-class HelperConfigTest extends TestCase
+final class HelperConfigTest extends TestCase
 {
     /** @return list<array{0: string}> */
     public static function navigationServiceNameProvider(): array

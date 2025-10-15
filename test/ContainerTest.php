@@ -22,7 +22,7 @@ use function gettype;
  *
  * @group      Laminas_Navigation
  */
-class ContainerTest extends TestCase
+final class ContainerTest extends TestCase
 {
     public function testConstructWithArray(): void
     {
@@ -863,10 +863,14 @@ class ContainerTest extends TestCase
             'uri'   => '#',
         ]);
 
+        self::assertInstanceOf(Uri::class, $page1);
+
         $page2 = Page\AbstractPage::factory([
             'label' => 'Page 2',
             'uri'   => '#',
         ]);
+
+        self::assertInstanceOf(Uri::class, $page2);
 
         $page2->setParent($page1);
 
@@ -875,8 +879,11 @@ class ContainerTest extends TestCase
             'hasPages' => true,
         ];
 
+        $parent = $page2->getParent();
+        self::assertSame($page1, $parent);
+
         $actual = [
-            'parent'   => $page2->getParent()->getLabel(),
+            'parent'   => $parent->getLabel(),
             'hasPages' => $page1->hasPages(),
         ];
 
