@@ -9,6 +9,8 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Constructed factory to set pages during construction.
+ *
+ * @final
  */
 class ConstructedNavigationFactory extends AbstractNavigationFactory
 {

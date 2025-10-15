@@ -6,6 +6,8 @@ namespace Laminas\Navigation\Service;
 
 /**
  * Default navigation factory.
+ *
+ * @final
  */
 class DefaultNavigationFactory extends AbstractNavigationFactory
 {
