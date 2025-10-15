@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @group      Laminas_Navigation
  */
-class PageFactoryTest extends TestCase
+final class PageFactoryTest extends TestCase
 {
     public function testDetectFactoryPage(): void
     {

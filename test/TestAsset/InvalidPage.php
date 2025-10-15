@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\Navigation\TestAsset;
 
-class InvalidPage
+final class InvalidPage
 {
     /**
      * Returns the page's href

@@ -20,13 +20,15 @@ use function ksort;
  *
  * @group      Laminas_Navigation
  */
-class PageTest extends TestCase
+final class PageTest extends TestCase
 {
     public function testSetShouldMapToNativeProperties(): void
     {
         $page = AbstractPage::factory([
             'type' => 'mvc',
         ]);
+
+        self::assertInstanceOf(Navigation\Page\Mvc::class, $page);
 
         $page->set('action', 'foo');
         $this->assertEquals('foo', $page->getAction());
@@ -40,6 +42,8 @@ class PageTest extends TestCase
         $page = AbstractPage::factory([
             'type' => 'mvc',
         ]);
+
+        self::assertInstanceOf(Navigation\Page\Mvc::class, $page);
 
         $page->setAction('foo');
         $this->assertEquals('foo', $page->get('action'));
@@ -749,6 +753,8 @@ class PageTest extends TestCase
             'uri'   => 'foo',
         ]);
 
+        self::assertInstanceOf(Uri::class, $page);
+
         $this->assertSame('foo', $page->getUri());
         $this->assertSame('foo', $page->uri);
 
@@ -808,6 +814,8 @@ class PageTest extends TestCase
             'action'     => 'index',
             'controller' => 'index',
         ]);
+
+        self::assertInstanceOf(Navigation\Page\Mvc::class, $page);
 
         $options = [
             'label'      => 'bar',

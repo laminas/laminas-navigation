@@ -15,6 +15,8 @@ use Psr\Container\ContainerInterface;
  * This approach is used for backwards compatibility. The HelperConfig class performs
  * work to ensure that the navigation helper and all its sub-helpers are injected
  * with the view helper manager and application container.
+ *
+ * @final
  */
 class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
 {

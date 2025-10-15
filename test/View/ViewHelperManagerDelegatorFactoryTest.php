@@ -10,7 +10,7 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 
-class ViewHelperManagerDelegatorFactoryTest extends TestCase
+final class ViewHelperManagerDelegatorFactoryTest extends TestCase
 {
     public function testFactoryConfiguresViewHelperManagerWithNavigationHelpers(): void
     {

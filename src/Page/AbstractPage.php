@@ -31,6 +31,7 @@ use function ucwords;
  * Base class for Laminas\Navigation\Page pages
  *
  * @template-extends AbstractContainer<AbstractPage>
+ * @psalm-no-seal-properties
  */
 abstract class AbstractPage extends AbstractContainer implements Stringable
 {

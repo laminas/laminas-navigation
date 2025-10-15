@@ -12,7 +12,7 @@ use ReturnTypeWillChange;
  * @template TIterator of IteratorAggregate|RecursiveIterator
  * @template-extends \RecursiveIteratorIterator<TIterator>
  */
-class RecursiveIteratorIterator extends \RecursiveIteratorIterator
+final class RecursiveIteratorIterator extends \RecursiveIteratorIterator
 {
     /** @var list<string> */
     public array $logger = [];

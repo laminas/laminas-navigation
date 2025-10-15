@@ -10,7 +10,7 @@ use Laminas\Navigation\Service;
 use Laminas\Navigation\View;
 use PHPUnit\Framework\TestCase;
 
-class ConfigProviderTest extends TestCase
+final class ConfigProviderTest extends TestCase
 {
     private array $config = [
         'abstract_factories' => [

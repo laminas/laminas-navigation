@@ -26,7 +26,7 @@ use function ksort;
  *
  * @group      Laminas_Navigation
  */
-class MvcTest extends TestCase
+final class MvcTest extends TestCase
 {
     private RegexRoute $route;
     private TreeRouteStack $router;

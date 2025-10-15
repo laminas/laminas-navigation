@@ -16,23 +16,12 @@ use Laminas\Navigation\Service\NavigationAbstractServiceFactory;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-/**
- * Tests the class Laminas\Navigation\MvcNavigationFactory
- *
- * @group      Laminas_Navigation
- */
-class ServiceFactoryTest extends TestCase
+final class ServiceFactoryTest extends TestCase
 {
-    /** @var ServiceManager */
-    protected $serviceManager;
-
-    private MockObject $router;
-    private MockObject $request;
-    private MvcEvent $mvcEvent;
+    private ServiceManager $serviceManager;
 
     /**
      * Prepares the environment before running a test.
@@ -68,8 +57,8 @@ class ServiceFactoryTest extends TestCase
         $this->serviceManager = $serviceManager = new ServiceManager();
         $serviceManager->setService('config', $config);
 
-        $this->router  = $router = $this->createMock(RouteStackInterface::class);
-        $this->request = $request = $this->createMock(HttpRequest::class);
+        $router  = $this->createMock(RouteStackInterface::class);
+        $request = $this->createMock(HttpRequest::class);
 
         $routeMatch = new RouteMatch([
             'controller' => 'post',
@@ -77,7 +66,7 @@ class ServiceFactoryTest extends TestCase
             'id'         => '1337',
         ]);
 
-        $this->mvcEvent = $mvcEvent = $this->createMock(MvcEvent::class);
+        $mvcEvent = $this->createMock(MvcEvent::class);
         $mvcEvent->expects(self::any())->method('getRouteMatch')->willReturn($routeMatch);
         $mvcEvent->expects(self::any())->method('getRouter')->willReturn($router);
         $mvcEvent->expects(self::any())->method('getRequest')->willReturn($request);

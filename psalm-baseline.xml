@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($page) && ! $page instanceof Traversable]]></code>
@@ -8,6 +8,9 @@
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[TPage|null]]></code>
     </ImplementedReturnTypeMismatch>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
     <InvalidPropertyAssignmentValue>
       <code><![CDATA[$this->pages]]></code>
     </InvalidPropertyAssignmentValue>
@@ -26,9 +29,6 @@
       <code><![CDATA[$propertyValue]]></code>
       <code><![CDATA[$propertyValue]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[TPage|null]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[get]]></code>
     </MixedMethodCall>
@@ -36,9 +36,18 @@
       <code><![CDATA[$page]]></code>
       <code><![CDATA[$page]]></code>
     </MixedReturnStatement>
+    <NullableReturnStatement>
+      <code><![CDATA[key($this->index)]]></code>
+    </NullableReturnStatement>
     <PossiblyInvalidArgument>
       <code><![CDATA[$page]]></code>
     </PossiblyInvalidArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[findBy]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[$this]]></code>
+    </PossiblyUnusedReturnValue>
     <UnusedFunctionCall>
       <code><![CDATA[current]]></code>
     </UnusedFunctionCall>
@@ -47,6 +56,11 @@
     <UndefinedClass>
       <code><![CDATA[\Zend\Navigation\Navigation]]></code>
     </UndefinedClass>
+  </file>
+  <file src="src/Module.php">
+    <UnusedClass>
+      <code><![CDATA[Module]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Navigation.php">
     <DocblockTypeContradiction>
@@ -90,6 +104,14 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+    </LessSpecificReturnStatement>
     <MissingReturnType>
       <code><![CDATA[addFactory]]></code>
     </MissingReturnType>
@@ -109,11 +131,6 @@
     <MixedFunctionCall>
       <code><![CDATA[call_user_func($factoryCallBack, $options)]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[AbstractPage]]></code>
-      <code><![CDATA[array]]></code>
-      <code><![CDATA[array]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[new $type($options)]]></code>
     </MixedMethodCall>
@@ -178,12 +195,6 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
-    <MixedInferredReturnType>
-      <code><![CDATA[Mvc]]></code>
-      <code><![CDATA[Mvc]]></code>
-      <code><![CDATA[bool]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <PossiblyNullPropertyAssignmentValue>
       <code><![CDATA[$action]]></code>
       <code><![CDATA[$controller]]></code>
@@ -196,6 +207,11 @@
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getDefaultRoute]]></code>
+      <code><![CDATA[getQuery]]></code>
+      <code><![CDATA[setRoute]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$action]]></code>
       <code><![CDATA[$controller]]></code>
@@ -246,6 +262,10 @@
      * }]]></code>
       <code><![CDATA[null|RouteStackInterface|MvcRouter\RouteStackInterface]]></code>
     </UndefinedDocblockClass>
+    <UnusedParam>
+      <code><![CDATA[$matches]]></code>
+      <code><![CDATA[$router]]></code>
+    </UnusedParam>
   </file>
   <file src="src/Page/Uri.php">
     <DocblockTypeContradiction>
@@ -295,6 +315,7 @@
       <code><![CDATA[Uri]]></code>
     </PropertyNotSetInConstructor>
     <RedundantConditionGivenDocblockType>
+      <code><![CDATA[$this->getRequest() instanceof Request]]></code>
       <code><![CDATA[null !== $uri]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -391,10 +412,6 @@
     <MixedAssignment>
       <code><![CDATA[$this->config]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[array]]></code>
-      <code><![CDATA[array]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$config[$withoutPrefix]]]></code>
       <code><![CDATA[$config[strtolower($withoutPrefix)]]]></code>
@@ -410,11 +427,12 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/HelperConfig.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA[$config['navigation_helpers']]]></code>
-    </ArgumentTypeCoercion>
     <DeprecatedClass>
       <code><![CDATA[Config]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
       <code><![CDATA[new Config($config)]]></code>
       <code><![CDATA[parent::configureServiceManager($serviceManager)]]></code>
     </DeprecatedClass>
@@ -454,9 +472,6 @@
       <code><![CDATA[$pluginManager]]></code>
       <code><![CDATA[$services]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[ServiceManager]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[getPluginManager]]></code>
     </MixedMethodCall>
@@ -468,17 +483,27 @@
       <code><![CDATA[$r->getValue($container) ?: $container]]></code>
       <code><![CDATA[$r->getValue($container) ?: $container]]></code>
     </MixedReturnStatement>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$config['navigation_helpers']]]></code>
+    </PossiblyInvalidArgument>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[ServiceManager]]></code>
+    </PossiblyUnusedReturnValue>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[$container->getServiceLocator()]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/NavigationHelperFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[$helper->setServiceLocator($this->getApplicationServicesFromContainer($container))]]></code>
+      <code><![CDATA[NavigationHelper]]></code>
+      <code><![CDATA[NavigationHelper]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[new NavigationHelper()]]></code>
+    </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[NavigationHelperFactory]]></code>
     </DeprecatedInterface>
-    <MixedInferredReturnType>
-      <code><![CDATA[ContainerInterface]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$r->getValue($container) ?: $container]]></code>
       <code><![CDATA[$r->getValue($container) ?: $container]]></code>
@@ -522,16 +547,6 @@
       <code><![CDATA[1337]]></code>
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
-    <InvalidCatch>
-      <code><![CDATA[try {
-            $nav = new Navigation\Navigation(new stdClass());
-            $this->fail('An invalid argument was given to the constructor, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\ExceptionInterface $e) {
-            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
-        }]]></code>
-    </InvalidCatch>
     <MissingReturnType>
       <code><![CDATA[_getFindByNavigation]]></code>
     </MissingReturnType>
@@ -615,7 +630,6 @@
       <code><![CDATA[$container->findOneBy('route', 'baz')]]></code>
     </PossiblyNullArgument>
     <PossiblyNullReference>
-      <code><![CDATA[getLabel]]></code>
       <code><![CDATA[hasChildren]]></code>
       <code><![CDATA[hasChildren]]></code>
     </PossiblyNullReference>
@@ -658,22 +672,6 @@
       <code><![CDATA[$router]]></code>
       <code><![CDATA[TreeRouteStack::class]]></code>
     </InvalidArgument>
-    <MixedArgument>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-    </MixedArgument>
-    <MixedMethodCall>
-      <code><![CDATA[addRoute]]></code>
-      <code><![CDATA[addRoute]]></code>
-      <code><![CDATA[setMatchedRouteName]]></code>
-      <code><![CDATA[setMatchedRouteName]]></code>
-    </MixedMethodCall>
     <NullArgument>
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
@@ -692,25 +690,6 @@
       <code><![CDATA[$event->getRouteMatch()]]></code>
       <code><![CDATA[$event->getRouteMatch()]]></code>
     </PossiblyNullArgument>
-    <UndefinedThisPropertyAssignment>
-      <code><![CDATA[$this->route]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->router]]></code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->routeMatch]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-      <code><![CDATA[$this->router]]></code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Page/PageFactoryTest.php">
     <InvalidArgument>
@@ -721,15 +700,16 @@
     </MissingClosureParamType>
     <MixedArgument>
       <code><![CDATA[$page]]></code>
-    </MixedArgument>
-    <PossiblyInvalidArgument>
       <code><![CDATA[$page]]></code>
-    </PossiblyInvalidArgument>
+    </MixedArgument>
   </file>
   <file src="test/Page/PageTest.php">
     <ArgumentTypeCoercion>
       <code><![CDATA['stdClass']]></code>
     </ArgumentTypeCoercion>
+    <DocblockTypeContradiction>
+      <code><![CDATA[assertSame]]></code>
+    </DocblockTypeContradiction>
     <DuplicateArrayKey>
       <code><![CDATA['label'      => 'foo.bar']]></code>
     </DuplicateArrayKey>
@@ -786,6 +766,15 @@
     <PossiblyNullPropertyFetch>
       <code><![CDATA[$page->getPermission()->name]]></code>
     </PossiblyNullPropertyFetch>
+    <UndefinedMagicMethod>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="test/Page/UriTest.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[assertNull]]></code>
+    </DocblockTypeContradiction>
   </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
     <InvalidArgument>
@@ -794,16 +783,6 @@
     <MissingReturnType>
       <code><![CDATA[testCanCreateNavigationInstanceV2]]></code>
     </MissingReturnType>
-    <MixedArgument>
-      <code><![CDATA[$this->factory]]></code>
-      <code><![CDATA[$this->factory]]></code>
-    </MixedArgument>
-    <UndefinedThisPropertyAssignment>
-      <code><![CDATA[$this->factory]]></code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch>
-      <code><![CDATA[$this->factory]]></code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Service/TestAsset/TestNavigationFactory.php">
     <DeprecatedInterface>
@@ -854,11 +833,6 @@
       <code><![CDATA[getPages]]></code>
       <code><![CDATA[getPages]]></code>
     </MixedMethodCall>
-    <UndefinedThisPropertyAssignment>
-      <code><![CDATA[$this->mvcEvent]]></code>
-      <code><![CDATA[$this->request]]></code>
-      <code><![CDATA[$this->router]]></code>
-    </UndefinedThisPropertyAssignment>
   </file>
   <file src="test/TestAsset/AbstractContainer.php">
     <InvalidReturnType>
@@ -869,6 +843,11 @@
     <DeprecatedInterface>
       <code><![CDATA[FileNavigationFactory]]></code>
     </DeprecatedInterface>
+  </file>
+  <file src="test/TestAsset/InvalidPage.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getHref]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="test/TestAsset/Page.php">
     <PropertyNotSetInConstructor>
@@ -887,6 +866,10 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="test/View/HelperConfigTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper\Links::class]]></code>
+    </DeprecatedClass>
     <MissingClosureParamType>
       <code><![CDATA[$services]]></code>
     </MissingClosureParamType>
@@ -905,6 +888,9 @@
     </MixedMethodCall>
   </file>
   <file src="test/View/ViewHelperManagerDelegatorFactoryTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[NavigationHelper::class]]></code>
+    </DeprecatedClass>
     <MissingClosureReturnType>
       <code><![CDATA[fn() => $helpers]]></code>
     </MissingClosureReturnType>
