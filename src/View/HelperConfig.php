@@ -25,9 +25,8 @@ use function strtr;
  * Service manager configuration for navigation view helpers
  *
  * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
- * @final
  */
-class HelperConfig extends Config
+final class HelperConfig extends Config
 {
     /**
      * Default configuration to apply.

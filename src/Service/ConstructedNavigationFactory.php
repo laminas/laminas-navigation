@@ -9,15 +9,13 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Constructed factory to set pages during construction.
- *
- * @final
  */
-class ConstructedNavigationFactory extends AbstractNavigationFactory
+final class ConstructedNavigationFactory extends AbstractNavigationFactory
 {
     /**
      * @param string|Config|array $config
      */
-    public function __construct(protected $config)
+    public function __construct(protected readonly string|Config|array $config)
     {
     }
 

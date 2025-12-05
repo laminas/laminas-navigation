@@ -33,6 +33,7 @@ use function ucwords;
  * @template-extends AbstractContainer<AbstractPage>
  * @psalm-no-seal-properties
  */
+#[\AllowDynamicProperties]
 abstract class AbstractPage extends AbstractContainer implements Stringable
 {
     /**

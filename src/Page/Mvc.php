@@ -25,10 +25,8 @@ use function strlen;
  * The two constants defined were originally provided via the laminas-mvc class
  * ModuleRouteListener; to remove the requirement on that component, they are
  * reproduced here.
- *
- * @final
  */
-class Mvc extends AbstractPage
+final class Mvc extends AbstractPage
 {
     public const MODULE_NAMESPACE    = '__NAMESPACE__';
     public const ORIGINAL_CONTROLLER = '__CONTROLLER__';

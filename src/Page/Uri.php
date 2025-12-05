@@ -14,10 +14,8 @@ use function str_ends_with;
 
 /**
  * Represents a page that is defined by specifying a URI
- *
- * @final
  */
-class Uri extends AbstractPage
+final class Uri extends AbstractPage
 {
     /**
      * Page URI
