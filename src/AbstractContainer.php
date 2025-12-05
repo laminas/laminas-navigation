@@ -428,6 +428,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     {
         $this->sort();
 
+        /** @noinspection ExpressionResultUnusedInspection */
         current($this->index);
         $hash = key($this->index);
         if ($hash === null || ! isset($this->pages[$hash])) {
