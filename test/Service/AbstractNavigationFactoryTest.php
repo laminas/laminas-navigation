@@ -8,7 +8,6 @@ use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Navigation;
-use Laminas\Navigation\Service\AbstractNavigationFactory;
 use Laminas\Router;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
@@ -71,12 +70,8 @@ final class AbstractNavigationFactoryTest extends TestCase
                 ['Application', $applicationMock],
             ]);
 
-        $navigationFactory
-            = $this->getMockForAbstractClass(AbstractNavigationFactory::class);
-        $navigationFactory->expects($this->any())
-            ->method('getName')
-            ->willReturn('testStubNavigation');
-        $navigation = $navigationFactory->createService($serviceManagerMock);
+        $navigationFactory = new TestAsset\TestNavigationFactory('testStubNavigation');
+        $navigation        = $navigationFactory->createService($serviceManagerMock);
 
         $this->assertInstanceOf(Navigation::class, $navigation);
     }

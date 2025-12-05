@@ -430,7 +430,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
         current($this->index);
         $hash = key($this->index);
-        if (! isset($this->pages[$hash])) {
+        if ($hash === null || ! isset($this->pages[$hash])) {
             throw new Exception\OutOfBoundsException(
                 'Corruption detected in container; '
                 . 'invalid key found in internal iterator'
@@ -508,6 +508,9 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     public function getChildren(): ?AbstractPage
     {
         $hash = key($this->index);
+        if ($hash === null) {
+            return null;
+        }
 
         return $this->pages[$hash] ?? null;
     }

@@ -8,6 +8,7 @@ use Laminas\Navigation\ConfigProvider;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Service;
 use Laminas\Navigation\View;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigProviderTest extends TestCase
@@ -37,9 +38,7 @@ final class ConfigProviderTest extends TestCase
         return $provider;
     }
 
-    /**
-     * @depends testProvidesExpectedConfiguration
-     */
+    #[Depends('testProvidesExpectedConfiguration')]
     public function testInvocationProvidesDependencyConfiguration(ConfigProvider $provider): void
     {
         $this->assertEquals(['dependencies' => $provider->getDependencyConfig()], $provider());

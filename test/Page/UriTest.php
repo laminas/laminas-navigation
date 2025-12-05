@@ -7,14 +7,14 @@ namespace LaminasTest\Navigation\Page;
 use Laminas\Http\Request;
 use Laminas\Navigation;
 use Laminas\Navigation\Page;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
  * Tests the class Laminas_Navigation_Page_Uri
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class UriTest extends TestCase
 {
     public function testUriOptionAsString(): void
@@ -114,9 +114,7 @@ final class UriTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    /**
-     * @group Laminas-8922
-     */
+    #[Group('Laminas-8922')]
     public function testGetHrefWithFragmentIdentifier(): void
     {
         $uri = 'http://www.example.com/foo.html';

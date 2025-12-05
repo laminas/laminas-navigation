@@ -10,6 +10,7 @@ use Laminas\Navigation\Page;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri;
 use LaminasTest\Navigation\TestAsset\AbstractContainer;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RecursiveIteratorIterator;
 use stdClass;
@@ -19,9 +20,8 @@ use function gettype;
 
 /**
  * Tests the class Laminas_Navigation_Container
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class ContainerTest extends TestCase
 {
     public function testConstructWithArray(): void
@@ -96,10 +96,8 @@ final class ContainerTest extends TestCase
         }
     }
 
-    /**
-     * @group 3823
-     * @group 3840
-     */
+    #[Group('3823')]
+    #[Group('3840')]
     public function testAddPagesWithNullValueSkipsPage(): void
     {
         $nav   = new Navigation\Navigation([
@@ -215,11 +213,10 @@ final class ContainerTest extends TestCase
 
     /**
      * @link https://github.com/zendframework/zf2/issues/3211
-     *
-     * @group 6825
-     * @group 4517
-     * @group 3211
      */
+    #[Group('6825')]
+    #[Group('4517')]
+    #[Group('3211')]
     public function testHasChildrenCompatibility(): void
     {
         $nav = new Navigation\Navigation([
@@ -270,11 +267,9 @@ final class ContainerTest extends TestCase
         $this->assertFalse($page2->hasChildren(), "page2's first child doesn't have children");
     }
 
-    /**
-     * @group 6825
-     * @group 4517
-     * @group 3211
-     */
+    #[Group('6825')]
+    #[Group('4517')]
+    #[Group('3211')]
     public function testDetailedRecursiveIteration(): void
     {
         $nav = new Navigation\Navigation([
@@ -504,9 +499,7 @@ final class ContainerTest extends TestCase
         );
     }
 
-    /**
-     * @group Laminas-9815
-     */
+    #[Group('Laminas-9815')]
     public function testAddPagesShouldWorkWithNavigationContainer(): void
     {
         $nav = new Navigation\Navigation();
@@ -1286,9 +1279,7 @@ final class ContainerTest extends TestCase
         $this->assertEquals(null, $container->getChildren());
     }
 
-    /**
-     * @group GH-5929
-     */
+    #[Group('GH-5929')]
     public function testRemovePageRecursively(): void
     {
         $container = new Navigation\Navigation([
