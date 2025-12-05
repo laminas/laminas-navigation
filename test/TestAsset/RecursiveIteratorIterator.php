@@ -41,6 +41,9 @@ final class RecursiveIteratorIterator extends \RecursiveIteratorIterator
         $this->logger[] = 'endChildren';
     }
 
+    /**
+     * @return void
+     */
     #[ReturnTypeWillChange]
     public function current()
     {

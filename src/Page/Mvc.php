@@ -190,7 +190,7 @@ final class Mvc extends AbstractPage
      */
     public function getHref(): string
     {
-        if ($this->hrefCache) {
+        if ($this->hrefCache !== null) {
             return $this->hrefCache;
         }
 
@@ -405,20 +405,16 @@ final class Mvc extends AbstractPage
      * Returns route name to use when assembling URL
      *
      * @see getHref()
-     *
-     * @return string  route name
      */
-    public function getRoute()
+    public function getRoute(): ?string
     {
         return $this->route;
     }
 
     /**
      * Get the route match.
-     *
-     * @return RouteMatch
      */
-    public function getRouteMatch()
+    public function getRouteMatch(): RouteMatch|MvcRouter\RouteMatch|null
     {
         return $this->routeMatch;
     }
@@ -517,10 +513,8 @@ final class Mvc extends AbstractPage
 
     /**
      * Gets the default router for assembling URLs.
-     *
-     * @return RouteStackInterface
      */
-    public static function getDefaultRouter()
+    public static function getDefaultRouter(): RouteStackInterface|MvcRouter\RouteStackInterface|null
     {
         return static::$defaultRouter;
     }
@@ -538,10 +532,8 @@ final class Mvc extends AbstractPage
 
     /**
      * Get default route name
-     *
-     * @return string
      */
-    public static function getDefaultRoute()
+    public static function getDefaultRoute(): ?string
     {
         return static::$defaultRoute;
     }
@@ -553,7 +545,6 @@ final class Mvc extends AbstractPage
      *
      * @see ResourceInterface
      *
-     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,

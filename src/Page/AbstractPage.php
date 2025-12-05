@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\Page;
 
+use AllowDynamicProperties;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
@@ -31,7 +32,7 @@ use function ucwords;
  * @template-extends AbstractContainer<AbstractPage>
  * @psalm-no-seal-properties
  */
-#[\AllowDynamicProperties]
+#[AllowDynamicProperties]
 abstract class AbstractPage extends AbstractContainer implements Stringable
 {
     /**
@@ -107,12 +108,13 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Permission associated with this page
      */
+    // phpcs:ignore WebimpressCodingStandard.Classes.NoNullValues.Invalid
     protected mixed $permission = null;
 
     /**
      * Text domain for Translator
      */
-    protected mixed $textDomain = null;
+    protected ?string $textDomain = null;
 
     /**
      * Whether this page should be considered active
@@ -272,8 +274,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
     /**
      * Initializes page (used by subclasses)
-     *
-     * @return void
      */
     protected function init(): void
     {
@@ -529,13 +529,11 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string $relation [optional] name of relation to return. If not
-     *                          given, all relations will be returned.
-     * @return array            an array of relations. If $relation is not
-     *                          specified, all relations will be returned in
-     *                          an associative array.
+     * @param  string|null $relation [optional] name of relation to return. If not
+     *                               given, all relations will be returned.
+     * @return ($relation is null ? array<string, mixed> : mixed)
      */
-    public function getRel($relation = null): mixed
+    public function getRel(?string $relation = null): mixed
     {
         if (null !== $relation) {
             return $this->rel[$relation] ?? null;
@@ -592,13 +590,11 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string $relation  [optional] name of relation to return. If not
-     *                           given, all relations will be returned.
-     * @return array             an array of relations. If $relation is not
-     *                           specified, all relations will be returned in
-     *                           an associative array.
+     * @param  string|null $relation [optional] name of relation to return. If not
+     *                               given, all relations will be returned.
+     * @return ($relation is null ? array<string, mixed> : mixed)
      */
-    public function getRev($relation = null): mixed
+    public function getRev(?string $relation = null): mixed
     {
         if (null !== $relation) {
             return $this->rev[$relation] ?? null;
@@ -745,7 +741,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                  sets no text domain.
      * @return $this
      */
-    public function setTextDomain($textDomain = null): static
+    public function setTextDomain(?string $textDomain = null): static
     {
         if (null !== $textDomain) {
             $this->textDomain = $textDomain;
@@ -756,9 +752,9 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns text domain for translation
      *
-     * @return mixed|null  text domain or null
+     * @return string|null  text domain or null
      */
-    public function getTextDomain(): mixed
+    public function getTextDomain(): ?string
     {
         return $this->textDomain;
     }
@@ -977,7 +973,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @param  string $name  property name
      * @param  mixed  $value value to set
-     * @return void
      * @throws Exception\InvalidArgumentException If property name is invalid.
      */
     public function __set($name, $value): void
@@ -1027,7 +1022,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * Magic overload for enabling <code>unset($page->propname)</code>.
      *
      * @param  string $name property name
-     * @return void
      * @throws Exception\InvalidArgumentException  If the property is native.
      */
     public function __unset($name): void
@@ -1168,7 +1162,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @see ResourceInterface
      *
-     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,

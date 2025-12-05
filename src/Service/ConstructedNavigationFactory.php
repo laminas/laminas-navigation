@@ -12,9 +12,6 @@ use Psr\Container\ContainerInterface;
  */
 final class ConstructedNavigationFactory extends AbstractNavigationFactory
 {
-    /**
-     * @param string|Config|array $config
-     */
     public function __construct(protected readonly string|Config|array $config)
     {
     }

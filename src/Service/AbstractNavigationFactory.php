@@ -9,6 +9,7 @@ use Laminas\Http\Request;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Navigation;
+use Laminas\Router\RouteInterface;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface as Router;
 use Laminas\ServiceManager\FactoryInterface;
@@ -174,7 +175,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * @psalm-assert RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
-    private function validateRouteMatch(mixed $routeMatch): void
+    private function validateRouteMatch(RouteMatch|null $routeMatch): void
     {
         if (null === $routeMatch) {
             return;
@@ -195,8 +196,9 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      *
      * @psalm-assert Router|null $router
      * @throws Exception\InvalidArgumentException
+     * @psalm-param Router<RouteInterface>|null $router
      */
-    private function validateRouter(mixed $router): void
+    private function validateRouter(Router|null $router): void
     {
         if (null === $router) {
             return;

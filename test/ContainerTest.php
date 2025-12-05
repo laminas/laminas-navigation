@@ -69,7 +69,7 @@ final class ContainerTest extends TestCase
     public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
     {
         try {
-            $nav = new Navigation\Navigation('ok');
+            new Navigation\Navigation('ok');
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -78,7 +78,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
-            $nav = new Navigation\Navigation(1337);
+            new Navigation\Navigation(1337);
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -87,7 +87,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
-            $nav = new Navigation\Navigation(new stdClass());
+            new Navigation\Navigation(new stdClass());
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1130,7 +1130,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
-            $found = $nav->findSomeById('page_2_and_3');
+            $nav->findSomeById('page_2_and_3');
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1144,7 +1144,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
-            $found = $nav->getPagez();
+            $nav->getPagez();
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1154,7 +1154,10 @@ final class ContainerTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _getFindByNavigation()
+    /**
+     * @psalm-return Navigation\Navigation<AbstractPage>
+     */
+    protected function _getFindByNavigation(): Navigation\Navigation
     {
         // @codingStandardsIgnoreEnd
         // findAllByFoo('bar')         // Page 1, Page 1.1
@@ -1239,7 +1242,7 @@ final class ContainerTest extends TestCase
         ]);
 
         try {
-            $page = $container->current();
+            $container->current();
             $this->fail('AbstractContainer index is invalid, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');

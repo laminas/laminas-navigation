@@ -30,11 +30,10 @@ final class Uri extends AbstractPage
     /**
      * Sets page URI
      *
-     * @param  string $uri                page URI, must a string or null
-     * @return Uri   fluent interface, returns self
+     * @param  string|null $uri page URI, must a string or null
      * @throws Exception\InvalidArgumentException  If $uri is invalid.
      */
-    public function setUri($uri)
+    public function setUri($uri): static
     {
         if (null !== $uri && ! is_string($uri)) {
             throw new Exception\InvalidArgumentException(
@@ -48,10 +47,8 @@ final class Uri extends AbstractPage
 
     /**
      * Returns URI
-     *
-     * @return string
      */
-    public function getUri()
+    public function getUri(): ?string
     {
         return $this->uri;
     }
@@ -60,12 +57,10 @@ final class Uri extends AbstractPage
      * Returns href for this page
      *
      * Includes the fragment identifier if it is set.
-     *
-     * @return string
      */
     public function getHref(): string
     {
-        $uri = $this->getUri();
+        $uri = $this->getUri() ?? '';
 
         $fragment = $this->getFragment();
         if (null !== $fragment) {
@@ -106,20 +101,16 @@ final class Uri extends AbstractPage
 
     /**
      * Get the request
-     *
-     * @return Request
      */
-    public function getRequest()
+    public function getRequest(): ?Request
     {
         return $this->request;
     }
 
     /**
      * Sets request for assembling URLs
-     *
-     * @return self Fluent interface, returns self
      */
-    public function setRequest(?Request $request = null)
+    public function setRequest(?Request $request = null): static
     {
         $this->request = $request;
         return $this;
@@ -130,7 +121,6 @@ final class Uri extends AbstractPage
      *
      * @see ResourceInterface
      *
-     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,

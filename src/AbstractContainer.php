@@ -186,7 +186,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     public function setPages(array $pages): static
     {
         $this->removePages();
-        return $this->addPages($pages);
+        $this->addPages($pages);
+        return $this;
     }
 
     /**
@@ -349,15 +350,16 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns page(s) matching $property == $value
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
-     * @param  bool   $all       [optional] whether an array of all matching
+     * @param string $property  name of property to match against
+     * @param mixed  $value     value to match property against
+     * @param bool   $all       [optional] whether an array of all matching
      *                           pages should be returned, or only the first.
      *                           If true, an array will be returned, even if not
      *                           matching pages are found. If false, null will
      *                           be returned if no matching page is found.
      *                           Default is false.
-     * @return TPage|null  matching page or null
+     * @return AbstractPage|AbstractPage[]|null matching page or null
+     * @psalm-return TPage|list<TPage>|null
      */
     public function findBy($property, $value, $all = false)
     {

@@ -50,7 +50,7 @@ final class AbstractNavigationFactoryTest extends TestCase
         $this->assertSame([], $pages);
     }
 
-    public function testCanCreateNavigationInstanceV2()
+    public function testCanCreateNavigationInstanceV2(): void
     {
         $mvcEventStub = new MvcEvent();
         $mvcEventStub->setRouteMatch(new Router\RouteMatch([]));

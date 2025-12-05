@@ -17,7 +17,6 @@ use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
 
 final class ServiceFactoryTest extends TestCase
 {
@@ -97,7 +96,7 @@ final class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', DefaultNavigationFactory::class);
         $container = $this->serviceManager->get('Navigation');
 
-        $recursive = function ($that, $pages) use (&$recursive) {
+        $recursive = function ($that, $pages) use (&$recursive): void {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
@@ -122,7 +121,7 @@ final class ServiceFactoryTest extends TestCase
         });
 
         $container = $this->serviceManager->get('Navigation');
-        $recursive = function ($that, $pages) use (&$recursive) {
+        $recursive = function ($that, $pages) use (&$recursive): void {
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());

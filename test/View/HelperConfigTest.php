@@ -34,7 +34,7 @@ final class HelperConfigTest extends TestCase
      */
     public function testConfigureServiceManagerWithConfig(
         string $navigationHelperServiceName
-    ) {
+    ): void {
         $replacedMenuClass = NavigationHelper\Links::class;
 
         $serviceManager = new ServiceManager([
