@@ -120,7 +120,7 @@ final class ServiceFactoryTest extends TestCase
         $factory->expects($this->once())
                 ->method('injectComponents')
                 ->with(
-                    $this->isType('array'),
+                    new \PHPUnit\Framework\Constraint\IsType('array'),
                     $this->isInstanceOf(RouteMatch::class),
                     $this->isInstanceOf(RouteStackInterface::class)
                 );

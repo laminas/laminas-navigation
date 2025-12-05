@@ -58,7 +58,7 @@ final class PageFactoryTest extends TestCase
             ]),
         ];
 
-        $this->assertContainsOnly(Mvc::class, $pages);
+        $this->assertContainsOnlyInstancesOf(Mvc::class, $pages);
     }
 
     public function testDetectUriPage(): void

@@ -620,7 +620,7 @@ final class ContainerTest extends TestCase
         ];
 
         $this->assertEquals($expected, $actual);
-        $this->assertContainsOnly(Uri::class, $pages, false);
+        $this->assertContainsOnlyInstancesOf(Uri::class, $pages);
     }
 
     public function testGetPagesShouldReturnUnorderedPages(): void
@@ -978,7 +978,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllBy('id', 'page_2_and_3');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 2', 'Page 3'];
         $actual   = [];
@@ -1023,7 +1023,7 @@ final class ContainerTest extends TestCase
         );
 
         $found = $nav->findAllBy('integer', '1000');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 4', 'Page 5'];
         $actual   = [];
@@ -1066,7 +1066,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllById('page_2_and_3');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 2', 'Page 3'];
         $actual   = [];
@@ -1082,7 +1082,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByAction('about');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 3'];
         $actual   = [];
@@ -1098,7 +1098,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByaction('about');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 1.3', 'Page 3'];
         $actual   = [];
