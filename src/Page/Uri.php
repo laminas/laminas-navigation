@@ -67,7 +67,7 @@ final class Uri extends AbstractPage
      *
      * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         $uri = $this->getUri();
 
@@ -94,7 +94,7 @@ final class Uri extends AbstractPage
      *            false.
      * @return bool whether page should be considered active or not
      */
-    public function isActive($recursive = false)
+    public function isActive($recursive = false): bool
     {
         if (! $this->active) {
             if ($this->getRequest() instanceof Request) {

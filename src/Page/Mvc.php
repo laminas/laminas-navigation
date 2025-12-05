@@ -206,7 +206,7 @@ final class Mvc extends AbstractPage
      * @return string  page href
      * @throws Exception\DomainException If no router is set.
      */
-    public function getHref()
+    public function getHref(): string
     {
         if ($this->hrefCache) {
             return $this->hrefCache;
