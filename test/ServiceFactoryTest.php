@@ -10,6 +10,7 @@ use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Page\Mvc as MvcPage;
+use Laminas\Navigation\Service\AbstractNavigationFactory;
 use Laminas\Navigation\Service\ConstructedNavigationFactory;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
 use Laminas\Navigation\Service\NavigationAbstractServiceFactory;
@@ -17,13 +18,14 @@ use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-#[CoversClass(\Laminas\Navigation\Service\AbstractNavigationFactory::class)]
-#[CoversClass(\Laminas\Navigation\Service\DefaultNavigationFactory::class)]
-#[CoversClass(\Laminas\Navigation\Service\ConstructedNavigationFactory::class)]
-#[CoversClass(\Laminas\Navigation\Service\NavigationAbstractServiceFactory::class)]
+#[CoversClass(AbstractNavigationFactory::class)]
+#[CoversClass(DefaultNavigationFactory::class)]
+#[CoversClass(ConstructedNavigationFactory::class)]
+#[CoversClass(NavigationAbstractServiceFactory::class)]
 final class ServiceFactoryTest extends TestCase
 {
     private ServiceManager $serviceManager;
@@ -120,7 +122,7 @@ final class ServiceFactoryTest extends TestCase
         $factory->expects($this->once())
                 ->method('injectComponents')
                 ->with(
-                    new \PHPUnit\Framework\Constraint\IsType('array'),
+                    new IsType('array'),
                     $this->isInstanceOf(RouteMatch::class),
                     $this->isInstanceOf(RouteStackInterface::class)
                 );
