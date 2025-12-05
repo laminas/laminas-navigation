@@ -14,8 +14,9 @@ use function is_array;
  *
  * @template TPage of AbstractPage
  * @template-extends AbstractContainer<TPage>
+ * @final
  */
-final class Navigation extends AbstractContainer
+class Navigation extends AbstractContainer
 {
     /**
      * Creates a new navigation container

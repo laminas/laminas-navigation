@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\Page;
 
-use AllowDynamicProperties;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
@@ -14,6 +13,8 @@ use Stringable;
 use Traversable;
 
 use function array_keys;
+use function array_merge;
+use function call_user_func;
 use function class_exists;
 use function is_array;
 use function is_int;
@@ -32,13 +33,14 @@ use function ucwords;
  * @template-extends AbstractContainer<AbstractPage>
  * @psalm-no-seal-properties
  */
-#[AllowDynamicProperties]
 abstract class AbstractPage extends AbstractContainer implements Stringable
 {
     /**
      * Page label
+     *
+     * @var string|null
      */
-    protected ?string $label = null;
+    protected $label;
 
     /**
      * Fragment identifier (anchor identifier)
@@ -49,101 +51,126 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * Example: http://www.example.org/foo.html#bar ("bar" is the fragment identifier)
      *
      * @link http://www.w3.org/TR/html401/intro/intro.html#fragment-uri
+     *
+     * @var string|null
      */
-    protected ?string $fragment = null;
+    protected $fragment;
 
     /**
      * Page id
+     *
+     * @var string|null
      */
-    protected ?string $id = null;
+    protected $id;
 
     /**
      * Style class for this page (CSS)
+     *
+     * @var string|null
      */
-    protected ?string $class = null;
+    protected $class;
 
     /**
      * A more descriptive title for this page
+     *
+     * @var string|null
      */
-    protected ?string $title = null;
+    protected $title;
 
     /**
      * This page's target
+     *
+     * @var string|null
      */
-    protected ?string $target = null;
+    protected $target;
 
     /**
      * Forward links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array<string, mixed>
+     * @var array
      */
-    protected array $rel = [];
+    protected $rel = [];
 
     /**
      * Reverse links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array<string, mixed>
+     * @var array
      */
-    protected array $rev = [];
+    protected $rev = [];
 
     /**
      * Page order used by parent container
+     *
+     * @var int|null
      */
-    protected ?int $order = null;
+    protected $order;
 
     /**
      * ACL resource associated with this page
+     *
+     * @var string|AclResource|null
      */
-    protected string|AclResource|null $resource = null;
+    protected $resource;
 
     /**
      * ACL privilege associated with this page
+     *
+     * @var string|null
      */
-    protected ?string $privilege = null;
+    protected $privilege;
 
     /**
      * Permission associated with this page
+     *
+     * @var mixed|null
      */
-    // phpcs:ignore WebimpressCodingStandard.Classes.NoNullValues.Invalid
-    protected mixed $permission = null;
+    protected $permission;
 
     /**
      * Text domain for Translator
+     *
+     * @var string
      */
-    protected ?string $textDomain = null;
+    protected $textDomain;
 
     /**
      * Whether this page should be considered active
+     *
+     * @var bool
      */
-    protected bool $active = false;
+    protected $active = false;
 
     /**
      * Whether this page should be considered visible
+     *
+     * @var bool
      */
-    protected bool $visible = true;
+    protected $visible = true;
 
     /**
      * Parent container
+     *
+     * @var AbstractContainer|null
      */
-    protected ?AbstractContainer $parent = null;
+    protected $parent;
 
     /**
      * Custom page properties, used by __set(), __get() and __isset()
      *
-     * @var array<string, mixed>
+     * @var array
      */
-    protected array $properties = [];
+    protected $properties = [];
 
     /**
      * Static factories list for factory pages
      *
-     * @var list<callable>
+     * @var array
      */
-    protected static array $factories = [];
+    protected static $factories = [];
 
     // Initialization:
 
@@ -178,7 +205,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @throws Exception\InvalidArgumentException If unable to determine
      *                                            which class to instantiate.
      */
-    public static function factory($options): AbstractPage
+    public static function factory($options)
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
@@ -193,11 +220,14 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
         if (isset($options['type'])) {
             $type = $options['type'];
             if (is_string($type) && ! empty($type)) {
-                $type = match (strtolower($type)) {
-                    'mvc' => Mvc::class,
-                    'uri' => Uri::class,
-                    default => $type,
-                };
+                switch (strtolower($type)) {
+                    case 'mvc':
+                        $type = Mvc::class;
+                        break;
+                    case 'uri':
+                        $type = Uri::class;
+                        break;
+                }
 
                 if (! class_exists($type, true)) {
                     throw new Exception\InvalidArgumentException(
@@ -221,7 +251,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
         if (static::$factories) {
             foreach (static::$factories as $factoryCallBack) {
-                if ($page = $factoryCallBack($options)) {
+                if ($page = call_user_func($factoryCallBack, $options)) {
                     return $page;
                 }
             }
@@ -247,7 +277,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @param callable $callback Any callable variable
      */
-    public static function addFactory($callback): void
+    public static function addFactory($callback)
     {
         static::$factories[] = $callback;
     }
@@ -274,8 +304,10 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
     /**
      * Initializes page (used by subclasses)
+     *
+     * @return void
      */
-    protected function init(): void
+    protected function init()
     {
     }
 
@@ -291,7 +323,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException  If invalid options are given.
      */
-    public function setOptions(array $options): static
+    public function setOptions(array $options)
     {
         foreach ($options as $key => $value) {
             $this->set($key, $value);
@@ -309,7 +341,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If empty/no string is given.
      */
-    public function setLabel($label): static
+    public function setLabel($label)
     {
         if (null !== $label && ! is_string($label)) {
             throw new Exception\InvalidArgumentException(
@@ -326,7 +358,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string  page label or null
      */
-    public function getLabel(): ?string
+    public function getLabel()
     {
         return $this->label;
     }
@@ -338,7 +370,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If empty/no string is given.
      */
-    public function setFragment($fragment): static
+    public function setFragment($fragment)
     {
         if (null !== $fragment && ! is_string($fragment)) {
             throw new Exception\InvalidArgumentException(
@@ -355,7 +387,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  fragment identifier
      */
-    public function getFragment(): ?string
+    public function getFragment()
     {
         return $this->fragment;
     }
@@ -368,7 +400,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException  If not given string or null.
      */
-    public function setId($id = null): static
+    public function setId($id = null)
     {
         if (null !== $id && ! is_string($id) && ! is_numeric($id)) {
             throw new Exception\InvalidArgumentException(
@@ -386,7 +418,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  page id or null
      */
-    public function getId(): ?string
+    public function getId()
     {
         return $this->id;
     }
@@ -399,7 +431,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException  If not given string or null.
      */
-    public function setClass($class = null): static
+    public function setClass($class = null)
     {
         if (null !== $class && ! is_string($class)) {
             throw new Exception\InvalidArgumentException(
@@ -416,7 +448,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  page's CSS class or null
      */
-    public function getClass(): ?string
+    public function getClass()
     {
         return $this->class;
     }
@@ -429,7 +461,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If not given string or null.
      */
-    public function setTitle($title = null): static
+    public function setTitle($title = null)
     {
         if (null !== $title && ! is_string($title)) {
             throw new Exception\InvalidArgumentException(
@@ -446,7 +478,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  page title or null
      */
-    public function getTitle(): ?string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -459,7 +491,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If target is not string or null.
      */
-    public function setTarget($target = null): static
+    public function setTarget($target = null)
     {
         if (null !== $target && ! is_string($target)) {
             throw new Exception\InvalidArgumentException(
@@ -476,7 +508,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  page target or null
      */
-    public function getTarget(): ?string
+    public function getTarget()
     {
         return $this->target;
     }
@@ -495,7 +527,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                            or Traversable object.
      * @return $this
      */
-    public function setRel($relations = null): static
+    public function setRel($relations = null)
     {
         $this->rel = [];
 
@@ -529,11 +561,13 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string|null $relation [optional] name of relation to return. If not
-     *                               given, all relations will be returned.
-     * @return ($relation is null ? array<string, mixed> : mixed)
+     * @param  string $relation [optional] name of relation to return. If not
+     *                          given, all relations will be returned.
+     * @return array            an array of relations. If $relation is not
+     *                          specified, all relations will be returned in
+     *                          an associative array.
      */
-    public function getRel(?string $relation = null): mixed
+    public function getRel($relation = null)
     {
         if (null !== $relation) {
             return $this->rel[$relation] ?? null;
@@ -556,7 +590,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                            or Traversable object.
      * @return $this
      */
-    public function setRev($relations = null): static
+    public function setRev($relations = null)
     {
         $this->rev = [];
 
@@ -590,14 +624,17 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string|null $relation [optional] name of relation to return. If not
-     *                               given, all relations will be returned.
-     * @return ($relation is null ? array<string, mixed> : mixed)
+     * @param  string $relation  [optional] name of relation to return. If not
+     *                           given, all relations will be returned.
+     * @return array             an array of relations. If $relation is not
+     *                           specified, all relations will be returned in
+     *                           an associative array.
      */
-    public function getRev(?string $relation = null): mixed
+    public function getRev($relation = null)
     {
         if (null !== $relation) {
-            return $this->rev[$relation] ?? null;
+            return $this->rev[$relation] ??
+                null;
         }
 
         return $this->rev;
@@ -612,7 +649,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If order is not integer or null.
      */
-    public function setOrder($order = null): static
+    public function setOrder($order = null)
     {
         if (is_string($order)) {
             $temp = (int) $order;
@@ -643,7 +680,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return int|null  page order or null
      */
-    public function getOrder(): ?int
+    public function getOrder()
     {
         return $this->order;
     }
@@ -657,7 +694,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If $resource is invalid.
      */
-    public function setResource($resource = null): static
+    public function setResource($resource = null)
     {
         if (
             null === $resource
@@ -680,7 +717,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|AclResource|null  ACL resource or null
      */
-    public function getResource(): string|AclResource|null
+    public function getResource()
     {
         return $this->resource;
     }
@@ -693,7 +730,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                 sets no privilege.
      * @return $this
      */
-    public function setPrivilege($privilege = null): static
+    public function setPrivilege($privilege = null)
     {
         $this->privilege = is_string($privilege) ? $privilege : null;
         return $this;
@@ -704,7 +741,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string|null  ACL privilege or null
      */
-    public function getPrivilege(): ?string
+    public function getPrivilege()
     {
         return $this->privilege;
     }
@@ -717,7 +754,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                  sets no permission.
      * @return $this
      */
-    public function setPermission($permission = null): static
+    public function setPermission($permission = null)
     {
         $this->permission = $permission;
         return $this;
@@ -728,7 +765,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return mixed|null  permission or null
      */
-    public function getPermission(): mixed
+    public function getPermission()
     {
         return $this->permission;
     }
@@ -741,7 +778,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                                  sets no text domain.
      * @return $this
      */
-    public function setTextDomain(?string $textDomain = null): static
+    public function setTextDomain($textDomain = null)
     {
         if (null !== $textDomain) {
             $this->textDomain = $textDomain;
@@ -752,9 +789,9 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns text domain for translation
      *
-     * @return string|null  text domain or null
+     * @return mixed|null  text domain or null
      */
-    public function getTextDomain(): ?string
+    public function getTextDomain()
     {
         return $this->textDomain;
     }
@@ -766,7 +803,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                      considered active or not. Default is true.
      * @return $this
      */
-    public function setActive($active = true): static
+    public function setActive($active = true)
     {
         $this->active = (bool) $active;
         return $this;
@@ -780,7 +817,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                          false.
      * @return bool             whether page should be considered active
      */
-    public function isActive($recursive = false): bool
+    public function isActive($recursive = false)
     {
         if (! $this->active && $recursive) {
             foreach ($this->pages as $page) {
@@ -802,7 +839,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                          is false.
      * @return bool             whether page should be considered active
      */
-    public function getActive($recursive = false): bool
+    public function getActive($recursive = false)
     {
         return $this->isActive($recursive);
     }
@@ -814,7 +851,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                       considered visible or not. Default is true.
      * @return $this
      */
-    public function setVisible($visible = true): static
+    public function setVisible($visible = true)
     {
         if (is_string($visible) && 'false' === strtolower($visible)) {
             $visible = false;
@@ -831,10 +868,16 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                          false.
      * @return bool             whether page should be considered visible
      */
-    public function isVisible($recursive = false): bool
+    public function isVisible($recursive = false)
     {
-        if ($recursive && $this->parent instanceof self && ! $this->parent->isVisible(true)) {
-            return false;
+        if (
+            $recursive
+            && isset($this->parent)
+            && $this->parent instanceof self
+        ) {
+            if (! $this->parent->isVisible(true)) {
+                return false;
+            }
         }
 
         return $this->visible;
@@ -850,7 +893,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *                          false.
      * @return bool             whether page should be considered visible
      */
-    public function getVisible($recursive = false): bool
+    public function getVisible($recursive = false)
     {
         return $this->isVisible($recursive);
     }
@@ -863,7 +906,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @throws Exception\InvalidArgumentException
      * @return $this
      */
-    public function setParent(?AbstractContainer $parent = null): static
+    public function setParent(?AbstractContainer $parent = null)
     {
         if ($parent === $this) {
             throw new Exception\InvalidArgumentException(
@@ -897,7 +940,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return AbstractContainer|null  parent container or null
      */
-    public function getParent(): ?AbstractContainer
+    public function getParent()
     {
         return $this->parent;
     }
@@ -913,7 +956,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return $this
      * @throws Exception\InvalidArgumentException If property name is invalid.
      */
-    public function set($property, $value): static
+    public function set($property, $value)
     {
         if (! is_string($property) || empty($property)) {
             throw new Exception\InvalidArgumentException(
@@ -945,7 +988,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return mixed            the property's value or null
      * @throws Exception\InvalidArgumentException If property name is invalid.
      */
-    public function get($property): mixed
+    public function get($property)
     {
         if (! is_string($property) || empty($property)) {
             throw new Exception\InvalidArgumentException(
@@ -973,9 +1016,10 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @param  string $name  property name
      * @param  mixed  $value value to set
+     * @return void
      * @throws Exception\InvalidArgumentException If property name is invalid.
      */
-    public function __set($name, $value): void
+    public function __set($name, $value)
     {
         $this->set($name, $value);
     }
@@ -989,7 +1033,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @return mixed        property value or null
      * @throws Exception\InvalidArgumentException If property name is invalid.
      */
-    public function __get($name): mixed
+    public function __get($name)
     {
         return $this->get($name);
     }
@@ -1006,7 +1050,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  string $name property name
      * @return bool whether the given property exists
      */
-    public function __isset($name): bool
+    public function __isset($name)
     {
         $method = 'get' . static::normalizePropertyName($name);
         if (method_exists($this, $method)) {
@@ -1022,9 +1066,10 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * Magic overload for enabling <code>unset($page->propname)</code>.
      *
      * @param  string $name property name
+     * @return void
      * @throws Exception\InvalidArgumentException  If the property is native.
      */
-    public function __unset($name): void
+    public function __unset($name)
     {
         $method = 'set' . static::normalizePropertyName($name);
         if (method_exists($this, $method)) {
@@ -1063,7 +1108,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  mixed  $value    value to set for relation
      * @return $this
      */
-    public function addRel($relation, $value): static
+    public function addRel($relation, $value)
     {
         if (is_string($relation)) {
             $this->rel[$relation] = $value;
@@ -1079,7 +1124,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  mixed  $value    value to set for relation
      * @return $this
      */
-    public function addRev($relation, $value): static
+    public function addRev($relation, $value)
     {
         if (is_string($relation)) {
             $this->rev[$relation] = $value;
@@ -1093,7 +1138,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  string $relation name of relation to remove
      * @return $this
      */
-    public function removeRel($relation): static
+    public function removeRel($relation)
     {
         if (isset($this->rel[$relation])) {
             unset($this->rel[$relation]);
@@ -1108,7 +1153,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  string $relation name of relation to remove
      * @return $this
      */
-    public function removeRev($relation): static
+    public function removeRev($relation)
     {
         if (isset($this->rev[$relation])) {
             unset($this->rev[$relation]);
@@ -1122,7 +1167,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return array  defined forward relations
      */
-    public function getDefinedRel(): array
+    public function getDefinedRel()
     {
         return array_keys($this->rel);
     }
@@ -1132,7 +1177,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return array  defined reverse relations
      */
-    public function getDefinedRev(): array
+    public function getDefinedRev()
     {
         return array_keys($this->rev);
     }
@@ -1142,7 +1187,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return array  an array containing custom properties
      */
-    public function getCustomProperties(): array
+    public function getCustomProperties()
     {
         return $this->properties;
     }
@@ -1152,7 +1197,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string  a hash code value for this page
      */
-    final public function hashCode(): string
+    final public function hashCode()
     {
         return spl_object_hash($this);
     }
@@ -1162,6 +1207,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @see ResourceInterface
      *
+     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,
@@ -1181,10 +1227,9 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *     ...
      * }
      */
-    public function toArray(): array
+    public function toArray()
     {
-        return [
-            ...$this->getCustomProperties(),
+        return array_merge($this->getCustomProperties(), [
             'label'      => $this->getLabel(),
             'fragment'   => $this->getFragment(),
             'id'         => $this->getId(),
@@ -1201,7 +1246,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
             'visible'    => $this->isVisible(),
             'type'       => static::class,
             'pages'      => parent::toArray(),
-        ];
+        ]);
     }
 
     // Internal methods:
@@ -1212,7 +1257,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * @param  string $property  property name to normalize
      * @return string            normalized property name
      */
-    protected static function normalizePropertyName($property): string
+    protected static function normalizePropertyName($property)
     {
         return str_replace(' ', '', ucwords(str_replace('_', ' ', $property)));
     }
@@ -1224,5 +1269,5 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string  the page's href
      */
-    abstract public function getHref(): string;
+    abstract public function getHref();
 }

@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation;
 
-final readonly class Module
+/** @final */
+class Module
 {
     /**
      * Return laminas-form configuration for laminas-mvc application.
+     *
+     * @return array
      */
-    public function getConfig(): array
+    public function getConfig()
     {
         $provider = new ConfigProvider();
         return [

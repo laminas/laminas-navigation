@@ -63,8 +63,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Sorts the page index according to page order
+     *
+     * @return void
      */
-    protected function sort(): void
+    protected function sort()
     {
         if (! $this->dirtyIndex) {
             return;
@@ -92,8 +94,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Notifies container that the order of pages are updated
+     *
+     * @return void
      */
-    public function notifyOrderUpdated(): void
+    public function notifyOrderUpdated()
     {
         $this->dirtyIndex = true;
     }

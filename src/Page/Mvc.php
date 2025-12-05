@@ -25,44 +25,52 @@ use function strlen;
  * The two constants defined were originally provided via the laminas-mvc class
  * ModuleRouteListener; to remove the requirement on that component, they are
  * reproduced here.
+ *
+ * @final
  */
-final class Mvc extends AbstractPage
+class Mvc extends AbstractPage
 {
     public const MODULE_NAMESPACE    = '__NAMESPACE__';
     public const ORIGINAL_CONTROLLER = '__CONTROLLER__';
 
     /**
      * Action name to use when assembling URL
+     *
+     * @var string
      */
-    protected ?string $action = null;
+    protected $action;
 
     /**
      * Controller name to use when assembling URL
+     *
+     * @var string
      */
-    protected ?string $controller = null;
+    protected $controller;
 
     /**
      * URL query part to use when assembling URL
      *
-     * @var array<string, mixed>|string|null
+     * @var array|string
      */
-    protected array|string|null $query = null;
+    protected $query;
 
     /**
      * Params to use when assembling URL
      *
      * @see getHref()
      *
-     * @var array<string, mixed>
+     * @var array
      */
-    protected array $params = [];
+    protected $params = [];
 
     /**
      * RouteInterface name to use when assembling URL
      *
      * @see getHref()
+     *
+     * @var string
      */
-    protected ?string $route = null;
+    protected $route;
 
     /**
      * Cached href
@@ -70,38 +78,50 @@ final class Mvc extends AbstractPage
      * The use of this variable minimizes execution time when getHref() is
      * called more than once during the lifetime of a request. If a property
      * is updated, the cache is invalidated.
+     *
+     * @var string
      */
-    protected ?string $hrefCache = null;
+    protected $hrefCache;
 
     /**
      * RouteInterface matches; used for routing parameters and testing validity
+     *
+     * @var RouteMatch
      */
-    protected RouteMatch|MvcRouter\RouteMatch|null $routeMatch = null;
+    protected $routeMatch;
 
     /**
      * If true and set routeMatch than getHref will use routeMatch params
      * to assemble uri
+     *
+     * @var bool
      */
-    protected bool $useRouteMatch = false;
+    protected $useRouteMatch = false;
 
     /**
      * Router for assembling URLs
      *
      * @see getHref()
+     *
+     * @var RouteStackInterface
      */
-    protected RouteStackInterface|MvcRouter\RouteStackInterface|null $router = null;
+    protected $router;
 
     /**
      * Default router to be used if router is not given.
      *
      * @see getHref()
+     *
+     * @var RouteStackInterface
      */
-    protected static RouteStackInterface|MvcRouter\RouteStackInterface|null $defaultRouter = null;
+    protected static $defaultRouter;
 
     /**
      * Default route name
+     *
+     * @var string
      */
-    protected static ?string $defaultRoute = null;
+    protected static $defaultRoute;
 
     // Accessors:
 
@@ -116,7 +136,7 @@ final class Mvc extends AbstractPage
      *                          false.
      * @return bool             whether page should be considered active or not
      */
-    public function isActive($recursive = false): bool
+    public function isActive($recursive = false)
     {
         if (! $this->active) {
             $reqParams = [];
@@ -188,9 +208,9 @@ final class Mvc extends AbstractPage
      * @return string  page href
      * @throws Exception\DomainException If no router is set.
      */
-    public function getHref(): string
+    public function getHref()
     {
-        if ($this->hrefCache !== null) {
+        if ($this->hrefCache) {
             return $this->hrefCache;
         }
 
@@ -405,16 +425,20 @@ final class Mvc extends AbstractPage
      * Returns route name to use when assembling URL
      *
      * @see getHref()
+     *
+     * @return string  route name
      */
-    public function getRoute(): ?string
+    public function getRoute()
     {
         return $this->route;
     }
 
     /**
      * Get the route match.
+     *
+     * @return RouteMatch
      */
-    public function getRouteMatch(): RouteMatch|MvcRouter\RouteMatch|null
+    public function getRouteMatch()
     {
         return $this->routeMatch;
     }
@@ -513,8 +537,10 @@ final class Mvc extends AbstractPage
 
     /**
      * Gets the default router for assembling URLs.
+     *
+     * @return RouteStackInterface
      */
-    public static function getDefaultRouter(): RouteStackInterface|MvcRouter\RouteStackInterface|null
+    public static function getDefaultRouter()
     {
         return static::$defaultRouter;
     }
@@ -532,8 +558,10 @@ final class Mvc extends AbstractPage
 
     /**
      * Get default route name
+     *
+     * @return string
      */
-    public static function getDefaultRoute(): ?string
+    public static function getDefaultRoute()
     {
         return static::$defaultRoute;
     }
@@ -545,6 +573,7 @@ final class Mvc extends AbstractPage
      *
      * @see ResourceInterface
      *
+     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,
@@ -570,7 +599,7 @@ final class Mvc extends AbstractPage
      *     ...
      * }
      */
-    public function toArray(): array
+    public function toArray()
     {
         return array_merge(
             parent::toArray(),

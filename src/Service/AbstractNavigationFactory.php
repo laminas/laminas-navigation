@@ -175,7 +175,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * @psalm-assert RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
-    private function validateRouteMatch(RouteMatch|null $routeMatch): void
+    private function validateRouteMatch(mixed $routeMatch): void
     {
         if (null === $routeMatch) {
             return;

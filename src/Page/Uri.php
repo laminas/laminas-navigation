@@ -14,26 +14,33 @@ use function str_ends_with;
 
 /**
  * Represents a page that is defined by specifying a URI
+ *
+ * @final
  */
-final class Uri extends AbstractPage
+class Uri extends AbstractPage
 {
     /**
      * Page URI
+     *
+     * @var string|null
      */
-    protected ?string $uri = null;
+    protected $uri;
 
     /**
      * Request object used to determine uri path
+     *
+     * @var string
      */
-    protected ?Request $request = null;
+    protected $request;
 
     /**
      * Sets page URI
      *
-     * @param  string|null $uri page URI, must a string or null
+     * @param  string $uri                page URI, must a string or null
+     * @return Uri   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  If $uri is invalid.
      */
-    public function setUri($uri): static
+    public function setUri($uri)
     {
         if (null !== $uri && ! is_string($uri)) {
             throw new Exception\InvalidArgumentException(
@@ -47,8 +54,10 @@ final class Uri extends AbstractPage
 
     /**
      * Returns URI
+     *
+     * @return string
      */
-    public function getUri(): ?string
+    public function getUri()
     {
         return $this->uri;
     }
@@ -57,10 +66,12 @@ final class Uri extends AbstractPage
      * Returns href for this page
      *
      * Includes the fragment identifier if it is set.
+     *
+     * @return string
      */
-    public function getHref(): string
+    public function getHref()
     {
-        $uri = $this->getUri() ?? '';
+        $uri = $this->getUri();
 
         $fragment = $this->getFragment();
         if (null !== $fragment) {
@@ -85,7 +96,7 @@ final class Uri extends AbstractPage
      *            false.
      * @return bool whether page should be considered active or not
      */
-    public function isActive($recursive = false): bool
+    public function isActive($recursive = false)
     {
         if (! $this->active) {
             if ($this->getRequest() instanceof Request) {
@@ -101,16 +112,20 @@ final class Uri extends AbstractPage
 
     /**
      * Get the request
+     *
+     * @return Request
      */
-    public function getRequest(): ?Request
+    public function getRequest()
     {
         return $this->request;
     }
 
     /**
      * Sets request for assembling URLs
+     *
+     * @return self Fluent interface, returns self
      */
-    public function setRequest(?Request $request = null): static
+    public function setRequest(?Request $request = null)
     {
         $this->request = $request;
         return $this;
@@ -121,6 +136,7 @@ final class Uri extends AbstractPage
      *
      * @see ResourceInterface
      *
+     * @return array
      * @psalm-return array{
      *     label: string|null,
      *     fragment: string|null,
@@ -141,7 +157,7 @@ final class Uri extends AbstractPage
      *     ...
      * }
      */
-    public function toArray(): array
+    public function toArray()
     {
         return array_merge(
             parent::toArray(),

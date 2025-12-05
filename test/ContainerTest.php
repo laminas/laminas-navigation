@@ -96,8 +96,6 @@ final class ContainerTest extends TestCase
         }
     }
 
-    #[Group('3823')]
-    #[Group('3840')]
     public function testAddPagesWithNullValueSkipsPage(): void
     {
         $nav   = new Navigation\Navigation([
@@ -214,9 +212,6 @@ final class ContainerTest extends TestCase
     /**
      * @link https://github.com/zendframework/zf2/issues/3211
      */
-    #[Group('6825')]
-    #[Group('4517')]
-    #[Group('3211')]
     public function testHasChildrenCompatibility(): void
     {
         $nav = new Navigation\Navigation([
@@ -267,9 +262,6 @@ final class ContainerTest extends TestCase
         $this->assertFalse($page2->hasChildren(), "page2's first child doesn't have children");
     }
 
-    #[Group('6825')]
-    #[Group('4517')]
-    #[Group('3211')]
     public function testDetailedRecursiveIteration(): void
     {
         $nav = new Navigation\Navigation([
@@ -499,7 +491,6 @@ final class ContainerTest extends TestCase
         );
     }
 
-    #[Group('Laminas-9815')]
     public function testAddPagesShouldWorkWithNavigationContainer(): void
     {
         $nav = new Navigation\Navigation();
