@@ -97,6 +97,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
+        /** @noinspection PhpParamsInspection */
         $page->set([], true);
     }
 
@@ -117,6 +118,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
+        /** @noinspection PhpParamsInspection */
         $page->get([]);
     }
 
@@ -1146,7 +1148,6 @@ final class PageTest extends TestCase
                 [
                     'label'      => 'foo.baz',
                     'type'       => Uri::class,
-                    'label'      => 'foo.bar',
                     'fragment'   => null,
                     'id'         => null,
                     'class'      => null,
