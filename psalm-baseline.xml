@@ -632,9 +632,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="test/ServiceFactoryTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[isType]]></code>
-    </DeprecatedMethod>
     <MissingClosureParamType>
       <code><![CDATA[$pages]]></code>
       <code><![CDATA[$pages]]></code>
