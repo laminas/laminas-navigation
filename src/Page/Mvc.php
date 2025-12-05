@@ -134,7 +134,7 @@ final class Mvc extends AbstractPage
      *                          false.
      * @return bool             whether page should be considered active or not
      */
-    public function isActive($recursive = false)
+    public function isActive($recursive = false): bool
     {
         if (! $this->active) {
             $reqParams = [];
