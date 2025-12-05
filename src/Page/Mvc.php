@@ -33,42 +33,36 @@ final class Mvc extends AbstractPage
 
     /**
      * Action name to use when assembling URL
-     *
-     * @var string
      */
-    protected $action;
+    protected ?string $action = null;
 
     /**
      * Controller name to use when assembling URL
-     *
-     * @var string
      */
-    protected $controller;
+    protected ?string $controller = null;
 
     /**
      * URL query part to use when assembling URL
      *
-     * @var array|string
+     * @var array<string, mixed>|string|null
      */
-    protected $query;
+    protected array|string|null $query = null;
 
     /**
      * Params to use when assembling URL
      *
      * @see getHref()
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $params = [];
+    protected array $params = [];
 
     /**
      * RouteInterface name to use when assembling URL
      *
      * @see getHref()
-     *
-     * @var string
      */
-    protected $route;
+    protected ?string $route = null;
 
     /**
      * Cached href
@@ -76,50 +70,38 @@ final class Mvc extends AbstractPage
      * The use of this variable minimizes execution time when getHref() is
      * called more than once during the lifetime of a request. If a property
      * is updated, the cache is invalidated.
-     *
-     * @var string
      */
-    protected $hrefCache;
+    protected ?string $hrefCache = null;
 
     /**
      * RouteInterface matches; used for routing parameters and testing validity
-     *
-     * @var RouteMatch
      */
-    protected $routeMatch;
+    protected RouteMatch|MvcRouter\RouteMatch|null $routeMatch = null;
 
     /**
      * If true and set routeMatch than getHref will use routeMatch params
      * to assemble uri
-     *
-     * @var bool
      */
-    protected $useRouteMatch = false;
+    protected bool $useRouteMatch = false;
 
     /**
      * Router for assembling URLs
      *
      * @see getHref()
-     *
-     * @var RouteStackInterface
      */
-    protected $router;
+    protected RouteStackInterface|MvcRouter\RouteStackInterface|null $router = null;
 
     /**
      * Default router to be used if router is not given.
      *
      * @see getHref()
-     *
-     * @var RouteStackInterface
      */
-    protected static $defaultRouter;
+    protected static RouteStackInterface|MvcRouter\RouteStackInterface|null $defaultRouter = null;
 
     /**
      * Default route name
-     *
-     * @var string
      */
-    protected static $defaultRoute;
+    protected static ?string $defaultRoute = null;
 
     // Accessors:
 
@@ -597,7 +579,7 @@ final class Mvc extends AbstractPage
      *     ...
      * }
      */
-    public function toArray()
+    public function toArray(): array
     {
         return array_merge(
             parent::toArray(),

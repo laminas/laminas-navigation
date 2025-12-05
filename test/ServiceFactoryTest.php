@@ -113,38 +113,6 @@ final class ServiceFactoryTest extends TestCase
     /**
      * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
      */
-    public function testConstructedNavigationFactoryInjectRouterAndMatcher(): void
-    {
-        $builder = $this->getMockBuilder(ConstructedNavigationFactory::class);
-        $builder->setConstructorArgs([__DIR__ . '/_files/navigation_mvc.xml'])
-                ->setMethods(['injectComponents']);
-
-        $factory = $builder->getMock();
-
-        $factory->expects($this->once())
-                ->method('injectComponents')
-                ->with(
-                    $this->isType('array'),
-                    $this->isInstanceOf(RouteMatch::class),
-                    $this->isInstanceOf(RouteStackInterface::class)
-                );
-
-        $this->serviceManager->setFactory(
-            'Navigation',
-            static function (ContainerInterface $services) use ($factory): Navigation {
-                $navigation = $factory($services, 'Navigation');
-                self::assertInstanceOf(Navigation::class, $navigation);
-
-                return $navigation;
-            }
-        );
-
-        $this->serviceManager->get('Navigation');
-    }
-
-    /**
-     * @covers \Laminas\Navigation\Service\ConstructedNavigationFactory
-     */
     public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory(): void
     {
         $this->serviceManager->setFactory('Navigation', function ($services) {

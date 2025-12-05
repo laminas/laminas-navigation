@@ -13,7 +13,7 @@ final class Page extends AbstractPage
      *
      * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return '#';
     }

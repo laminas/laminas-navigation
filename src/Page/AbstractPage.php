@@ -13,8 +13,6 @@ use Stringable;
 use Traversable;
 
 use function array_keys;
-use function array_merge;
-use function call_user_func;
 use function class_exists;
 use function is_array;
 use function is_int;
@@ -38,10 +36,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 {
     /**
      * Page label
-     *
-     * @var string|null
      */
-    protected $label;
+    protected ?string $label = null;
 
     /**
      * Fragment identifier (anchor identifier)
@@ -52,126 +48,100 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * Example: http://www.example.org/foo.html#bar ("bar" is the fragment identifier)
      *
      * @link http://www.w3.org/TR/html401/intro/intro.html#fragment-uri
-     *
-     * @var string|null
      */
-    protected $fragment;
+    protected ?string $fragment = null;
 
     /**
      * Page id
-     *
-     * @var string|null
      */
-    protected $id;
+    protected ?string $id = null;
 
     /**
      * Style class for this page (CSS)
-     *
-     * @var string|null
      */
-    protected $class;
+    protected ?string $class = null;
 
     /**
      * A more descriptive title for this page
-     *
-     * @var string|null
      */
-    protected $title;
+    protected ?string $title = null;
 
     /**
      * This page's target
-     *
-     * @var string|null
      */
-    protected $target;
+    protected ?string $target = null;
 
     /**
      * Forward links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $rel = [];
+    protected array $rel = [];
 
     /**
      * Reverse links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $rev = [];
+    protected array $rev = [];
 
     /**
      * Page order used by parent container
-     *
-     * @var int|null
      */
-    protected $order;
+    protected ?int $order = null;
 
     /**
      * ACL resource associated with this page
-     *
-     * @var string|AclResource|null
      */
-    protected $resource;
+    protected string|AclResource|null $resource = null;
 
     /**
      * ACL privilege associated with this page
-     *
-     * @var string|null
      */
-    protected $privilege;
+    protected ?string $privilege = null;
 
     /**
      * Permission associated with this page
-     *
-     * @var mixed|null
      */
-    protected $permission;
+    protected mixed $permission = null;
 
     /**
      * Text domain for Translator
-     *
-     * @var string
      */
-    protected $textDomain;
+    protected mixed $textDomain = null;
 
     /**
      * Whether this page should be considered active
-     *
-     * @var bool
      */
-    protected $active = false;
+    protected bool $active = false;
 
     /**
      * Whether this page should be considered visible
-     *
-     * @var bool
      */
-    protected $visible = true;
+    protected bool $visible = true;
 
     /**
      * Parent container
-     *
-     * @var AbstractContainer|null
      */
-    protected $parent;
+    protected ?AbstractContainer $parent = null;
 
     /**
      * Custom page properties, used by __set(), __get() and __isset()
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $properties = [];
+    protected array $properties = [];
 
     /**
      * Static factories list for factory pages
      *
-     * @var array
+     * @var list<callable>
      */
-    protected static $factories = [];
+    protected static array $factories = [];
 
     // Initialization:
 
@@ -221,14 +191,11 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
         if (isset($options['type'])) {
             $type = $options['type'];
             if (is_string($type) && ! empty($type)) {
-                switch (strtolower($type)) {
-                    case 'mvc':
-                        $type = Mvc::class;
-                        break;
-                    case 'uri':
-                        $type = Uri::class;
-                        break;
-                }
+                $type = match (strtolower($type)) {
+                    'mvc' => Mvc::class,
+                    'uri' => Uri::class,
+                    default => $type,
+                };
 
                 if (! class_exists($type, true)) {
                     throw new Exception\InvalidArgumentException(
@@ -252,7 +219,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
         if (static::$factories) {
             foreach (static::$factories as $factoryCallBack) {
-                if ($page = call_user_func($factoryCallBack, $options)) {
+                if ($page = $factoryCallBack($options)) {
                     return $page;
                 }
             }
@@ -870,14 +837,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function isVisible($recursive = false): bool
     {
-        if (
-            $recursive
-            && isset($this->parent)
-            && $this->parent instanceof self
-        ) {
-            if (! $this->parent->isVisible(true)) {
-                return false;
-            }
+        if ($recursive && $this->parent instanceof self && ! $this->parent->isVisible(true)) {
+            return false;
         }
 
         return $this->visible;
@@ -1229,7 +1190,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function toArray(): array
     {
-        return array_merge($this->getCustomProperties(), [
+        return [
+            ...$this->getCustomProperties(),
             'label'      => $this->getLabel(),
             'fragment'   => $this->getFragment(),
             'id'         => $this->getId(),
@@ -1246,7 +1208,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
             'visible'    => $this->isVisible(),
             'type'       => static::class,
             'pages'      => parent::toArray(),
-        ]);
+        ];
     }
 
     // Internal methods:

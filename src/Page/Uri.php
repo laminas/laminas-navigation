@@ -19,17 +19,13 @@ final class Uri extends AbstractPage
 {
     /**
      * Page URI
-     *
-     * @var string|null
      */
-    protected $uri;
+    protected ?string $uri = null;
 
     /**
      * Request object used to determine uri path
-     *
-     * @var string
      */
-    protected $request;
+    protected ?Request $request = null;
 
     /**
      * Sets page URI
@@ -155,7 +151,7 @@ final class Uri extends AbstractPage
      *     ...
      * }
      */
-    public function toArray()
+    public function toArray(): array
     {
         return array_merge(
             parent::toArray(),
