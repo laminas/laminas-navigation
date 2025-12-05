@@ -465,21 +465,12 @@
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
       <code><![CDATA[$page]]></code>
     </MixedAssignment>
     <MixedMethodCall>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
       <code><![CDATA[getLabel]]></code>
     </MixedMethodCall>
     <PossiblyNullArgument>
@@ -569,9 +560,6 @@
     <DocblockTypeContradiction>
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
-    <DuplicateArrayKey>
-      <code><![CDATA['label'      => 'foo.bar']]></code>
-    </DuplicateArrayKey>
     <InvalidArgument>
       <code><![CDATA[$invalid]]></code>
       <code><![CDATA[$invalid]]></code>
@@ -644,6 +632,9 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="test/ServiceFactoryTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[isType]]></code>
+    </DeprecatedMethod>
     <MissingClosureParamType>
       <code><![CDATA[$pages]]></code>
       <code><![CDATA[$pages]]></code>
