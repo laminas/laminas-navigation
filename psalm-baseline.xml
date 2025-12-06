@@ -8,9 +8,18 @@
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[TPage|null]]></code>
     </ImplementedReturnTypeMismatch>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
     <InvalidPropertyAssignmentValue>
       <code><![CDATA[$this->pages]]></code>
     </InvalidPropertyAssignmentValue>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->findAllBy($property, $value)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[TPage|null]]></code>
+    </InvalidReturnType>
     <MixedArgument>
       <code><![CDATA[$page]]></code>
     </MixedArgument>
@@ -27,9 +36,15 @@
       <code><![CDATA[$page]]></code>
       <code><![CDATA[$page]]></code>
     </MixedReturnStatement>
+    <NullableReturnStatement>
+      <code><![CDATA[key($this->index)]]></code>
+    </NullableReturnStatement>
     <PossiblyInvalidArgument>
       <code><![CDATA[$page]]></code>
     </PossiblyInvalidArgument>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[$this]]></code>
+    </PossiblyUnusedReturnValue>
     <UnusedFunctionCall>
       <code><![CDATA[current]]></code>
     </UnusedFunctionCall>
@@ -63,6 +78,9 @@
       <code><![CDATA[null !== $target && ! is_string($target)]]></code>
       <code><![CDATA[null !== $title && ! is_string($title)]]></code>
     </DocblockTypeContradiction>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
      *     label: string|null,
@@ -83,10 +101,14 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
+    <MissingReturnType>
+      <code><![CDATA[addFactory]]></code>
+    </MissingReturnType>
     <MixedArgumentTypeCoercion>
       <code><![CDATA[$key]]></code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment>
+      <code><![CDATA[$factoryCallBack]]></code>
       <code><![CDATA[$name]]></code>
       <code><![CDATA[$name]]></code>
       <code><![CDATA[$page]]></code>
@@ -95,18 +117,30 @@
       <code><![CDATA[$type]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
+    <MixedFunctionCall>
+      <code><![CDATA[call_user_func($factoryCallBack, $options)]]></code>
+    </MixedFunctionCall>
     <MixedMethodCall>
       <code><![CDATA[new $type($options)]]></code>
     </MixedMethodCall>
     <MixedReturnStatement>
       <code><![CDATA[$page]]></code>
       <code><![CDATA[$this->rel[$relation] ?? null]]></code>
-      <code><![CDATA[$this->rev[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
     </MixedReturnStatement>
     <NullableReturnStatement>
+      <code><![CDATA[$this->label]]></code>
       <code><![CDATA[$this->rel[$relation] ?? null]]></code>
-      <code><![CDATA[$this->rev[$relation] ?? null]]></code>
+      <code><![CDATA[$this->rev[$relation] ??
+                null]]></code>
     </NullableReturnStatement>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$textDomain]]></code>
+    </PropertyNotSetInConstructor>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $active]]></code>
     </RedundantCastGivenDocblockType>
@@ -122,6 +156,7 @@
       <code><![CDATA[! is_string($route)]]></code>
       <code><![CDATA[null !== $action && ! is_string($action)]]></code>
       <code><![CDATA[null !== $controller && ! is_string($controller)]]></code>
+      <code><![CDATA[null === $router]]></code>
     </DocblockTypeContradiction>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
@@ -149,16 +184,33 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
-    <MixedPropertyTypeCoercion>
-      <code><![CDATA[$params ?? []]]></code>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[$action]]></code>
+      <code><![CDATA[$controller]]></code>
       <code><![CDATA[$query]]></code>
-    </MixedPropertyTypeCoercion>
+      <code><![CDATA[$route]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+    </PossiblyNullPropertyAssignmentValue>
     <PossiblyUnusedMethod>
       <code><![CDATA[getDefaultRoute]]></code>
       <code><![CDATA[getQuery]]></code>
-      <code><![CDATA[getRoute]]></code>
       <code><![CDATA[setRoute]]></code>
     </PossiblyUnusedMethod>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$action]]></code>
+      <code><![CDATA[$controller]]></code>
+      <code><![CDATA[$hrefCache]]></code>
+      <code><![CDATA[$query]]></code>
+      <code><![CDATA[$route]]></code>
+      <code><![CDATA[$routeMatch]]></code>
+      <code><![CDATA[$router]]></code>
+      <code><![CDATA[Mvc]]></code>
+    </PropertyNotSetInConstructor>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $useRouteMatch]]></code>
     </RedundantCastGivenDocblockType>
@@ -169,11 +221,6 @@
     <UndefinedClass>
       <code><![CDATA[MvcRouter\RouteMatch]]></code>
       <code><![CDATA[MvcRouter\RouteStackInterface]]></code>
-      <code><![CDATA[RouteMatch|MvcRouter\RouteMatch|null]]></code>
-      <code><![CDATA[RouteMatch|MvcRouter\RouteMatch|null]]></code>
-      <code><![CDATA[RouteStackInterface|MvcRouter\RouteStackInterface|null]]></code>
-      <code><![CDATA[RouteStackInterface|MvcRouter\RouteStackInterface|null]]></code>
-      <code><![CDATA[RouteStackInterface|MvcRouter\RouteStackInterface|null]]></code>
     </UndefinedClass>
     <UndefinedDocblockClass>
       <code><![CDATA[RouteMatch|MvcRouter\RouteMatch]]></code>
@@ -213,6 +260,18 @@
     <DocblockTypeContradiction>
       <code><![CDATA[null !== $uri && ! is_string($uri)]]></code>
     </DocblockTypeContradiction>
+    <ImplicitToStringCast>
+      <code><![CDATA[$request]]></code>
+    </ImplicitToStringCast>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->request]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Request]]></code>
+    </InvalidReturnType>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
      *     label: string|null,
@@ -234,6 +293,20 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->uri]]></code>
+    </NullableReturnStatement>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[$request]]></code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$request]]></code>
+      <code><![CDATA[Uri]]></code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[$this->getRequest() instanceof Request]]></code>
+      <code><![CDATA[null !== $uri]]></code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Service/AbstractNavigationFactory.php">
     <DeprecatedInterface>
@@ -618,6 +691,11 @@
       <code><![CDATA[findOneByLabel]]></code>
     </UndefinedMagicMethod>
   </file>
+  <file src="test/Page/UriTest.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[assertNull]]></code>
+    </DocblockTypeContradiction>
+  </file>
   <file src="test/Service/AbstractNavigationFactoryTest.php">
     <InvalidArgument>
       <code><![CDATA[new Router\Http\TreeRouteStack()]]></code>
@@ -667,6 +745,11 @@
     <DeprecatedInterface>
       <code><![CDATA[FileNavigationFactory]]></code>
     </DeprecatedInterface>
+  </file>
+  <file src="test/TestAsset/Page.php">
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[Page]]></code>
+    </PropertyNotSetInConstructor>
   </file>
   <file src="test/TestAsset/RecursiveIteratorIterator.php">
     <NullReference>
