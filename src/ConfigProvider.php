@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation;
 
-final readonly class ConfigProvider
+/** @final */
+readonly class ConfigProvider
 {
     /**
      * Return general-purpose laminas-navigation configuration.
+     *
+     * @return array
      */
-    public function __invoke(): array
+    public function __invoke()
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
@@ -18,8 +21,10 @@ final readonly class ConfigProvider
 
     /**
      * Return application-level dependency configuration.
+     *
+     * @return array
      */
-    public function getDependencyConfig(): array
+    public function getDependencyConfig()
     {
         return [
             'abstract_factories' => [

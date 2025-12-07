@@ -196,9 +196,8 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      *
      * @psalm-assert Router|null $router
      * @throws Exception\InvalidArgumentException
-     * @psalm-param Router<RouteInterface>|null $router
      */
-    private function validateRouter(Router|null $router): void
+    private function validateRouter(mixed $router): void
     {
         if (null === $router) {
             return;
