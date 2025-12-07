@@ -10,7 +10,8 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
 use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 
-final class NavigationHelperFactory implements FactoryInterface
+/** @final */
+class NavigationHelperFactory implements FactoryInterface
 {
     /**
      * Create and return a navigation helper instance. (v3)
