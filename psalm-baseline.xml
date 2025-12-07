@@ -313,7 +313,6 @@
       <code><![CDATA[AbstractNavigationFactory]]></code>
     </DeprecatedInterface>
     <DocblockTypeContradiction>
-      <code><![CDATA[$router instanceof Router]]></code>
       <code><![CDATA[null === $this->pages]]></code>
     </DocblockTypeContradiction>
     <MissingConstructor>

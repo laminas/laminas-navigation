@@ -9,7 +9,6 @@ use Laminas\Http\Request;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Navigation;
-use Laminas\Router\RouteInterface;
 use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface as Router;
 use Laminas\ServiceManager\FactoryInterface;
