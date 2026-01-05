@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+<files psalm-version="6.14.3@d0b040a91f280f071c1abcb1b77ce3822058725a">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($page) && ! $page instanceof Traversable]]></code>
@@ -42,6 +42,10 @@
     <PossiblyInvalidArgument>
       <code><![CDATA[$page]]></code>
     </PossiblyInvalidArgument>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$this->pages]]></code>
+      <code><![CDATA[$this->pages]]></code>
+    </PossiblyNullArrayOffset>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[$this]]></code>
     </PossiblyUnusedReturnValue>
@@ -101,6 +105,14 @@
      *     ...
      * }]]></code>
     </LessSpecificImplementedReturnType>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+    </LessSpecificReturnStatement>
     <MissingReturnType>
       <code><![CDATA[addFactory]]></code>
     </MissingReturnType>
@@ -431,6 +443,9 @@
     <DeprecatedMethod>
       <code><![CDATA[getServiceLocator]]></code>
     </DeprecatedMethod>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$container->getServiceLocator() ?: $container]]></code>
+    </LessSpecificReturnStatement>
     <MissingClosureParamType>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$name]]></code>
@@ -502,6 +517,9 @@
     <DeprecatedInterface>
       <code><![CDATA[ViewHelperManagerDelegatorFactory]]></code>
     </DeprecatedInterface>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$viewHelpers]]></code>
+    </LessSpecificReturnStatement>
     <MissingParamType>
       <code><![CDATA[$callback]]></code>
       <code><![CDATA[$name]]></code>
@@ -524,9 +542,7 @@
   </file>
   <file src="test/ContainerTest.php">
     <InvalidArgument>
-      <code><![CDATA[$pages = new stdClass()]]></code>
       <code><![CDATA['ok']]></code>
-      <code><![CDATA['this is a string']]></code>
       <code><![CDATA[1337]]></code>
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
@@ -614,9 +630,6 @@
     </PossiblyNullArgument>
   </file>
   <file src="test/Page/PageFactoryTest.php">
-    <InvalidArgument>
-      <code><![CDATA['']]></code>
-    </InvalidArgument>
     <MissingClosureParamType>
       <code><![CDATA[$page]]></code>
     </MissingClosureParamType>
@@ -649,8 +662,6 @@
       <code><![CDATA[0]]></code>
       <code><![CDATA[1]]></code>
       <code><![CDATA[1]]></code>
-      <code><![CDATA[[]]]></code>
-      <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[new stdClass()]]></code>
