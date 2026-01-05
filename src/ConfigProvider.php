@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Laminas\Navigation;
 
 /** @final */
-readonly class ConfigProvider
+class ConfigProvider
 {
     /**
      * Return general-purpose laminas-navigation configuration.

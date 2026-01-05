@@ -157,7 +157,7 @@ final class PageFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        /** @noinspection PhpParamsInspection */
+        /** @psalm-suppress InvalidArgument */
         AbstractPage::factory('');
     }
 }

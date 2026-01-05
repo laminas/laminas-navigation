@@ -513,7 +513,7 @@ final class ContainerTest extends TestCase
         $nav = new Navigation\Navigation();
 
         try {
-            /** @noinspection PhpParamsInspection */
+            /** @psalm-suppress InvalidArgument */
             $nav->addPages('this is a string');
             $this->fail('An invalid argument was given to addPages(), '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -528,7 +528,7 @@ final class ContainerTest extends TestCase
         $nav = new Navigation\Navigation();
 
         try {
-            /** @noinspection PhpParamsInspection */
+            /** @psalm-suppress InvalidArgument */
             $nav->addPages($pages = new stdClass());
             $this->fail('An invalid argument was given to addPages(), '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -1141,7 +1141,7 @@ final class ContainerTest extends TestCase
 
     // @codingStandardsIgnoreStart
     /**
-     * @psalm-return Navigation\Navigation<AbstractPage>
+     * @return Navigation\Navigation<AbstractPage>
      */
     protected function _getFindByNavigation(): Navigation\Navigation
     {

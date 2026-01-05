@@ -13,7 +13,6 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
-
     <issueHandlers>
         <MissingOverrideAttribute>
             <errorLevel type="suppress">
@@ -21,12 +20,6 @@
                 <directory name="test" />
             </errorLevel>
         </MissingOverrideAttribute>
-        <!-- Suppress LessSpecificReturnStatement for 'return $this' with static return type -->
-        <LessSpecificReturnStatement>
-            <errorLevel type="suppress">
-                <directory name="src" />
-            </errorLevel>
-        </LessSpecificReturnStatement>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

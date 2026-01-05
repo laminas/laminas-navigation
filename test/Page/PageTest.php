@@ -97,7 +97,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @noinspection PhpParamsInspection */
+        /** @psalm-suppress InvalidArgument */
         $page->set([], true);
     }
 
@@ -118,7 +118,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @noinspection PhpParamsInspection */
+        /** @psalm-suppress InvalidArgument */
         $page->get([]);
     }
 
