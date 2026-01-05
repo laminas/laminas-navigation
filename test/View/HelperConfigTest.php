@@ -9,13 +9,14 @@ use Laminas\Navigation\View\HelperConfig;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 use Laminas\View\HelperPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests the class Laminas_Navigation_Page_Mvc
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class HelperConfigTest extends TestCase
 {
     /** @return list<array{0: string}> */
@@ -29,12 +30,10 @@ final class HelperConfigTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider navigationServiceNameProvider
-     */
+    #[DataProvider('navigationServiceNameProvider')]
     public function testConfigureServiceManagerWithConfig(
         string $navigationHelperServiceName
-    ) {
+    ): void {
         $replacedMenuClass = NavigationHelper\Links::class;
 
         $serviceManager = new ServiceManager([

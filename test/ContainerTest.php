@@ -10,6 +10,7 @@ use Laminas\Navigation\Page;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri;
 use LaminasTest\Navigation\TestAsset\AbstractContainer;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use RecursiveIteratorIterator;
 use stdClass;
@@ -19,9 +20,8 @@ use function gettype;
 
 /**
  * Tests the class Laminas_Navigation_Container
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class ContainerTest extends TestCase
 {
     public function testConstructWithArray(): void
@@ -69,7 +69,7 @@ final class ContainerTest extends TestCase
     public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
     {
         try {
-            $nav = new Navigation\Navigation('ok');
+            new Navigation\Navigation('ok');
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -78,7 +78,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
-            $nav = new Navigation\Navigation(1337);
+            new Navigation\Navigation(1337);
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -87,7 +87,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
-            $nav = new Navigation\Navigation(new stdClass());
+            new Navigation\Navigation(new stdClass());
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -96,10 +96,6 @@ final class ContainerTest extends TestCase
         }
     }
 
-    /**
-     * @group 3823
-     * @group 3840
-     */
     public function testAddPagesWithNullValueSkipsPage(): void
     {
         $nav   = new Navigation\Navigation([
@@ -215,10 +211,6 @@ final class ContainerTest extends TestCase
 
     /**
      * @link https://github.com/zendframework/zf2/issues/3211
-     *
-     * @group 6825
-     * @group 4517
-     * @group 3211
      */
     public function testHasChildrenCompatibility(): void
     {
@@ -270,11 +262,6 @@ final class ContainerTest extends TestCase
         $this->assertFalse($page2->hasChildren(), "page2's first child doesn't have children");
     }
 
-    /**
-     * @group 6825
-     * @group 4517
-     * @group 3211
-     */
     public function testDetailedRecursiveIteration(): void
     {
         $nav = new Navigation\Navigation([
@@ -504,9 +491,6 @@ final class ContainerTest extends TestCase
         );
     }
 
-    /**
-     * @group Laminas-9815
-     */
     public function testAddPagesShouldWorkWithNavigationContainer(): void
     {
         $nav = new Navigation\Navigation();
@@ -529,6 +513,7 @@ final class ContainerTest extends TestCase
         $nav = new Navigation\Navigation();
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $nav->addPages('this is a string');
             $this->fail('An invalid argument was given to addPages(), '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -543,6 +528,7 @@ final class ContainerTest extends TestCase
         $nav = new Navigation\Navigation();
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $nav->addPages($pages = new stdClass());
             $this->fail('An invalid argument was given to addPages(), '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -627,7 +613,7 @@ final class ContainerTest extends TestCase
         ];
 
         $this->assertEquals($expected, $actual);
-        $this->assertContainsOnly(Uri::class, $pages, false);
+        $this->assertContainsOnlyInstancesOf(Uri::class, $pages);
     }
 
     public function testGetPagesShouldReturnUnorderedPages(): void
@@ -985,7 +971,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllBy('id', 'page_2_and_3');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 2', 'Page 3'];
         $actual   = [];
@@ -1030,7 +1016,7 @@ final class ContainerTest extends TestCase
         );
 
         $found = $nav->findAllBy('integer', '1000');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 4', 'Page 5'];
         $actual   = [];
@@ -1073,7 +1059,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllById('page_2_and_3');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 2', 'Page 3'];
         $actual   = [];
@@ -1089,7 +1075,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByAction('about');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 3'];
         $actual   = [];
@@ -1105,7 +1091,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         $found = $nav->findAllByaction('about');
-        $this->assertContainsOnly(AbstractPage::class, $found, false);
+        $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 1.3', 'Page 3'];
         $actual   = [];
@@ -1130,7 +1116,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
-            $found = $nav->findSomeById('page_2_and_3');
+            $nav->findSomeById('page_2_and_3');
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1144,7 +1130,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
-            $found = $nav->getPagez();
+            $nav->getPagez();
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1154,7 +1140,10 @@ final class ContainerTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _getFindByNavigation()
+    /**
+     * @return Navigation\Navigation<AbstractPage>
+     */
+    protected function _getFindByNavigation(): Navigation\Navigation
     {
         // @codingStandardsIgnoreEnd
         // findAllByFoo('bar')         // Page 1, Page 1.1
@@ -1239,7 +1228,7 @@ final class ContainerTest extends TestCase
         ]);
 
         try {
-            $page = $container->current();
+            $container->current();
             $this->fail('AbstractContainer index is invalid, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
                         . 'not thrown');
@@ -1283,9 +1272,7 @@ final class ContainerTest extends TestCase
         $this->assertEquals(null, $container->getChildren());
     }
 
-    /**
-     * @group GH-5929
-     */
+    #[Group('GH-5929')]
     public function testRemovePageRecursively(): void
     {
         $container = new Navigation\Navigation([

@@ -6,13 +6,4 @@ namespace LaminasTest\Navigation\TestAsset;
 
 final class InvalidPage
 {
-    /**
-     * Returns the page's href
-     *
-     * @return string
-     */
-    public function getHref()
-    {
-        return '#';
-    }
 }

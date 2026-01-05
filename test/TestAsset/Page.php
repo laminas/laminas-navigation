@@ -10,10 +10,8 @@ final class Page extends AbstractPage
 {
     /**
      * Returns the page's href
-     *
-     * @return string
      */
-    public function getHref()
+    public function getHref(): string
     {
         return '#';
     }

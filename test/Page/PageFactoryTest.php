@@ -11,13 +11,13 @@ use Laminas\Navigation\Page\Mvc;
 use Laminas\Navigation\Page\Uri;
 use LaminasTest\Navigation\TestAsset\InvalidPage;
 use LaminasTest\Navigation\TestAsset\Page;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Tests Laminas_Navigation_Page::factory()
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class PageFactoryTest extends TestCase
 {
     public function testDetectFactoryPage(): void
@@ -58,7 +58,7 @@ final class PageFactoryTest extends TestCase
             ]),
         ];
 
-        $this->assertContainsOnly(Mvc::class, $pages);
+        $this->assertContainsOnlyInstancesOf(Mvc::class, $pages);
     }
 
     public function testDetectUriPage(): void
@@ -157,6 +157,7 @@ final class PageFactoryTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
+        /** @psalm-suppress InvalidArgument */
         AbstractPage::factory('');
     }
 }

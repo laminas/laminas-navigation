@@ -13,9 +13,10 @@ final class AbstractContainer extends \Laminas\Navigation\AbstractContainer
     /**
      * @param AbstractPage|array|Traversable $page
      */
-    public function addPage($page)
+    public function addPage($page): static
     {
         parent::addPage($page);
         $this->pages = [];
+        return $this;
     }
 }

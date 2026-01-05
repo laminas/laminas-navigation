@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+<files psalm-version="6.14.3@d0b040a91f280f071c1abcb1b77ce3822058725a">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($page) && ! $page instanceof Traversable]]></code>
@@ -42,9 +42,10 @@
     <PossiblyInvalidArgument>
       <code><![CDATA[$page]]></code>
     </PossiblyInvalidArgument>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[findBy]]></code>
-    </PossiblyUnusedMethod>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$this->pages]]></code>
+      <code><![CDATA[$this->pages]]></code>
+    </PossiblyNullArrayOffset>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[$this]]></code>
     </PossiblyUnusedReturnValue>
@@ -541,89 +542,24 @@
   </file>
   <file src="test/ContainerTest.php">
     <InvalidArgument>
-      <code><![CDATA[$pages = new stdClass()]]></code>
       <code><![CDATA['ok']]></code>
-      <code><![CDATA['this is a string']]></code>
       <code><![CDATA[1337]]></code>
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
-    <MissingReturnType>
-      <code><![CDATA[_getFindByNavigation]]></code>
-    </MissingReturnType>
     <MixedArgument>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$this->_getFindByNavigation()]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
-      <code><![CDATA[$actual[]]]></code>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
       <code><![CDATA[$page]]></code>
     </MixedAssignment>
     <MixedMethodCall>
-      <code><![CDATA[addPage]]></code>
-      <code><![CDATA[addPage]]></code>
-      <code><![CDATA[addPage]]></code>
-      <code><![CDATA[findAllBy]]></code>
-      <code><![CDATA[findAllBy]]></code>
-      <code><![CDATA[findAllBy]]></code>
-      <code><![CDATA[findAllByAction]]></code>
-      <code><![CDATA[findAllById]]></code>
-      <code><![CDATA[findAllByaction]]></code>
-      <code><![CDATA[findBy]]></code>
-      <code><![CDATA[findById]]></code>
-      <code><![CDATA[findOneBy]]></code>
-      <code><![CDATA[findOneBy]]></code>
-      <code><![CDATA[findOneBy]]></code>
-      <code><![CDATA[findOneBy]]></code>
-      <code><![CDATA[findOneById]]></code>
-      <code><![CDATA[findOneBypage2]]></code>
-      <code><![CDATA[findSomeById]]></code>
       <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getLabel]]></code>
-      <code><![CDATA[getPagez]]></code>
-      <code><![CDATA[toArray]]></code>
     </MixedMethodCall>
     <PossiblyNullArgument>
       <code><![CDATA[$container->findOneBy('route', 'bar')]]></code>
@@ -646,14 +582,16 @@
             ],
         ])]]></code>
     </TooManyArguments>
-    <UnusedVariable>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$found]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$nav]]></code>
-      <code><![CDATA[$page]]></code>
-    </UnusedVariable>
+    <UndefinedMagicMethod>
+      <code><![CDATA[findAllByAction]]></code>
+      <code><![CDATA[findAllById]]></code>
+      <code><![CDATA[findAllByaction]]></code>
+      <code><![CDATA[findById]]></code>
+      <code><![CDATA[findOneById]]></code>
+      <code><![CDATA[findOneBypage2]]></code>
+      <code><![CDATA[findSomeById]]></code>
+      <code><![CDATA[getPagez]]></code>
+    </UndefinedMagicMethod>
   </file>
   <file src="test/NavigationTest.php">
     <PossiblyNullPropertyAssignmentValue>
@@ -692,9 +630,6 @@
     </PossiblyNullArgument>
   </file>
   <file src="test/Page/PageFactoryTest.php">
-    <InvalidArgument>
-      <code><![CDATA['']]></code>
-    </InvalidArgument>
     <MissingClosureParamType>
       <code><![CDATA[$page]]></code>
     </MissingClosureParamType>
@@ -710,9 +645,6 @@
     <DocblockTypeContradiction>
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
-    <DuplicateArrayKey>
-      <code><![CDATA['label'      => 'foo.bar']]></code>
-    </DuplicateArrayKey>
     <InvalidArgument>
       <code><![CDATA[$invalid]]></code>
       <code><![CDATA[$invalid]]></code>
@@ -730,8 +662,6 @@
       <code><![CDATA[0]]></code>
       <code><![CDATA[1]]></code>
       <code><![CDATA[1]]></code>
-      <code><![CDATA[[]]]></code>
-      <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[new stdClass()]]></code>
@@ -780,9 +710,6 @@
     <InvalidArgument>
       <code><![CDATA[new Router\Http\TreeRouteStack()]]></code>
     </InvalidArgument>
-    <MissingReturnType>
-      <code><![CDATA[testCanCreateNavigationInstanceV2]]></code>
-    </MissingReturnType>
   </file>
   <file src="test/Service/TestAsset/TestNavigationFactory.php">
     <DeprecatedInterface>
@@ -793,22 +720,12 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="test/ServiceFactoryTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[setMethods]]></code>
-    </DeprecatedMethod>
-    <InvalidFunctionCall>
-      <code><![CDATA[$factory($services, 'Navigation')]]></code>
-    </InvalidFunctionCall>
     <MissingClosureParamType>
       <code><![CDATA[$pages]]></code>
       <code><![CDATA[$pages]]></code>
       <code><![CDATA[$that]]></code>
       <code><![CDATA[$that]]></code>
     </MissingClosureParamType>
-    <MissingClosureReturnType>
-      <code><![CDATA[function ($that, $pages) use (&$recursive) {]]></code>
-      <code><![CDATA[function ($that, $pages) use (&$recursive) {]]></code>
-    </MissingClosureReturnType>
     <MixedAssignment>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
@@ -834,20 +751,10 @@
       <code><![CDATA[getPages]]></code>
     </MixedMethodCall>
   </file>
-  <file src="test/TestAsset/AbstractContainer.php">
-    <InvalidReturnType>
-      <code><![CDATA[addPage]]></code>
-    </InvalidReturnType>
-  </file>
   <file src="test/TestAsset/FileNavigationFactory.php">
     <DeprecatedInterface>
       <code><![CDATA[FileNavigationFactory]]></code>
     </DeprecatedInterface>
-  </file>
-  <file src="test/TestAsset/InvalidPage.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getHref]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="test/TestAsset/Page.php">
     <PropertyNotSetInConstructor>
@@ -873,9 +780,6 @@
     <MissingClosureParamType>
       <code><![CDATA[$services]]></code>
     </MissingClosureParamType>
-    <MissingReturnType>
-      <code><![CDATA[testConfigureServiceManagerWithConfig]]></code>
-    </MissingReturnType>
     <MixedArgument>
       <code><![CDATA[$helpers]]></code>
       <code><![CDATA[$services]]></code>
@@ -891,8 +795,5 @@
     <DeprecatedClass>
       <code><![CDATA[NavigationHelper::class]]></code>
     </DeprecatedClass>
-    <MissingClosureReturnType>
-      <code><![CDATA[fn() => $helpers]]></code>
-    </MissingClosureReturnType>
   </file>
 </files>

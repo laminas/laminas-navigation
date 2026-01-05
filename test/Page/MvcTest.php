@@ -17,15 +17,15 @@ use Laminas\Router\Http\Segment as SegmentRoute;
 use Laminas\Router\Http\TreeRouteStack;
 use Laminas\Router\RouteMatch;
 use LaminasTest\Navigation\TestAsset;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
 use function ksort;
 
 /**
  * Tests the class Laminas_Navigation_Page_Mvc
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class MvcTest extends TestCase
 {
     private RegexRoute $route;
@@ -88,7 +88,7 @@ final class MvcTest extends TestCase
             'use_route_match' => true,
         ]);
         $router = $this->createMock(TreeRouteStack::class);
-        $router->expects($this->once())->method('assemble')->will($this->returnValue('/test/route'));
+        $router->expects($this->once())->method('assemble')->willReturn('/test/route');
         $page->setRouter($router);
         $this->assertEquals('/test/route', $page->getHref());
     }
@@ -207,9 +207,7 @@ final class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    /**
-     * @group Laminas-8922
-     */
+    #[Group('Laminas-8922')]
     public function testGetHrefWithFragmentIdentifier(): void
     {
         $page = new Page\Mvc([

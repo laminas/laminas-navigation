@@ -10,6 +10,7 @@ use Laminas\Navigation\Exception;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri;
 use Laminas\Permissions\Acl\Resource\GenericResource;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -17,9 +18,8 @@ use function ksort;
 
 /**
  * Tests the class Laminas_Navigation_Page
- *
- * @group      Laminas_Navigation
  */
+#[Group('Laminas_Navigation')]
 final class PageTest extends TestCase
 {
     public function testSetShouldMapToNativeProperties(): void
@@ -97,6 +97,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
+        /** @psalm-suppress InvalidArgument */
         $page->set([], true);
     }
 
@@ -117,6 +118,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
+        /** @psalm-suppress InvalidArgument */
         $page->get([]);
     }
 
@@ -153,9 +155,7 @@ final class PageTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-8922
-     */
+    #[Group('Laminas-8922')]
     public function testSetAndGetFragmentIdentifier(): void
     {
         $page = AbstractPage::factory([
@@ -1148,7 +1148,6 @@ final class PageTest extends TestCase
                 [
                     'label'      => 'foo.baz',
                     'type'       => Uri::class,
-                    'label'      => 'foo.bar',
                     'fragment'   => null,
                     'id'         => null,
                     'class'      => null,
