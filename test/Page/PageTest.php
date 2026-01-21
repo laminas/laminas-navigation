@@ -751,6 +751,7 @@ final class PageTest extends TestCase
          * Laminas-10146
          *
          * @link https://getlaminas.org/issues/browse/Laminas-10146
+         *
          * @psalm-suppress InvalidArgument
          */
         $page->setVisible('False');

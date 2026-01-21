@@ -32,7 +32,7 @@ class ConfigProvider
                 Service\NavigationAbstractServiceFactory::class,
             ],
             'aliases'            => [
-                'navigation' => Navigation::class,
+                'navigation'                       => Navigation::class,
                 \Zend\Navigation\Navigation::class => Navigation::class,
             ],
             'delegators'         => [

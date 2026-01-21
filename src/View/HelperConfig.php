@@ -207,7 +207,7 @@ class HelperConfig extends Config
 
         foreach ($invokables as $name => $class) {
             /** @psalm-suppress MixedArrayAssignment */
-            $config['factories'][$class]                            = InvokableFactory::class;
+            $config['factories'][$class] = InvokableFactory::class;
             /** @psalm-suppress MixedArrayAssignment */
             $config['factories'][$this->normalizeNameForV2($class)] = InvokableFactory::class;
 
