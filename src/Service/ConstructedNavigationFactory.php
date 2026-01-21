@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Laminas\Navigation\Service;
 
 use Laminas\Config\Config;
-use Override;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -26,7 +25,6 @@ class ConstructedNavigationFactory extends AbstractNavigationFactory
     /**
      * @return array<array-key, array<string, mixed>>
      */
-    #[Override]
     public function getPages(ContainerInterface $container)
     {
         if (null === $this->pages) {
@@ -38,7 +36,6 @@ class ConstructedNavigationFactory extends AbstractNavigationFactory
     /**
      * @return string
      */
-    #[Override]
     public function getName()
     {
         return 'constructed';

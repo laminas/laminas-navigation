@@ -9,7 +9,6 @@ use Laminas\Navigation\Exception;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
 use Laminas\Stdlib\ArrayUtils;
-use Override;
 use Stringable;
 use Traversable;
 
@@ -1118,7 +1117,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @return string  page label
      */
-    #[Override]
     public function __toString(): string
     {
         return (string) $this->label;
@@ -1255,7 +1253,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *     ...
      * }
      */
-    #[Override]
     public function toArray()
     {
         return array_merge($this->getCustomProperties(), [

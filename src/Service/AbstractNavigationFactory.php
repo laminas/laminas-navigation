@@ -15,7 +15,6 @@ use Laminas\Router\RouteStackInterface as Router;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\Stdlib\ArrayUtils;
-use Override;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -42,7 +41,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * @param null|array $options
      * @return Navigation
      */
-    #[Override]
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         return new Navigation($this->getPages($container));
@@ -54,7 +52,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * @return Navigation
      * @psalm-suppress ParamNameMismatch
      */
-    #[Override]
     public function createService(ServiceLocatorInterface $container)
     {
         return $this($container, Navigation::class);
@@ -193,7 +190,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a route match argument provided to injectComponents is valid.
      *
-     * @psalm-assert RouteMatch|null $routeMatch
+     * @param RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouteMatch(mixed $routeMatch): void
@@ -215,7 +212,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a router argument provided to injectComponents is valid.
      *
-     * @psalm-assert Router|null $router
+     * @param Router|null $router
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouter(mixed $router): void
@@ -224,6 +221,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             return;
         }
 
+        /** @psalm-suppress DocblockTypeContradiction */
         if (! $router instanceof Router) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expected by %s::injectComponents; received %s',

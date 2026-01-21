@@ -8,7 +8,6 @@ use ArrayAccess;
 use Laminas\Navigation\Navigation;
 use Laminas\ServiceManager\AbstractFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Override;
 use Psr\Container\ContainerInterface;
 
 use function is_array;
@@ -55,7 +54,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      *     start with Laminas\Navigation\
      * @return bool
      */
-    #[Override]
     public function canCreate(ContainerInterface $container, $requestedName)
     {
         if (! str_starts_with($requestedName, self::SERVICE_PREFIX)) {
@@ -76,7 +74,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      * @return bool
      * @psalm-suppress ParamNameMismatch
      */
-    #[Override]
     public function canCreateServiceWithName(ServiceLocatorInterface $container, $name, $requestedName)
     {
         return $this->canCreate($container, $requestedName);
@@ -88,7 +85,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      * @param string $requestedName
      * @return Navigation
      */
-    #[Override]
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $config  = $this->getConfig($container);
@@ -106,7 +102,6 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
      * @return Navigation
      * @psalm-suppress ParamNameMismatch
      */
-    #[Override]
     public function createServiceWithName(ServiceLocatorInterface $container, $name, $requestedName)
     {
         return $this($container, $requestedName);

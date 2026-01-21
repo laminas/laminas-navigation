@@ -7,7 +7,6 @@ namespace Laminas\Navigation;
 use Countable;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ErrorHandler;
-use Override;
 use RecursiveIterator;
 use RecursiveIteratorIterator;
 use ReturnTypeWillChange;
@@ -462,7 +461,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * @return TPage
      */
     #[ReturnTypeWillChange]
-    #[Override]
     public function current()
     {
         $this->sort();
