@@ -69,6 +69,7 @@ final class ContainerTest extends TestCase
     public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
     {
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation('ok');
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -78,6 +79,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation(1337);
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -87,6 +89,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation(new stdClass());
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -203,7 +206,9 @@ final class ContainerTest extends TestCase
             $nav,
             RecursiveIteratorIterator::SELF_FIRST
         );
+        /** @psalm-suppress MixedAssignment */
         foreach ($iterator as $page) {
+            /** @psalm-suppress MixedMethodCall */
             $actual[] = $page->getLabel();
         }
         $this->assertEquals($expected, $actual);
@@ -255,10 +260,14 @@ final class ContainerTest extends TestCase
             ],
         ]);
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $page1 = $nav->findOneBy('label', 'Page 1');
+        /** @psalm-suppress PossiblyNullReference */
         $this->assertTrue($page1->hasChildren(), "page1's first child has children 1.1.1 1.1.2");
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $page2 = $nav->findOneBy('label', 'Page 2');
+        /** @psalm-suppress PossiblyNullReference */
         $this->assertFalse($page2->hasChildren(), "page2's first child doesn't have children");
     }
 
@@ -926,6 +935,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneBy('page2', 'page2');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
@@ -935,6 +945,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneBy('id', 'page_2_and_3');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
@@ -944,6 +955,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneBy('id', 'non-existent');
         $this->assertNull($found);
     }
@@ -961,6 +973,7 @@ final class ContainerTest extends TestCase
             ]
         );
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneBy('integer', '1000');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 4', $found->getLabel());
@@ -970,6 +983,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findAllBy('id', 'page_2_and_3');
         $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
@@ -985,7 +999,8 @@ final class ContainerTest extends TestCase
 
     public function testFindAllByShouldReturnEmptyArrayifNotFound(): void
     {
-        $nav   = $this->_getFindByNavigation();
+        $nav = $this->_getFindByNavigation();
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findAllBy('id', 'non-existent');
 
         $expected = ['type' => 'array', 'count' => 0];
@@ -1015,6 +1030,7 @@ final class ContainerTest extends TestCase
             ]
         );
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findAllBy('integer', '1000');
         $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
@@ -1032,6 +1048,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findBy('id', 'page_2_and_3');
         $this->assertInstanceOf(AbstractPage::class, $found);
     }
@@ -1040,6 +1057,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneById('page_2_and_3');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
@@ -1049,6 +1067,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findOneBypage2('page2');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
@@ -1058,7 +1077,9 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall, MixedAssignment */
         $found = $nav->findAllById('page_2_and_3');
+        /** @psalm-suppress MixedArgument */
         $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 2', 'Page 3'];
@@ -1074,7 +1095,9 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall, MixedAssignment */
         $found = $nav->findAllByAction('about');
+        /** @psalm-suppress MixedArgument */
         $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 3'];
@@ -1090,7 +1113,9 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall, MixedAssignment */
         $found = $nav->findAllByaction('about');
+        /** @psalm-suppress MixedArgument */
         $this->assertContainsOnlyInstancesOf(AbstractPage::class, $found);
 
         $expected = ['Page 1.3', 'Page 3'];
@@ -1106,6 +1131,7 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $found = $nav->findById('page_2_and_3');
         $this->assertInstanceOf(AbstractPage::class, $found);
         $this->assertEquals('Page 2', $found->getLabel());
@@ -1116,6 +1142,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
+            /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
             $nav->findSomeById('page_2_and_3');
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -1130,6 +1157,7 @@ final class ContainerTest extends TestCase
         $nav = $this->_getFindByNavigation();
 
         try {
+            /** @psalm-suppress UndefinedMagicMethod */
             $nav->getPagez();
             $this->fail('An invalid magic finder method was used, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -1215,6 +1243,7 @@ final class ContainerTest extends TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid(): void
     {
+        /** @psalm-suppress TooManyArguments */
         $container = new AbstractContainer([
             [
                 'label' => 'Page 2',
@@ -1291,9 +1320,13 @@ final class ContainerTest extends TestCase
             ],
         ]);
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall, PossiblyNullArgument */
         $container->removePage($container->findOneBy('route', 'baz'), true);
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $this->assertNull($container->findOneBy('route', 'baz'));
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall, PossiblyNullArgument */
         $container->removePage($container->findOneBy('route', 'bar'), true);
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
         $this->assertNull($container->findOneBy('route', 'bar'));
     }
 }

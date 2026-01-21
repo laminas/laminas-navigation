@@ -25,6 +25,9 @@ use function strtr;
  * Service manager configuration for navigation view helpers
  *
  * @psalm-import-type ServiceManagerConfigurationType from ConfigInterface
+ * @psalm-suppress DeprecatedClass
+ * @psalm-suppress DeprecatedInterface
+ * @psalm-suppress DeprecatedMethod
  * @final
  */
 class HelperConfig extends Config
@@ -32,6 +35,7 @@ class HelperConfig extends Config
     /**
      * Default configuration to apply.
      *
+     * @psalm-suppress DeprecatedClass
      * @var ServiceManagerConfigurationType
      */
     protected $config = [
@@ -83,6 +87,7 @@ class HelperConfig extends Config
      * ensuring that any overrides provided via configuration are propagated
      * to it.
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return ServiceManager
      */
     public function configureServiceManager(ServiceManager $serviceManager)
@@ -90,7 +95,9 @@ class HelperConfig extends Config
         $services = $this->getParentContainer($serviceManager);
 
         if ($services->has('config')) {
-            $this->mergeHelpersFromConfiguration($services->get('config'));
+            /** @var array<string, mixed> $config */
+            $config = $services->get('config');
+            $this->mergeHelpersFromConfiguration($config);
         }
 
         $this->injectNavigationDelegatorFactory();
@@ -112,11 +119,14 @@ class HelperConfig extends Config
     private function mergeConfig(array $config)
     {
         if (isset($config['invokables'])) {
+            /** @psalm-suppress MixedArgumentTypeCoercion */
             $config = $this->processInvokables($config['invokables'], $config);
         }
 
+        /** @psalm-suppress MixedAssignment */
         foreach ($config as $type => $services) {
             if (isset($this->config[$type])) {
+                /** @psalm-suppress MixedArgument, MixedAssignment, MixedPropertyTypeCoercion */
                 $this->config[$type] = ArrayUtils::merge($this->config[$type], $services);
             }
         }
@@ -125,7 +135,7 @@ class HelperConfig extends Config
     /**
      * Merge navigation helper configuration with default configuration.
      *
-     * @param array|Traversable $config
+     * @param array<string, mixed>|Traversable<string, mixed> $config
      * @return void
      */
     private function mergeHelpersFromConfiguration($config)
@@ -141,6 +151,7 @@ class HelperConfig extends Config
             return;
         }
 
+        /** @psalm-suppress MixedArgumentTypeCoercion, PossiblyInvalidArgument */
         $this->mergeConfig($config['navigation_helpers']);
     }
 
@@ -157,10 +168,12 @@ class HelperConfig extends Config
         // v3:
         if (method_exists($container, 'configure')) {
             $r = new ReflectionProperty($container, 'creationContext');
+            /** @psalm-suppress MixedReturnStatement */
             return $r->getValue($container) ?: $container;
         }
 
         // v2:
+        /** @psalm-suppress MixedReturnStatement, RedundantConditionGivenDocblockType, LessSpecificReturnStatement */
         return $container->getServiceLocator() ?: $container;
     }
 
@@ -178,9 +191,9 @@ class HelperConfig extends Config
     /**
      * Process invokables in order to seed aliases and factories.
      *
-     * @param array $invokables Array of invokables defined
-     * @param array $config All service configuration
-     * @return array Array of all service configuration
+     * @param array<string, string> $invokables Array of invokables defined
+     * @param array<string, mixed> $config All service configuration
+     * @return array<string, mixed> Array of all service configuration
      */
     private function processInvokables(array $invokables, array $config)
     {
@@ -193,13 +206,16 @@ class HelperConfig extends Config
         }
 
         foreach ($invokables as $name => $class) {
+            /** @psalm-suppress MixedArrayAssignment */
             $config['factories'][$class]                            = InvokableFactory::class;
+            /** @psalm-suppress MixedArrayAssignment */
             $config['factories'][$this->normalizeNameForV2($class)] = InvokableFactory::class;
 
             if ($name === $class) {
                 continue;
             }
 
+            /** @psalm-suppress MixedArrayAssignment */
             $config['aliases'][$name] = $class;
         }
 
@@ -225,8 +241,9 @@ class HelperConfig extends Config
             return;
         }
 
-        // Inject the delegator factory
-        $this->config['delegators'][NavigationHelper::class][]       = $factory;
+        /** @psalm-suppress MixedArrayAssignment, MixedPropertyTypeCoercion */
+        $this->config['delegators'][NavigationHelper::class][] = $factory;
+        /** @psalm-suppress MixedArrayAssignment, MixedPropertyTypeCoercion */
         $this->config['delegators']['laminasviewhelpernavigation'][] = $factory;
     }
 
@@ -245,6 +262,8 @@ class HelperConfig extends Config
         $config                           = $this->config;
         $this->navigationDelegatorFactory =
             /**
+             * @param ContainerInterface $container
+             * @param string $name
              * @param callable(): object $callback
              */
             static function (
@@ -254,6 +273,10 @@ class HelperConfig extends Config
             ) use ($config): object {
                 $helper = $callback();
 
+                /**
+                 * @psalm-suppress MixedMethodCall
+                 * @var ServiceManager $pluginManager
+                 */
                 $pluginManager = $helper->getPluginManager();
                 (new Config($config))->configureServiceManager($pluginManager);
 

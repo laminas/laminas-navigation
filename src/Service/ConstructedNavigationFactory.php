@@ -5,25 +5,28 @@ declare(strict_types=1);
 namespace Laminas\Navigation\Service;
 
 use Laminas\Config\Config;
+use Override;
 use Psr\Container\ContainerInterface;
 
 /**
  * Constructed factory to set pages during construction.
  *
+ * @psalm-suppress DeprecatedInterface
  * @final
  */
 class ConstructedNavigationFactory extends AbstractNavigationFactory
 {
     /**
-     * @param string|Config|array $config
+     * @param string|Config|array<array-key, array<string, mixed>> $config
      */
     public function __construct(protected $config)
     {
     }
 
     /**
-     * @return array|null|Config
+     * @return array<array-key, array<string, mixed>>
      */
+    #[Override]
     public function getPages(ContainerInterface $container)
     {
         if (null === $this->pages) {
@@ -35,6 +38,7 @@ class ConstructedNavigationFactory extends AbstractNavigationFactory
     /**
      * @return string
      */
+    #[Override]
     public function getName()
     {
         return 'constructed';

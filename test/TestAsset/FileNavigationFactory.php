@@ -6,6 +6,7 @@ namespace LaminasTest\Navigation\TestAsset;
 
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 
+/** @psalm-suppress DeprecatedInterface */
 final class FileNavigationFactory extends AbstractNavigationFactory
 {
     protected function getName(): string

@@ -25,6 +25,7 @@ final class NavigationTest extends TestCase
 
     protected function tearDown(): void
     {
+        /** @psalm-suppress PossiblyNullPropertyAssignmentValue */
         $this->navigation = null;
         parent::tearDown();
     }

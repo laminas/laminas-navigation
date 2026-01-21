@@ -22,6 +22,7 @@ class ConfigProvider
     /**
      * Return application-level dependency configuration.
      *
+     * @psalm-suppress UndefinedClass
      * @return array
      */
     public function getDependencyConfig()
@@ -32,8 +33,6 @@ class ConfigProvider
             ],
             'aliases'            => [
                 'navigation' => Navigation::class,
-
-                // Legacy Zend Framework aliases
                 \Zend\Navigation\Navigation::class => Navigation::class,
             ],
             'delegators'         => [

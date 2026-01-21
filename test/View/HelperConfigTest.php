@@ -12,6 +12,7 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 /**
  * Tests the class Laminas_Navigation_Page_Mvc
@@ -19,7 +20,10 @@ use PHPUnit\Framework\TestCase;
 #[Group('Laminas_Navigation')]
 final class HelperConfigTest extends TestCase
 {
-    /** @return list<array{0: string}> */
+    /**
+     * @psalm-suppress DeprecatedClass
+     * @return list<array{0: string}>
+     */
     public static function navigationServiceNameProvider(): array
     {
         return [
@@ -34,6 +38,7 @@ final class HelperConfigTest extends TestCase
     public function testConfigureServiceManagerWithConfig(
         string $navigationHelperServiceName
     ): void {
+        /** @psalm-suppress DeprecatedClass */
         $replacedMenuClass = NavigationHelper\Links::class;
 
         $serviceManager = new ServiceManager([
@@ -71,14 +76,19 @@ final class HelperConfigTest extends TestCase
             ],
             'factories' => [
                 'Navigation'        => DefaultNavigationFactory::class,
-                'ViewHelperManager' => fn($services) => new HelperPluginManager($services),
+                'ViewHelperManager' => fn(ContainerInterface $services) => new HelperPluginManager($services),
             ],
         ]);
 
         $helpers = $serviceManager->get('ViewHelperManager');
+        self::assertInstanceOf(HelperPluginManager::class, $helpers);
         (new HelperConfig())->configureServiceManager($helpers);
 
-        $menu = $helpers->get($navigationHelperServiceName)->findHelper('menu');
+        $navigationHelper = $helpers->get($navigationHelperServiceName);
+        /** @psalm-suppress DeprecatedClass */
+        self::assertInstanceOf(NavigationHelper::class, $navigationHelper);
+        /** @psalm-suppress DeprecatedInterface */
+        $menu = $navigationHelper->findHelper('menu');
         $this->assertInstanceOf($replacedMenuClass, $menu);
     }
 }

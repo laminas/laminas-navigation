@@ -7,7 +7,10 @@ namespace LaminasTest\Navigation\TestAsset;
 use Laminas\Router\Http\RouteInterface;
 use Laminas\Router\Http\TreeRouteStack;
 
-/** @extends TreeRouteStack<RouteInterface> */
+/**
+ * @extends TreeRouteStack<RouteInterface>
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class Router extends TreeRouteStack
 {
     public const RETURN_URL = 'spotify:track:2nd6CTjR9zjHGT0QtpfLHe';

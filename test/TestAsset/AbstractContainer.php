@@ -15,6 +15,7 @@ final class AbstractContainer extends \Laminas\Navigation\AbstractContainer
      */
     public function addPage($page): static
     {
+        /** @psalm-suppress MixedArgumentTypeCoercion */
         parent::addPage($page);
         $this->pages = [];
         return $this;

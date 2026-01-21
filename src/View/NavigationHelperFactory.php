@@ -10,7 +10,11 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
 use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 
-/** @final */
+/**
+ * @psalm-suppress DeprecatedClass
+ * @psalm-suppress DeprecatedInterface
+ * @final
+ */
 class NavigationHelperFactory implements FactoryInterface
 {
     /**
@@ -33,6 +37,7 @@ class NavigationHelperFactory implements FactoryInterface
      * @param null|string $name
      * @param string $requestedName
      * @return NavigationHelper
+     * @psalm-suppress ParamNameMismatch
      */
     public function createService(
         ServiceLocatorInterface $container,
@@ -50,6 +55,7 @@ class NavigationHelperFactory implements FactoryInterface
     private function getApplicationServicesFromContainer(ContainerInterface $container)
     {
         $r = new ReflectionProperty($container, 'creationContext');
+        /** @psalm-suppress MixedReturnStatement */
         return $r->getValue($container) ?: $container;
     }
 }

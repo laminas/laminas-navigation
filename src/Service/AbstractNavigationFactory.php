@@ -6,6 +6,7 @@ namespace Laminas\Navigation\Service;
 
 use Laminas\Config;
 use Laminas\Http\Request;
+use Laminas\Mvc\Application;
 use Laminas\Navigation\Exception;
 use Laminas\Navigation\Exception\InvalidArgumentException;
 use Laminas\Navigation\Navigation;
@@ -14,6 +15,7 @@ use Laminas\Router\RouteStackInterface as Router;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\Stdlib\ArrayUtils;
+use Override;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
@@ -25,19 +27,22 @@ use function sprintf;
 
 /**
  * Abstract navigation factory
+ *
+ * @psalm-suppress DeprecatedInterface
  */
 abstract class AbstractNavigationFactory implements FactoryInterface
 {
-    /** @var array */
+    /** @var array<array-key, array<string, mixed>>|null */
     protected $pages;
 
     /**
      * Create and return a new Navigation instance (v3).
      *
-     * @param string $requestedName
+     * @param string     $requestedName
      * @param null|array $options
      * @return Navigation
      */
+    #[Override]
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         return new Navigation($this->getPages($container));
@@ -47,7 +52,9 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * Create and return a new Navigation instance (v2).
      *
      * @return Navigation
+     * @psalm-suppress ParamNameMismatch
      */
+    #[Override]
     public function createService(ServiceLocatorInterface $container)
     {
         return $this($container, Navigation::class);
@@ -60,12 +67,13 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     abstract protected function getName();
 
     /**
-     * @return array
      * @throws InvalidArgumentException
+     * @return array<array-key, array<string, mixed>>
      */
     protected function getPages(ContainerInterface $container)
     {
         if (null === $this->pages) {
+            /** @var array<array-key, mixed> $configuration */
             $configuration = $container->get('config');
 
             if (! isset($configuration['navigation'])) {
@@ -78,19 +86,25 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 ));
             }
 
-            $pages       = $this->getPagesFromConfig($configuration['navigation'][$this->getName()]);
+            /** @var array<array-key, array<string, mixed>> $configuration */
+            $configuration = $configuration['navigation'];
+            /** @var array<array-key, array<string, mixed>> $navigation */
+            $navigation  = $configuration[$this->getName()];
+            $pages       = $this->getPagesFromConfig($navigation);
             $this->pages = $this->preparePages($container, $pages);
         }
+
         return $this->pages;
     }
 
     /**
-     * @param array|\Laminas\Config\Config $pages
-     * @return array
+     * @param array<array-key, array<string, mixed>> $pages
      * @throws InvalidArgumentException
+     * @return array<array-key, array<string, mixed>>
      */
     protected function preparePages(ContainerInterface $container, $pages)
     {
+        /** @var Application $application */
         $application = $container->get('Application');
         $routeMatch  = $application->getMvcEvent()->getRouteMatch();
         $router      = $application->getMvcEvent()->getRouter();
@@ -105,9 +119,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     }
 
     /**
-     * @param string|\Laminas\Config\Config|array $config
-     * @return array|null|\Laminas\Config\Config
+     * @param string|Config\Config|array<array-key, array<string, mixed>>|null $config
      * @throws InvalidArgumentException
+     * @return array<array-key, array<string, mixed>>
+     * @psalm-suppress MixedReturnTypeCoercion ArrayUtils returns mixed but structure is known
      */
     protected function getPagesFromConfig($config = null)
     {
@@ -119,7 +134,9 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 ));
             }
             $config = Config\Factory::fromFile($config);
-        } elseif ($config instanceof Traversable) {
+        }
+
+        if ($config instanceof Traversable) {
             $config = ArrayUtils::iteratorToArray($config);
         } elseif (! is_array($config)) {
             throw new Exception\InvalidArgumentException(
@@ -127,14 +144,16 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             );
         }
 
+        /** @psalm-var array<array-key, array<string, mixed>> $config */
         return $config;
     }
 
     /**
-     * @param RouteMatch $routeMatch
-     * @param Router $router
-     * @param null|Request $request
-     * @return array
+     * @param array<array-key, array<string, mixed>> $pages
+     * @param RouteMatch|null                        $routeMatch
+     * @param Router|null                            $router
+     * @param Request|null                           $request
+     * @return array<array-key, array<string, mixed>>
      */
     protected function injectComponents(
         array $pages,
@@ -162,9 +181,12 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             }
 
             if (isset($page['pages'])) {
-                $page['pages'] = $this->injectComponents($page['pages'], $routeMatch, $router, $request);
+                /** @var array<array-key, array<string, mixed>> $children */
+                $children      = $page['pages'];
+                $page['pages'] = $this->injectComponents($children, $routeMatch, $router, $request);
             }
         }
+
         return $pages;
     }
 

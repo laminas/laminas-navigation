@@ -97,14 +97,17 @@ final class ServiceFactoryTest extends TestCase
     {
         $this->serviceManager->setFactory('Navigation', DefaultNavigationFactory::class);
         $container = $this->serviceManager->get('Navigation');
+        self::assertInstanceOf(Navigation::class, $container);
 
-        $recursive = function ($that, $pages) use (&$recursive): void {
+        $recursive = function (self $that, iterable $pages) use (&$recursive): void {
+            /** @psalm-suppress MixedAssignment */
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
                     $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
+                /** @psalm-suppress MixedMethodCall */
                 $recursive($that, $page->getPages());
             }
         };
@@ -144,20 +147,24 @@ final class ServiceFactoryTest extends TestCase
 
     public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory(): void
     {
-        $this->serviceManager->setFactory('Navigation', function ($services) {
+        $this->serviceManager->setFactory('Navigation', function (ContainerInterface $services) {
             $argument = __DIR__ . '/_files/navigation_mvc.xml';
             $factory  = new ConstructedNavigationFactory($argument);
             return $factory($services, 'Navigation');
         });
 
         $container = $this->serviceManager->get('Navigation');
-        $recursive = function ($that, $pages) use (&$recursive): void {
+        self::assertInstanceOf(Navigation::class, $container);
+
+        $recursive = function (self $that, iterable $pages) use (&$recursive): void {
+            /** @psalm-suppress MixedAssignment */
             foreach ($pages as $page) {
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
                     $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
+                /** @psalm-suppress MixedMethodCall */
                 $recursive($that, $page->getPages());
             }
         };
@@ -169,6 +176,7 @@ final class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', DefaultNavigationFactory::class);
 
         $container = $this->serviceManager->get('Navigation');
+        self::assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
     }
 
@@ -193,6 +201,7 @@ final class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', $factory);
 
         $container = $this->serviceManager->get('Navigation');
+        self::assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
     }
 
@@ -203,6 +212,7 @@ final class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', $factory);
 
         $container = $this->serviceManager->get('Navigation');
+        self::assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
     }
 
@@ -227,6 +237,7 @@ final class ServiceFactoryTest extends TestCase
         $this->serviceManager->setFactory('Navigation', $factory);
 
         $container = $this->serviceManager->get('Navigation');
+        self::assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
     }
 

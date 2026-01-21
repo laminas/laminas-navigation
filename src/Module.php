@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation;
 
-/** @final */
+/**
+ * @final
+ * @psalm-suppress UnusedClass
+ */
 class Module
 {
     /**

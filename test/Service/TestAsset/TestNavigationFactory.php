@@ -6,6 +6,7 @@ namespace LaminasTest\Navigation\Service\TestAsset;
 
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 
+/** @psalm-suppress DeprecatedInterface */
 final class TestNavigationFactory extends AbstractNavigationFactory
 {
     /** @var string */

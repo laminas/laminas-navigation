@@ -16,6 +16,7 @@ use Psr\Container\ContainerInterface;
  * work to ensure that the navigation helper and all its sub-helpers are injected
  * with the view helper manager and application container.
  *
+ * @psalm-suppress DeprecatedInterface
  * @final
  */
 class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
@@ -23,10 +24,12 @@ class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param string $name
      * @return HelperPluginManager
      */
     public function __invoke(ContainerInterface $container, $name, callable $callback, ?array $options = null)
     {
+        /** @var HelperPluginManager $viewHelpers */
         $viewHelpers = $callback();
         (new HelperConfig())->configureServiceManager($viewHelpers);
         return $viewHelpers;
@@ -35,7 +38,11 @@ class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param string $name
+     * @param string $requestedName
+     * @param callable $callback
      * @return HelperPluginManager
+     * @psalm-suppress ParamNameMismatch
      */
     public function createDelegatorWithName(ServiceLocatorInterface $container, $name, $requestedName, $callback)
     {

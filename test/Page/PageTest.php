@@ -97,7 +97,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @psalm-suppress InvalidArgument */
+        /** @psalm-suppress InvalidArgument, InvalidCast */
         $page->set([], true);
     }
 
@@ -118,7 +118,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @psalm-suppress InvalidArgument */
+        /** @psalm-suppress InvalidArgument, InvalidCast */
         $page->get([]);
     }
 
@@ -146,6 +146,7 @@ final class PageTest extends TestCase
         $invalids = [42, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setLabel($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -171,6 +172,7 @@ final class PageTest extends TestCase
         $invalids = [42, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setFragment($invalid);
                 $this->fail('An invalid value was set, but a '
                             . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -198,6 +200,7 @@ final class PageTest extends TestCase
         $invalids = [true, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setId($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -232,6 +235,7 @@ final class PageTest extends TestCase
         $invalids = [42, true, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setClass($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -255,6 +259,7 @@ final class PageTest extends TestCase
         $invalids = [42, true, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setTitle($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -278,6 +283,7 @@ final class PageTest extends TestCase
         $invalids = [42, true, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setTarget($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -410,6 +416,7 @@ final class PageTest extends TestCase
         $invalids = [3.14, 'e', "\n", '0,4', true, (object) null];
         foreach ($invalids as $invalid) {
             try {
+                /** @psalm-suppress InvalidArgument */
                 $page->setOrder($invalid);
                 $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -475,6 +482,7 @@ final class PageTest extends TestCase
         ]);
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $page->setResource(0);
             $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -491,6 +499,7 @@ final class PageTest extends TestCase
         ]);
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $page->setResource(new stdClass());
             $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -622,15 +631,19 @@ final class PageTest extends TestCase
     {
         $page = new Uri();
 
+        /** @psalm-suppress InvalidArgument */
         $page->setActive(1);
         $this->assertTrue($page->getActive());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setActive('true');
         $this->assertTrue($page->getActive());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setActive(0);
         $this->assertFalse($page->getActive());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setActive([]);
         $this->assertFalse($page->getActive());
     }
@@ -676,8 +689,12 @@ final class PageTest extends TestCase
             ],
         ]);
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
+        /** @psalm-suppress MixedAssignment */
         $childPage = $page->findOneByLabel('Page 1.1');
+        /** @psalm-suppress MixedMethodCall */
         $this->assertTrue($childPage->isVisible(false));
+        /** @psalm-suppress MixedMethodCall */
         $this->assertFalse($childPage->isVisible(true));
     }
 
@@ -698,8 +715,12 @@ final class PageTest extends TestCase
             ],
         ]);
 
+        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
+        /** @psalm-suppress MixedAssignment */
         $childPage = $page->findOneByLabel('Page 1.1');
+        /** @psalm-suppress MixedMethodCall */
         $this->assertTrue($childPage->getVisible(false));
+        /** @psalm-suppress MixedMethodCall */
         $this->assertFalse($childPage->getVisible(true));
     }
 
@@ -714,12 +735,15 @@ final class PageTest extends TestCase
     {
         $page = new Uri();
 
+        /** @psalm-suppress InvalidArgument */
         $page->setVisible(1);
         $this->assertTrue($page->isVisible());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setVisible('true');
         $this->assertTrue($page->isVisible());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setVisible(0);
         $this->assertFalse($page->isVisible());
 
@@ -727,10 +751,12 @@ final class PageTest extends TestCase
          * Laminas-10146
          *
          * @link https://getlaminas.org/issues/browse/Laminas-10146
+         * @psalm-suppress InvalidArgument
          */
         $page->setVisible('False');
         $this->assertFalse($page->isVisible());
 
+        /** @psalm-suppress InvalidArgument */
         $page->setVisible([]);
         $this->assertFalse($page->isVisible());
     }
@@ -759,7 +785,9 @@ final class PageTest extends TestCase
         $this->assertSame('foo', $page->uri);
 
         $page->uri = 'bar';
+        /** @psalm-suppress DocblockTypeContradiction */
         $this->assertSame('bar', $page->getUri());
+        /** @psalm-suppress DocblockTypeContradiction */
         $this->assertSame('bar', $page->uri);
     }
 
@@ -963,6 +991,7 @@ final class PageTest extends TestCase
         $page = AbstractPage::factory(['type' => 'uri']);
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $page->setRel('alternate');
             $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -1021,6 +1050,7 @@ final class PageTest extends TestCase
         $page = AbstractPage::factory(['type' => 'uri']);
 
         try {
+            /** @psalm-suppress InvalidArgument */
             $page->setRev('alternate');
             $this->fail('An invalid value was set, but a '
                         . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
@@ -1196,6 +1226,7 @@ final class PageTest extends TestCase
 
         $page->setPermission(['my_permission', 'other_permission']);
         $this->assertIsArray($page->getPermission());
+        /** @psalm-suppress MixedArgument, PossiblyNullArgument */
         $this->assertCount(2, $page->getPermission());
     }
 
@@ -1209,7 +1240,9 @@ final class PageTest extends TestCase
         $permission->name = 'my_permission';
 
         $page->setPermission($permission);
+        /** @psalm-suppress ArgumentTypeCoercion */
         $this->assertInstanceOf('stdClass', $page->getPermission());
+        /** @psalm-suppress MixedPropertyFetch, PossiblyNullPropertyFetch */
         $this->assertEquals('my_permission', $page->getPermission()->name);
     }
 
