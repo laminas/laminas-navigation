@@ -7,7 +7,6 @@ namespace Laminas\Navigation\Service;
 /**
  * Default navigation factory.
  *
- * @psalm-suppress DeprecatedInterface
  * @final
  */
 class DefaultNavigationFactory extends AbstractNavigationFactory

@@ -6,7 +6,6 @@ namespace Laminas\Navigation;
 
 /**
  * @final
- * @psalm-suppress UnusedClass
  */
 class Module
 {

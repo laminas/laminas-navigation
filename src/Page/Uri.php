@@ -136,7 +136,6 @@ class Uri extends AbstractPage
      *
      * @see ResourceInterface
      *
-     * @psalm-suppress LessSpecificImplementedReturnType
      * @return array
      * @psalm-return array{
      *     label: string|null,
@@ -154,8 +153,9 @@ class Uri extends AbstractPage
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     uri: string|null,
-     *     ...
+     *     ...<string, mixed>
      * }
      */
     public function toArray()

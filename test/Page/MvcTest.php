@@ -123,7 +123,6 @@ final class MvcTest extends TestCase
             'page'       => 1,
         ]);
 
-        /** @psalm-suppress InvalidArgument */
         $page->setRouter($router);
         $page->setRouteMatch($routeMatch);
 
@@ -145,7 +144,6 @@ final class MvcTest extends TestCase
         $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('lolfish');
 
-        /** @psalm-suppress InvalidArgument */
         $page->setRouter($router);
         $page->setRouteMatch($routeMatch);
 
@@ -172,7 +170,6 @@ final class MvcTest extends TestCase
         $routeMatch->setMatchedRouteName('roflcopter');
 
         $event = new MvcEvent();
-        /** @psalm-suppress InvalidArgument */
         $event->setRouter($router)
               ->setRouteMatch($routeMatch);
 
@@ -180,8 +177,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        /** @psalm-suppress PossiblyNullArgument */
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertEquals(true, $page->isActive());
     }
@@ -402,7 +400,6 @@ final class MvcTest extends TestCase
             foreach ($invalids as $invalid) {
                 try {
                     $page->$setter($invalid);
-                    /** @psalm-suppress PossiblyInvalidCast */
                     $msg  = "'$invalid' is invalid for $setter(), but no ";
                     $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
@@ -436,7 +433,6 @@ final class MvcTest extends TestCase
             foreach ($invalids as $invalid) {
                 try {
                     $page->$setter($invalid);
-                    /** @psalm-suppress PossiblyInvalidCast */
                     $msg  = "'$invalid' is invalid for $setter(), but no ";
                     $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
                     $this->fail($msg);
@@ -516,7 +512,6 @@ final class MvcTest extends TestCase
         $page = new Page\Mvc([
             'route' => 'default',
         ]);
-        /** @psalm-suppress InvalidArgument */
         $page->setRouter($newRouter);
 
         $expected = TestAsset\Router::RETURN_URL;
@@ -574,7 +569,6 @@ final class MvcTest extends TestCase
         ]);
         $this->assertSame(true, $page->useRouteMatch());
 
-        /** @psalm-suppress NullArgument */
         $page->setUseRouteMatch(null);
         $this->assertSame(false, $page->useRouteMatch());
 
@@ -605,7 +599,6 @@ final class MvcTest extends TestCase
         ]);
         $routeMatch->setMatchedRouteName('lollerblades');
 
-        /** @psalm-suppress InvalidArgument */
         $page->setRouter($router);
         $page->setRouteMatch($routeMatch);
 
@@ -634,7 +627,6 @@ final class MvcTest extends TestCase
         $routeMatch->setMatchedRouteName('lmaoplane');
 
         $event = new MvcEvent();
-        /** @psalm-suppress InvalidArgument */
         $event->setRouter($router)
             ->setRouteMatch($routeMatch);
 
@@ -642,8 +634,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        /** @psalm-suppress PossiblyNullArgument */
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertEquals('/lmaoplane', $page->getHref());
 
@@ -675,7 +668,6 @@ final class MvcTest extends TestCase
         $routeMatch->setMatchedRouteName('index');
 
         $event = new MvcEvent();
-        /** @psalm-suppress InvalidArgument */
         $event->setRouter($router)
             ->setRouteMatch($routeMatch);
 
@@ -683,8 +675,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        /** @psalm-suppress PossiblyNullArgument */
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertFalse($page->isActive());
     }
@@ -741,20 +734,20 @@ final class MvcTest extends TestCase
         $routeMatch->setMatchedRouteName('childPageRoute');
 
         $event = new MvcEvent();
-        /** @psalm-suppress InvalidArgument */
         $event->setRouter($router)
             ->setRouteMatch($routeMatch);
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->onRoute($event);
 
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+
         $parentPage->setRouter($event->getRouter());
-        /** @psalm-suppress PossiblyNullArgument */
-        $parentPage->setRouteMatch($event->getRouteMatch());
+        $parentPage->setRouteMatch($routeMatch);
 
         $childPage->setRouter($event->getRouter());
-        /** @psalm-suppress PossiblyNullArgument */
-        $childPage->setRouteMatch($event->getRouteMatch());
+        $childPage->setRouteMatch($routeMatch);
 
         $this->assertTrue($childPage->isActive(true));
         $this->assertTrue($parentPage->isActive(true));

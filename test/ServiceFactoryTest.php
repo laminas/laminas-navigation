@@ -9,6 +9,7 @@ use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\Application;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Navigation\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Mvc as MvcPage;
 use Laminas\Navigation\Service\AbstractNavigationFactory;
 use Laminas\Navigation\Service\ConstructedNavigationFactory;
@@ -100,14 +101,13 @@ final class ServiceFactoryTest extends TestCase
         self::assertInstanceOf(Navigation::class, $container);
 
         $recursive = function (self $that, iterable $pages) use (&$recursive): void {
-            /** @psalm-suppress MixedAssignment */
             foreach ($pages as $page) {
+                self::assertInstanceOf(AbstractPage::class, $page);
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
                     $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
-                /** @psalm-suppress MixedMethodCall */
                 $recursive($that, $page->getPages());
             }
         };
@@ -157,14 +157,13 @@ final class ServiceFactoryTest extends TestCase
         self::assertInstanceOf(Navigation::class, $container);
 
         $recursive = function (self $that, iterable $pages) use (&$recursive): void {
-            /** @psalm-suppress MixedAssignment */
             foreach ($pages as $page) {
+                self::assertInstanceOf(AbstractPage::class, $page);
                 if ($page instanceof MvcPage) {
                     $that->assertInstanceOf(RouteStackInterface::class, $page->getRouter());
                     $that->assertInstanceOf(RouteMatch::class, $page->getRouteMatch());
                 }
 
-                /** @psalm-suppress MixedMethodCall */
                 $recursive($that, $page->getPages());
             }
         };

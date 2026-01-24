@@ -689,12 +689,9 @@ final class PageTest extends TestCase
             ],
         ]);
 
-        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
-        /** @psalm-suppress MixedAssignment */
         $childPage = $page->findOneByLabel('Page 1.1');
-        /** @psalm-suppress MixedMethodCall */
+        self::assertInstanceOf(AbstractPage::class, $childPage);
         $this->assertTrue($childPage->isVisible(false));
-        /** @psalm-suppress MixedMethodCall */
         $this->assertFalse($childPage->isVisible(true));
     }
 
@@ -715,12 +712,9 @@ final class PageTest extends TestCase
             ],
         ]);
 
-        /** @psalm-suppress UndefinedMagicMethod, MixedMethodCall */
-        /** @psalm-suppress MixedAssignment */
         $childPage = $page->findOneByLabel('Page 1.1');
-        /** @psalm-suppress MixedMethodCall */
+        self::assertInstanceOf(AbstractPage::class, $childPage);
         $this->assertTrue($childPage->getVisible(false));
-        /** @psalm-suppress MixedMethodCall */
         $this->assertFalse($childPage->getVisible(true));
     }
 
@@ -739,7 +733,6 @@ final class PageTest extends TestCase
         $page->setVisible(1);
         $this->assertTrue($page->isVisible());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setVisible('true');
         $this->assertTrue($page->isVisible());
 
@@ -786,9 +779,7 @@ final class PageTest extends TestCase
         $this->assertSame('foo', $page->uri);
 
         $page->uri = 'bar';
-        /** @psalm-suppress DocblockTypeContradiction */
         $this->assertSame('bar', $page->getUri());
-        /** @psalm-suppress DocblockTypeContradiction */
         $this->assertSame('bar', $page->uri);
     }
 
@@ -1226,9 +1217,9 @@ final class PageTest extends TestCase
         ]);
 
         $page->setPermission(['my_permission', 'other_permission']);
-        $this->assertIsArray($page->getPermission());
-        /** @psalm-suppress MixedArgument, PossiblyNullArgument */
-        $this->assertCount(2, $page->getPermission());
+        $permission = $page->getPermission();
+        self::assertIsArray($permission);
+        $this->assertCount(2, $permission);
     }
 
     public function testSetObjectPermission(): void
@@ -1241,10 +1232,9 @@ final class PageTest extends TestCase
         $permission->name = 'my_permission';
 
         $page->setPermission($permission);
-        /** @psalm-suppress ArgumentTypeCoercion */
-        $this->assertInstanceOf('stdClass', $page->getPermission());
-        /** @psalm-suppress MixedPropertyFetch, PossiblyNullPropertyFetch */
-        $this->assertEquals('my_permission', $page->getPermission()->name);
+        $result = $page->getPermission();
+        self::assertInstanceOf(stdClass::class, $result);
+        $this->assertEquals('my_permission', $result->name);
     }
 
     public function testSetParentShouldThrowExceptionIfPageItselfIsParent(): void

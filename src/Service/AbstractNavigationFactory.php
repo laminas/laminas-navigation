@@ -18,6 +18,7 @@ use Laminas\Stdlib\ArrayUtils;
 use Psr\Container\ContainerInterface;
 use Traversable;
 
+use function assert;
 use function file_exists;
 use function get_debug_type;
 use function is_array;
@@ -26,8 +27,6 @@ use function sprintf;
 
 /**
  * Abstract navigation factory
- *
- * @psalm-suppress DeprecatedInterface
  */
 abstract class AbstractNavigationFactory implements FactoryInterface
 {
@@ -50,7 +49,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * Create and return a new Navigation instance (v2).
      *
      * @return Navigation
-     * @psalm-suppress ParamNameMismatch
      */
     public function createService(ServiceLocatorInterface $container)
     {
@@ -70,7 +68,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     protected function getPages(ContainerInterface $container)
     {
         if (null === $this->pages) {
-            /** @var array<array-key, mixed> $configuration */
             $configuration = $container->get('config');
 
             if (! isset($configuration['navigation'])) {
@@ -83,12 +80,10 @@ abstract class AbstractNavigationFactory implements FactoryInterface
                 ));
             }
 
-            /** @var array<array-key, array<string, mixed>> $configuration */
             $configuration = $configuration['navigation'];
-            /** @var array<array-key, array<string, mixed>> $navigation */
-            $navigation  = $configuration[$this->getName()];
-            $pages       = $this->getPagesFromConfig($navigation);
-            $this->pages = $this->preparePages($container, $pages);
+            $navigation    = $configuration[$this->getName()];
+            $pages         = $this->getPagesFromConfig($navigation);
+            $this->pages   = $this->preparePages($container, $pages);
         }
 
         return $this->pages;
@@ -101,11 +96,12 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      */
     protected function preparePages(ContainerInterface $container, $pages)
     {
-        /** @var Application $application */
         $application = $container->get('Application');
-        $routeMatch  = $application->getMvcEvent()->getRouteMatch();
-        $router      = $application->getMvcEvent()->getRouter();
-        $request     = $application->getMvcEvent()->getRequest();
+        assert($application instanceof Application);
+
+        $routeMatch = $application->getMvcEvent()->getRouteMatch();
+        $router     = $application->getMvcEvent()->getRouter();
+        $request    = $application->getMvcEvent()->getRequest();
 
         // HTTP request is the only one that may be injected
         if (! $request instanceof Request) {
@@ -119,7 +115,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
      * @param string|Config\Config|array<array-key, array<string, mixed>>|null $config
      * @throws InvalidArgumentException
      * @return array<array-key, array<string, mixed>>
-     * @psalm-suppress MixedReturnTypeCoercion ArrayUtils returns mixed but structure is known
      */
     protected function getPagesFromConfig($config = null)
     {
@@ -141,7 +136,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             );
         }
 
-        /** @psalm-var array<array-key, array<string, mixed>> $config */
         return $config;
     }
 
@@ -178,9 +172,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             }
 
             if (isset($page['pages'])) {
-                /** @var array<array-key, array<string, mixed>> $children */
-                $children      = $page['pages'];
-                $page['pages'] = $this->injectComponents($children, $routeMatch, $router, $request);
+                $page['pages'] = $this->injectComponents($page['pages'], $routeMatch, $router, $request);
             }
         }
 
@@ -190,7 +182,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a route match argument provided to injectComponents is valid.
      *
-     * @param RouteMatch|null $routeMatch
+     * @psalm-assert RouteMatch|null $routeMatch
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouteMatch(mixed $routeMatch): void
@@ -212,7 +204,7 @@ abstract class AbstractNavigationFactory implements FactoryInterface
     /**
      * Validate that a router argument provided to injectComponents is valid.
      *
-     * @param Router|null $router
+     * @psalm-assert Router|null $router
      * @throws Exception\InvalidArgumentException
      */
     private function validateRouter(mixed $router): void
@@ -221,7 +213,6 @@ abstract class AbstractNavigationFactory implements FactoryInterface
             return;
         }
 
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! $router instanceof Router) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expected by %s::injectComponents; received %s',

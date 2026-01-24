@@ -11,6 +11,7 @@ use Laminas\Router\RouteStackInterface;
 
 use function array_intersect_assoc;
 use function array_merge;
+use function assert;
 use function count;
 use function get_debug_type;
 use function is_string;
@@ -272,8 +273,8 @@ class Mvc extends AbstractPage
             $options['query'] = $query;
         }
 
-        /** @var string $url */
         $url = $router->assemble($params, $options);
+        assert(is_string($url));
 
         return $this->hrefCache = $url;
     }
@@ -580,7 +581,6 @@ class Mvc extends AbstractPage
      *
      * @see ResourceInterface
      *
-     * @psalm-suppress LessSpecificImplementedReturnType
      * @return array
      * @psalm-return array{
      *     label: string|null,
@@ -598,13 +598,14 @@ class Mvc extends AbstractPage
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     action: string|null,
      *     controller: string|null,
      *     params: array,
      *     route: string|null,
      *     router: RouteStackInterface|null,
      *     route_match: RouteMatch|null,
-     *     ...
+     *     ...<string, mixed>
      * }
      */
     public function toArray()

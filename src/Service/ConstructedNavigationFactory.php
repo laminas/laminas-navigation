@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
 /**
  * Constructed factory to set pages during construction.
  *
- * @psalm-suppress DeprecatedInterface
  * @final
  */
 class ConstructedNavigationFactory extends AbstractNavigationFactory

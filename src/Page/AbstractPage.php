@@ -30,6 +30,10 @@ use function ucwords;
 /**
  * Base class for Laminas\Navigation\Page pages
  *
+ * @psalm-type PageOptions = array{
+ *     type?: 'mvc'|'uri'|class-string<AbstractPage>|null,
+ *     ...<string, mixed>
+ * }
  * @template-extends AbstractContainer<AbstractPage>
  * @psalm-no-seal-properties
  */
@@ -168,7 +172,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Static factories list for factory pages
      *
-     * @var list<callable>
+     * @var list<callable(PageOptions): self>
      */
     protected static $factories = [];
 
@@ -190,7 +194,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * - If $options contains the key 'uri', a Laminas\Navigation\Page\Uri page
      *   will be created.
      *
-     * @param  array|Traversable $options  options used for creating page
+     * @param  PageOptions|Traversable<string, mixed> $options  options used for creating page
      * @return AbstractPage  a page instance
      * @throws Exception\InvalidArgumentException If $options is not
      *                                            array/Traversable.
@@ -211,7 +215,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
             $options = ArrayUtils::iteratorToArray($options);
         }
 
-        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_array($options)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $options must be an array or Traversable'
@@ -219,9 +222,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
         }
 
         if (isset($options['type'])) {
-            /** @var class-string<AbstractPage>|null $type */
             $type = $options['type'];
-            /** @psalm-suppress RedundantConditionGivenDocblockType */
             if (is_string($type) && ! empty($type)) {
                 switch (strtolower($type)) {
                     case 'mvc':
@@ -238,7 +239,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
                     );
                 }
 
-                /** @psalm-suppress UnsafeInstantiation */
                 $page = new $type($options);
                 if (! $page instanceof self) {
                     throw new Exception\InvalidArgumentException(
@@ -255,7 +255,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
         if (static::$factories) {
             foreach (static::$factories as $factoryCallBack) {
-                /** @var AbstractPage|null $page */
                 $page = call_user_func($factoryCallBack, $options);
                 if ($page instanceof self) {
                     return $page;
@@ -281,7 +280,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Add static factory for self::factory function
      *
-     * @param callable $callback Any callable variable
+     * @param callable(PageOptions): self $callback Any callable variable
      * @return void
      */
     public static function addFactory($callback)
@@ -292,7 +291,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Page constructor
      *
-     * @param  array|Traversable $options [optional] page options. Default is
+     * @param  PageOptions|Traversable<string, mixed>|null $options [optional] page options. Default is
      *                                    null, which should set defaults.
      * @throws Exception\InvalidArgumentException If invalid options are given.
      */
@@ -326,16 +325,12 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * corresponds to setTarget(), and the option 'reset_params' corresponds to
      * the method setResetParams().
      *
-     * @param  array $options associative array of options to set
+     * @param  PageOptions $options associative array of options to set
      * @return $this
      * @throws Exception\InvalidArgumentException  If invalid options are given.
      */
     public function setOptions(array $options)
     {
-        /**
-         * @var string $key
-         * @var mixed $value
-         */
         foreach ($options as $key => $value) {
             $this->set($key, $value);
         }
@@ -1231,8 +1226,6 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @see ResourceInterface
      *
-     * @psalm-suppress LessSpecificImplementedReturnType
-     * @psalm-suppress MixedReturnTypeCoercion
      * @return array
      * @psalm-return array{
      *     label: string|null,
@@ -1250,7 +1243,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
-     *     ...
+     *     type: string,
+     *     ...<string, mixed>
      * }
      */
     public function toArray()
