@@ -33,7 +33,7 @@ use function ucwords;
  *     type?: 'mvc'|'uri'|class-string<AbstractPage>|null,
  *     label?: string|null,
  *     fragment?: string|null,
- *     id?: string|null,
+ *     id?: string|int|null,
  *     class?: string|null,
  *     title?: string|null,
  *     target?: string|null,
@@ -45,7 +45,7 @@ use function ucwords;
  *     permission?: mixed|null,
  *     active?: bool,
  *     visible?: bool,
- *     pages?: list<array>,
+ *     pages?: list<array|AbstractPage>,
  *     ...<string, mixed>
  * }
  * @template-extends AbstractContainer<AbstractPage>

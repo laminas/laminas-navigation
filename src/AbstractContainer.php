@@ -34,6 +34,7 @@ use const E_WARNING;
  * Laminas\Navigation\Container
  * AbstractContainer class for Laminas\Navigation\Page classes.
  *
+ * @psalm-import-type PageOptions from Page\AbstractPage
  * @template TPage of AbstractPage
  * @template-implements RecursiveIterator<string, TPage>
  */
@@ -108,7 +109,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * This method will inject the container as the given page's parent by
      * calling {@link Page\AbstractPage::setParent()}.
      *
-     * @param TPage|array<array-key, mixed>|Traversable<array-key, mixed> $page page to add
+     * @param TPage|PageOptions|Traversable<string, mixed> $page page to add
      * @throws Exception\InvalidArgumentException If page is invalid.
      * @return $this
      */
@@ -144,7 +145,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Adds several pages at once
      *
-     * @param iterable<array-key, TPage|array<string, mixed>|Traversable<string, mixed>> $pages pages to add
+     * @param iterable<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to add
      * @throws Exception\InvalidArgumentException If $pages is not array,
      *                                            Traversable or AbstractContainer.
      * @return $this
@@ -181,7 +182,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Sets pages this container should have, removing existing pages
      *
-     * @param array<array-key, TPage|array<string, mixed>> $pages pages to set
+     * @param array<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to set
      * @return $this
      */
     public function setPages(array $pages)

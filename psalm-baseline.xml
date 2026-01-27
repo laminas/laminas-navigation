@@ -20,11 +20,6 @@
       <code><![CDATA[Module]]></code>
     </UnusedClass>
   </file>
-  <file src="src/Navigation.php">
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$pages]]></code>
-    </PossiblyInvalidArgument>
-  </file>
   <file src="src/Page/AbstractPage.php">
     <DocblockTypeContradiction>
       <code><![CDATA[is_array($options)]]></code>
@@ -356,109 +351,6 @@
     <DocblockTypeContradiction>
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
-    <InvalidArgument>
-      <code><![CDATA[[
-                    'label'  => 'Page 1.1',
-                    'active' => false,
-                    'pages'  => [
-                        new Uri([
-                            'label'  => 'Page 1.1',
-                            'active' => true,
-                        ]),
-                    ],
-                ]]]></code>
-      <code><![CDATA[[
-                    'label'  => 'Page 1.1',
-                    'active' => false,
-                    'pages'  => [
-                        new Uri([
-                            'label'  => 'Page 1.1',
-                            'active' => true,
-                        ]),
-                    ],
-                ]]]></code>
-      <code><![CDATA[[
-                    'label' => 'Page 1.1',
-                    'pages' => [
-                        new Uri([
-                            'label' => 'Page 1.1',
-                        ]),
-                    ],
-                ]]]></code>
-      <code><![CDATA[[
-                    'label' => 'Page 1.1',
-                    'pages' => [
-                        new Uri([
-                            'label' => 'Page 1.1',
-                        ]),
-                    ],
-                ]]]></code>
-      <code><![CDATA[[
-            'label'   => 'Page 1',
-            'visible' => false,
-            'pages'   => [
-                new Uri([
-                    'label' => 'Page 1.1',
-                    'pages' => [
-                        new Uri([
-                            'label' => 'Page 1.1',
-                        ]),
-                    ],
-                ]),
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'label'   => 'Page 1',
-            'visible' => false,
-            'pages'   => [
-                new Uri([
-                    'label' => 'Page 1.1',
-                    'pages' => [
-                        new Uri([
-                            'label' => 'Page 1.1',
-                        ]),
-                    ],
-                ]),
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'label'  => 'Page 1',
-            'active' => false,
-            'pages'  => [
-                new Uri([
-                    'label'  => 'Page 1.1',
-                    'active' => false,
-                    'pages'  => [
-                        new Uri([
-                            'label'  => 'Page 1.1',
-                            'active' => true,
-                        ]),
-                    ],
-                ]),
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'label'  => 'Page 1',
-            'active' => false,
-            'pages'  => [
-                new Uri([
-                    'label'  => 'Page 1.1',
-                    'active' => false,
-                    'pages'  => [
-                        new Uri([
-                            'label'  => 'Page 1.1',
-                            'active' => true,
-                        ]),
-                    ],
-                ]),
-            ],
-        ]]]></code>
-      <code><![CDATA[[
-            'label' => 'foo',
-            'uri'   => '#',
-            'id'    => 10,
-        ]]]></code>
-    </InvalidArgument>
     <UndefinedMagicMethod>
       <code><![CDATA[findOneByLabel]]></code>
       <code><![CDATA[findOneByLabel]]></code>
