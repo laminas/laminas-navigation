@@ -17,6 +17,7 @@ use Laminas\Router\Http\Segment as SegmentRoute;
 use Laminas\Router\Http\TreeRouteStack;
 use Laminas\Router\RouteMatch;
 use LaminasTest\Navigation\TestAsset;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
@@ -147,7 +148,7 @@ final class MvcTest extends TestCase
         $page->setRouter($router);
         $page->setRouteMatch($routeMatch);
 
-        $this->assertEquals(true, $page->isActive());
+        $this->assertTrue($page->isActive());
     }
 
     public function testIsActiveReturnsTrueWhenMatchingRouteWhileUsingModuleRouteListener(): void
@@ -179,7 +180,7 @@ final class MvcTest extends TestCase
         $page->setRouter($event->getRouter());
         $page->setRouteMatch($event->getRouteMatch());
 
-        $this->assertEquals(true, $page->isActive());
+        $this->assertTrue($page->isActive());
     }
 
     public function testIsActiveReturnsFalseWhenMatchingRouteButNonMatchingParams(): void
@@ -374,40 +375,23 @@ final class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    public function testActionAndControllerAccessors(): void
+    /** @return array<string, array{0: mixed}> */
+    public static function validActionValueProvider(): array
     {
-        $page = new Page\Mvc([
-            'label'      => 'foo',
-            'action'     => 'index',
-            'controller' => 'index',
-        ]);
-
-        $props    = ['Action', 'Controller'];
-        $valids   = ['index', 'help', 'home', 'default', '1', ' ', '', null];
-        $invalids = [42, (object) null];
-
-        foreach ($props as $prop) {
-            $setter = "set$prop";
-            $getter = "get$prop";
-
-            foreach ($valids as $valid) {
-                $page->$setter($valid);
-                $this->assertEquals($valid, $page->$getter());
-            }
-
-            foreach ($invalids as $invalid) {
-                try {
-                    $page->$setter($invalid);
-                    $msg  = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
-                    $this->fail($msg);
-                } catch (Navigation\Exception\InvalidArgumentException) {
-                }
-            }
-        }
+        return [
+            'string-index'   => ['index'],
+            'string-help'    => ['help'],
+            'string-home'    => ['home'],
+            'string-default' => ['default'],
+            'string-1'       => ['1'],
+            'string-space'   => [' '],
+            'string-empty'   => [''],
+            'null'           => [null],
+        ];
     }
 
-    public function testRouteAccessor(): void
+    #[DataProvider('validActionValueProvider')]
+    public function testSetActionAcceptsValidValue(mixed $value): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -415,29 +399,129 @@ final class MvcTest extends TestCase
             'controller' => 'index',
         ]);
 
-        $props    = ['Route'];
-        $valids   = ['index', 'help', 'home', 'default', '1', ' ', null];
-        $invalids = [42, (object) null];
+        $page->setAction($value);
+        $this->assertSame($value, $page->getAction());
+    }
 
-        foreach ($props as $prop) {
-            $setter = "set$prop";
-            $getter = "get$prop";
+    /** @return array<string, array{0: mixed}> */
+    public static function validControllerValueProvider(): array
+    {
+        return [
+            'string-index'   => ['index'],
+            'string-help'    => ['help'],
+            'string-home'    => ['home'],
+            'string-default' => ['default'],
+            'string-1'       => ['1'],
+            'string-space'   => [' '],
+            'string-empty'   => [''],
+            'null'           => [null],
+        ];
+    }
 
-            foreach ($valids as $valid) {
-                $page->$setter($valid);
-                $this->assertEquals($valid, $page->$getter());
-            }
+    #[DataProvider('validControllerValueProvider')]
+    public function testSetControllerAcceptsValidValue(mixed $value): void
+    {
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
+        ]);
 
-            foreach ($invalids as $invalid) {
-                try {
-                    $page->$setter($invalid);
-                    $msg  = "'$invalid' is invalid for $setter(), but no ";
-                    $msg .= 'Laminas\Navigation\Exception\InvalidArgumentException was thrown';
-                    $this->fail($msg);
-                } catch (Navigation\Exception\InvalidArgumentException) {
-                }
-            }
-        }
+        $page->setController($value);
+        $this->assertSame($value, $page->getController());
+    }
+
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidActionValueProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidActionValueProvider')]
+    public function testSetActionThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $page->setAction($invalid);
+    }
+
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidControllerValueProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidControllerValueProvider')]
+    public function testSetControllerThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $page->setController($invalid);
+    }
+
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidRouteValueProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidRouteValueProvider')]
+    public function testSetRouteThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $page->setRoute($invalid);
+    }
+
+    /** @return array<string, array{0: mixed}> */
+    public static function validRouteValueProvider(): array
+    {
+        return [
+            'string-index'   => ['index'],
+            'string-help'    => ['help'],
+            'string-home'    => ['home'],
+            'string-default' => ['default'],
+            'string-1'       => ['1'],
+            'string-space'   => [' '],
+            'null'           => [null],
+        ];
+    }
+
+    #[DataProvider('validRouteValueProvider')]
+    public function testSetRouteAcceptsValidValue(mixed $value): void
+    {
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'action'     => 'index',
+            'controller' => 'index',
+        ]);
+
+        $page->setRoute($value);
+        $this->assertSame($value, $page->getRoute());
     }
 
     public function testSetAndGetParams(): void
@@ -565,19 +649,19 @@ final class MvcTest extends TestCase
         $page = new Page\Mvc([
             'useRouteMatch' => 2,
         ]);
-        $this->assertSame(true, $page->useRouteMatch());
+        $this->assertTrue($page->useRouteMatch());
 
         $page->setUseRouteMatch(null);
-        $this->assertSame(false, $page->useRouteMatch());
+        $this->assertFalse($page->useRouteMatch());
 
         $page->setUseRouteMatch(false);
-        $this->assertSame(false, $page->useRouteMatch());
+        $this->assertFalse($page->useRouteMatch());
 
         $page->setUseRouteMatch(true);
-        $this->assertSame(true, $page->useRouteMatch());
+        $this->assertTrue($page->useRouteMatch());
 
         $page->setUseRouteMatch();
-        $this->assertSame(true, $page->useRouteMatch());
+        $this->assertTrue($page->useRouteMatch());
     }
 
     public function testMvcPageParamsInheritRouteMatchParams(): void
@@ -751,5 +835,90 @@ final class MvcTest extends TestCase
         $page = new Page\Mvc();
         $page->setRouter(TreeRouteStack::class);
         $page->setRouteMatch(null);
+    }
+
+    public function testDefaultRouteCanBeSetAndRetrieved(): void
+    {
+        $originalRoute = Page\Mvc::getDefaultRoute();
+
+        Page\Mvc::setDefaultRoute('custom-route');
+        $this->assertSame('custom-route', Page\Mvc::getDefaultRoute());
+
+        Page\Mvc::setDefaultRoute($originalRoute);
+    }
+
+    public function testGetHrefReturnsCachedValue(): void
+    {
+        $page = new Page\Mvc([
+            'label'  => 'foo',
+            'route'  => 'default',
+            'action' => 'index',
+        ]);
+        $page->setRouter($this->router);
+
+        $href1 = $page->getHref();
+        $href2 = $page->getHref();
+
+        $this->assertSame($href1, $href2);
+    }
+
+    public function testGetHrefThrowsExceptionWhenNoRouter(): void
+    {
+        Page\Mvc::setDefaultRouter(null);
+
+        $page = new Page\Mvc([
+            'label' => 'foo',
+            'route' => 'default',
+        ]);
+
+        $this->expectException(Exception\DomainException::class);
+        $this->expectExceptionMessage('cannot execute as no Laminas\Router\RouteStackInterface instance is composed');
+        $page->getHref();
+    }
+
+    public function testGetHrefUsesRouteMatchWhenNoRouteSet(): void
+    {
+        $originalDefaultRoute = Page\Mvc::getDefaultRoute();
+        Page\Mvc::setDefaultRoute(null);
+
+        $page = new Page\Mvc([
+            'label'      => 'foo',
+            'controller' => 'index',
+            'action'     => 'index',
+        ]);
+
+        $page->setRouteMatch($this->routeMatch);
+        $page->setRouter($this->router);
+
+        $href = $page->getHref();
+        $this->assertIsString($href);
+
+        Page\Mvc::setDefaultRoute($originalDefaultRoute);
+    }
+
+    public function testGetHrefThrowsExceptionWhenNoRouteName(): void
+    {
+        Page\Mvc::setDefaultRoute(null);
+        Page\Mvc::setDefaultRouter(null);
+
+        $page = new Page\Mvc([
+            'label' => 'foo',
+        ]);
+        $page->setRouter($this->router);
+
+        $this->expectException(Exception\DomainException::class);
+        $this->expectExceptionMessage('No route name could be found');
+        $page->getHref();
+    }
+
+    public function testSetRouteMatchThrowsExceptionForInvalidObject(): void
+    {
+        $page = new Page\Mvc([
+            'label' => 'foo',
+        ]);
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('RouteMatch passed to');
+        $page->setRouteMatch((object) ['invalid' => 'object']);
     }
 }

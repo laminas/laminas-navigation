@@ -66,34 +66,25 @@ final class ContainerTest extends TestCase
         $this->assertEquals(3, $container->count());
     }
 
-    public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
+    public function testConstructorShouldThrowExceptionOnStringArgument(): void
     {
-        try {
-            new Navigation\Navigation('ok');
-            $this->fail('An invalid argument was given to the constructor, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $pages');
+        new Navigation\Navigation('ok');
+    }
 
-        try {
-            new Navigation\Navigation(1337);
-            $this->fail('An invalid argument was given to the constructor, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
-        }
+    public function testConstructorShouldThrowExceptionOnIntegerArgument(): void
+    {
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $pages');
+        new Navigation\Navigation(1337);
+    }
 
-        try {
-            new Navigation\Navigation(new stdClass());
-            $this->fail('An invalid argument was given to the constructor, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\ExceptionInterface $e) {
-            $this->assertStringContainsString('Invalid argument: $pages', $e->getMessage());
-        }
+    public function testConstructorShouldThrowExceptionOnObjectArgument(): void
+    {
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $pages');
+        new Navigation\Navigation(new stdClass());
     }
 
     public function testAddPagesWithNullValueSkipsPage(): void
@@ -512,30 +503,20 @@ final class ContainerTest extends TestCase
     {
         $nav = new Navigation\Navigation();
 
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $nav->addPages('this is a string');
-            $this->fail('An invalid argument was given to addPages(), '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $pages must be');
+        /** @psalm-suppress InvalidArgument */
+        $nav->addPages('this is a string');
     }
 
     public function testAddPagesShouldThrowExceptionWhenGivenAnArbitraryObject(): void
     {
         $nav = new Navigation\Navigation();
 
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $nav->addPages($pages = new stdClass());
-            $this->fail('An invalid argument was given to addPages(), '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $pages must be', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $pages must be');
+        /** @psalm-suppress InvalidArgument */
+        $nav->addPages(new stdClass());
     }
 
     public function testRemovingAllPages(): void
@@ -714,7 +695,7 @@ final class ContainerTest extends TestCase
 
         $nav->addPage($page3);
 
-        $this->assertEquals(true, $nav->removePage($page3));
+        $this->assertTrue($nav->removePage($page3));
     }
 
     public function testRemovingPageByInstanceShouldReturnFalseIfPageIsNotInContainer(): void
@@ -735,7 +716,7 @@ final class ContainerTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(false, $nav->removePage($page));
+        $this->assertFalse($nav->removePage($page));
     }
 
     public function testHasPage(): void
@@ -891,7 +872,7 @@ final class ContainerTest extends TestCase
         $page2->setParent($page1);
         $page2->setParent(null);
 
-        $this->assertEquals(null, $page2->getParent());
+        $this->assertNull($page2->getParent());
     }
 
     public function testSetParentShouldRemoveFromOldParentPage(): void
@@ -1115,28 +1096,18 @@ final class ContainerTest extends TestCase
     {
         $nav = $this->_getFindByNavigation();
 
-        try {
-            $nav->findSomeById('page_2_and_3');
-            $this->fail('An invalid magic finder method was used, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\BadMethodCallException $e) {
-            $this->assertStringContainsString('Bad method call', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Bad method call');
+        $nav->findSomeById('page_2_and_3');
     }
 
     public function testInvalidMagicMethodShouldThrowException(): void
     {
         $nav = $this->_getFindByNavigation();
 
-        try {
-            $nav->getPagez();
-            $this->fail('An invalid magic finder method was used, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\BadMethodCallException $e) {
-            $this->assertStringContainsString('Bad method call', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Bad method call');
+        $nav->getPagez();
     }
 
     // @codingStandardsIgnoreStart
@@ -1215,32 +1186,21 @@ final class ContainerTest extends TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid(): void
     {
-        $container = new AbstractContainer([
-            [
-                'label' => 'Page 2',
-                'type'  => 'uri',
-            ],
-            [
-                'label' => 'Page 1',
-                'type'  => 'uri',
-                'order' => -1,
-            ],
+        $container = new AbstractContainer();
+        $container->addPage([
+            'label' => 'Page 1',
+            'type'  => 'uri',
         ]);
 
-        try {
-            $container->current();
-            $this->fail('AbstractContainer index is invalid, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\OutOfBoundsException $e) {
-            $this->assertStringContainsString('Corruption detected', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Corruption detected');
+        $container->current();
     }
 
     public function testKeyWhenContainerIsEmpty(): void
     {
         $container = new Navigation\Navigation();
-        $this->assertEquals(null, $container->key());
+        $this->assertNull($container->key());
     }
 
     public function testKeyShouldReturnCurrentPageHash(): void
@@ -1269,7 +1229,7 @@ final class ContainerTest extends TestCase
     {
         $container = new Navigation\Navigation();
 
-        $this->assertEquals(null, $container->getChildren());
+        $this->assertNull($container->getChildren());
     }
 
     #[Group('GH-5929')]
@@ -1295,5 +1255,132 @@ final class ContainerTest extends TestCase
         $this->assertNull($container->findOneBy('route', 'baz'));
         $container->removePage($container->findOneBy('route', 'bar'), true);
         $this->assertNull($container->findOneBy('route', 'bar'));
+    }
+
+    public function testModifyOrderUpdatedTriggersResort(): void
+    {
+        $container = new Navigation\Navigation();
+
+        $page1 = Page\AbstractPage::factory(['label' => 'Page 1', 'uri' => '#', 'order' => 10]);
+        $page2 = Page\AbstractPage::factory(['label' => 'Page 2', 'uri' => '#', 'order' => 5]);
+
+        $container->addPage($page1);
+        $container->addPage($page2);
+
+        $container->rewind();
+        $this->assertSame('Page 2', $container->current()->getLabel());
+
+        $page2->setOrder(20);
+
+        $container->rewind();
+        $this->assertSame('Page 1', $container->current()->getLabel());
+    }
+
+    public function testHasChildrenReturnsTrueWhenCurrentPageHasChildren(): void
+    {
+        $container = new Navigation\Navigation([
+            [
+                'label' => 'Parent',
+                'uri'   => '#',
+                'pages' => [
+                    ['label' => 'Child', 'uri' => '#'],
+                ],
+            ],
+        ]);
+
+        $container->rewind();
+        $this->assertTrue($container->hasChildren());
+    }
+
+    public function testHasChildrenReturnsFalseWhenCurrentPageHasNoChildren(): void
+    {
+        $container = new Navigation\Navigation([
+            ['label' => 'Page without children', 'uri' => '#'],
+        ]);
+
+        $container->rewind();
+        $this->assertFalse($container->hasChildren());
+    }
+
+    public function testGetChildrenReturnsCurrentPage(): void
+    {
+        $container = new Navigation\Navigation([
+            [
+                'label' => 'Parent',
+                'uri'   => '#',
+                'pages' => [
+                    ['label' => 'Child', 'uri' => '#'],
+                ],
+            ],
+        ]);
+
+        $container->rewind();
+        $children = $container->getChildren();
+
+        $this->assertInstanceOf(Page\AbstractPage::class, $children);
+        $this->assertSame('Parent', $children->getLabel());
+    }
+
+    public function testAddPageThrowsExceptionWhenAddingContainerToItself(): void
+    {
+        $container = new Navigation\Navigation();
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('A page cannot have itself as a parent');
+        $container->addPage($container);
+    }
+
+    public function testAddPageThrowsExceptionForInvalidType(): void
+    {
+        $container = new Navigation\Navigation();
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $page must be an instance of');
+        $container->addPage('invalid string');
+    }
+
+    public function testAddPageReturnsSameInstanceWhenAddingDuplicatePage(): void
+    {
+        $container = new Navigation\Navigation();
+        $page      = Page\AbstractPage::factory(['label' => 'Test', 'uri' => '#']);
+
+        $result1 = $container->addPage($page);
+        $result2 = $container->addPage($page);
+
+        $this->assertSame($container, $result1);
+        $this->assertSame($container, $result2);
+        $this->assertCount(1, $container);
+    }
+
+    public function testRemovePageReturnsFalseForInvalidType(): void
+    {
+        $container = new Navigation\Navigation([
+            ['label' => 'Page 1', 'uri' => '#'],
+        ]);
+
+        $this->assertFalse($container->removePage('invalid string'));
+    }
+
+    public function testHasPagesWithOnlyVisibleReturnsTrue(): void
+    {
+        $container = new Navigation\Navigation([
+            ['label' => 'Visible Page', 'uri' => '#', 'visible' => true],
+        ]);
+
+        $this->assertTrue($container->hasPages(true));
+    }
+
+    public function testFindByWithAllTrueReturnsArray(): void
+    {
+        $container = new Navigation\Navigation([
+            ['label' => 'Page 1', 'uri' => '#', 'class' => 'nav-item'],
+            ['label' => 'Page 2', 'uri' => '#', 'class' => 'nav-item'],
+            ['label' => 'Page 3', 'uri' => '#', 'class' => 'other'],
+        ]);
+
+        $result = $container->findBy('class', 'nav-item', true);
+
+        $this->assertIsArray($result);
+        $this->assertCount(2, $result);
     }
 }
