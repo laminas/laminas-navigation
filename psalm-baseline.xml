@@ -58,11 +58,6 @@
       <code><![CDATA[\Zend\Navigation\Navigation]]></code>
     </UndefinedClass>
   </file>
-  <file src="src/Module.php">
-    <UnusedClass>
-      <code><![CDATA[Module]]></code>
-    </UnusedClass>
-  </file>
   <file src="src/Navigation.php">
     <DocblockTypeContradiction>
       <code><![CDATA[$pages !== null && (! is_array($pages) && ! $pages instanceof Traversable)]]></code>
@@ -209,9 +204,7 @@
       <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
     <PossiblyUnusedMethod>
-      <code><![CDATA[getDefaultRoute]]></code>
       <code><![CDATA[getQuery]]></code>
-      <code><![CDATA[setRoute]]></code>
     </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$action]]></code>
@@ -440,12 +433,6 @@
     <DeprecatedInterface>
       <code><![CDATA[HelperConfig]]></code>
     </DeprecatedInterface>
-    <DeprecatedMethod>
-      <code><![CDATA[getServiceLocator]]></code>
-    </DeprecatedMethod>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$container->getServiceLocator() ?: $container]]></code>
-    </LessSpecificReturnStatement>
     <MissingClosureParamType>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$name]]></code>
@@ -490,9 +477,6 @@
     <PossiblyUnusedReturnValue>
       <code><![CDATA[ServiceManager]]></code>
     </PossiblyUnusedReturnValue>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$container->getServiceLocator()]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/NavigationHelperFactory.php">
     <DeprecatedClass>
@@ -541,7 +525,12 @@
     </ParamNameMismatch>
   </file>
   <file src="test/ContainerTest.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[assertIsArray]]></code>
+    </DocblockTypeContradiction>
     <InvalidArgument>
+      <code><![CDATA['invalid string']]></code>
+      <code><![CDATA['invalid string']]></code>
       <code><![CDATA['ok']]></code>
       <code><![CDATA[1337]]></code>
       <code><![CDATA[new stdClass()]]></code>
@@ -561,6 +550,9 @@
     <MixedMethodCall>
       <code><![CDATA[getLabel]]></code>
     </MixedMethodCall>
+    <NoValue>
+      <code><![CDATA[$result]]></code>
+    </NoValue>
     <PossiblyNullArgument>
       <code><![CDATA[$container->findOneBy('route', 'bar')]]></code>
       <code><![CDATA[$container->findOneBy('route', 'baz')]]></code>
@@ -569,19 +561,6 @@
       <code><![CDATA[hasChildren]]></code>
       <code><![CDATA[hasChildren]]></code>
     </PossiblyNullReference>
-    <TooManyArguments>
-      <code><![CDATA[new AbstractContainer([
-            [
-                'label' => 'Page 2',
-                'type'  => 'uri',
-            ],
-            [
-                'label' => 'Page 1',
-                'type'  => 'uri',
-                'order' => -1,
-            ],
-        ])]]></code>
-    </TooManyArguments>
     <UndefinedMagicMethod>
       <code><![CDATA[findAllByAction]]></code>
       <code><![CDATA[findAllById]]></code>
@@ -593,12 +572,20 @@
       <code><![CDATA[getPagez]]></code>
     </UndefinedMagicMethod>
   </file>
+  <file src="test/ModuleTest.php">
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[assertIsArray]]></code>
+    </RedundantConditionGivenDocblockType>
+  </file>
   <file src="test/NavigationTest.php">
     <PossiblyNullPropertyAssignmentValue>
       <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="test/Page/MvcTest.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[(object) ['invalid' => 'object']]]></code>
+    </ArgumentTypeCoercion>
     <InvalidArgument>
       <code><![CDATA[$newRouter]]></code>
       <code><![CDATA[$router]]></code>
@@ -610,17 +597,25 @@
       <code><![CDATA[$router]]></code>
       <code><![CDATA[TreeRouteStack::class]]></code>
     </InvalidArgument>
+    <MixedArgument>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedArgument>
     <NullArgument>
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
+      <code><![CDATA[null]]></code>
     </NullArgument>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-    </PossiblyInvalidCast>
     <PossiblyNullArgument>
       <code><![CDATA[$event->getRouteMatch()]]></code>
       <code><![CDATA[$event->getRouteMatch()]]></code>
@@ -628,6 +623,9 @@
       <code><![CDATA[$event->getRouteMatch()]]></code>
       <code><![CDATA[$event->getRouteMatch()]]></code>
     </PossiblyNullArgument>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[assertIsString]]></code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Page/PageFactoryTest.php">
     <MissingClosureParamType>
@@ -646,31 +644,30 @@
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
     <InvalidArgument>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
       <code><![CDATA['False']]></code>
       <code><![CDATA['alternate']]></code>
       <code><![CDATA['alternate']]></code>
       <code><![CDATA['true']]></code>
       <code><![CDATA[0]]></code>
       <code><![CDATA[0]]></code>
-      <code><![CDATA[0]]></code>
       <code><![CDATA[1]]></code>
       <code><![CDATA[1]]></code>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
-      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
     <InvalidCast>
       <code><![CDATA[[]]]></code>
       <code><![CDATA[[]]]></code>
     </InvalidCast>
     <MixedArgument>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
+      <code><![CDATA[$invalid]]></code>
       <code><![CDATA[$page->getPermission()]]></code>
     </MixedArgument>
     <MixedAssignment>
@@ -686,10 +683,6 @@
     <MixedPropertyFetch>
       <code><![CDATA[$page->getPermission()->name]]></code>
     </MixedPropertyFetch>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-    </PossiblyInvalidCast>
     <PossiblyNullArgument>
       <code><![CDATA[$page->getPermission()]]></code>
     </PossiblyNullArgument>
@@ -775,7 +768,13 @@
   <file src="test/View/HelperConfigTest.php">
     <DeprecatedClass>
       <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
       <code><![CDATA[NavigationHelper\Links::class]]></code>
+      <code><![CDATA[NavigationHelper\Menu::class]]></code>
+      <code><![CDATA[NavigationHelper\Menu::class]]></code>
+      <code><![CDATA[NavigationHelper\Menu::class]]></code>
+      <code><![CDATA[NavigationHelper\Menu::class]]></code>
     </DeprecatedClass>
     <MissingClosureParamType>
       <code><![CDATA[$services]]></code>
@@ -784,12 +783,30 @@
       <code><![CDATA[$helpers]]></code>
       <code><![CDATA[$services]]></code>
     </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$internalConfig['delegators']]]></code>
+      <code><![CDATA[$internalConfig['delegators'][NavigationHelperFactory::class]]]></code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment>
+      <code><![CDATA[$internalConfig['delegators']]]></code>
+      <code><![CDATA[$internalConfig['delegators'][NavigationHelperFactory::class]]]></code>
+    </MixedArrayAssignment>
     <MixedAssignment>
+      <code><![CDATA[$factory]]></code>
       <code><![CDATA[$helpers]]></code>
+      <code><![CDATA[$internalConfig]]></code>
+      <code><![CDATA[$internalConfig['delegators'][NavigationHelperFactory::class][]]]></code>
     </MixedAssignment>
     <MixedMethodCall>
       <code><![CDATA[findHelper]]></code>
     </MixedMethodCall>
+  </file>
+  <file src="test/View/NavigationHelperFactoryTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+      <code><![CDATA[NavigationHelper::class]]></code>
+    </DeprecatedClass>
   </file>
   <file src="test/View/ViewHelperManagerDelegatorFactoryTest.php">
     <DeprecatedClass>

@@ -24,4 +24,17 @@ final class ViewHelperManagerDelegatorFactoryTest extends TestCase
         $this->assertTrue($helpers->has('navigation'));
         $this->assertTrue($helpers->has(NavigationHelper::class));
     }
+
+    public function testCreateDelegatorWithNameV2(): void
+    {
+        $services = new ServiceManager();
+        $helpers  = new HelperPluginManager($services);
+        $callback = fn(): HelperPluginManager => $helpers;
+
+        $factory = new ViewHelperManagerDelegatorFactory();
+        $result  = $factory->createDelegatorWithName($services, 'name', 'ViewHelperManager', $callback);
+
+        $this->assertSame($helpers, $result);
+        $this->assertTrue($helpers->has('navigation'));
+    }
 }

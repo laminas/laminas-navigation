@@ -17,7 +17,6 @@ use Traversable;
 use function in_array;
 use function is_array;
 use function iterator_to_array;
-use function method_exists;
 use function strtolower;
 use function strtr;
 
@@ -151,17 +150,8 @@ class HelperConfig extends Config
      */
     private function getParentContainer(ServiceManager $container)
     {
-        // We need the parent container in order to retrieve the config
-        // service. We should likely revisit how this is done in the future.
-        //
-        // v3:
-        if (method_exists($container, 'configure')) {
-            $r = new ReflectionProperty($container, 'creationContext');
-            return $r->getValue($container) ?: $container;
-        }
-
-        // v2:
-        return $container->getServiceLocator() ?: $container;
+        $r = new ReflectionProperty($container, 'creationContext');
+        return $r->getValue($container) ?: $container;
     }
 
     /**

@@ -21,6 +21,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use ReflectionMethod;
 
 #[CoversClass(AbstractNavigationFactory::class)]
 #[CoversClass(DefaultNavigationFactory::class)]
@@ -113,8 +114,6 @@ final class ServiceFactoryTest extends TestCase
 
     public function testConstructedNavigationFactoryInjectRouterAndMatcher(): void
     {
-        self::markTestSkipped('ConstructedNavigationFactory is now final and cannot be mocked');
-
         $builder = $this->getMockBuilder(ConstructedNavigationFactory::class);
         $builder->setConstructorArgs([__DIR__ . '/_files/navigation_mvc.xml'])
                 ->onlyMethods(['injectComponents']);
@@ -248,5 +247,164 @@ final class ServiceFactoryTest extends TestCase
 
         $this->assertInstanceOf(Navigation::class, $container);
         $this->assertEquals(3, $container->count());
+    }
+
+    public function testNavigationAbstractServiceFactoryV2CanCreateServiceWithName(): void
+    {
+        $factory = new NavigationAbstractServiceFactory();
+
+        $this->assertTrue(
+            $factory->canCreateServiceWithName($this->serviceManager, 'name', 'Laminas\Navigation\File')
+        );
+        $this->assertFalse(
+            $factory->canCreateServiceWithName($this->serviceManager, 'name', 'Laminas\Navigation\Unknown')
+        );
+    }
+
+    public function testNavigationAbstractServiceFactoryV2CreateServiceWithName(): void
+    {
+        $factory = new NavigationAbstractServiceFactory();
+
+        $container = $factory->createServiceWithName(
+            $this->serviceManager,
+            'name',
+            'Laminas\Navigation\File'
+        );
+
+        $this->assertInstanceOf(Navigation::class, $container);
+        $this->assertEquals(3, $container->count());
+    }
+
+    public function testNavigationAbstractServiceFactoryReturnsFalseWhenNoConfigService(): void
+    {
+        $services = new ServiceManager();
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $this->assertFalse($factory->canCreate($services, 'Laminas\Navigation\Test'));
+    }
+
+    public function testNavigationAbstractServiceFactoryReturnsFalseWhenNoNavigationConfig(): void
+    {
+        $services = new ServiceManager([
+            'services' => [
+                'config' => [],
+            ],
+        ]);
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $this->assertFalse($factory->canCreate($services, 'Laminas\Navigation\Test'));
+    }
+
+    public function testNavigationAbstractServiceFactorySupportsLowercaseConfigName(): void
+    {
+        $services = new ServiceManager([
+            'services' => [
+                'config' => [
+                    'navigation' => [
+                        'lowercase' => [
+                            ['label' => 'Test', 'uri' => '#'],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $this->assertTrue($factory->canCreate($services, 'Laminas\Navigation\Lowercase'));
+    }
+
+    public function testConstructedNavigationFactoryGetName(): void
+    {
+        $factory = new ConstructedNavigationFactory([]);
+
+        $this->assertSame('constructed', $factory->getName());
+    }
+
+    public function testNavigationAbstractServiceFactoryReturnsFalseForNonNavigationPrefix(): void
+    {
+        $services = new ServiceManager([
+            'services' => [
+                'config' => [
+                    'navigation' => [
+                        'test' => [],
+                    ],
+                ],
+            ],
+        ]);
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $this->assertFalse($factory->canCreate($services, 'SomeOther\Service'));
+    }
+
+    public function testNavigationAbstractServiceFactoryWithExactCaseConfigName(): void
+    {
+        $services = new ServiceManager([
+            'services' => [
+                'config' => [
+                    'navigation' => [
+                        'ExactCase' => [
+                            ['label' => 'Test', 'uri' => '#'],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $this->assertTrue($factory->canCreate($services, 'Laminas\Navigation\ExactCase'));
+    }
+
+    public function testNavigationAbstractServiceFactoryInvokesWithExactCaseConfigName(): void
+    {
+        $router  = $this->createMock(RouteStackInterface::class);
+        $request = $this->createMock(HttpRequest::class);
+
+        $routeMatch = new RouteMatch([
+            'controller' => 'post',
+            'action'     => 'view',
+            'id'         => '1337',
+        ]);
+
+        $mvcEvent = $this->createMock(MvcEvent::class);
+        $mvcEvent->expects(self::any())->method('getRouteMatch')->willReturn($routeMatch);
+        $mvcEvent->expects(self::any())->method('getRouter')->willReturn($router);
+        $mvcEvent->expects(self::any())->method('getRequest')->willReturn($request);
+
+        $application = $this->createMock(Application::class);
+        $application->expects(self::any())->method('getMvcEvent')->willReturn($mvcEvent);
+
+        $services = new ServiceManager([
+            'services' => [
+                'config'      => [
+                    'navigation' => [
+                        'ExactCase' => [
+                            ['label' => 'Test', 'uri' => '#'],
+                        ],
+                    ],
+                ],
+                'Application' => $application,
+            ],
+        ]);
+        $factory  = new NavigationAbstractServiceFactory();
+
+        $container = $factory($services, 'Laminas\Navigation\ExactCase');
+
+        $this->assertInstanceOf(Navigation::class, $container);
+        $this->assertEquals(1, $container->count());
+    }
+
+    public function testGetNamedConfigReturnsEmptyArrayWhenNoMatchingConfig(): void
+    {
+        $factory = new NavigationAbstractServiceFactory();
+
+        $r = new ReflectionMethod($factory, 'getNamedConfig');
+
+        $config = [
+            'other' => [['label' => 'Test', 'uri' => '#']],
+        ];
+
+        $result = $r->invoke($factory, 'Laminas\Navigation\NonExistent', $config);
+
+        $this->assertSame([], $result);
     }
 }
