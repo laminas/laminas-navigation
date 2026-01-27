@@ -6,7 +6,6 @@ namespace Laminas\Navigation\Page;
 
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
-use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
 use Laminas\Stdlib\ArrayUtils;
 use Stringable;
@@ -32,6 +31,21 @@ use function ucwords;
  *
  * @psalm-type PageOptions = array{
  *     type?: 'mvc'|'uri'|class-string<AbstractPage>|null,
+ *     label?: string|null,
+ *     fragment?: string|null,
+ *     id?: string|null,
+ *     class?: string|null,
+ *     title?: string|null,
+ *     target?: string|null,
+ *     rel?: array|null,
+ *     rev?: array|null,
+ *     order?: int|null,
+ *     resource?: AclResource|string|null,
+ *     privilege?: string|null,
+ *     permission?: mixed|null,
+ *     active?: bool,
+ *     visible?: bool,
+ *     pages?: list<array>,
  *     ...<string, mixed>
  * }
  * @template-extends AbstractContainer<AbstractPage>
@@ -1237,7 +1251,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *     rel: array|null,
      *     rev: array|null,
      *     order: int|null,
-     *     resource: ResourceInterface|string|null,
+     *     resource: AclResource|string|null,
      *     privilege: string|null,
      *     permission: mixed|null,
      *     active: bool,

@@ -23,13 +23,6 @@ final class NavigationTest extends TestCase
         $this->navigation = new Navigation();
     }
 
-    protected function tearDown(): void
-    {
-        /** @psalm-suppress PossiblyNullPropertyAssignmentValue */
-        $this->navigation = null;
-        parent::tearDown();
-    }
-
     /**
      * Testing that navigation order is done correctly
      */

@@ -1220,27 +1220,15 @@ final class ContainerTest extends TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid(): void
     {
-        /** @psalm-suppress TooManyArguments */
-        $container = new AbstractContainer([
-            [
-                'label' => 'Page 2',
-                'type'  => 'uri',
-            ],
-            [
-                'label' => 'Page 1',
-                'type'  => 'uri',
-                'order' => -1,
-            ],
+        $container = new AbstractContainer();
+        $container->addPage([
+            'label' => 'Page 1',
+            'type'  => 'uri',
         ]);
 
-        try {
-            $container->current();
-            $this->fail('AbstractContainer index is invalid, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\OutOfBoundsException $e) {
-            $this->assertStringContainsString('Corruption detected', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Corruption detected');
+        $container->current();
     }
 
     public function testKeyWhenContainerIsEmpty(): void

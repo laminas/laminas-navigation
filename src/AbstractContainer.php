@@ -121,17 +121,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         }
 
         if (! $page instanceof Page\AbstractPage) {
-            /** @psalm-suppress DocblockTypeContradiction */
-            if (! is_array($page) && ! $page instanceof Traversable) {
-                throw new Exception\InvalidArgumentException(
-                    'Invalid argument: $page must be an instance of '
-                    . 'Laminas\Navigation\Page\AbstractPage or Traversable, or an array'
-                );
-            }
-            /** @var TPage $page */
             $page = AbstractPage::factory($page);
         }
 
+        /** @psalm-var TPage $page */
         $hash = $page->hashCode();
 
         if (array_key_exists($hash, $this->index)) {
@@ -139,7 +132,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             return $this;
         }
 
-        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->pages[$hash] = $page;
         $this->index[$hash] = $page->getOrder();
         $this->dirtyIndex   = true;
@@ -152,10 +144,9 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Adds several pages at once
      *
-     * @param iterable<array-key, TPage|array<string, mixed>> $pages pages to add
+     * @param iterable<array-key, TPage|array<string, mixed>|Traversable<string, mixed>> $pages pages to add
      * @throws Exception\InvalidArgumentException If $pages is not array,
-     *                                                                                             Traversable or
-     *                                                                                             AbstractContainer.
+     *                                            Traversable or AbstractContainer.
      * @return $this
      */
     public function addPages($pages)

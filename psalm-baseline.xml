@@ -8,9 +8,6 @@
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[TPage|null]]></code>
     </ImplementedReturnTypeMismatch>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$page]]></code>
-    </MixedArgumentTypeCoercion>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[$this]]></code>
     </PossiblyUnusedReturnValue>
@@ -43,7 +40,7 @@
      *     rel: array|null,
      *     rev: array|null,
      *     order: int|null,
-     *     resource: ResourceInterface|string|null,
+     *     resource: AclResource|string|null,
      *     privilege: string|null,
      *     permission: mixed|null,
      *     active: bool,
@@ -89,7 +86,7 @@
      *     rel: array|null,
      *     rev: array|null,
      *     order: int|null,
-     *     resource: ResourceInterface|string|null,
+     *     resource: AclResource|string|null,
      *     privilege: string|null,
      *     permission: mixed|null,
      *     active: bool,
@@ -359,6 +356,109 @@
     <DocblockTypeContradiction>
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
+    <InvalidArgument>
+      <code><![CDATA[[
+                    'label'  => 'Page 1.1',
+                    'active' => false,
+                    'pages'  => [
+                        new Uri([
+                            'label'  => 'Page 1.1',
+                            'active' => true,
+                        ]),
+                    ],
+                ]]]></code>
+      <code><![CDATA[[
+                    'label'  => 'Page 1.1',
+                    'active' => false,
+                    'pages'  => [
+                        new Uri([
+                            'label'  => 'Page 1.1',
+                            'active' => true,
+                        ]),
+                    ],
+                ]]]></code>
+      <code><![CDATA[[
+                    'label' => 'Page 1.1',
+                    'pages' => [
+                        new Uri([
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]]]></code>
+      <code><![CDATA[[
+                    'label' => 'Page 1.1',
+                    'pages' => [
+                        new Uri([
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]]]></code>
+      <code><![CDATA[[
+            'label'   => 'Page 1',
+            'visible' => false,
+            'pages'   => [
+                new Uri([
+                    'label' => 'Page 1.1',
+                    'pages' => [
+                        new Uri([
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]),
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'label'   => 'Page 1',
+            'visible' => false,
+            'pages'   => [
+                new Uri([
+                    'label' => 'Page 1.1',
+                    'pages' => [
+                        new Uri([
+                            'label' => 'Page 1.1',
+                        ]),
+                    ],
+                ]),
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'label'  => 'Page 1',
+            'active' => false,
+            'pages'  => [
+                new Uri([
+                    'label'  => 'Page 1.1',
+                    'active' => false,
+                    'pages'  => [
+                        new Uri([
+                            'label'  => 'Page 1.1',
+                            'active' => true,
+                        ]),
+                    ],
+                ]),
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'label'  => 'Page 1',
+            'active' => false,
+            'pages'  => [
+                new Uri([
+                    'label'  => 'Page 1.1',
+                    'active' => false,
+                    'pages'  => [
+                        new Uri([
+                            'label'  => 'Page 1.1',
+                            'active' => true,
+                        ]),
+                    ],
+                ]),
+            ],
+        ]]]></code>
+      <code><![CDATA[[
+            'label' => 'foo',
+            'uri'   => '#',
+            'id'    => 10,
+        ]]]></code>
+    </InvalidArgument>
     <UndefinedMagicMethod>
       <code><![CDATA[findOneByLabel]]></code>
       <code><![CDATA[findOneByLabel]]></code>
