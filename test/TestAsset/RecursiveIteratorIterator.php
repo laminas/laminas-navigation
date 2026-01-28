@@ -47,6 +47,7 @@ final class RecursiveIteratorIterator extends \RecursiveIteratorIterator
     #[ReturnTypeWillChange]
     public function current()
     {
+        /** @psalm-suppress NullReference, MixedPropertyTypeCoercion */
         $this->logger[] = parent::current()->getLabel();
     }
 }

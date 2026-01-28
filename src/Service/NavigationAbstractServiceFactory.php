@@ -41,7 +41,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Navigation configuration
      *
-     * @var array
+     * @var array<string, mixed>|null
      */
     protected $config;
 
@@ -79,6 +79,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param string $requestedName
      * @return Navigation
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
@@ -89,7 +90,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     }
 
     /**
-     * Can we create a navigation by the requested name? (v2)
+     * Create and return a navigation instance by the requested name. (v2)
      *
      * @param string $name Normalized name by which service was requested;
      *     ignored.
@@ -105,7 +106,7 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Get navigation configuration, if any
      *
-     * @return array
+     * @return array<string, mixed>
      */
     protected function getConfig(ContainerInterface $container)
     {
@@ -127,7 +128,9 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
             return $this->config;
         }
 
-        $this->config = $config[self::CONFIG_KEY];
+        $config       = $config[self::CONFIG_KEY];
+        $this->config = $config;
+
         return $this->config;
     }
 
@@ -145,11 +148,9 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Does the configuration have a matching named section?
      *
-     * @param string $name
-     * @param array|ArrayAccess $config
-     * @return bool
+     * @param array<string, mixed>|ArrayAccess<string, mixed> $config
      */
-    private function hasNamedConfig($name, $config)
+    private function hasNamedConfig(string $name, array|ArrayAccess $config): bool
     {
         $withoutPrefix = $this->getConfigName($name);
 
@@ -167,11 +168,10 @@ final class NavigationAbstractServiceFactory implements AbstractFactoryInterface
     /**
      * Get the matching named configuration section.
      *
-     * @param string $name
-     * @param array|ArrayAccess $config
-     * @return array
+     * @param array<string, mixed>|ArrayAccess<string, mixed> $config
+     * @return array<array-key, array<string, mixed>>
      */
-    private function getNamedConfig($name, $config)
+    private function getNamedConfig(string $name, array|ArrayAccess $config)
     {
         $withoutPrefix = $this->getConfigName($name);
 

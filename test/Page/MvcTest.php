@@ -177,7 +177,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertEquals(true, $page->isActive());
     }
@@ -632,7 +634,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertEquals('/lmaoplane', $page->getHref());
 
@@ -671,7 +675,9 @@ final class MvcTest extends TestCase
         $moduleRouteListener->onRoute($event);
 
         $page->setRouter($event->getRouter());
-        $page->setRouteMatch($event->getRouteMatch());
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+        $page->setRouteMatch($routeMatch);
 
         $this->assertFalse($page->isActive());
     }
@@ -734,11 +740,14 @@ final class MvcTest extends TestCase
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->onRoute($event);
 
+        $routeMatch = $event->getRouteMatch();
+        self::assertInstanceOf(RouteMatch::class, $routeMatch);
+
         $parentPage->setRouter($event->getRouter());
-        $parentPage->setRouteMatch($event->getRouteMatch());
+        $parentPage->setRouteMatch($routeMatch);
 
         $childPage->setRouter($event->getRouter());
-        $childPage->setRouteMatch($event->getRouteMatch());
+        $childPage->setRouteMatch($routeMatch);
 
         $this->assertTrue($childPage->isActive(true));
         $this->assertTrue($parentPage->isActive(true));
@@ -749,7 +758,9 @@ final class MvcTest extends TestCase
         $this->expectException(Exception\InvalidArgumentException::class);
 
         $page = new Page\Mvc();
+        /** @psalm-suppress InvalidArgument */
         $page->setRouter(TreeRouteStack::class);
+        /** @psalm-suppress NullArgument */
         $page->setRouteMatch(null);
     }
 }

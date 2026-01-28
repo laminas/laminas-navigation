@@ -31,10 +31,8 @@ class ConfigProvider
                 Service\NavigationAbstractServiceFactory::class,
             ],
             'aliases'            => [
-                'navigation' => Navigation::class,
-
-                // Legacy Zend Framework aliases
-                \Zend\Navigation\Navigation::class => Navigation::class,
+                'navigation'                   => Navigation::class,
+                'Zend\\Navigation\\Navigation' => Navigation::class,
             ],
             'delegators'         => [
                 'ViewHelperManager' => [

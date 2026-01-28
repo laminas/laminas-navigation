@@ -2,89 +2,28 @@
 <files psalm-version="6.14.3@d0b040a91f280f071c1abcb1b77ce3822058725a">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
-      <code><![CDATA[! is_array($page) && ! $page instanceof Traversable]]></code>
-      <code><![CDATA[! is_array($pages) && ! $pages instanceof Traversable]]></code>
+      <code><![CDATA[null === $page]]></code>
+      <code><![CDATA[null === $page]]></code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[TPage|null]]></code>
     </ImplementedReturnTypeMismatch>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string]]></code>
-    </InvalidNullableReturnType>
-    <InvalidPropertyAssignmentValue>
-      <code><![CDATA[$this->pages]]></code>
-    </InvalidPropertyAssignmentValue>
-    <InvalidReturnStatement>
-      <code><![CDATA[$this->findAllBy($property, $value)]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[TPage|null]]></code>
-    </InvalidReturnType>
-    <MixedArgument>
-      <code><![CDATA[$page]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$propertyValue]]></code>
-      <code><![CDATA[$propertyValue]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[get]]></code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-    </MixedReturnStatement>
-    <NullableReturnStatement>
-      <code><![CDATA[key($this->index)]]></code>
-    </NullableReturnStatement>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$page]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullArrayOffset>
-      <code><![CDATA[$this->pages]]></code>
-      <code><![CDATA[$this->pages]]></code>
-    </PossiblyNullArrayOffset>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[$this]]></code>
     </PossiblyUnusedReturnValue>
-    <UnusedFunctionCall>
-      <code><![CDATA[current]]></code>
-    </UnusedFunctionCall>
-  </file>
-  <file src="src/ConfigProvider.php">
-    <UndefinedClass>
-      <code><![CDATA[\Zend\Navigation\Navigation]]></code>
-    </UndefinedClass>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$pages instanceof AbstractContainer]]></code>
+    </TypeDoesNotContainType>
   </file>
   <file src="src/Module.php">
     <UnusedClass>
       <code><![CDATA[Module]]></code>
     </UnusedClass>
   </file>
-  <file src="src/Navigation.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[$pages !== null && (! is_array($pages) && ! $pages instanceof Traversable)]]></code>
-    </DocblockTypeContradiction>
-  </file>
   <file src="src/Page/AbstractPage.php">
     <DocblockTypeContradiction>
-      <code><![CDATA[! is_string($property)]]></code>
-      <code><![CDATA[! is_string($property)]]></code>
       <code><![CDATA[is_array($options)]]></code>
-      <code><![CDATA[is_array($relations)]]></code>
-      <code><![CDATA[is_array($relations)]]></code>
-      <code><![CDATA[null !== $class && ! is_string($class)]]></code>
-      <code><![CDATA[null !== $fragment && ! is_string($fragment)]]></code>
-      <code><![CDATA[null !== $id && ! is_string($id) && ! is_numeric($id)]]></code>
-      <code><![CDATA[null !== $label && ! is_string($label)]]></code>
-      <code><![CDATA[null !== $target && ! is_string($target)]]></code>
-      <code><![CDATA[null !== $title && ! is_string($title)]]></code>
     </DocblockTypeContradiction>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string]]></code>
-    </InvalidNullableReturnType>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
      *     label: string|null,
@@ -96,80 +35,67 @@
      *     rel: array|null,
      *     rev: array|null,
      *     order: int|null,
-     *     resource: ResourceInterface|string|null,
+     *     resource: AclResource|string|null,
      *     privilege: string|null,
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
-     *     ...
+     *     type: string,
+     *     ...<string, mixed>
      * }]]></code>
     </LessSpecificImplementedReturnType>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-    </LessSpecificReturnStatement>
-    <MissingReturnType>
-      <code><![CDATA[addFactory]]></code>
-    </MissingReturnType>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$key]]></code>
-    </MixedArgumentTypeCoercion>
     <MixedAssignment>
-      <code><![CDATA[$factoryCallBack]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$relation]]></code>
-      <code><![CDATA[$relation]]></code>
       <code><![CDATA[$type]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[call_user_func($factoryCallBack, $options)]]></code>
-    </MixedFunctionCall>
     <MixedMethodCall>
       <code><![CDATA[new $type($options)]]></code>
     </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
-      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
-      <code><![CDATA[$this->rev[$relation] ??
-                null]]></code>
-      <code><![CDATA[$this->rev[$relation] ??
-                null]]></code>
-    </MixedReturnStatement>
-    <NullableReturnStatement>
-      <code><![CDATA[$this->label]]></code>
-      <code><![CDATA[$this->rel[$relation] ?? null]]></code>
-      <code><![CDATA[$this->rev[$relation] ??
-                null]]></code>
-    </NullableReturnStatement>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$textDomain]]></code>
-    </PropertyNotSetInConstructor>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $active]]></code>
-    </RedundantCastGivenDocblockType>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[array_merge($this->getCustomProperties(), [
+            'label'      => $this->getLabel(),
+            'fragment'   => $this->getFragment(),
+            'id'         => $this->getId(),
+            'class'      => $this->getClass(),
+            'title'      => $this->getTitle(),
+            'target'     => $this->getTarget(),
+            'rel'        => $this->getRel(),
+            'rev'        => $this->getRev(),
+            'order'      => $this->getOrder(),
+            'resource'   => $this->getResource(),
+            'privilege'  => $this->getPrivilege(),
+            'permission' => $this->getPermission(),
+            'active'     => $this->isActive(),
+            'visible'    => $this->isVisible(),
+            'type'       => static::class,
+            'pages'      => parent::toArray(),
+        ])]]></code>
+      <code><![CDATA[array{
+     *     label: string|null,
+     *     fragment: string|null,
+     *     id: string|null,
+     *     class: string|null,
+     *     title: string|null,
+     *     target: string|null,
+     *     rel: array|null,
+     *     rev: array|null,
+     *     order: int|null,
+     *     resource: AclResource|string|null,
+     *     privilege: string|null,
+     *     permission: mixed|null,
+     *     active: bool,
+     *     visible: bool,
+     *     pages: list<array>,
+     *     type: string,
+     *     ...<string, mixed>
+     * }]]></code>
+    </MixedReturnTypeCoercion>
     <RedundantConditionGivenDocblockType>
-      <code><![CDATA[is_string($relation)]]></code>
-      <code><![CDATA[is_string($relation)]]></code>
-      <code><![CDATA[null !== $fragment]]></code>
-      <code><![CDATA[null !== $label]]></code>
+      <code><![CDATA[$page instanceof self]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Page/Mvc.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[! is_string($route)]]></code>
-      <code><![CDATA[null !== $action && ! is_string($action)]]></code>
-      <code><![CDATA[null !== $controller && ! is_string($controller)]]></code>
-      <code><![CDATA[null === $router]]></code>
-    </DocblockTypeContradiction>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
      *     label: string|null,
@@ -187,103 +113,18 @@
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     action: string|null,
      *     controller: string|null,
      *     params: array,
-     *     route: string,
-     *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
-     *     route_match: RouteMatch,
-     *     ...
+     *     route: string|null,
+     *     router: RouteStackInterface|null,
+     *     route_match: RouteMatch|null,
+     *     ...<string, mixed>
      * }]]></code>
     </LessSpecificImplementedReturnType>
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[$action]]></code>
-      <code><![CDATA[$controller]]></code>
-      <code><![CDATA[$query]]></code>
-      <code><![CDATA[$route]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getDefaultRoute]]></code>
-      <code><![CDATA[getQuery]]></code>
-      <code><![CDATA[setRoute]]></code>
-    </PossiblyUnusedMethod>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$action]]></code>
-      <code><![CDATA[$controller]]></code>
-      <code><![CDATA[$hrefCache]]></code>
-      <code><![CDATA[$query]]></code>
-      <code><![CDATA[$route]]></code>
-      <code><![CDATA[$routeMatch]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[Mvc]]></code>
-    </PropertyNotSetInConstructor>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $useRouteMatch]]></code>
-    </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[null !== $action]]></code>
-      <code><![CDATA[null !== $route]]></code>
-    </RedundantConditionGivenDocblockType>
-    <UndefinedClass>
-      <code><![CDATA[MvcRouter\RouteMatch]]></code>
-      <code><![CDATA[MvcRouter\RouteStackInterface]]></code>
-    </UndefinedClass>
-    <UndefinedDocblockClass>
-      <code><![CDATA[RouteMatch|MvcRouter\RouteMatch]]></code>
-      <code><![CDATA[RouteStackInterface|MvcRouter\RouteStackInterface]]></code>
-      <code><![CDATA[array{
-     *     label: string|null,
-     *     fragment: string|null,
-     *     id: string|null,
-     *     class: string|null,
-     *     title: string|null,
-     *     target: string|null,
-     *     rel: array|null,
-     *     rev: array|null,
-     *     order: int|null,
-     *     resource: ResourceInterface|string|null,
-     *     privilege: string|null,
-     *     permission: mixed|null,
-     *     active: bool,
-     *     visible: bool,
-     *     pages: list<array>,
-     *     action: string|null,
-     *     controller: string|null,
-     *     params: array,
-     *     route: string,
-     *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
-     *     route_match: RouteMatch,
-     *     ...
-     * }]]></code>
-      <code><![CDATA[null|RouteStackInterface|MvcRouter\RouteStackInterface]]></code>
-    </UndefinedDocblockClass>
-    <UnusedParam>
-      <code><![CDATA[$matches]]></code>
-      <code><![CDATA[$router]]></code>
-    </UnusedParam>
   </file>
   <file src="src/Page/Uri.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[null !== $uri && ! is_string($uri)]]></code>
-    </DocblockTypeContradiction>
-    <ImplicitToStringCast>
-      <code><![CDATA[$request]]></code>
-    </ImplicitToStringCast>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string]]></code>
-    </InvalidNullableReturnType>
-    <InvalidReturnStatement>
-      <code><![CDATA[$this->request]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[Request]]></code>
-    </InvalidReturnType>
     <LessSpecificImplementedReturnType>
       <code><![CDATA[array{
      *     label: string|null,
@@ -301,95 +142,41 @@
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     uri: string|null,
-     *     ...
+     *     ...<string, mixed>
      * }]]></code>
     </LessSpecificImplementedReturnType>
-    <NullableReturnStatement>
-      <code><![CDATA[$this->uri]]></code>
-    </NullableReturnStatement>
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[$request]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$request]]></code>
-      <code><![CDATA[Uri]]></code>
-    </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->getRequest() instanceof Request]]></code>
-      <code><![CDATA[null !== $uri]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Service/AbstractNavigationFactory.php">
     <DeprecatedInterface>
       <code><![CDATA[AbstractNavigationFactory]]></code>
     </DeprecatedInterface>
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === $this->pages]]></code>
-    </DocblockTypeContradiction>
-    <MissingConstructor>
-      <code><![CDATA[$pages]]></code>
-      <code><![CDATA[$pages]]></code>
-    </MissingConstructor>
     <MixedArgument>
-      <code><![CDATA[$configuration['navigation'][$this->getName()]]]></code>
+      <code><![CDATA[$navigation]]></code>
       <code><![CDATA[$page['pages']]]></code>
-      <code><![CDATA[$routeMatch]]></code>
-      <code><![CDATA[$router]]></code>
     </MixedArgument>
     <MixedArrayAccess>
+      <code><![CDATA[$configuration[$this->getName()]]]></code>
       <code><![CDATA[$configuration['navigation']]]></code>
-      <code><![CDATA[$configuration['navigation'][$this->getName()]]]></code>
-      <code><![CDATA[$page['pages']]]></code>
     </MixedArrayAccess>
-    <MixedArrayAssignment>
-      <code><![CDATA[$page['pages']]]></code>
-      <code><![CDATA[$page['request']]]></code>
-      <code><![CDATA[$page['routeMatch']]]></code>
-      <code><![CDATA[$page['router']]]></code>
-    </MixedArrayAssignment>
     <MixedAssignment>
-      <code><![CDATA[$application]]></code>
       <code><![CDATA[$configuration]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$request]]></code>
-      <code><![CDATA[$routeMatch]]></code>
-      <code><![CDATA[$router]]></code>
+      <code><![CDATA[$configuration]]></code>
+      <code><![CDATA[$navigation]]></code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[getMvcEvent]]></code>
-      <code><![CDATA[getMvcEvent]]></code>
-      <code><![CDATA[getMvcEvent]]></code>
-      <code><![CDATA[getRequest]]></code>
-      <code><![CDATA[getRouteMatch]]></code>
-      <code><![CDATA[getRouter]]></code>
-    </MixedMethodCall>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[$config]]></code>
+      <code><![CDATA[array<array-key, array<string, mixed>>]]></code>
+    </MixedReturnTypeCoercion>
     <ParamNameMismatch>
       <code><![CDATA[$container]]></code>
     </ParamNameMismatch>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$pages]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullArgument>
-      <code><![CDATA[$pages]]></code>
-    </PossiblyNullArgument>
   </file>
   <file src="src/Service/ConstructedNavigationFactory.php">
     <DeprecatedInterface>
       <code><![CDATA[ConstructedNavigationFactory]]></code>
     </DeprecatedInterface>
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === $this->pages]]></code>
-    </DocblockTypeContradiction>
-    <ImplementedReturnTypeMismatch>
-      <code><![CDATA[array|null|Config]]></code>
-    </ImplementedReturnTypeMismatch>
-    <PossiblyNullArgument>
-      <code><![CDATA[$this->getPagesFromConfig($this->config)]]></code>
-    </PossiblyNullArgument>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[ConstructedNavigationFactory]]></code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Service/DefaultNavigationFactory.php">
     <DeprecatedInterface>
@@ -400,17 +187,8 @@
     <DeprecatedInterface>
       <code><![CDATA[NavigationAbstractServiceFactory]]></code>
     </DeprecatedInterface>
-    <MissingConstructor>
-      <code><![CDATA[$config]]></code>
-    </MissingConstructor>
-    <MissingParamType>
-      <code><![CDATA[$requestedName]]></code>
-    </MissingParamType>
-    <MixedArgument>
-      <code><![CDATA[$requestedName]]></code>
-      <code><![CDATA[$requestedName]]></code>
-    </MixedArgument>
     <MixedAssignment>
+      <code><![CDATA[$config]]></code>
       <code><![CDATA[$this->config]]></code>
     </MixedAssignment>
     <MixedReturnStatement>
@@ -423,9 +201,6 @@
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
     </ParamNameMismatch>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->config !== null]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/View/HelperConfig.php">
     <DeprecatedClass>
@@ -446,17 +221,15 @@
     <LessSpecificReturnStatement>
       <code><![CDATA[$container->getServiceLocator() ?: $container]]></code>
     </LessSpecificReturnStatement>
-    <MissingClosureParamType>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$name]]></code>
-    </MissingClosureParamType>
     <MixedArgument>
-      <code><![CDATA[$class]]></code>
+      <code><![CDATA[$config]]></code>
       <code><![CDATA[$pluginManager]]></code>
       <code><![CDATA[$services]]></code>
-      <code><![CDATA[$services->get('config')]]></code>
       <code><![CDATA[$this->config[$type]]]></code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$config]]></code>
+    </MixedArgumentTypeCoercion>
     <MixedArrayAssignment>
       <code><![CDATA[$config['aliases'][$name]]]></code>
       <code><![CDATA[$config['factories'][$class]]]></code>
@@ -464,12 +237,8 @@
       <code><![CDATA[$this->config['delegators']['laminasviewhelpernavigation']]]></code>
       <code><![CDATA[$this->config['delegators'][NavigationHelper::class]]]></code>
     </MixedArrayAssignment>
-    <MixedArrayOffset>
-      <code><![CDATA[$config['factories'][$class]]]></code>
-    </MixedArrayOffset>
     <MixedAssignment>
-      <code><![CDATA[$class]]></code>
-      <code><![CDATA[$config['aliases'][$name]]]></code>
+      <code><![CDATA[$config]]></code>
       <code><![CDATA[$pluginManager]]></code>
       <code><![CDATA[$services]]></code>
     </MixedAssignment>
@@ -517,35 +286,11 @@
     <DeprecatedInterface>
       <code><![CDATA[ViewHelperManagerDelegatorFactory]]></code>
     </DeprecatedInterface>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$viewHelpers]]></code>
-    </LessSpecificReturnStatement>
-    <MissingParamType>
-      <code><![CDATA[$callback]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$requestedName]]></code>
-    </MissingParamType>
-    <MixedArgument>
-      <code><![CDATA[$callback]]></code>
-      <code><![CDATA[$viewHelpers]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$viewHelpers]]></code>
-    </MixedAssignment>
-    <MoreSpecificReturnType>
-      <code><![CDATA[HelperPluginManager]]></code>
-    </MoreSpecificReturnType>
     <ParamNameMismatch>
       <code><![CDATA[$container]]></code>
     </ParamNameMismatch>
   </file>
   <file src="test/ContainerTest.php">
-    <InvalidArgument>
-      <code><![CDATA['ok']]></code>
-      <code><![CDATA[1337]]></code>
-      <code><![CDATA[new stdClass()]]></code>
-    </InvalidArgument>
     <MixedArgument>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
@@ -561,27 +306,6 @@
     <MixedMethodCall>
       <code><![CDATA[getLabel]]></code>
     </MixedMethodCall>
-    <PossiblyNullArgument>
-      <code><![CDATA[$container->findOneBy('route', 'bar')]]></code>
-      <code><![CDATA[$container->findOneBy('route', 'baz')]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullReference>
-      <code><![CDATA[hasChildren]]></code>
-      <code><![CDATA[hasChildren]]></code>
-    </PossiblyNullReference>
-    <TooManyArguments>
-      <code><![CDATA[new AbstractContainer([
-            [
-                'label' => 'Page 2',
-                'type'  => 'uri',
-            ],
-            [
-                'label' => 'Page 1',
-                'type'  => 'uri',
-                'order' => -1,
-            ],
-        ])]]></code>
-    </TooManyArguments>
     <UndefinedMagicMethod>
       <code><![CDATA[findAllByAction]]></code>
       <code><![CDATA[findAllById]]></code>
@@ -593,11 +317,6 @@
       <code><![CDATA[getPagez]]></code>
     </UndefinedMagicMethod>
   </file>
-  <file src="test/NavigationTest.php">
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[null]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-  </file>
   <file src="test/Page/MvcTest.php">
     <InvalidArgument>
       <code><![CDATA[$newRouter]]></code>
@@ -608,192 +327,33 @@
       <code><![CDATA[$router]]></code>
       <code><![CDATA[$router]]></code>
       <code><![CDATA[$router]]></code>
-      <code><![CDATA[TreeRouteStack::class]]></code>
     </InvalidArgument>
     <NullArgument>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
-      <code><![CDATA[null]]></code>
       <code><![CDATA[null]]></code>
     </NullArgument>
     <PossiblyInvalidCast>
       <code><![CDATA[$invalid]]></code>
       <code><![CDATA[$invalid]]></code>
     </PossiblyInvalidCast>
-    <PossiblyNullArgument>
-      <code><![CDATA[$event->getRouteMatch()]]></code>
-      <code><![CDATA[$event->getRouteMatch()]]></code>
-      <code><![CDATA[$event->getRouteMatch()]]></code>
-      <code><![CDATA[$event->getRouteMatch()]]></code>
-      <code><![CDATA[$event->getRouteMatch()]]></code>
-    </PossiblyNullArgument>
   </file>
   <file src="test/Page/PageFactoryTest.php">
-    <MissingClosureParamType>
-      <code><![CDATA[$page]]></code>
-    </MissingClosureParamType>
-    <MixedArgument>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-    </MixedArgument>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$pageConfig]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidArgument>
+      <code><![CDATA[[
+            'type'  => InvalidPage::class,
+            'label' => 'My Invalid Page',
+        ]]]></code>
+    </InvalidArgument>
   </file>
   <file src="test/Page/PageTest.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA['stdClass']]></code>
-    </ArgumentTypeCoercion>
     <DocblockTypeContradiction>
       <code><![CDATA[assertSame]]></code>
     </DocblockTypeContradiction>
-    <InvalidArgument>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA['False']]></code>
-      <code><![CDATA['alternate']]></code>
-      <code><![CDATA['alternate']]></code>
-      <code><![CDATA['true']]></code>
-      <code><![CDATA[0]]></code>
-      <code><![CDATA[0]]></code>
-      <code><![CDATA[0]]></code>
-      <code><![CDATA[1]]></code>
-      <code><![CDATA[1]]></code>
-      <code><![CDATA[[]]]></code>
-      <code><![CDATA[[]]]></code>
-      <code><![CDATA[new stdClass()]]></code>
-    </InvalidArgument>
-    <InvalidCast>
-      <code><![CDATA[[]]]></code>
-      <code><![CDATA[[]]]></code>
-    </InvalidCast>
-    <MixedArgument>
-      <code><![CDATA[$page->getPermission()]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$childPage]]></code>
-      <code><![CDATA[$childPage]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[getVisible]]></code>
-      <code><![CDATA[getVisible]]></code>
-      <code><![CDATA[isVisible]]></code>
-      <code><![CDATA[isVisible]]></code>
-    </MixedMethodCall>
-    <MixedPropertyFetch>
-      <code><![CDATA[$page->getPermission()->name]]></code>
-    </MixedPropertyFetch>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$invalid]]></code>
-      <code><![CDATA[$invalid]]></code>
-    </PossiblyInvalidCast>
-    <PossiblyNullArgument>
-      <code><![CDATA[$page->getPermission()]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyFetch>
-      <code><![CDATA[$page->getPermission()->name]]></code>
-    </PossiblyNullPropertyFetch>
     <UndefinedMagicMethod>
       <code><![CDATA[findOneByLabel]]></code>
       <code><![CDATA[findOneByLabel]]></code>
     </UndefinedMagicMethod>
-  </file>
-  <file src="test/Page/UriTest.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[assertNull]]></code>
-    </DocblockTypeContradiction>
-  </file>
-  <file src="test/Service/AbstractNavigationFactoryTest.php">
-    <InvalidArgument>
-      <code><![CDATA[new Router\Http\TreeRouteStack()]]></code>
-    </InvalidArgument>
-  </file>
-  <file src="test/Service/TestAsset/TestNavigationFactory.php">
-    <DeprecatedInterface>
-      <code><![CDATA[TestNavigationFactory]]></code>
-    </DeprecatedInterface>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[TestNavigationFactory]]></code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/ServiceFactoryTest.php">
-    <MissingClosureParamType>
-      <code><![CDATA[$pages]]></code>
-      <code><![CDATA[$pages]]></code>
-      <code><![CDATA[$that]]></code>
-      <code><![CDATA[$that]]></code>
-    </MissingClosureParamType>
-    <MixedAssignment>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$page]]></code>
-      <code><![CDATA[$page]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[assertInstanceOf]]></code>
-      <code><![CDATA[assertInstanceOf]]></code>
-      <code><![CDATA[assertInstanceOf]]></code>
-      <code><![CDATA[assertInstanceOf]]></code>
-      <code><![CDATA[count]]></code>
-      <code><![CDATA[count]]></code>
-      <code><![CDATA[count]]></code>
-      <code><![CDATA[count]]></code>
-      <code><![CDATA[getPages]]></code>
-      <code><![CDATA[getPages]]></code>
-      <code><![CDATA[getPages]]></code>
-      <code><![CDATA[getPages]]></code>
-    </MixedMethodCall>
-  </file>
-  <file src="test/TestAsset/FileNavigationFactory.php">
-    <DeprecatedInterface>
-      <code><![CDATA[FileNavigationFactory]]></code>
-    </DeprecatedInterface>
-  </file>
-  <file src="test/TestAsset/Page.php">
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[Page]]></code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/TestAsset/RecursiveIteratorIterator.php">
-    <NullReference>
-      <code><![CDATA[getLabel]]></code>
-    </NullReference>
-  </file>
-  <file src="test/TestAsset/Router.php">
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[Router]]></code>
-      <code><![CDATA[Router]]></code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/View/HelperConfigTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[NavigationHelper::class]]></code>
-      <code><![CDATA[NavigationHelper\Links::class]]></code>
-    </DeprecatedClass>
-    <MissingClosureParamType>
-      <code><![CDATA[$services]]></code>
-    </MissingClosureParamType>
-    <MixedArgument>
-      <code><![CDATA[$helpers]]></code>
-      <code><![CDATA[$services]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$helpers]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[findHelper]]></code>
-    </MixedMethodCall>
-  </file>
-  <file src="test/View/ViewHelperManagerDelegatorFactoryTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[NavigationHelper::class]]></code>
-    </DeprecatedClass>
   </file>
 </files>

@@ -69,6 +69,7 @@ final class ContainerTest extends TestCase
     public function testConstructorShouldThrowExceptionOnInvalidArgument(): void
     {
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation('ok');
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -78,6 +79,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation(1337);
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -87,6 +89,7 @@ final class ContainerTest extends TestCase
         }
 
         try {
+            /** @psalm-suppress InvalidArgument */
             new Navigation\Navigation(new stdClass());
             $this->fail('An invalid argument was given to the constructor, '
                         . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
@@ -256,9 +259,11 @@ final class ContainerTest extends TestCase
         ]);
 
         $page1 = $nav->findOneBy('label', 'Page 1');
+        self::assertInstanceOf(AbstractPage::class, $page1);
         $this->assertTrue($page1->hasChildren(), "page1's first child has children 1.1.1 1.1.2");
 
         $page2 = $nav->findOneBy('label', 'Page 2');
+        self::assertInstanceOf(AbstractPage::class, $page2);
         $this->assertFalse($page2->hasChildren(), "page2's first child doesn't have children");
     }
 
@@ -1215,26 +1220,15 @@ final class ContainerTest extends TestCase
 
     public function testCurrentShouldThrowExceptionIfIndexIsInvalid(): void
     {
-        $container = new AbstractContainer([
-            [
-                'label' => 'Page 2',
-                'type'  => 'uri',
-            ],
-            [
-                'label' => 'Page 1',
-                'type'  => 'uri',
-                'order' => -1,
-            ],
+        $container = new AbstractContainer();
+        $container->addPage([
+            'label' => 'Page 1',
+            'type'  => 'uri',
         ]);
 
-        try {
-            $container->current();
-            $this->fail('AbstractContainer index is invalid, '
-                        . 'but a Laminas\Navigation\Exception\InvalidArgumentException was '
-                        . 'not thrown');
-        } catch (Navigation\Exception\OutOfBoundsException $e) {
-            $this->assertStringContainsString('Corruption detected', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Corruption detected');
+        $container->current();
     }
 
     public function testKeyWhenContainerIsEmpty(): void
@@ -1291,9 +1285,14 @@ final class ContainerTest extends TestCase
             ],
         ]);
 
-        $container->removePage($container->findOneBy('route', 'baz'), true);
+        $page = $container->findOneBy('route', 'baz');
+        self::assertInstanceOf(AbstractPage::class, $page);
+        $container->removePage($page, true);
         $this->assertNull($container->findOneBy('route', 'baz'));
-        $container->removePage($container->findOneBy('route', 'bar'), true);
+
+        $page = $container->findOneBy('route', 'bar');
+        self::assertInstanceOf(AbstractPage::class, $page);
+        $container->removePage($page, true);
         $this->assertNull($container->findOneBy('route', 'bar'));
     }
 }

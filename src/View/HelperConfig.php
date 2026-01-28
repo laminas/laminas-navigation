@@ -90,7 +90,8 @@ class HelperConfig extends Config
         $services = $this->getParentContainer($serviceManager);
 
         if ($services->has('config')) {
-            $this->mergeHelpersFromConfiguration($services->get('config'));
+            $config = $services->get('config');
+            $this->mergeHelpersFromConfiguration($config);
         }
 
         $this->injectNavigationDelegatorFactory();
@@ -125,7 +126,7 @@ class HelperConfig extends Config
     /**
      * Merge navigation helper configuration with default configuration.
      *
-     * @param array|Traversable $config
+     * @param array<string, mixed>|Traversable<string, mixed> $config
      * @return void
      */
     private function mergeHelpersFromConfiguration($config)
@@ -178,9 +179,9 @@ class HelperConfig extends Config
     /**
      * Process invokables in order to seed aliases and factories.
      *
-     * @param array $invokables Array of invokables defined
-     * @param array $config All service configuration
-     * @return array Array of all service configuration
+     * @param array<string, string> $invokables Array of invokables defined
+     * @param array<string, mixed> $config All service configuration
+     * @return array<string, mixed> Array of all service configuration
      */
     private function processInvokables(array $invokables, array $config)
     {
@@ -225,7 +226,6 @@ class HelperConfig extends Config
             return;
         }
 
-        // Inject the delegator factory
         $this->config['delegators'][NavigationHelper::class][]       = $factory;
         $this->config['delegators']['laminasviewhelpernavigation'][] = $factory;
     }
@@ -245,6 +245,8 @@ class HelperConfig extends Config
         $config                           = $this->config;
         $this->navigationDelegatorFactory =
             /**
+             * @param ContainerInterface $container
+             * @param string $name
              * @param callable(): object $callback
              */
             static function (

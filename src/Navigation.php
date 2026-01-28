@@ -10,7 +10,7 @@ use Traversable;
 use function is_array;
 
 /**
- * A simple container class for {@link Laminas\Navigation\Page} pages
+ * A simple container class for {@link Page} pages
  *
  * @template TPage of AbstractPage
  * @template-extends AbstractContainer<TPage>
@@ -21,11 +21,12 @@ class Navigation extends AbstractContainer
     /**
      * Creates a new navigation container
      *
-     * @param  array|Traversable|null $pages    [optional] pages to add
+     * @param iterable<array-key, TPage|array<string, mixed>|null>|AbstractContainer<TPage>|null $pages pages to add
      * @throws Exception\InvalidArgumentException  If $pages is invalid.
      */
     public function __construct($pages = null)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if ($pages !== null && (! is_array($pages) && ! $pages instanceof Traversable)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $pages must be an array, an '
