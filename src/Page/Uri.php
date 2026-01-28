@@ -29,19 +29,20 @@ class Uri extends AbstractPage
     /**
      * Request object used to determine uri path
      *
-     * @var string
+     * @var Request|null
      */
     protected $request;
 
     /**
      * Sets page URI
      *
-     * @param  string $uri                page URI, must a string or null
-     * @return Uri   fluent interface, returns self
+     * @param  string|null $uri                page URI, must a string or null
+     * @return $this   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  If $uri is invalid.
      */
     public function setUri($uri)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $uri && ! is_string($uri)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $uri must be a string or null'
@@ -55,7 +56,7 @@ class Uri extends AbstractPage
     /**
      * Returns URI
      *
-     * @return string
+     * @return string|null
      */
     public function getUri()
     {
@@ -67,19 +68,18 @@ class Uri extends AbstractPage
      *
      * Includes the fragment identifier if it is set.
      *
-     * @return string
+     * @return string|null
      */
     public function getHref()
     {
         $uri = $this->getUri();
 
         $fragment = $this->getFragment();
-        if (null !== $fragment) {
+        if (null !== $fragment && null !== $uri) {
             if (str_ends_with($uri, '#')) {
                 return $uri . $fragment;
-            } else {
-                return $uri . '#' . $fragment;
             }
+            return $uri . '#' . $fragment;
         }
 
         return $uri;
@@ -113,7 +113,7 @@ class Uri extends AbstractPage
     /**
      * Get the request
      *
-     * @return Request
+     * @return Request|null
      */
     public function getRequest()
     {
@@ -153,8 +153,9 @@ class Uri extends AbstractPage
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     uri: string|null,
-     *     ...
+     *     ...<string, mixed>
      * }
      */
     public function toArray()

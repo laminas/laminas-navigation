@@ -15,14 +15,14 @@ use Psr\Container\ContainerInterface;
 class ConstructedNavigationFactory extends AbstractNavigationFactory
 {
     /**
-     * @param string|Config|array $config
+     * @param string|Config|array<array-key, array<string, mixed>> $config
      */
     public function __construct(protected $config)
     {
     }
 
     /**
-     * @return array|null|Config
+     * @return array<array-key, array<string, mixed>>
      */
     public function getPages(ContainerInterface $container)
     {

@@ -9,6 +9,8 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
+use function assert;
+
 /**
  * Inject the laminas-view HelperManager with laminas-navigation view helper configuration.
  *
@@ -23,11 +25,14 @@ class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param string $name
      * @return HelperPluginManager
      */
     public function __invoke(ContainerInterface $container, $name, callable $callback, ?array $options = null)
     {
         $viewHelpers = $callback();
+        assert($viewHelpers instanceof HelperPluginManager);
+
         (new HelperConfig())->configureServiceManager($viewHelpers);
         return $viewHelpers;
     }
@@ -35,6 +40,9 @@ class ViewHelperManagerDelegatorFactory implements DelegatorFactoryInterface
     /**
      * {@inheritDoc}
      *
+     * @param string $name
+     * @param string $requestedName
+     * @param callable $callback
      * @return HelperPluginManager
      */
     public function createDelegatorWithName(ServiceLocatorInterface $container, $name, $requestedName, $callback)

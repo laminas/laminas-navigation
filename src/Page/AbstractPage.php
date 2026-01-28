@@ -6,7 +6,6 @@ namespace Laminas\Navigation\Page;
 
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Exception;
-use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Permissions\Acl\Resource\ResourceInterface as AclResource;
 use Laminas\Stdlib\ArrayUtils;
 use Stringable;
@@ -30,6 +29,25 @@ use function ucwords;
 /**
  * Base class for Laminas\Navigation\Page pages
  *
+ * @psalm-type PageOptions = array{
+ *     type?: 'mvc'|'uri'|class-string<AbstractPage>|null,
+ *     label?: string|null,
+ *     fragment?: string|null,
+ *     id?: string|int|null,
+ *     class?: string|null,
+ *     title?: string|null,
+ *     target?: string|null,
+ *     rel?: array|null,
+ *     rev?: array|null,
+ *     order?: int|null,
+ *     resource?: AclResource|string|null,
+ *     privilege?: string|null,
+ *     permission?: mixed|null,
+ *     active?: bool,
+ *     visible?: bool,
+ *     pages?: list<array|AbstractPage>,
+ *     ...<string, mixed>
+ * }
  * @template-extends AbstractContainer<AbstractPage>
  * @psalm-no-seal-properties
  */
@@ -89,7 +107,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $rel = [];
 
@@ -98,7 +116,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $rev = [];
 
@@ -133,7 +151,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Text domain for Translator
      *
-     * @var string
+     * @var string|null
      */
     protected $textDomain;
 
@@ -161,14 +179,14 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Custom page properties, used by __set(), __get() and __isset()
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $properties = [];
 
     /**
      * Static factories list for factory pages
      *
-     * @var array
+     * @var list<callable(PageOptions): self>
      */
     protected static $factories = [];
 
@@ -190,7 +208,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * - If $options contains the key 'uri', a Laminas\Navigation\Page\Uri page
      *   will be created.
      *
-     * @param  array|Traversable $options  options used for creating page
+     * @param  PageOptions|Traversable<string, mixed> $options  options used for creating page
      * @return AbstractPage  a page instance
      * @throws Exception\InvalidArgumentException If $options is not
      *                                            array/Traversable.
@@ -251,7 +269,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
 
         if (static::$factories) {
             foreach (static::$factories as $factoryCallBack) {
-                if ($page = call_user_func($factoryCallBack, $options)) {
+                $page = call_user_func($factoryCallBack, $options);
+                if ($page instanceof self) {
                     return $page;
                 }
             }
@@ -275,7 +294,8 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Add static factory for self::factory function
      *
-     * @param callable $callback Any callable variable
+     * @param callable(PageOptions): self $callback Any callable variable
+     * @return void
      */
     public static function addFactory($callback)
     {
@@ -285,7 +305,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Page constructor
      *
-     * @param  array|Traversable $options [optional] page options. Default is
+     * @param  PageOptions|Traversable<string, mixed>|null $options [optional] page options. Default is
      *                                    null, which should set defaults.
      * @throws Exception\InvalidArgumentException If invalid options are given.
      */
@@ -319,7 +339,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * corresponds to setTarget(), and the option 'reset_params' corresponds to
      * the method setResetParams().
      *
-     * @param  array $options associative array of options to set
+     * @param  PageOptions $options associative array of options to set
      * @return $this
      * @throws Exception\InvalidArgumentException  If invalid options are given.
      */
@@ -337,12 +357,13 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Sets page label
      *
-     * @param  string $label new page label
+     * @param  string|null $label new page label
      * @return $this
      * @throws Exception\InvalidArgumentException If empty/no string is given.
      */
     public function setLabel($label)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $label && ! is_string($label)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $label must be a string or null'
@@ -356,7 +377,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns page label
      *
-     * @return string  page label or null
+     * @return string|null  page label or null
      */
     public function getLabel()
     {
@@ -366,12 +387,13 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Sets a fragment identifier
      *
-     * @param  string $fragment new fragment identifier
+     * @param  string|null $fragment new fragment identifier
      * @return $this
      * @throws Exception\InvalidArgumentException If empty/no string is given.
      */
     public function setFragment($fragment)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $fragment && ! is_string($fragment)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $fragment must be a string or null'
@@ -395,13 +417,14 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Sets page id
      *
-     * @param  string|int|null $id [optional] id to set. Default is null,
+     * @param  string|int|numeric-string|null $id [optional] id to set. Default is null,
      *                         which sets no id.
      * @return $this
      * @throws Exception\InvalidArgumentException  If not given string or null.
      */
     public function setId($id = null)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $id && ! is_string($id) && ! is_numeric($id)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $id must be a string, number or null'
@@ -433,6 +456,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function setClass($class = null)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $class && ! is_string($class)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $class must be a string or null'
@@ -456,13 +480,14 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Sets page title
      *
-     * @param  string $title [optional] page title. Default is
+     * @param  string|null $title [optional] page title. Default is
      *                       null, which sets no title.
      * @return $this
      * @throws Exception\InvalidArgumentException If not given string or null.
      */
     public function setTitle($title = null)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $title && ! is_string($title)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $title must be a non-empty string'
@@ -493,6 +518,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function setTarget($target = null)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $target && ! is_string($target)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $target must be a string or null'
@@ -521,7 +547,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  array|Traversable $relations  [optional] an associative array of
+     * @param  array<array-key, mixed>|Traversable<array-key, mixed>|null $relations  [optional] an associative array of
      *                           forward links to other pages
      * @throws Exception\InvalidArgumentException If $relations is not an array
      *                                            or Traversable object.
@@ -536,6 +562,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
                 $relations = ArrayUtils::iteratorToArray($relations);
             }
 
+            /** @psalm-suppress DocblockTypeContradiction */
             if (! is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $relations must be an '
@@ -543,6 +570,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
                 );
             }
 
+            /** @var mixed $relation */
             foreach ($relations as $name => $relation) {
                 if (is_string($name)) {
                     $this->rel[$name] = $relation;
@@ -561,9 +589,9 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string $relation [optional] name of relation to return. If not
+     * @param  string|null $relation [optional] name of relation to return. If not
      *                          given, all relations will be returned.
-     * @return array            an array of relations. If $relation is not
+     * @return array<string, mixed>|mixed|null  an array of relations. If $relation is not
      *                          specified, all relations will be returned in
      *                          an associative array.
      */
@@ -584,7 +612,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  array|Traversable $relations [optional] an associative array of
+     * @param  array<array-key, mixed>|Traversable<array-key, mixed>|null $relations [optional] an associative array of
      *                                      reverse links to other pages
      * @throws Exception\InvalidArgumentException If $relations it not an array
      *                                            or Traversable object.
@@ -599,6 +627,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
                 $relations = ArrayUtils::iteratorToArray($relations);
             }
 
+            /** @psalm-suppress DocblockTypeContradiction */
             if (! is_array($relations)) {
                 throw new Exception\InvalidArgumentException(
                     'Invalid argument: $relations must be an '
@@ -606,6 +635,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
                 );
             }
 
+            /** @var mixed $relation */
             foreach ($relations as $name => $relation) {
                 if (is_string($name)) {
                     $this->rev[$name] = $relation;
@@ -624,9 +654,9 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      * prev, next, help, etc), and the value is a mixed value that could somehow
      * be considered a page.
      *
-     * @param  string $relation  [optional] name of relation to return. If not
+     * @param  string|null $relation  [optional] name of relation to return. If not
      *                           given, all relations will be returned.
-     * @return array             an array of relations. If $relation is not
+     * @return array<string, mixed>|mixed|null  an array of relations. If $relation is not
      *                           specified, all relations will be returned in
      *                           an associative array.
      */
@@ -789,7 +819,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns text domain for translation
      *
-     * @return mixed|null  text domain or null
+     * @return string|null  text domain or null
      */
     public function getTextDomain()
     {
@@ -805,6 +835,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function setActive($active = true)
     {
+        /** @psalm-suppress RedundantCastGivenDocblockType */
         $this->active = (bool) $active;
         return $this;
     }
@@ -958,6 +989,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function set($property, $value)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_string($property) || empty($property)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $property must be a non-empty string'
@@ -990,6 +1022,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      */
     public function get($property)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_string($property) || empty($property)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $property must be a non-empty string'
@@ -1103,7 +1136,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Adds a forward relation to the page
      *
-     * @param  string $relation relation name (e.g. alternate, glossary,
+     * @param  string|null $relation relation name (e.g. alternate, glossary,
      *                          canonical, etc)
      * @param  mixed  $value    value to set for relation
      * @return $this
@@ -1119,7 +1152,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Adds a reverse relation to the page
      *
-     * @param  string $relation relation name (e.g. alternate, glossary,
+     * @param  string|null $relation relation name (e.g. alternate, glossary,
      *                          canonical, etc)
      * @param  mixed  $value    value to set for relation
      * @return $this
@@ -1165,7 +1198,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns an array containing the defined forward relations
      *
-     * @return array  defined forward relations
+     * @return list<string>  defined forward relations
      */
     public function getDefinedRel()
     {
@@ -1175,7 +1208,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns an array containing the defined reverse relations
      *
-     * @return array  defined reverse relations
+     * @return list<string>  defined reverse relations
      */
     public function getDefinedRev()
     {
@@ -1185,7 +1218,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns custom properties as an array
      *
-     * @return array  an array containing custom properties
+     * @return array<string, mixed>  an array containing custom properties
      */
     public function getCustomProperties()
     {
@@ -1218,13 +1251,14 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
      *     rel: array|null,
      *     rev: array|null,
      *     order: int|null,
-     *     resource: ResourceInterface|string|null,
+     *     resource: AclResource|string|null,
      *     privilege: string|null,
      *     permission: mixed|null,
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
-     *     ...
+     *     type: string,
+     *     ...<string, mixed>
      * }
      */
     public function toArray()
@@ -1267,7 +1301,7 @@ abstract class AbstractPage extends AbstractContainer implements Stringable
     /**
      * Returns href for this page
      *
-     * @return string  the page's href
+     * @return string|null  the page's href
      */
     abstract public function getHref();
 }

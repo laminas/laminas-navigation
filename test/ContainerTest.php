@@ -1335,7 +1335,7 @@ final class ContainerTest extends TestCase
         $container = new Navigation\Navigation();
 
         $this->expectException(Navigation\Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid argument: $page must be an instance of');
+        $this->expectExceptionMessage('Invalid argument: $options must be an array or Traversable');
         $container->addPage('invalid string');
     }
 

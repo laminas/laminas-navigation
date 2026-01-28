@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\Navigation\Page;
 
-use Laminas\Mvc\Router as MvcRouter;
 use Laminas\Navigation\Exception;
 use Laminas\Permissions\Acl\Resource\ResourceInterface;
 use Laminas\Router\RouteMatch;
@@ -12,6 +11,7 @@ use Laminas\Router\RouteStackInterface;
 
 use function array_intersect_assoc;
 use function array_merge;
+use function assert;
 use function count;
 use function get_debug_type;
 use function is_string;
@@ -36,21 +36,21 @@ class Mvc extends AbstractPage
     /**
      * Action name to use when assembling URL
      *
-     * @var string
+     * @var string|null
      */
     protected $action;
 
     /**
      * Controller name to use when assembling URL
      *
-     * @var string
+     * @var string|null
      */
     protected $controller;
 
     /**
      * URL query part to use when assembling URL
      *
-     * @var array|string
+     * @var array<string, mixed>|string|null
      */
     protected $query;
 
@@ -59,7 +59,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $params = [];
 
@@ -68,7 +68,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @var string
+     * @var string|null
      */
     protected $route;
 
@@ -79,14 +79,14 @@ class Mvc extends AbstractPage
      * called more than once during the lifetime of a request. If a property
      * is updated, the cache is invalidated.
      *
-     * @var string
+     * @var string|null
      */
     protected $hrefCache;
 
     /**
      * RouteInterface matches; used for routing parameters and testing validity
      *
-     * @var RouteMatch
+     * @var RouteMatch|null
      */
     protected $routeMatch;
 
@@ -103,7 +103,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @var RouteStackInterface
+     * @var RouteStackInterface|null
      */
     protected $router;
 
@@ -112,14 +112,14 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @var RouteStackInterface
+     * @var RouteStackInterface|null
      */
     protected static $defaultRouter;
 
     /**
      * Default route name
      *
-     * @var string
+     * @var string|null
      */
     protected static $defaultRoute;
 
@@ -140,10 +140,11 @@ class Mvc extends AbstractPage
     {
         if (! $this->active) {
             $reqParams = [];
-            if ($this->routeMatch instanceof RouteMatch || $this->routeMatch instanceof MvcRouter\RouteMatch) {
+            if ($this->routeMatch instanceof RouteMatch) {
                 $reqParams = $this->routeMatch->getParams();
 
                 if (isset($reqParams[self::ORIGINAL_CONTROLLER])) {
+                    /** @psalm-suppress MixedAssignment */
                     $reqParams['controller'] = $reqParams[self::ORIGINAL_CONTROLLER];
                 }
 
@@ -210,7 +211,7 @@ class Mvc extends AbstractPage
      */
     public function getHref()
     {
-        if ($this->hrefCache) {
+        if ($this->hrefCache !== null) {
             return $this->hrefCache;
         }
 
@@ -219,7 +220,7 @@ class Mvc extends AbstractPage
             $router = static::$defaultRouter;
         }
 
-        if (! $router instanceof RouteStackInterface && ! $router instanceof MvcRouter\RouteStackInterface) {
+        if (! $router instanceof RouteStackInterface) {
             throw new Exception\DomainException(
                 __METHOD__
                 . ' cannot execute as no Laminas\Router\RouteStackInterface instance is composed'
@@ -230,6 +231,7 @@ class Mvc extends AbstractPage
             $rmParams = $this->getRouteMatch()->getParams();
 
             if (isset($rmParams[self::ORIGINAL_CONTROLLER])) {
+                /** @psalm-suppress MixedAssignment */
                 $rmParams['controller'] = $rmParams[self::ORIGINAL_CONTROLLER];
                 unset($rmParams[self::ORIGINAL_CONTROLLER]);
             }
@@ -272,6 +274,7 @@ class Mvc extends AbstractPage
         }
 
         $url = $router->assemble($params, $options);
+        assert(is_string($url));
 
         return $this->hrefCache = $url;
     }
@@ -281,12 +284,13 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  string $action             action name
+     * @param  string|null $action             action name
      * @return Mvc   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  If invalid $action is given.
      */
     public function setAction($action)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $action && ! is_string($action)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $action must be a string or null'
@@ -316,11 +320,12 @@ class Mvc extends AbstractPage
      * @see getHref()
      *
      * @param  string|null $controller    controller name
-     * @return Mvc   fluent interface, returns self
+     * @return $this   fluent interface, returns self
      * @throws Exception\InvalidArgumentException  If invalid controller name is given.
      */
     public function setController($controller)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $controller && ! is_string($controller)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $controller must be a string or null'
@@ -349,7 +354,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  array|string|null $query    URL query part
+     * @param  array<string, mixed>|string|null $query    URL query part
      * @return self   fluent interface, returns self
      */
     public function setQuery($query)
@@ -376,8 +381,8 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  array|null $params [optional] page params. Default is null
-     *                            which sets no params.
+     * @param  array<string, mixed>|null $params [optional] page params. Default is null
+     *                                          which sets no params.
      * @return Mvc  fluent interface, returns self
      */
     public function setParams(?array $params = null)
@@ -392,7 +397,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @return array  page params
+     * @return array<string, mixed>  page params
      */
     public function getParams()
     {
@@ -404,12 +409,14 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  string $route Route name to use when assembling URL.
-     * @return Mvc Fluent interface, returns self.
+     * @psalm-suppress PossiblyUnusedMethod
+     * @param  string|null $route Route name to use when assembling URL.
+     * @return $this Fluent interface, returns self.
      * @throws Exception\InvalidArgumentException If invalid $route is given.
      */
     public function setRoute($route)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (null !== $route && (! is_string($route) || strlen($route) < 1)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $route must be a non-empty string or null'
@@ -426,7 +433,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @return string  route name
+     * @return string|null  route name
      */
     public function getRoute()
     {
@@ -436,7 +443,7 @@ class Mvc extends AbstractPage
     /**
      * Get the route match.
      *
-     * @return RouteMatch
+     * @return RouteMatch|null
      */
     public function getRouteMatch()
     {
@@ -446,17 +453,17 @@ class Mvc extends AbstractPage
     /**
      * Set route match object from which parameters will be retrieved
      *
-     * @param  RouteMatch|MvcRouter\RouteMatch $matches
-     * @return Mvc fluent interface, returns self
+     * @param  RouteMatch $matches
+     * @return $this fluent interface, returns self
+     * @throws Exception\InvalidArgumentException If invalid route match is given.
      */
     public function setRouteMatch($matches)
     {
-        if (! $matches instanceof RouteMatch && ! $matches instanceof MvcRouter\RouteMatch) {
+        if (! $matches instanceof RouteMatch) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'RouteMatch passed to %s must be either a %s or a %s instance; received %s',
+                'RouteMatch passed to %s must be a %s instance; received %s',
                 __METHOD__,
                 RouteMatch::class,
-                MvcRouter\RouteMatch::class,
                 get_debug_type($matches)
             ));
         }
@@ -484,6 +491,7 @@ class Mvc extends AbstractPage
      */
     public function setUseRouteMatch($useRouteMatch = true)
     {
+        /** @psalm-suppress RedundantCastGivenDocblockType */
         $this->useRouteMatch = (bool) $useRouteMatch;
         $this->hrefCache     = null;
         return $this;
@@ -492,7 +500,7 @@ class Mvc extends AbstractPage
     /**
      * Get the router.
      *
-     * @return null|RouteStackInterface|MvcRouter\RouteStackInterface
+     * @return RouteStackInterface|null
      */
     public function getRouter()
     {
@@ -504,17 +512,17 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  RouteStackInterface|MvcRouter\RouteStackInterface $router Router
+     * @param  RouteStackInterface $router Router
      * @return Mvc Fluent interface, returns self
      */
     public function setRouter($router)
     {
-        if (! $router instanceof RouteStackInterface && ! $router instanceof MvcRouter\RouteStackInterface) {
+        /** @psalm-suppress DocblockTypeContradiction */
+        if (! $router instanceof RouteStackInterface) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Router passed to %s must be either a %s or a %s instance; received %s',
+                'Router passed to %s must be a %s instance; received %s',
                 __METHOD__,
                 RouteStackInterface::class,
-                MvcRouter\RouteStackInterface::class,
                 get_debug_type($router)
             ));
         }
@@ -527,7 +535,7 @@ class Mvc extends AbstractPage
      *
      * @see getHref()
      *
-     * @param  RouteStackInterface $router Router
+     * @param  RouteStackInterface|null $router Router
      * @return void
      */
     public static function setDefaultRouter($router)
@@ -538,7 +546,7 @@ class Mvc extends AbstractPage
     /**
      * Gets the default router for assembling URLs.
      *
-     * @return RouteStackInterface
+     * @return RouteStackInterface|null
      */
     public static function getDefaultRouter()
     {
@@ -548,7 +556,7 @@ class Mvc extends AbstractPage
     /**
      * Set default route name
      *
-     * @param string $route
+     * @param string|null $route
      * @return void
      */
     public static function setDefaultRoute($route)
@@ -559,7 +567,7 @@ class Mvc extends AbstractPage
     /**
      * Get default route name
      *
-     * @return string
+     * @return string|null
      */
     public static function getDefaultRoute()
     {
@@ -590,13 +598,14 @@ class Mvc extends AbstractPage
      *     active: bool,
      *     visible: bool,
      *     pages: list<array>,
+     *     type: string,
      *     action: string|null,
      *     controller: string|null,
      *     params: array,
-     *     route: string,
-     *     router: RouteStackInterface|MvcRouter\RouteStackInterface|null,
-     *     route_match: RouteMatch,
-     *     ...
+     *     route: string|null,
+     *     router: RouteStackInterface|null,
+     *     route_match: RouteMatch|null,
+     *     ...<string, mixed>
      * }
      */
     public function toArray()

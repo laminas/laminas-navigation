@@ -4,6 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    ensureOverrideAttribute="false"
+    findUnusedPsalmSuppress="true"
     errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
@@ -13,14 +15,6 @@
             <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
-    <issueHandlers>
-        <MissingOverrideAttribute>
-            <errorLevel type="suppress">
-                <directory name="src" />
-                <directory name="test" />
-            </errorLevel>
-        </MissingOverrideAttribute>
-    </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>

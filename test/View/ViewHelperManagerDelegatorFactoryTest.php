@@ -22,6 +22,7 @@ final class ViewHelperManagerDelegatorFactoryTest extends TestCase
         $this->assertSame($helpers, $factory($services, 'ViewHelperManager', $callback));
 
         $this->assertTrue($helpers->has('navigation'));
+        /** @psalm-suppress DeprecatedClass */
         $this->assertTrue($helpers->has(NavigationHelper::class));
     }
 

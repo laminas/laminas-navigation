@@ -19,6 +19,7 @@ use function asort;
 use function count;
 use function current;
 use function is_array;
+use function is_callable;
 use function is_int;
 use function iterator_to_array;
 use function key;
@@ -31,9 +32,9 @@ use const E_WARNING;
 
 /**
  * Laminas\Navigation\Container
- *
  * AbstractContainer class for Laminas\Navigation\Page classes.
  *
+ * @psalm-import-type PageOptions from Page\AbstractPage
  * @template TPage of AbstractPage
  * @template-implements RecursiveIterator<string, TPage>
  */
@@ -105,13 +106,12 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Adds a page to the container
-     *
      * This method will inject the container as the given page's parent by
      * calling {@link Page\AbstractPage::setParent()}.
      *
-     * @param  TPage|array|Traversable $page  page to add
-     * @return $this
+     * @param TPage|PageOptions|Traversable<string, mixed> $page page to add
      * @throws Exception\InvalidArgumentException If page is invalid.
+     * @return $this
      */
     public function addPage($page)
     {
@@ -122,15 +122,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         }
 
         if (! $page instanceof Page\AbstractPage) {
-            if (! is_array($page) && ! $page instanceof Traversable) {
-                throw new Exception\InvalidArgumentException(
-                    'Invalid argument: $page must be an instance of '
-                    . 'Laminas\Navigation\Page\AbstractPage or Traversable, or an array'
-                );
-            }
             $page = AbstractPage::factory($page);
         }
 
+        /** @psalm-var TPage $page */
         $hash = $page->hashCode();
 
         if (array_key_exists($hash, $this->index)) {
@@ -138,12 +133,10 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             return $this;
         }
 
-        // adds page to container and sets dirty flag
         $this->pages[$hash] = $page;
         $this->index[$hash] = $page->getOrder();
         $this->dirtyIndex   = true;
 
-        // inject self as page parent
         $page->setParent($this);
 
         return $this;
@@ -152,13 +145,14 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Adds several pages at once
      *
-     * @param  array|Traversable|AbstractContainer $pages pages to add
-     * @return $this
+     * @param iterable<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to add
      * @throws Exception\InvalidArgumentException If $pages is not array,
      *                                            Traversable or AbstractContainer.
+     * @return $this
      */
     public function addPages($pages)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_array($pages) && ! $pages instanceof Traversable) {
             throw new Exception\InvalidArgumentException(
                 'Invalid argument: $pages must be an array, an '
@@ -188,12 +182,13 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Sets pages this container should have, removing existing pages
      *
-     * @param  array $pages pages to set
+     * @param array<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to set
      * @return $this
      */
     public function setPages(array $pages)
     {
         $this->removePages();
+
         return $this->addPages($pages);
     }
 
@@ -210,9 +205,9 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Removes the given page from the container
      *
-     * @param  TPage|int $page      page to remove, either a page
+     * @param TPage|int $page                   page to remove, either a page
      *                                          instance or a specific page order
-     * @param  bool                  $recursive [optional] whether to remove recursively
+     * @param bool      $recursive              [optional] whether to remove recursively
      * @return bool whether the removal was successful
      */
     public function removePage($page, $recursive = false)
@@ -233,13 +228,15 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
             unset($this->pages[$hash]);
             unset($this->index[$hash]);
             $this->dirtyIndex = true;
+
             return true;
         }
 
-        if ($recursive) {
+        if ($recursive && $page instanceof Page\AbstractPage) {
             foreach ($this->pages as $childPage) {
                 if ($childPage->hasPage($page, true)) {
                     $childPage->removePage($page, true);
+
                     return true;
                 }
             }
@@ -257,14 +254,15 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     {
         $this->pages = [];
         $this->index = [];
+
         return $this;
     }
 
     /**
      * Checks if the container has the given page
      *
-     * @param  TPage $page page to look for
-     * @param  bool $recursive [optional] whether to search recursively.
+     * @param TPage $page      page to look for
+     * @param bool  $recursive [optional] whether to search recursively.
      *                         Default is false.
      * @return bool whether page is in container
      */
@@ -286,7 +284,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns true if container contains any pages
      *
-     * @param  bool $onlyVisible whether to check only visible pages
+     * @param bool $onlyVisible whether to check only visible pages
      * @return bool  whether container has any pages
      */
     public function hasPages($onlyVisible = false)
@@ -297,24 +295,28 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
                     return true;
                 }
             }
+
             // no visible pages found
             return false;
         }
+
         return $this->index ? true : false;
     }
 
     /**
      * Returns a child page matching $property == $value, or null if not found
      *
-     * @param  string $property        name of property to match against
-     * @param  mixed  $value           value to match property against
+     * @param string $property name of property to match against
+     * @param mixed  $value    value to match property against
      * @return TPage|null  matching page or null
      */
     public function findOneBy($property, $value)
     {
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
+        /** @var TPage $page */
         foreach ($iterator as $page) {
+            /** @var mixed $propertyValue */
             $propertyValue = $page->get($property);
             if ($propertyValue === $value) {
                 return $page;
@@ -331,8 +333,8 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * Returns all child pages matching $property == $value, or an empty array
      * if no pages are found
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
+     * @param string $property name of property to match against
+     * @param mixed  $value    value to match property against
      * @return list<TPage> containing only Page\AbstractPage instances
      */
     public function findAllBy($property, $value)
@@ -343,6 +345,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
 
         foreach ($iterator as $page) {
+            /** @var mixed $propertyValue */
             $propertyValue = $page->get($property);
             if ($propertyValue === $value) {
                 $found[] = $page;
@@ -359,15 +362,15 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Returns page(s) matching $property == $value
      *
-     * @param  string $property  name of property to match against
-     * @param  mixed  $value     value to match property against
-     * @param  bool   $all       [optional] whether an array of all matching
+     * @param string $property   name of property to match against
+     * @param mixed  $value      value to match property against
+     * @param bool   $all        [optional] whether an array of all matching
      *                           pages should be returned, or only the first.
      *                           If true, an array will be returned, even if not
      *                           matching pages are found. If false, null will
      *                           be returned if no matching page is found.
      *                           Default is false.
-     * @return TPage|null  matching page or null
+     * @return TPage|list<TPage>|null  matching page(s) or null
      */
     public function findBy($property, $value, $all = false)
     {
@@ -380,7 +383,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Magic overload: Proxy calls to finder methods
-     *
      * Examples of finder calls:
      * <code>
      * // METHOD                    // SAME AS
@@ -389,30 +391,46 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
      * $nav->findAllByClass('foo'); // $nav->findAllBy('class', 'foo');
      * </code>
      *
-     * @param  string $method             method name
-     * @param  array  $arguments          method arguments
-     * @return mixed
+     * @param string                      $method    method name
+     * @param array<int, mixed>           $arguments method arguments
+     * @psalm-param non-empty-list<mixed> $arguments
      * @throws Exception\BadMethodCallException  If method does not exist.
+     * @return TPage|list<TPage>|null
      */
     public function __call($method, $arguments)
     {
         ErrorHandler::start(E_WARNING);
         $result = preg_match('/(find(?:One|All)?By)(.+)/', $method, $match);
         $error  = ErrorHandler::stop();
-        if (! $result) {
+
+        $method   = $match[1] ?? null;
+        $property = $match[2] ?? null;
+        /** @var mixed $value */
+        $value = $arguments[0] ?? null;
+
+        if (
+            ! $result
+            || $method === null
+            || $property === null
+            || ! is_callable([$this, $method])
+        ) {
             throw new Exception\BadMethodCallException(sprintf(
                 'Bad method call: Unknown method %s::%s',
                 static::class,
-                $method
+                (string) $method
             ), 0, $error);
         }
-        return $this->{$match[1]}($match[2], $arguments[0]);
+
+        /** @var TPage|list<TPage>|null $page */
+        $page = $this->{$method}($property, $value);
+
+        return $page;
     }
 
     /**
      * Returns an array representation of all pages in container
      *
-     * @return list<array>
+     * @return list<array<array-key, mixed>>
      */
     public function toArray()
     {
@@ -422,6 +440,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
         foreach ($indexes as $hash) {
             $pages[] = $this->pages[$hash]->toArray();
         }
+
         return $pages;
     }
 
@@ -429,17 +448,18 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * @inheritDoc
-     * @return TPage
      * @throws Exception\OutOfBoundsException  If the index is invalid.
+     * @return TPage
      */
     #[ReturnTypeWillChange]
     public function current()
     {
         $this->sort();
 
+        /** @psalm-suppress UnusedFunctionCall */
         current($this->index);
         $hash = key($this->index);
-        if (! isset($this->pages[$hash])) {
+        if ($hash === null || ! isset($this->pages[$hash])) {
             throw new Exception\OutOfBoundsException(
                 'Corruption detected in container; '
                 . 'invalid key found in internal iterator'
@@ -451,21 +471,20 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Returns hash code of current page
-     *
      * Implements RecursiveIterator interface.
      *
-     * @return string  hash code of current page
+     * @return string|null  hash code of current page
      */
     #[ReturnTypeWillChange]
     public function key()
     {
         $this->sort();
+
         return key($this->index);
     }
 
     /**
      * Moves index pointer to next page in the container
-     *
      * Implements RecursiveIterator interface.
      *
      * @return void
@@ -479,7 +498,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Sets index pointer to first page in the container
-     *
      * Implements RecursiveIterator interface.
      *
      * @return void
@@ -493,7 +511,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Checks if container index is valid
-     *
      * Implements RecursiveIterator interface.
      *
      * @return bool
@@ -502,12 +519,12 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     public function valid()
     {
         $this->sort();
+
         return current($this->index) !== false;
     }
 
     /**
      * Proxy to hasPages()
-     *
      * Implements RecursiveIterator interface.
      *
      * @return bool  whether container has any pages
@@ -520,7 +537,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Returns the child container.
-     *
      * Implements RecursiveIterator interface.
      *
      * @return TPage|null
@@ -529,6 +545,9 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     public function getChildren()
     {
         $hash = key($this->index);
+        if ($hash === null) {
+            return null;
+        }
 
         return $this->pages[$hash] ?? null;
     }
@@ -537,7 +556,6 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
 
     /**
      * Returns number of pages in container
-     *
      * Implements Countable interface.
      *
      * @return int  number of pages in the container
