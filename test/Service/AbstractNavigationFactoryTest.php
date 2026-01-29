@@ -41,53 +41,41 @@ final class AbstractNavigationFactoryTest extends TestCase
         /** @psalm-suppress InvalidArgument */
         $mvcEventStub->setRouter(new Router\Http\TreeRouteStack());
 
-        $applicationMock = $this->createMock(Application::class);
+        $applicationStub = $this->createStub(Application::class);
+        $applicationStub->method('getMvcEvent')->willReturn($mvcEventStub);
 
-        $applicationMock->expects($this->any())
-            ->method('getMvcEvent')
-            ->willReturn($mvcEventStub);
-
-        $serviceManagerMock = $this->createMock(ServiceManager::class);
-
-        $serviceManagerMock->expects($this->any())
-            ->method('get')
-            ->willReturnMap([
-                ['config', ['navigation' => ['testStubNavigation' => []]]],
-                ['Application', $applicationMock],
-            ]);
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturnMap([
+            ['config', ['navigation' => ['testStubNavigation' => []]]],
+            ['Application', $applicationStub],
+        ]);
 
         $navigationFactory = new TestAsset\TestNavigationFactory('testStubNavigation');
-        $navigation        = $navigationFactory->createService($serviceManagerMock);
+        $navigation        = $navigationFactory->createService($serviceManagerStub);
 
         $this->assertInstanceOf(Navigation::class, $navigation);
     }
 
     public function testThrowsExceptionWhenNavigationConfigKeyMissing(): void
     {
-        $serviceManagerMock = $this->createMock(ServiceManager::class);
-        $serviceManagerMock->expects($this->any())
-            ->method('get')
-            ->with('config')
-            ->willReturn([]);
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturn([]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Could not find navigation configuration key');
 
-        $this->factory->createService($serviceManagerMock);
+        $this->factory->createService($serviceManagerStub);
     }
 
     public function testThrowsExceptionWhenNavigationContainerNotFound(): void
     {
-        $serviceManagerMock = $this->createMock(ServiceManager::class);
-        $serviceManagerMock->expects($this->any())
-            ->method('get')
-            ->with('config')
-            ->willReturn(['navigation' => []]);
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturn(['navigation' => []]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Failed to find a navigation container by the name "test"');
 
-        $this->factory->createService($serviceManagerMock);
+        $this->factory->createService($serviceManagerStub);
     }
 
     public function testInjectComponentsThrowsExceptionForInvalidRouteMatch(): void

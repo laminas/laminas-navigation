@@ -92,7 +92,7 @@ final class MvcTest extends TestCase
             'use_route_match' => true,
         ]);
         $router = $this->createMock(TreeRouteStack::class);
-        $router->expects($this->once())->method('assemble')->willReturn('/test/route');
+        $router->expects(self::once())->method('assemble')->willReturn('/test/route');
         $page->setRouter($router);
         $this->assertEquals('/test/route', $page->getHref());
     }
