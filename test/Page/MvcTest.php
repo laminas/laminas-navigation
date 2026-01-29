@@ -35,6 +35,9 @@ final class MvcTest extends TestCase
 
     protected function setUp(): void
     {
+        Page\Mvc::setDefaultRoute(null);
+        Page\Mvc::setDefaultRouter(null);
+
         $this->route = new RegexRoute(
             '((?<controller>[^/]+)(/(?<action>[^/]+))?)',
             '/%controller%/%action%',
@@ -377,7 +380,7 @@ final class MvcTest extends TestCase
         $this->assertFalse($page->isActive());
     }
 
-    /** @return array<string, array{0: mixed}> */
+    /** @return array<string, array{0: string|null}> */
     public static function validActionValueProvider(): array
     {
         return [
@@ -393,7 +396,7 @@ final class MvcTest extends TestCase
     }
 
     #[DataProvider('validActionValueProvider')]
-    public function testSetActionAcceptsValidValue(mixed $value): void
+    public function testSetActionAcceptsValidValue(string|null $value): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -405,7 +408,7 @@ final class MvcTest extends TestCase
         $this->assertSame($value, $page->getAction());
     }
 
-    /** @return array<string, array{0: mixed}> */
+    /** @return array<string, array{0: string|null}> */
     public static function validControllerValueProvider(): array
     {
         return [
@@ -421,7 +424,7 @@ final class MvcTest extends TestCase
     }
 
     #[DataProvider('validControllerValueProvider')]
-    public function testSetControllerAcceptsValidValue(mixed $value): void
+    public function testSetControllerAcceptsValidValue(string|null $value): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -499,7 +502,7 @@ final class MvcTest extends TestCase
         $page->setRoute($invalid);
     }
 
-    /** @return array<string, array{0: mixed}> */
+    /** @return array<string, array{0: string|null}> */
     public static function validRouteValueProvider(): array
     {
         return [
@@ -514,7 +517,7 @@ final class MvcTest extends TestCase
     }
 
     #[DataProvider('validRouteValueProvider')]
-    public function testSetRouteAcceptsValidValue(mixed $value): void
+    public function testSetRouteAcceptsValidValue(string|null $value): void
     {
         $page = new Page\Mvc([
             'label'      => 'foo',
@@ -909,9 +912,6 @@ final class MvcTest extends TestCase
 
     public function testGetHrefThrowsExceptionWhenNoRouteName(): void
     {
-        Page\Mvc::setDefaultRoute(null);
-        Page\Mvc::setDefaultRouter(null);
-
         $page = new Page\Mvc([
             'label' => 'foo',
         ]);

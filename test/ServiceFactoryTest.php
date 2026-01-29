@@ -366,8 +366,8 @@ final class ServiceFactoryTest extends TestCase
 
     public function testNavigationAbstractServiceFactoryInvokesWithExactCaseConfigName(): void
     {
-        $router  = $this->createMock(RouteStackInterface::class);
-        $request = $this->createMock(HttpRequest::class);
+        $router  = $this->createStub(RouteStackInterface::class);
+        $request = $this->createStub(HttpRequest::class);
 
         $routeMatch = new RouteMatch([
             'controller' => 'post',
@@ -375,10 +375,10 @@ final class ServiceFactoryTest extends TestCase
             'id'         => '1337',
         ]);
 
-        $mvcEvent = $this->createMock(MvcEvent::class);
-        $mvcEvent->expects(self::any())->method('getRouteMatch')->willReturn($routeMatch);
-        $mvcEvent->expects(self::any())->method('getRouter')->willReturn($router);
-        $mvcEvent->expects(self::any())->method('getRequest')->willReturn($request);
+        $mvcEvent = $this->createStub(MvcEvent::class);
+        $mvcEvent->method('getRouteMatch')->willReturn($routeMatch);
+        $mvcEvent->method('getRouter')->willReturn($router);
+        $mvcEvent->method('getRequest')->willReturn($request);
 
         $application = $this->createMock(Application::class);
         $application->expects(self::any())->method('getMvcEvent')->willReturn($mvcEvent);
