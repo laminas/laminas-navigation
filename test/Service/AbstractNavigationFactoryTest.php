@@ -13,13 +13,6 @@ use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
-use function sprintf;
-
-/**
- * @todo Write tests covering full functionality. Tests were introduced to
- *     resolve zendframework/zend-navigation#37, and cover one specific
- *     method to ensure argument validation works correctly.
- */
 final class AbstractNavigationFactoryTest extends TestCase
 {
     private TestAsset\TestNavigationFactory $factory;
@@ -35,16 +28,8 @@ final class AbstractNavigationFactoryTest extends TestCase
         $router     = $this->createMock(Router\RouteStackInterface::class);
         $args       = [[], $routeMatch, $router];
 
-        $r = new ReflectionMethod($this->factory, 'injectComponents');
-        try {
-            $pages = $r->invokeArgs($this->factory, $args);
-        } catch (Exception\InvalidArgumentException $e) {
-            $message = sprintf(
-                'injectComponents should not raise exception for laminas-router classes; received %s',
-                $e->getMessage()
-            );
-            $this->fail($message);
-        }
+        $r     = new ReflectionMethod($this->factory, 'injectComponents');
+        $pages = $r->invokeArgs($this->factory, $args);
 
         $this->assertSame([], $pages);
     }
@@ -56,24 +41,90 @@ final class AbstractNavigationFactoryTest extends TestCase
         /** @psalm-suppress InvalidArgument */
         $mvcEventStub->setRouter(new Router\Http\TreeRouteStack());
 
-        $applicationMock = $this->createMock(Application::class);
+        $applicationStub = $this->createStub(Application::class);
+        $applicationStub->method('getMvcEvent')->willReturn($mvcEventStub);
 
-        $applicationMock->expects($this->any())
-            ->method('getMvcEvent')
-            ->willReturn($mvcEventStub);
-
-        $serviceManagerMock = $this->createMock(ServiceManager::class);
-
-        $serviceManagerMock->expects($this->any())
-            ->method('get')
-            ->willReturnMap([
-                ['config', ['navigation' => ['testStubNavigation' => []]]],
-                ['Application', $applicationMock],
-            ]);
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturnMap([
+            ['config', ['navigation' => ['testStubNavigation' => []]]],
+            ['Application', $applicationStub],
+        ]);
 
         $navigationFactory = new TestAsset\TestNavigationFactory('testStubNavigation');
-        $navigation        = $navigationFactory->createService($serviceManagerMock);
+        $navigation        = $navigationFactory->createService($serviceManagerStub);
 
         $this->assertInstanceOf(Navigation::class, $navigation);
+    }
+
+    public function testThrowsExceptionWhenNavigationConfigKeyMissing(): void
+    {
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturn([]);
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Could not find navigation configuration key');
+
+        $this->factory->createService($serviceManagerStub);
+    }
+
+    public function testThrowsExceptionWhenNavigationContainerNotFound(): void
+    {
+        $serviceManagerStub = $this->createStub(ServiceManager::class);
+        $serviceManagerStub->method('get')->willReturn(['navigation' => []]);
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Failed to find a navigation container by the name "test"');
+
+        $this->factory->createService($serviceManagerStub);
+    }
+
+    public function testInjectComponentsThrowsExceptionForInvalidRouteMatch(): void
+    {
+        $r = new ReflectionMethod($this->factory, 'injectComponents');
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Laminas\Router\RouteMatch expected');
+
+        $r->invokeArgs($this->factory, [[], 'invalid-route-match', null]);
+    }
+
+    public function testInjectComponentsThrowsExceptionForInvalidRouter(): void
+    {
+        $r = new ReflectionMethod($this->factory, 'injectComponents');
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Laminas\Router\RouteMatch expected');
+
+        $r->invokeArgs($this->factory, [[], null, 'invalid-router']);
+    }
+
+    public function testGetPagesFromConfigThrowsExceptionForNonExistentFile(): void
+    {
+        $r = new ReflectionMethod($this->factory, 'getPagesFromConfig');
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('does not exist');
+
+        $r->invokeArgs($this->factory, ['/non/existent/file.php']);
+    }
+
+    public function testGetPagesFromConfigThrowsExceptionForInvalidType(): void
+    {
+        $r = new ReflectionMethod($this->factory, 'getPagesFromConfig');
+
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid input, expected array, filename, or Traversable object');
+
+        $r->invokeArgs($this->factory, [12345]);
+    }
+
+    public function testInjectComponentsWithNullRouter(): void
+    {
+        $routeMatch = $this->createMock(Router\RouteMatch::class);
+        $r          = new ReflectionMethod($this->factory, 'injectComponents');
+
+        $pages = $r->invokeArgs($this->factory, [[], $routeMatch, null]);
+
+        $this->assertSame([], $pages);
     }
 }

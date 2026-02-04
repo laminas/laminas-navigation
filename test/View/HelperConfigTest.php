@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace LaminasTest\Navigation\View;
 
+use ArrayObject;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
 use Laminas\Navigation\View\HelperConfig;
+use Laminas\Navigation\View\NavigationHelperFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
+use ReflectionMethod;
+use ReflectionProperty;
 
 /**
  * Tests the class Laminas_Navigation_Page_Mvc
@@ -20,10 +23,7 @@ use Psr\Container\ContainerInterface;
 #[Group('Laminas_Navigation')]
 final class HelperConfigTest extends TestCase
 {
-    /**
-     * @psalm-suppress DeprecatedClass
-     * @return list<array{0: string}>
-     */
+    /** @return list<array{0: string}> */
     public static function navigationServiceNameProvider(): array
     {
         return [
@@ -38,7 +38,6 @@ final class HelperConfigTest extends TestCase
     public function testConfigureServiceManagerWithConfig(
         string $navigationHelperServiceName
     ): void {
-        /** @psalm-suppress DeprecatedClass */
         $replacedMenuClass = NavigationHelper\Links::class;
 
         $serviceManager = new ServiceManager([
@@ -76,19 +75,129 @@ final class HelperConfigTest extends TestCase
             ],
             'factories' => [
                 'Navigation'        => DefaultNavigationFactory::class,
-                'ViewHelperManager' => fn(ContainerInterface $services) => new HelperPluginManager($services),
+                'ViewHelperManager' => fn($services) => new HelperPluginManager($services),
             ],
         ]);
 
         $helpers = $serviceManager->get('ViewHelperManager');
-        self::assertInstanceOf(HelperPluginManager::class, $helpers);
         (new HelperConfig())->configureServiceManager($helpers);
 
-        $navigationHelper = $helpers->get($navigationHelperServiceName);
-        /** @psalm-suppress DeprecatedClass */
-        self::assertInstanceOf(NavigationHelper::class, $navigationHelper);
-        /** @psalm-suppress DeprecatedInterface */
-        $menu = $navigationHelper->findHelper('menu');
+        $menu = $helpers->get($navigationHelperServiceName)->findHelper('menu');
         $this->assertInstanceOf($replacedMenuClass, $menu);
+    }
+
+    public function testConfigureServiceManagerWithoutConfigService(): void
+    {
+        $serviceManager = new ServiceManager();
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        (new HelperConfig())->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('navigation'));
+        $this->assertTrue($helpers->has(NavigationHelper::class));
+    }
+
+    public function testConstructorMergesInvokablesConfig(): void
+    {
+        $config = new HelperConfig([
+            'invokables' => [
+                'testHelper' => NavigationHelper\Menu::class,
+            ],
+        ]);
+
+        $serviceManager = new ServiceManager();
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        $config->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('testHelper'));
+    }
+
+    public function testConfigureServiceManagerWithNoNavigationHelpersConfig(): void
+    {
+        $serviceManager = new ServiceManager([
+            'services' => [
+                'config' => [
+                    'other_key' => [],
+                ],
+            ],
+        ]);
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        (new HelperConfig())->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('navigation'));
+    }
+
+    public function testConfigureServiceManagerTwiceUsesCachedDelegator(): void
+    {
+        $serviceManager = new ServiceManager();
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        $config = new HelperConfig();
+
+        $config->configureServiceManager($helpers);
+        $config->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('navigation'));
+    }
+
+    public function testConstructorWithInvokableWhereNameEqualsClass(): void
+    {
+        $config = new HelperConfig([
+            'invokables' => [
+                NavigationHelper\Menu::class => NavigationHelper\Menu::class,
+            ],
+        ]);
+
+        $serviceManager = new ServiceManager();
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        $config->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has(NavigationHelper\Menu::class));
+    }
+
+    public function testConfigureServiceManagerWithTraversableConfig(): void
+    {
+        $traversableConfig = new ArrayObject([
+            'navigation_helpers' => [
+                'aliases' => [
+                    'customNav' => NavigationHelper::class,
+                ],
+            ],
+        ]);
+
+        $serviceManager = new ServiceManager([
+            'services' => [
+                'config' => $traversableConfig,
+            ],
+        ]);
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        (new HelperConfig())->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('customNav'));
+    }
+
+    public function testInjectNavigationDelegatorFactorySkipsWhenAlreadyPresent(): void
+    {
+        $config = new HelperConfig();
+
+        $prepareMethod = new ReflectionMethod($config, 'prepareNavigationDelegatorFactory');
+        $factory       = $prepareMethod->invoke($config);
+
+        $configProperty = new ReflectionProperty($config, 'config');
+        $internalConfig = $configProperty->getValue($config);
+
+        $internalConfig['delegators'][NavigationHelperFactory::class][] = $factory;
+        $configProperty->setValue($config, $internalConfig);
+
+        $serviceManager = new ServiceManager();
+        $helpers        = new HelperPluginManager($serviceManager);
+
+        $config->configureServiceManager($helpers);
+
+        $this->assertTrue($helpers->has('navigation'));
     }
 }

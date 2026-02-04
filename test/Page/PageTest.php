@@ -10,6 +10,7 @@ use Laminas\Navigation\Exception;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri;
 use Laminas\Permissions\Acl\Resource\GenericResource;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -97,7 +98,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @psalm-suppress InvalidArgument, InvalidCast */
+        /** @psalm-suppress InvalidArgument */
         $page->set([], true);
     }
 
@@ -118,7 +119,7 @@ final class PageTest extends TestCase
         ]);
 
         $this->expectException(Exception\InvalidArgumentException::class);
-        /** @psalm-suppress InvalidArgument, InvalidCast */
+        /** @psalm-suppress InvalidArgument */
         $page->get([]);
     }
 
@@ -142,18 +143,28 @@ final class PageTest extends TestCase
         $this->assertEquals('foo', $page->getLabel());
         $page->setLabel('bar');
         $this->assertEquals('bar', $page->getLabel());
+    }
 
-        $invalids = [42, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setLabel($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $label', $e->getMessage());
-            }
-        }
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidLabelProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidLabelProvider')]
+    public function testSetLabelThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $label');
+        $page->setLabel($invalid);
     }
 
     #[Group('Laminas-8922')]
@@ -168,21 +179,29 @@ final class PageTest extends TestCase
 
         $page->setFragment('bar');
         $this->assertEquals('bar', $page->getFragment());
+    }
 
-        $invalids = [42, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setFragment($invalid);
-                $this->fail('An invalid value was set, but a '
-                            . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString(
-                    'Invalid argument: $fragment',
-                    $e->getMessage()
-                );
-            }
-        }
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidFragmentProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[Group('Laminas-8922')]
+    #[DataProvider('invalidFragmentProvider')]
+    public function testSetFragmentThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'uri'      => '#',
+            'fragment' => 'foo',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $fragment');
+        $page->setFragment($invalid);
     }
 
     public function testSetAndGetId(): void
@@ -192,22 +211,32 @@ final class PageTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(null, $page->getId());
+        $this->assertNull($page->getId());
 
         $page->setId('bar');
         $this->assertEquals('bar', $page->getId());
+    }
 
-        $invalids = [true, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setId($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $id', $e->getMessage());
-            }
-        }
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidIdProvider(): array
+    {
+        return [
+            'boolean' => [true],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidIdProvider')]
+    public function testSetIdThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $id');
+        $page->setId($invalid);
     }
 
     public function testIdCouldBeAnInteger(): void
@@ -228,21 +257,32 @@ final class PageTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(null, $page->getClass());
+        $this->assertNull($page->getClass());
         $page->setClass('bar');
         $this->assertEquals('bar', $page->getClass());
+    }
 
-        $invalids = [42, true, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setClass($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $class', $e->getMessage());
-            }
-        }
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidStringPropertyProvider(): array
+    {
+        return [
+            'integer' => [42],
+            'boolean' => [true],
+            'object'  => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidStringPropertyProvider')]
+    public function testSetClassThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $class');
+        $page->setClass($invalid);
     }
 
     public function testSetAndGetTitle(): void
@@ -252,21 +292,22 @@ final class PageTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(null, $page->getTitle());
+        $this->assertNull($page->getTitle());
         $page->setTitle('bar');
         $this->assertEquals('bar', $page->getTitle());
+    }
 
-        $invalids = [42, true, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setTitle($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $title', $e->getMessage());
-            }
-        }
+    #[DataProvider('invalidStringPropertyProvider')]
+    public function testSetTitleThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $title');
+        $page->setTitle($invalid);
     }
 
     public function testSetAndGetTarget(): void
@@ -276,21 +317,22 @@ final class PageTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(null, $page->getTarget());
+        $this->assertNull($page->getTarget());
         $page->setTarget('bar');
         $this->assertEquals('bar', $page->getTarget());
+    }
 
-        $invalids = [42, true, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setTarget($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $target', $e->getMessage());
-            }
-        }
+    #[DataProvider('invalidStringPropertyProvider')]
+    public function testSetTargetThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $target');
+        $page->setTarget($invalid);
     }
 
     public function testConstructingWithRelationsInArray(): void
@@ -402,7 +444,7 @@ final class PageTest extends TestCase
             'uri'   => '#',
         ]);
 
-        $this->assertEquals(null, $page->getOrder());
+        $this->assertNull($page->getOrder());
 
         $page->setOrder('1');
         $this->assertEquals(1, $page->getOrder());
@@ -412,18 +454,32 @@ final class PageTest extends TestCase
 
         $page->setOrder('-25');
         $this->assertEquals(-25, $page->getOrder());
+    }
 
-        $invalids = [3.14, 'e', "\n", '0,4', true, (object) null];
-        foreach ($invalids as $invalid) {
-            try {
-                /** @psalm-suppress InvalidArgument */
-                $page->setOrder($invalid);
-                $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-            } catch (Navigation\Exception\InvalidArgumentException $e) {
-                $this->assertStringContainsString('Invalid argument: $order', $e->getMessage());
-            }
-        }
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidOrderProvider(): array
+    {
+        return [
+            'float'        => [3.14],
+            'non-numeric'  => ['e'],
+            'newline'      => ["\n"],
+            'comma-format' => ['0,4'],
+            'boolean'      => [true],
+            'object'       => [(object) null],
+        ];
+    }
+
+    #[DataProvider('invalidOrderProvider')]
+    public function testSetOrderThrowsExceptionOnInvalidValue(mixed $invalid): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => '#',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $order');
+        $page->setOrder($invalid);
     }
 
     public function testSetResourceString(): void
@@ -446,7 +502,7 @@ final class PageTest extends TestCase
         ]);
 
         $page->setResource();
-        $this->assertEquals(null, $page->getResource());
+        $this->assertNull($page->getResource());
     }
 
     public function testSetResourceNull(): void
@@ -458,7 +514,7 @@ final class PageTest extends TestCase
         ]);
 
         $page->setResource(null);
-        $this->assertEquals(null, $page->getResource());
+        $this->assertNull($page->getResource());
     }
 
     public function testSetResourceInterface(): void
@@ -474,38 +530,26 @@ final class PageTest extends TestCase
         $this->assertEquals($resource, $page->getResource());
     }
 
-    public function testSetResourceShouldThrowExceptionWhenGivenInteger(): void
+    /** @return array<string, array{0: mixed}> */
+    public static function invalidResourceProvider(): array
     {
-        $page = AbstractPage::factory([
-            'type'  => 'uri',
-            'label' => 'hello',
-        ]);
-
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $page->setResource(0);
-            $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
-        }
+        return [
+            'integer' => [0],
+            'object'  => [new stdClass()],
+        ];
     }
 
-    public function testSetResourceShouldThrowExceptionWhenGivenObject(): void
+    #[DataProvider('invalidResourceProvider')]
+    public function testSetResourceShouldThrowExceptionOnInvalidValue(mixed $invalid): void
     {
         $page = AbstractPage::factory([
             'type'  => 'uri',
             'label' => 'hello',
         ]);
 
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $page->setResource(new stdClass());
-            $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $resource', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $resource');
+        $page->setResource($invalid);
     }
 
     public function testSetPrivilegeNoParams(): void
@@ -517,7 +561,7 @@ final class PageTest extends TestCase
         ]);
 
         $page->setPrivilege();
-        $this->assertEquals(null, $page->getPrivilege());
+        $this->assertNull($page->getPrivilege());
     }
 
     public function testSetPrivilegeNull(): void
@@ -529,7 +573,7 @@ final class PageTest extends TestCase
         ]);
 
         $page->setPrivilege(null);
-        $this->assertEquals(null, $page->getPrivilege());
+        $this->assertNull($page->getPrivilege());
     }
 
     public function testSetPrivilegeString(): void
@@ -631,19 +675,15 @@ final class PageTest extends TestCase
     {
         $page = new Uri();
 
-        /** @psalm-suppress InvalidArgument */
         $page->setActive(1);
         $this->assertTrue($page->getActive());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setActive('true');
         $this->assertTrue($page->getActive());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setActive(0);
         $this->assertFalse($page->getActive());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setActive([]);
         $this->assertFalse($page->getActive());
     }
@@ -690,7 +730,6 @@ final class PageTest extends TestCase
         ]);
 
         $childPage = $page->findOneByLabel('Page 1.1');
-        self::assertInstanceOf(AbstractPage::class, $childPage);
         $this->assertTrue($childPage->isVisible(false));
         $this->assertFalse($childPage->isVisible(true));
     }
@@ -713,7 +752,6 @@ final class PageTest extends TestCase
         ]);
 
         $childPage = $page->findOneByLabel('Page 1.1');
-        self::assertInstanceOf(AbstractPage::class, $childPage);
         $this->assertTrue($childPage->getVisible(false));
         $this->assertFalse($childPage->getVisible(true));
     }
@@ -729,14 +767,12 @@ final class PageTest extends TestCase
     {
         $page = new Uri();
 
-        /** @psalm-suppress InvalidArgument */
         $page->setVisible(1);
         $this->assertTrue($page->isVisible());
 
         $page->setVisible('true');
         $this->assertTrue($page->isVisible());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setVisible(0);
         $this->assertFalse($page->isVisible());
 
@@ -744,13 +780,10 @@ final class PageTest extends TestCase
          * Laminas-10146
          *
          * @link https://getlaminas.org/issues/browse/Laminas-10146
-         *
-         * @psalm-suppress InvalidArgument
          */
         $page->setVisible('False');
         $this->assertFalse($page->isVisible());
 
-        /** @psalm-suppress InvalidArgument */
         $page->setVisible([]);
         $this->assertFalse($page->isVisible());
     }
@@ -791,13 +824,18 @@ final class PageTest extends TestCase
         ]);
 
         $this->assertTrue(isset($page->uri));
+    }
 
-        try {
-            unset($page->uri);
-            $this->fail('Should not be possible to unset native properties');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Unsetting native property', $e->getMessage());
-        }
+    public function testUnsetNativePropertyShouldThrowException(): void
+    {
+        $page = AbstractPage::factory([
+            'label' => 'foo',
+            'uri'   => 'foo',
+        ]);
+
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Unsetting native property');
+        unset($page->uri);
     }
 
     public function testMagicOverLoadsShouldHandleCustomProperties(): void
@@ -982,14 +1020,9 @@ final class PageTest extends TestCase
     {
         $page = AbstractPage::factory(['type' => 'uri']);
 
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $page->setRel('alternate');
-            $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $relations');
+        $page->setRel('alternate');
     }
 
     public function testSetRevShouldWorkWithArray(): void
@@ -1041,14 +1074,9 @@ final class PageTest extends TestCase
     {
         $page = AbstractPage::factory(['type' => 'uri']);
 
-        try {
-            /** @psalm-suppress InvalidArgument */
-            $page->setRev('alternate');
-            $this->fail('An invalid value was set, but a '
-                        . 'Laminas\Navigation\Exception\InvalidArgumentException was not thrown');
-        } catch (Navigation\Exception\InvalidArgumentException $e) {
-            $this->assertStringContainsString('Invalid argument: $relations', $e->getMessage());
-        }
+        $this->expectException(Navigation\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument: $relations');
+        $page->setRev('alternate');
     }
 
     public function testGetRelWithArgumentShouldRetrieveSpecificRelation(): void
@@ -1217,9 +1245,8 @@ final class PageTest extends TestCase
         ]);
 
         $page->setPermission(['my_permission', 'other_permission']);
-        $permission = $page->getPermission();
-        self::assertIsArray($permission);
-        $this->assertCount(2, $permission);
+        $this->assertIsArray($page->getPermission());
+        $this->assertCount(2, $page->getPermission());
     }
 
     public function testSetObjectPermission(): void
@@ -1232,9 +1259,8 @@ final class PageTest extends TestCase
         $permission->name = 'my_permission';
 
         $page->setPermission($permission);
-        $result = $page->getPermission();
-        self::assertInstanceOf(stdClass::class, $result);
-        $this->assertEquals('my_permission', $result->name);
+        $this->assertInstanceOf('stdClass', $page->getPermission());
+        $this->assertEquals('my_permission', $page->getPermission()->name);
     }
 
     public function testSetParentShouldThrowExceptionIfPageItselfIsParent(): void
