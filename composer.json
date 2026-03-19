@@ -46,7 +46,7 @@
         "laminas/laminas-uri": "^2.13.0",
         "laminas/laminas-view": "^2.43",
         "phpunit/phpunit": "^11.5.50",
-        "psalm/plugin-phpunit": "^0.19.5",
+        "psalm/plugin-phpunit": "^0.20.0",
         "vimeo/psalm": "^6.13.1"
     },
     "suggest": {
