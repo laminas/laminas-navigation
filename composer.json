@@ -42,9 +42,9 @@
         "laminas/laminas-mvc": "^3.8",
         "laminas/laminas-permissions-acl": "^2.17",
         "laminas/laminas-router": "^3.14.0",
-        "laminas/laminas-servicemanager": "^3.23.1",
+        "laminas/laminas-servicemanager": "^4.0.0",
         "laminas/laminas-uri": "^2.13.0",
-        "laminas/laminas-view": "^2.43",
+        "laminas/laminas-view": "^3.0",
         "phpunit/phpunit": "^11.5.50",
         "psalm/plugin-phpunit": "^0.19.5",
         "vimeo/psalm": "^6.13.1"
