@@ -22,7 +22,7 @@ final class PageFactoryTest extends TestCase
 {
     public function testDetectFactoryPage(): void
     {
-        AbstractPage::addFactory(function (array $page) {
+        AbstractPage::addFactory(static function (array $page) {
             if (isset($page['factory_uri'])) {
                 return new Uri($page);
             } elseif (isset($page['factory_mvc'])) {

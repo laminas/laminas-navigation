@@ -101,7 +101,7 @@ final class ServiceFactoryTest extends TestCase
         $container = $this->serviceManager->get('Navigation');
         self::assertInstanceOf(Navigation::class, $container);
 
-        $recursive = function (self $that, iterable $pages) use (&$recursive): void {
+        $recursive = static function (self $that, iterable $pages) use (&$recursive): void {
             foreach ($pages as $page) {
                 self::assertInstanceOf(AbstractPage::class, $page);
                 if ($page instanceof MvcPage) {
@@ -146,7 +146,7 @@ final class ServiceFactoryTest extends TestCase
 
     public function testMvcPagesGetInjectedWithComponentsInConstructedNavigationFactory(): void
     {
-        $this->serviceManager->setFactory('Navigation', function (ContainerInterface $services) {
+        $this->serviceManager->setFactory('Navigation', static function (ContainerInterface $services) {
             $argument = __DIR__ . '/_files/navigation_mvc.xml';
             $factory  = new ConstructedNavigationFactory($argument);
             return $factory($services, 'Navigation');
@@ -155,7 +155,7 @@ final class ServiceFactoryTest extends TestCase
         $container = $this->serviceManager->get('Navigation');
         self::assertInstanceOf(Navigation::class, $container);
 
-        $recursive = function (self $that, iterable $pages) use (&$recursive): void {
+        $recursive = static function (self $that, iterable $pages) use (&$recursive): void {
             foreach ($pages as $page) {
                 self::assertInstanceOf(AbstractPage::class, $page);
                 if ($page instanceof MvcPage) {

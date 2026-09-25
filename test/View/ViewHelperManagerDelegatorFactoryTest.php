@@ -16,7 +16,7 @@ final class ViewHelperManagerDelegatorFactoryTest extends TestCase
     {
         $services = new ServiceManager();
         $helpers  = new HelperPluginManager($services);
-        $callback = fn(): HelperPluginManager => $helpers;
+        $callback = static fn(): HelperPluginManager => $helpers;
 
         $factory = new ViewHelperManagerDelegatorFactory();
         $this->assertSame($helpers, $factory($services, 'ViewHelperManager', $callback));
@@ -30,7 +30,7 @@ final class ViewHelperManagerDelegatorFactoryTest extends TestCase
     {
         $services = new ServiceManager();
         $helpers  = new HelperPluginManager($services);
-        $callback = fn(): HelperPluginManager => $helpers;
+        $callback = static fn(): HelperPluginManager => $helpers;
 
         $factory = new ViewHelperManagerDelegatorFactory();
         $result  = $factory->createDelegatorWithName($services, 'name', 'ViewHelperManager', $callback);
