@@ -38,7 +38,6 @@ final class AbstractNavigationFactoryTest extends TestCase
     {
         $mvcEventStub = new MvcEvent();
         $mvcEventStub->setRouteMatch(new Router\RouteMatch([]));
-        /** @psalm-suppress InvalidArgument */
         $mvcEventStub->setRouter(new Router\Http\TreeRouteStack());
 
         $applicationStub = $this->createStub(Application::class);
