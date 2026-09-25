@@ -75,7 +75,7 @@ final class HelperConfigTest extends TestCase
             ],
             'factories' => [
                 'Navigation'        => DefaultNavigationFactory::class,
-                'ViewHelperManager' => fn($services) => new HelperPluginManager($services),
+                'ViewHelperManager' => static fn($services) => new HelperPluginManager($services),
             ],
         ]);
 

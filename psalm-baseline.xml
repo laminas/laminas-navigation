@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.14.3@d0b040a91f280f071c1abcb1b77ce3822058725a">
+<files psalm-version="6.18.0@536dd6236b39a5115385b0307b42d6d1ad431a02">
   <file src="src/AbstractContainer.php">
     <DocblockTypeContradiction>
       <code><![CDATA[null === $page]]></code>
@@ -330,15 +330,11 @@
     <ArgumentTypeCoercion>
       <code><![CDATA[(object) ['invalid' => 'object']]]></code>
     </ArgumentTypeCoercion>
+    <IncompatibleTypeParameters>
+      <code><![CDATA[$router]]></code>
+    </IncompatibleTypeParameters>
     <InvalidArgument>
       <code><![CDATA[$newRouter]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
     </InvalidArgument>
     <MixedArgument>
       <code><![CDATA[$invalid]]></code>
@@ -420,6 +416,11 @@
       <code><![CDATA[findOneByLabel]]></code>
       <code><![CDATA[findOneByLabel]]></code>
     </UndefinedMagicMethod>
+  </file>
+  <file src="test/Service/AbstractNavigationFactoryTest.php">
+    <IncompatibleTypeParameters>
+      <code><![CDATA[new Router\Http\TreeRouteStack()]]></code>
+    </IncompatibleTypeParameters>
   </file>
   <file src="test/View/HelperConfigTest.php">
     <DeprecatedClass>

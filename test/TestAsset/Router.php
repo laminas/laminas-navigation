@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace LaminasTest\Navigation\TestAsset;
 
-use Laminas\Router\Http\RouteInterface;
+use Laminas\Router\Http\HttpRouteInterface;
 use Laminas\Router\Http\TreeRouteStack;
 
 /**
- * @extends TreeRouteStack<RouteInterface>
+ * @extends TreeRouteStack<HttpRouteInterface>
  * @psalm-suppress PropertyNotSetInConstructor
  */
 final class Router extends TreeRouteStack
