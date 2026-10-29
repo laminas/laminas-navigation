@@ -35,7 +35,7 @@
         "laminas/laminas-stdlib": "^2.7 || ^3.0"
     },
     "require-dev": {
-        "boundwize/structarmed": "^0.18.0",
+        "boundwize/structarmed": "^0.20.0",
         "laminas/laminas-coding-standard": "~3.1.0",
         "laminas/laminas-config": "^3.10.1",
         "laminas/laminas-http": "^2.22",
@@ -47,7 +47,7 @@
         "laminas/laminas-uri": "^2.13.0",
         "laminas/laminas-view": "^2.43",
         "phpunit/phpunit": "^11.5.50",
-        "psalm/plugin-phpunit": "^0.19.5",
+        "psalm/plugin-phpunit": "^0.21.0",
         "vimeo/psalm": "^6.13.1"
     },
     "suggest": {
