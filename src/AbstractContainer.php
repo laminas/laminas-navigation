@@ -145,7 +145,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Adds several pages at once
      *
-     * @param iterable<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to add
+     * @param iterable<array-key, TPage|PageOptions|Traversable<string, mixed>|null> $pages pages to add
      * @throws Exception\InvalidArgumentException If $pages is not array,
      *                                            Traversable or AbstractContainer.
      * @return $this
@@ -182,7 +182,7 @@ abstract class AbstractContainer implements Countable, RecursiveIterator
     /**
      * Sets pages this container should have, removing existing pages
      *
-     * @param array<array-key, TPage|PageOptions|Traversable<string, mixed>> $pages pages to set
+     * @param array<array-key, TPage|PageOptions|Traversable<string, mixed>|null> $pages pages to set
      * @return $this
      */
     public function setPages(array $pages)

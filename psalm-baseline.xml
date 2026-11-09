@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.18.0@536dd6236b39a5115385b0307b42d6d1ad431a02">
+<files psalm-version="6.20.10@7fc81490f861c801061836a9010603d2393bf8da">
   <file src="src/AbstractContainer.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === $page]]></code>
-      <code><![CDATA[null === $page]]></code>
-    </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[TPage|null]]></code>
     </ImplementedReturnTypeMismatch>
